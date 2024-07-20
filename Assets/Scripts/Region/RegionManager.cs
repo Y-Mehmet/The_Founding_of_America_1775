@@ -1,16 +1,25 @@
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class RegionManager : MonoBehaviour
 {
-    public Text regionNameText;
-    public Text happinessText;
-    public Text populationText;
-    public Text foodStockText;
+    public TextMeshProUGUI regionNameText;
+    public TextMeshProUGUI happinessText;
+    public TextMeshProUGUI populationText;
+    public TextMeshProUGUI foodStockText;
     public GameObject infoPanel;
 
-    private Dictionary<string, Region> regions;
+    public Dictionary<string, Region> regions;
+    public static RegionManager instance;
+    private void Awake()
+    {
+        if(instance == null)
+            instance = this;
+        else
+        { Destroy(gameObject); }
+    }
 
     void Start()
     {
@@ -18,14 +27,13 @@ public class RegionManager : MonoBehaviour
         regions = new Dictionary<string, Region>
         {
             { "New York", new Region("New York", 75.5f, 2000000, 500000) },
+            { "Washington", new Region("Washington", 75.5f, 2000000, 500000) },
             { "California", new Region("California", 80.0f, 3000000, 750000) }
             // Diðer bölgeleri ekleyin
         };
 
-        // Paneli baþlangýçta gizle
-        infoPanel.SetActive(false);
+       
     }
-
     public void ShowRegionInfo(string regionName)
     {
         if (regions.ContainsKey(regionName))
@@ -41,4 +49,6 @@ public class RegionManager : MonoBehaviour
             infoPanel.SetActive(true);
         }
     }
+
+
 }
