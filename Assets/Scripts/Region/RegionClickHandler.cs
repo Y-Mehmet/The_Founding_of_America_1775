@@ -21,13 +21,22 @@ public class RegionClickHandler : MonoBehaviour
             {
                 // Hit edilen objeyi al
                 GameObject hitObject = hit.collider.gameObject;
-                Debug.Log("Hit: " + hitObject.name);
+                
 
                 // Eðer obje bir bölge ise bilgilerini göster
                 State state = hitObject.GetComponent<State>();
-                if (state != null && RegionManager.instance!= null)
+                if (state != null && RegionManager.instance!= null && !GameManager.Instance.ÝsAttack && !GameManager.Instance.IsRegionPanelOpen)
                 {
+                    Debug.Log(" bölge paneli açýldý " + hitObject.name);
                     RegionManager.instance.ShowRegionInfo(hitObject.name);
+                    GameManager.Instance.ChanngeIsRegionPanelOpenValueTrue();
+                }
+                else if (state != null && RegionManager.instance != null && GameManager.Instance.ÝsAttack)
+                {
+                    Debug.Log("savaþýlacak bölge seçildi " + hitObject.name);
+                    Attack.Instance.Attacking(hitObject.name);
+                    GameManager.Instance.ChangeIsAttackValueFalse();
+                    GameManager.Instance.ChanngeIsRegionPanelOpenValueFalse();
                 }
             }
         }

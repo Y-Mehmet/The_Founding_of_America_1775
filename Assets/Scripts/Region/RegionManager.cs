@@ -26,10 +26,52 @@ public class RegionManager : MonoBehaviour
         // Bölge verilerini baþlatma
         regions = new Dictionary<string, Region>
         {
-            { "New York", new Region("New York", 75.5f, 2000000, 500000) },
-            { "Washington", new Region("Washington", 75.5f, 2000000, 500000) },
-            { "California", new Region("California", 80.0f, 3000000, 750000) }
-            // Diðer bölgeleri ekleyin
+               { "Washington", new Region("Washington", 60.0f, 10000, 1000) },
+    { "Oregon", new Region("Oregon", 55.0f, 8000, 800) },
+    { "Idaho", new Region("Idaho", 50.0f, 5000, 500) },
+    { "Montana", new Region("Montana", 50.0f, 5000, 500) },
+    { "North Dakota", new Region("North Dakota", 50.0f, 5000, 500) },
+    { "Minnesota", new Region("Minnesota", 55.0f, 8000, 800) },
+    { "Wisconsin", new Region("Wisconsin", 55.0f, 8000, 800) },
+    { "Wyoming", new Region("Wyoming", 50.0f, 5000, 500) },
+    { "South Dakota", new Region("South Dakota", 50.0f, 5000, 500) },
+    { "Iowa", new Region("Iowa", 55.0f, 8000, 800) },
+    { "Illinois", new Region("Illinois", 60.0f, 10000, 1000) },
+    { "Michigan", new Region("Michigan", 60.0f, 10000, 1000) },
+    { "New York", new Region("New York", 75.0f, 15000, 1500) },
+    { "Vermont", new Region("Vermont", 50.0f, 5000, 500) },
+    { "New Hampshire", new Region("New Hampshire", 50.0f, 5000, 500) },
+    { "Maine", new Region("Maine", 50.0f, 5000, 500) },
+    { "Massachusetts", new Region("Massachusetts", 60.0f, 10000, 1000) },
+    { "New Jersey", new Region("New Jersey", 60.0f, 10000, 1000) },
+    { "Pennsylvania", new Region("Pennsylvania", 60.0f, 10000, 1000) },
+    { "Maryland", new Region("Maryland", 55.0f, 8000, 800) },
+    { "Ohio", new Region("Ohio", 60.0f, 10000, 1000) },
+    { "Indiana", new Region("Indiana", 55.0f, 8000, 800) },
+    { "Virginia", new Region("Virginia", 60.0f, 10000, 1000) },
+    { "North Carolina", new Region("North Carolina", 60.0f, 10000, 1000) },
+    { "South Carolina", new Region("South Carolina", 55.0f, 8000, 800) },
+    { "Georgia", new Region("Georgia", 60.0f, 10000, 1000) },
+    { "Florida", new Region("Florida", 60.0f, 10000, 1000) },
+    { "Alabama", new Region("Alabama", 55.0f, 8000, 800) },
+    { "Mississippi", new Region("Mississippi", 55.0f, 8000, 800) },
+    { "Louisiana", new Region("Louisiana", 55.0f, 8000, 800) },
+    { "Texas", new Region("Texas", 70.0f, 12000, 1200) },
+    { "New Mexico", new Region("New Mexico", 50.0f, 5000, 500) },
+    { "Arizona", new Region("Arizona", 50.0f, 5000, 500) },
+    { "California", new Region("California", 75.0f, 15000, 1500) },
+    { "Nevada", new Region("Nevada", 50.0f, 5000, 500) },
+    { "Utah", new Region("Utah", 50.0f, 5000, 500) },
+    { "Colorado", new Region("Colorado", 55.0f, 8000, 800) },
+    { "Kansas", new Region("Kansas", 55.0f, 8000, 800) },
+    { "Nebraska", new Region("Nebraska", 50.0f, 5000, 500) },
+    { "Missouri", new Region("Missouri", 55.0f, 8000, 800) },
+    { "Kentucky", new Region("Kentucky", 55.0f, 8000, 800) },
+    { "West Virginia", new Region("West Virginia", 50.0f, 5000, 500) },
+    { "Tennessee", new Region("Tennessee", 55.0f, 8000, 800) },
+    { "Arkansas", new Region("Arkansas", 55.0f, 8000, 800) },
+    { "Oklahoma", new Region("Oklahoma", 50.0f, 5000, 500) }
+
         };
 
        
