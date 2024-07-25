@@ -12,6 +12,22 @@ public class State : MonoBehaviour
         StateName= gameObject.name;
         TotalArmyPower = ArmySize * UnitArmyPower;
     }
+    public float TotalArmyCalculator()
+    {
+        TotalArmyPower = ArmySize * UnitArmyPower;
+        return TotalArmyPower;
+    }
+    public void  ReduceArmySize(float loss)
+    {
+        ArmySize-= (int)loss;
+        if(ArmySize < 0)
+            ArmySize = 0;
+    }
+    public void LostWar(float lossRate)
+    {
+        float loss = lossRate * ArmySize ;
+        ReduceArmySize(loss);
+    }
 
 
 
