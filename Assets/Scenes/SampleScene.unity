@@ -1406,6 +1406,60 @@ Mesh:
     offset: 0
     size: 0
     path: 
+--- !u!1 &60802682
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 60802683}
+  - component: {fileID: 60802684}
+  m_Layer: 0
+  m_Name: SpawnManager2
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &60802683
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 60802682}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 976143579}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &60802684
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 60802682}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ebea19a0c3228da45a06d0aa7bb61eac, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  rivalDicePoint: {fileID: 1933739120}
+  playerDicePoint: {fileID: 1006311373}
+  rivalDiceTarget: {fileID: 1949595924}
+  playerDiceTarget: {fileID: 379969113}
+  dicePrefab: {fileID: 3624185239418246674, guid: c37c248a65597d24fa4ea0fafbe42fe2,
+    type: 3}
+  rivalDiceLists: []
+  playerDiceLists: []
+  rivalDiceMatarial: {fileID: 0}
+  playerDiceMatarial: {fileID: 0}
 --- !u!43 &66517887
 Mesh:
   m_ObjectHideFlags: 0
@@ -2965,7 +3019,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &274751396
 Transform:
   m_ObjectHideFlags: 0
@@ -3611,7 +3665,7 @@ Transform:
   m_GameObject: {fileID: 379969112}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -9, y: 41.840313, z: 26.3}
+  m_LocalPosition: {x: -60, y: 41.840313, z: 26.3}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -7022,7 +7076,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &971570093
 Transform:
   m_ObjectHideFlags: 0
@@ -7090,7 +7144,9 @@ Transform:
   - {fileID: 345059925}
   - {fileID: 558687768}
   - {fileID: 971570093}
+  - {fileID: 60802683}
   - {fileID: 274751396}
+  - {fileID: 1344329003}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!43 &986719603
@@ -7258,6 +7314,12 @@ Mesh:
     offset: 0
     size: 0
     path: 
+--- !u!4 &1006311373 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: -6024149945523619558, guid: b519df8e17cb82d49ad39a0feeabe91a,
+    type: 3}
+  m_PrefabInstance: {fileID: 172946303}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1011898598
 GameObject:
   m_ObjectHideFlags: 0
@@ -9322,6 +9384,56 @@ Mesh:
     offset: 0
     size: 0
     path: 
+--- !u!1 &1344329002
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1344329003}
+  - component: {fileID: 1344329004}
+  m_Layer: 0
+  m_Name: DiceManager2
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1344329003
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1344329002}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 976143579}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1344329004
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1344329002}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 170466a99b50cbc4db56ab041ba0880f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  activeRivalDiceLists: []
+  activePlayerDiceLists: []
+  activeRivalDiceSortedLists: []
+  activePlayerDiceSortedLists: []
+  activeRivalDiceValueSortedLists: 
+  activePlayerDiceValueSortedLists: 
 --- !u!1 &1385469043
 GameObject:
   m_ObjectHideFlags: 0
@@ -10438,6 +10550,74 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 172946303}
   m_PrefabAsset: {fileID: 0}
+--- !u!1001 &1667749449
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 8401562050051794552, guid: 97c3c101a2a52aa47817bd3b97936311,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -42.10173
+      objectReference: {fileID: 0}
+    - target: {fileID: 8401562050051794552, guid: 97c3c101a2a52aa47817bd3b97936311,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 37.01
+      objectReference: {fileID: 0}
+    - target: {fileID: 8401562050051794552, guid: 97c3c101a2a52aa47817bd3b97936311,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 21.93304
+      objectReference: {fileID: 0}
+    - target: {fileID: 8401562050051794552, guid: 97c3c101a2a52aa47817bd3b97936311,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8401562050051794552, guid: 97c3c101a2a52aa47817bd3b97936311,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8401562050051794552, guid: 97c3c101a2a52aa47817bd3b97936311,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8401562050051794552, guid: 97c3c101a2a52aa47817bd3b97936311,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8401562050051794552, guid: 97c3c101a2a52aa47817bd3b97936311,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8401562050051794552, guid: 97c3c101a2a52aa47817bd3b97936311,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8401562050051794552, guid: 97c3c101a2a52aa47817bd3b97936311,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9210855777731689666, guid: 97c3c101a2a52aa47817bd3b97936311,
+        type: 3}
+      propertyPath: m_Name
+      value: Dice_d6_Plastic Rough Scratched red
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 97c3c101a2a52aa47817bd3b97936311, type: 3}
 --- !u!1 &1691168258
 GameObject:
   m_ObjectHideFlags: 0
@@ -11711,6 +11891,43 @@ LightingSettings:
   m_PVRTiledBaking: 0
   m_NumRaysToShootPerTexel: -1
   m_RespectSceneVisibilityWhenBakingGI: 0
+--- !u!4 &1933739120 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: -6024149945523619558, guid: b519df8e17cb82d49ad39a0feeabe91a,
+    type: 3}
+  m_PrefabInstance: {fileID: 1530345792}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &1949595923
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1949595924}
+  m_Layer: 0
+  m_Name: RivalDiceTarget
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1949595924
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1949595923}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -60, y: 41.840313, z: -12.2}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1964216039
 GameObject:
   m_ObjectHideFlags: 0
@@ -12392,12 +12609,12 @@ PrefabInstance:
     - target: {fileID: -1840128353868019217, guid: c37c248a65597d24fa4ea0fafbe42fe2,
         type: 3}
       propertyPath: zOffset
-      value: 30
+      value: -30
       objectReference: {fileID: 0}
     - target: {fileID: -1840128353868019217, guid: c37c248a65597d24fa4ea0fafbe42fe2,
         type: 3}
       propertyPath: duration
-      value: 1
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: -1840128353868019217, guid: c37c248a65597d24fa4ea0fafbe42fe2,
         type: 3}
@@ -12498,6 +12715,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Dice2
+      objectReference: {fileID: 0}
+    - target: {fileID: 3624185239418246674, guid: c37c248a65597d24fa4ea0fafbe42fe2,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -14024,3 +14246,5 @@ SceneRoots:
   - {fileID: 1011898602}
   - {fileID: 1920523531}
   - {fileID: 379969113}
+  - {fileID: 1949595924}
+  - {fileID: 1667749449}

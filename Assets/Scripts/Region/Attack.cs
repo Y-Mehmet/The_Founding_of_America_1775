@@ -40,7 +40,7 @@ public class Attack : MonoBehaviour
     // Method to handle the attack
     public void Attacking(string defendingState)
     {
-        DiceManager.Instance.StartDiceDisActivated();
+        DiceManager2.Instance.StartDiceDisActivated();
         // Print attacking and defending state
         Debug.Log("Saldýran: " + attackingStateText.text + " Savunan: " + defendingState );
 
@@ -72,18 +72,18 @@ public class Attack : MonoBehaviour
                 Debug.LogError("statelr bulunamadý");
             }
             // DiceSpawnner.Instance.SpawnDice(diceCount);
-            DiceManager.Instance.DiceActiveted(diceCount);
+            DiceManager2.Instance.DiceActiveted(diceCount);
             int numberOfDiceWonByThePlayer = 0;
             int numberOfDiceWonByTheRival = 0;
             int numberOfDrew = 0;
-            for (int i=0; i< DiceManager.Instance.activeRivalDiceValueSortedLists.Count; i++)
+            for (int i=0; i< DiceManager2.Instance.activeRivalDiceValueSortedLists.Count; i++)
             {
                
-                if (DiceManager.Instance.activeRivalDiceValueSortedLists[i] < DiceManager.Instance.activePlayerDiceValueSortedLists[i])
+                if (DiceManager2.Instance.activeRivalDiceValueSortedLists[i] < DiceManager2.Instance.activePlayerDiceValueSortedLists[i])
                 {
                     numberOfDiceWonByThePlayer++;
                 }
-                else if (DiceManager.Instance.activeRivalDiceValueSortedLists[i] > DiceManager.Instance.activePlayerDiceValueSortedLists[i])
+                else if (DiceManager2.Instance.activeRivalDiceValueSortedLists[i] > DiceManager2.Instance.activePlayerDiceValueSortedLists[i])
                 {
                     numberOfDiceWonByTheRival++;
                 }
@@ -95,7 +95,7 @@ public class Attack : MonoBehaviour
             }
             defendingStateGameObject.GetComponent<State>().LostWar(((numberOfDiceWonByThePlayer + numberOfDrew) / 3));
             attackingStateGameObject.GetComponent<State>().LostWar(((numberOfDiceWonByTheRival + numberOfDrew) / 3));
-            DiceManager.Instance.DiceDisactiveted();
+            DiceManager2.Instance.DiceDisactiveted();
 
 
 
@@ -123,19 +123,19 @@ public class Attack : MonoBehaviour
                 Debug.LogError("statelr bulunamadý");
             }
             // DiceSpawnner.Instance.SpawnDice(diceCount);
-            DiceManager.Instance.DiceActiveted(diceCount);
+            DiceManager2.Instance.DiceActiveted(diceCount);
 
             int numberOfDiceWonByThePlayer = 0;
             int numberOfDiceWonByTheRival = 0;
             int numberOfDrew = 0;
-            for (int i = 0; i < DiceManager.Instance.activeRivalDiceValueSortedLists.Count; i++)
+            for (int i = 0; i < DiceManager2.Instance.activeRivalDiceValueSortedLists.Count; i++)
             {
 
-                if (DiceManager.Instance.activeRivalDiceValueSortedLists[i] < DiceManager.Instance.activePlayerDiceValueSortedLists[i])
+                if (DiceManager2.Instance.activeRivalDiceValueSortedLists[i] < DiceManager2.Instance.activePlayerDiceValueSortedLists[i])
                 {
                     numberOfDiceWonByThePlayer++;
                 }
-                else if (DiceManager.Instance.activeRivalDiceValueSortedLists[i] > DiceManager.Instance.activePlayerDiceValueSortedLists[i])
+                else if (DiceManager2.Instance.activeRivalDiceValueSortedLists[i] > DiceManager2.Instance.activePlayerDiceValueSortedLists[i])
                 {
                     numberOfDiceWonByTheRival++;
                 }
@@ -145,9 +145,9 @@ public class Attack : MonoBehaviour
                 }
 
             }
-            defendingStateGameObject.GetComponent<State>().LostWar(((numberOfDiceWonByThePlayer + numberOfDrew) / DiceManager.Instance.activeRivalDiceLists.Count));
+            defendingStateGameObject.GetComponent<State>().LostWar(((numberOfDiceWonByThePlayer + numberOfDrew) / DiceManager2.Instance.activeRivalDiceLists.Count));
            
-            attackingStateGameObject.GetComponent<State>().LostWar(((numberOfDiceWonByTheRival + numberOfDrew) / DiceManager.Instance.activePlayerDiceLists.Count));
+            attackingStateGameObject.GetComponent<State>().LostWar(((numberOfDiceWonByTheRival + numberOfDrew) / DiceManager2.Instance.activePlayerDiceLists.Count));
 
            
 

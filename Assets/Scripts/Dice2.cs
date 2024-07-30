@@ -6,7 +6,7 @@ using DG.Tweening;
 public class Dice2 : MonoBehaviour
 {
     // Hedef konumu belirleyin
-    public Transform target;
+    public Vector3 target;
     public float zOffset = -30;
     public bool isRaceRoll = true;
     // Hareket süresi
@@ -23,30 +23,37 @@ public class Dice2 : MonoBehaviour
     Vector3 firstScale;
     void Start()
     {
-        firstScale= transform.localScale;
-        InvokeRepeating("CallRaceRoll",0 , duration + 3);
+        firstScale= new Vector3(0.035f, 0.035f, 0.035f);
+       
 
         startPoint = transform.position;
 
     }
 
-    void CallRaceRoll()
+    public void DiceRoll()
     {
-        transform.localScale = firstScale;
-        // Kontrol noktalarýný belirleyin
-        Vector3 midPoint = new Vector3((startPoint.x + target.position.x) / 2, (startPoint.y + target.position.y) / 2, (startPoint.z + zOffset)); // Yükselme noktasý
-        Vector3 endPoint = target.position;
-        
+        if (target != null)
+        {
+            transform.localScale = firstScale;
+            // Kontrol noktalarýný belirleyin
+            Vector3 midPoint = new Vector3((startPoint.x + target.x) / 2, (startPoint.y + target.y) / 2, (startPoint.z + zOffset)); // Yükselme noktasý
+            Vector3 endPoint = target;
 
-        Vector3[] path = { startPoint, midPoint, endPoint };
 
-        // GameObject'i belirli bir konuma belirli bir sürede eðrisel bir hareketle hareket ettirme
-        transform.DOPath(path, duration, PathType.CatmullRom)
-            .SetEase(Ease.Linear)
-            .OnComplete(() => {
-                // Hareket tamamlandýðýnda boyutu iki katýna çýkarma
-                transform.DOShakeRotation(duration+1, shakeStrength, vibrato, randomness);
-                transform.DOScale(firstScale.x*10, duration+1); // Burada 1f, ölçeklenmenin süresini belirtir
-            });
+            Vector3[] path = { startPoint, midPoint, endPoint };
+
+            // GameObject'i belirli bir konuma belirli bir sürede eðrisel bir hareketle hareket ettirme
+            transform.DOPath(path, duration, PathType.CatmullRom)
+                .SetEase(Ease.Linear)
+                .OnComplete(() =>
+                {
+                    // Hareket tamamlandýðýnda boyutu iki katýna çýkarma
+                    //  transform.DOShakeRotation(duration+1, shakeStrength, vibrato, randomness);
+                    
+                });
+            transform.DOScale(firstScale.x * 10, duration + 1); // Burada 1f, ölçeklenmenin süresini belirtir
+        }
+        else
+            Debug.LogWarning("target is null");
     }
 }
