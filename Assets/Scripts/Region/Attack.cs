@@ -12,7 +12,8 @@ public class Attack : MonoBehaviour
     float diceLowerLimit = 0.5f, diceMidLimit=.75f, diceUpperLimit=1.25f;
     public  int diceCount;
 
-    public float attackDuration = 1.0f;
+    public float attackDuration = 2.0f;
+    float moveForWarDuration = 3.0f;
    
 
     private void Awake()
@@ -29,24 +30,12 @@ public class Attack : MonoBehaviour
         }
     }
 
-    // Start is called before the first frame update
-    void Start()
+    public IEnumerator AttackingCoroutine(string defendingState)
     {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        // If needed, update things here
-    }
-
-    // Method to handle the attack
-    public void Attacking(string defendingState)
-    {
+        yield return null;
         DiceManager2.Instance.StartDiceDisActivated();
         // Print attacking and defending state
-        Debug.Log("Saldýran: " + attackingStateText.text + " Savunan: " + defendingState );
+        Debug.Log("Saldýran: " + attackingStateText.text + " Savunan: " + defendingState);
 
         // Trim strings and convert to a common case (e.g., lower case) before comparison
         string attackingState = attackingStateText.text.Substring(6);
@@ -54,9 +43,6 @@ public class Attack : MonoBehaviour
         GameObject attackingStateGameObject = FindChildByName(USA_Transform, attackingState);
         GameObject defendingStateGameObject = FindChildByName(USA_Transform, defendingState);
         float attackingStateTotalArmyPower, defendingStateTotalArmyPower;
-        
-        
-        
 
         // Further checks and logic for attacking
 
@@ -73,75 +59,17 @@ public class Attack : MonoBehaviour
             }
             else
             {
-                Debug.LogError("statelr bulunamadý");
+                Debug.LogError("eyaletler bulunamadý");
             }
-            // DiceSpawnner.Instance.SpawnDice(diceCount);
-            DiceManager2.Instance.DiceActiveted(diceCount);
-            int numberOfDiceWonByThePlayer = 0;
-            int numberOfDiceWonByTheRival = 0;
-            int numberOfDrew = 0;
-            for (int i=0; i< DiceManager2.Instance.activeRivalDiceValueSortedLists.Count; i++)
-            {
-               
-                if (DiceManager2.Instance.activeRivalDiceValueSortedLists[i] < DiceManager2.Instance.activePlayerDiceValueSortedLists[i])
-                {
-                    numberOfDiceWonByThePlayer++;
-                    Vector3 target = DiceManager2.Instance.activeRivalDiceSortedLists[i].gameObject.transform.position;
-
-
-                    // Zarýn hýzlanarak çarpmasýný saðlamak için Ease.InQuad kullanýlýyor
-                    DiceManager2.Instance.activeRivalDiceSortedLists[i].GetComponent<Dice2>().
-                    DiceMoveForFight(target, attackDuration);
-
-
-
-                }
-                else if (DiceManager2.Instance.activeRivalDiceValueSortedLists[i] > DiceManager2.Instance.activePlayerDiceValueSortedLists[i])
-                {
-                    numberOfDiceWonByTheRival++;
-
-                    Vector3 target = DiceManager2.Instance.activeRivalDiceSortedLists[i].gameObject.transform.position;
-
-
-                    // Zarýn hýzlanarak çarpmasýný saðlamak için Ease.InQuad kullanýlýyor
-                    DiceManager2.Instance.activeRivalDiceSortedLists[i].GetComponent<Dice2>().
-                    DiceMoveForFight(target, attackDuration);
-
-                }
-                else
-                {
-                    numberOfDrew++;
-
-                    Vector3 target = DiceManager2.Instance.activeRivalDiceSortedLists[i].gameObject.transform.position;
-
-
-                    // Zarýn hýzlanarak çarpmasýný saðlamak için Ease.InQuad kullanýlýyor
-                    DiceManager2.Instance.activeRivalDiceSortedLists[i].GetComponent<Dice2>().
-                    DiceMoveForFight(target, attackDuration);
-
-
-                }
-
-            }
-            defendingStateGameObject.GetComponent<State>().LostWar(((numberOfDiceWonByThePlayer + numberOfDrew) / 3));
-            attackingStateGameObject.GetComponent<State>().LostWar(((numberOfDiceWonByTheRival + numberOfDrew) / 3));
-           // DiceManager2.Instance.DiceDisactiveted();
-
-
-
-
-
-
-
+            WarCalculator(defendingStateGameObject, attackingStateGameObject);
         }
         else
         {
             // Calculate random loss between 5% and 25%
             float loss = UnityEngine.Random.Range(5f, 25f);
-          
             Debug.Log("Kayýp: % " + loss);
             attackingStateGameObject.GetComponent<State>().ReduceArmySize(loss);
-           
+
             if (attackingStateGameObject != null && defendingStateGameObject != null)
             {
                 attackingStateTotalArmyPower = attackingStateGameObject.GetComponent<State>().TotalArmyCalculator();
@@ -152,39 +80,73 @@ public class Attack : MonoBehaviour
             {
                 Debug.LogError("statelr bulunamadý");
             }
-            // DiceSpawnner.Instance.SpawnDice(diceCount);
-            DiceManager2.Instance.DiceActiveted(diceCount);
+            WarCalculator(defendingStateGameObject, attackingStateGameObject);
+        }
+    }
+    void WarCalculator( GameObject defendingStateGameObject,GameObject attackingStateGameObject )
+    {
+        DiceManager2.Instance.DiceActiveted(diceCount);
+        int numberOfDiceWonByThePlayer = 0;
+        int numberOfDiceWonByTheRival = 0;
+        int numberOfDrew = 0;
 
-            int numberOfDiceWonByThePlayer = 0;
-            int numberOfDiceWonByTheRival = 0;
-            int numberOfDrew = 0;
-            for (int i = 0; i < DiceManager2.Instance.activeRivalDiceValueSortedLists.Count; i++)
+        for (int i = 0; i < DiceManager2.Instance.activePlayerDiceLists.Count; i++)
+        {
+            if (i >= DiceManager2.Instance.activeRivalDiceLists.Count)
+                break;
+            if (DiceManager2.Instance.activeRivalDiceValueSortedLists[i] < DiceManager2.Instance.activePlayerDiceValueSortedLists[i])
             {
+                numberOfDiceWonByThePlayer++;
 
-                if (DiceManager2.Instance.activeRivalDiceValueSortedLists[i] < DiceManager2.Instance.activePlayerDiceValueSortedLists[i])
+                GameObject target = DiceManager2.Instance.activeRivalDiceSortedLists[i];
+             
+                if (DiceManager2.Instance.activePlayerDiceSortedLists[i].TryGetComponent<Dice2>(out Dice2 diceComponent))
                 {
-                    numberOfDiceWonByThePlayer++;
-                }
-                else if (DiceManager2.Instance.activeRivalDiceValueSortedLists[i] > DiceManager2.Instance.activePlayerDiceValueSortedLists[i])
-                {
-                    numberOfDiceWonByTheRival++;
+                    
+                    diceComponent.DiceMoveForFight(target, moveForWarDuration);
                 }
                 else
                 {
-                    numberOfDrew++;
+                    Debug.LogWarning("Dice2 bileþeni bulunamadý: " );
                 }
-
             }
-            defendingStateGameObject.GetComponent<State>().LostWar(((numberOfDiceWonByThePlayer + numberOfDrew) / DiceManager2.Instance.activeRivalDiceLists.Count));
-           
-            attackingStateGameObject.GetComponent<State>().LostWar(((numberOfDiceWonByTheRival + numberOfDrew) / DiceManager2.Instance.activePlayerDiceLists.Count));
+            else if (DiceManager2.Instance.activeRivalDiceValueSortedLists[i] > DiceManager2.Instance.activePlayerDiceValueSortedLists[i])
+            {
+                numberOfDiceWonByTheRival++;
+                GameObject target = DiceManager2.Instance.activePlayerDiceSortedLists[i];
+              
 
-           
+                if (DiceManager2.Instance.activeRivalDiceSortedLists[i].TryGetComponent<Dice2>(out Dice2 diceComponent))
+                {
+                   
+                    diceComponent.DiceMoveForFight(target, moveForWarDuration );
+                }
+                else
+                {
+                    Debug.LogWarning("Dice2 bileþeni bulunamadý: ");
+                }
+            }
+            else
+            {
+                numberOfDrew++;
+                GameObject target = DiceManager2.Instance.activeRivalDiceSortedLists[i]; ;
+               
+                DiceManager2.Instance.activeRivalDiceSortedLists[i].GetComponent<Dice2>().DiceMoveForFight(target, moveForWarDuration);
+                GameObject target2 = DiceManager2.Instance.activePlayerDiceSortedLists[i]; 
 
-
+                DiceManager2.Instance.activePlayerDiceSortedLists[i].GetComponent<Dice2>().DiceMoveForFight(target2, moveForWarDuration);
+            }
         }
+
+        defendingStateGameObject.GetComponent<State>().LostWar(((numberOfDiceWonByThePlayer + numberOfDrew) / DiceManager2.Instance.activeRivalDiceLists.Count));
+        attackingStateGameObject.GetComponent<State>().LostWar(((numberOfDiceWonByTheRival + numberOfDrew) / DiceManager2.Instance.activePlayerDiceLists.Count));
     }
-   
+    public void Attacking(string defendingState)
+    {
+        StartCoroutine(AttackingCoroutine(defendingState));
+    }
+
+
     GameObject FindChildByName(Transform parent, string name)
     {
         foreach (Transform child in parent)

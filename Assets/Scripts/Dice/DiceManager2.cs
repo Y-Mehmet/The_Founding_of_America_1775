@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class DiceManager2 : MonoBehaviour
@@ -92,6 +93,7 @@ public class DiceManager2 : MonoBehaviour
     }
     public void SortDiceList()
     {
+        ClearList();
         // player ve rival zarlarý listelere eklendi 
         foreach (var dice in activeRivalDiceLists)
         {
@@ -103,9 +105,9 @@ public class DiceManager2 : MonoBehaviour
             activePlayerDiceValueSortedLists.Add(dice.gameObject.GetComponent<DiceRollerDO2>().DiceValue);
         }
         // player ve rivall zarlarý sýralandý
-
-        activeRivalDiceValueSortedLists.Sort();
-        activePlayerDiceValueSortedLists.Sort();
+        activePlayerDiceValueSortedLists.Sort((a, b) => b.CompareTo(a));
+        activeRivalDiceValueSortedLists.Sort(((a, b) => b.CompareTo(a)));
+        
 
         // sýralý listedeki sýraya göre zarlar yeniden listelendi
         for (int i = 0; i < activeRivalDiceLists.Count; i++)
@@ -129,6 +131,13 @@ public class DiceManager2 : MonoBehaviour
                 }
             }
         }
+    }
+    void ClearList()
+    {
+        activePlayerDiceSortedLists.Clear();
+        activePlayerDiceValueSortedLists.Clear();
+        activeRivalDiceSortedLists.Clear();
+        activeRivalDiceValueSortedLists.Clear();
     }
 
 }

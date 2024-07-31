@@ -21,6 +21,7 @@ public class Dice2 : MonoBehaviour
     // Rastgelelik miktarý
     public float randomness = 90;
     Vector3 firstScale;
+    float shakingDuration = 1.0f;
     void Start()
     {
         float firstScaleValue = DiceSpawnner2.Instance.firstScale;
@@ -65,16 +66,29 @@ public class Dice2 : MonoBehaviour
         else
             Debug.LogWarning("target is null");
     }
-    public void DiceMoveForFight(Vector3 target , float waitingTime)
+    public void DiceMoveForFight(GameObject targetDice , float waitingTime)
     {
-     //   StartCoroutine(StartDiceMoveForFight(target, waitingTime));
+        Debug.LogWarning("dice move for fight çalýþýt");
+        StartCoroutine(StartDiceMoveForFight(targetDice, waitingTime));
 
     }
-    IEnumerator StartDiceMoveForFight(Vector3 target, float waitingTime)
+    public IEnumerator StartDiceMoveForFight(GameObject targetDice, float waitingTime)
     {
         yield return new WaitForSeconds(waitingTime);
         Debug.LogWarning("name move çalýþtý " + gameObject.name);
-        transform.DOMove(target, 0.5f) // Animasyon süresini daha kýsa tutarak çarpmanýn daha hýzlý olmasýný saðlayýn
-      .SetEase(Ease.InQuad); // Ease tipi ile hýzlanarak hareket etmesini saðlayýn
+
+
+        transform.DOShakeRotation(shakingDuration);
+
+        transform.DOMove(targetDice.transform.position, (shakingDuration/2)).OnComplete(() =>
+        {
+            
+            targetDice.SetActive(false);
+        });
+
+    }
+    public Transform GetTransform()
+    {
+        return transform;
     }
 }
