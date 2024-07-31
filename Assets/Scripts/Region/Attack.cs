@@ -14,7 +14,9 @@ public class Attack : MonoBehaviour
 
     public float attackDuration = 2.0f;
     float moveForWarDuration = 3.0f;
-   
+    public string lastAttackingState ,  lastDefendingState;
+
+
 
     private void Awake()
     {
@@ -32,13 +34,17 @@ public class Attack : MonoBehaviour
 
     public IEnumerator AttackingCoroutine(string defendingState)
     {
+        lastDefendingState = defendingState;
         yield return null;
-        DiceManager2.Instance.StartDiceDisActivated();
+        GameManager.Instance.IsAttackFinish = false;
+
+        DiceManager2.Instance.StartDiceDisActivated(GameManager.Instance.attackFinishDurtion);
         // Print attacking and defending state
         Debug.Log("Saldýran: " + attackingStateText.text + " Savunan: " + defendingState);
 
         // Trim strings and convert to a common case (e.g., lower case) before comparison
-        string attackingState = attackingStateText.text.Substring(6);
+         string attackingState = attackingStateText.text.Substring(6);
+        
 
         GameObject attackingStateGameObject = FindChildByName(USA_Transform, attackingState);
         GameObject defendingStateGameObject = FindChildByName(USA_Transform, defendingState);
@@ -146,6 +152,17 @@ public class Attack : MonoBehaviour
         StartCoroutine(AttackingCoroutine(defendingState));
     }
 
+    public void AttackAgain()
+    {
+        GameManager.Instance.IsAttackFinish = false;
+        GameManager.Instance.ChangeIsAttackValueFalse();
+        GameManager.Instance.ChanngeIsRegionPanelOpenValueFalse();
+        Attacking(lastDefendingState);
+    }
+    public void  AttackFinished()
+    {
+        GameManager.Instance.IsAttackFinish = true;
+    }
 
     GameObject FindChildByName(Transform parent, string name)
     {

@@ -6,7 +6,7 @@ using UnityEngine;
 public class DiceManager2 : MonoBehaviour
 {
     public static DiceManager2 Instance;
-
+    public GameObject AttackCanvas;
 
     public List<GameObject> activeRivalDiceLists = new List<GameObject>();
     public List<GameObject> activePlayerDiceLists = new List<GameObject>();
@@ -17,7 +17,7 @@ public class DiceManager2 : MonoBehaviour
     public List<int> activeRivalDiceValueSortedLists = new List<int>();
     public List<int> activePlayerDiceValueSortedLists = new List<int>();
 
-    private float attackFinishDuration ;
+   
 
 
     private void Awake()
@@ -34,11 +34,12 @@ public class DiceManager2 : MonoBehaviour
     private void Start()
     {
         
-        attackFinishDuration = GameManager.Instance.attackFinidhDuration;
+      
     }
 
     public void DiceActiveted(int rivalDiceCount)
     {
+      
 
         for (int i = 0; i < rivalDiceCount; i++)
         {
@@ -61,15 +62,17 @@ public class DiceManager2 : MonoBehaviour
         SortDiceList();
 
     }
-    public void StartDiceDisActivated()
+    public void StartDiceDisActivated(float duration)
     {
-        StartCoroutine(DiceDisactiveted());
+        StartCoroutine(DiceDisactiveted( duration));
     }
 
-    public IEnumerator DiceDisactiveted()
+    public IEnumerator DiceDisactiveted(float duration)
     {
         // Debug.LogWarning(" dis aktivated 5 sn sonra baþlayacak");
-        yield return new WaitForSeconds(attackFinishDuration);
+        yield return new WaitForSeconds(duration);
+        
+        AttackCanvas.SetActive(true);
         // Debug.LogWarning(" dis aktivated baþladý");
         activePlayerDiceLists.Clear();
         activeRivalDiceLists.Clear();

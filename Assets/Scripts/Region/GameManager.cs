@@ -18,8 +18,10 @@ public class GameManager : MonoBehaviour
     }
     public bool ÝsAttack= false;
     public bool IsRegionPanelOpen = false;
-    public float attackFinidhDuration = 7.0f;
-
+    public bool IsAttackFinish  = true;
+    public float attackFinishDurtion = 10.0f;
+    
+    
     public void ChangeIsAttackValueTrue()
     {
         ÝsAttack = true;
@@ -36,4 +38,7 @@ public class GameManager : MonoBehaviour
     {
         IsRegionPanelOpen = false;
     }
+   
+   
+    
 }

@@ -23,21 +23,25 @@ public class RegionClickHandler : MonoBehaviour
                 GameObject hitObject = hit.collider.gameObject;
                 
 
-                // Eðer obje bir bölge ise bilgilerini göster
-                State state = hitObject.GetComponent<State>();
-                if (state != null && RegionManager.instance!= null && !GameManager.Instance.ÝsAttack && !GameManager.Instance.IsRegionPanelOpen)
+                if ( GameManager.Instance.IsAttackFinish)
                 {
-                    Debug.Log(" bölge paneli açýldý " + hitObject.name);
-                    RegionManager.instance.ShowRegionInfo(hitObject.name);
-                    GameManager.Instance.ChanngeIsRegionPanelOpenValueTrue();
+                    // Eðer obje bir bölge ise bilgilerini göster
+                    State state = hitObject.GetComponent<State>();
+                    if (state != null && RegionManager.instance != null && !GameManager.Instance.ÝsAttack && !GameManager.Instance.IsRegionPanelOpen)
+                    {
+                        Debug.Log(" bölge paneli açýldý " + hitObject.name);
+                        RegionManager.instance.ShowRegionInfo(hitObject.name);
+                        GameManager.Instance.ChanngeIsRegionPanelOpenValueTrue();
+                    }
+                    else if (state != null && RegionManager.instance != null && GameManager.Instance.ÝsAttack)
+                    {
+                        Debug.Log("savaþýlacak bölge seçildi " + hitObject.name);
+                        Attack.Instance.Attacking(hitObject.name);
+                        GameManager.Instance.ChangeIsAttackValueFalse();
+                        GameManager.Instance.ChanngeIsRegionPanelOpenValueFalse();
+                    }
                 }
-                else if (state != null && RegionManager.instance != null && GameManager.Instance.ÝsAttack)
-                {
-                    Debug.Log("savaþýlacak bölge seçildi " + hitObject.name);
-                    Attack.Instance.Attacking(hitObject.name);
-                    GameManager.Instance.ChangeIsAttackValueFalse();
-                    GameManager.Instance.ChanngeIsRegionPanelOpenValueFalse();
-                }
+                
             }
         }
     }
