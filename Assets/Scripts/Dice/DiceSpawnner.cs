@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor.Rendering;
 using UnityEngine;
 
 public class DiceSpawnner : MonoBehaviour
@@ -10,6 +11,7 @@ public class DiceSpawnner : MonoBehaviour
     public static DiceSpawnner Instance;
     public List<GameObject> rivalDiceLists = new List<GameObject>();
     public List<GameObject> playerDiceLists = new List<GameObject>();
+    
 
 
     private Vector3  offset = new Vector3(0, 0, 10);

@@ -2,7 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
-
+using DG.Tweening;
+using System.Net;
 public class Attack : MonoBehaviour
 {
     public static Attack Instance;
@@ -11,17 +12,20 @@ public class Attack : MonoBehaviour
     float diceLowerLimit = 0.5f, diceMidLimit=.75f, diceUpperLimit=1.25f;
     public  int diceCount;
 
-    private float attackDuration = 5.0f;
+    public float attackDuration = 1.0f;
+   
 
     private void Awake()
     {
-        if (Instance != null)
+        if (Instance == null)
         {
-            Destroy(Instance.gameObject); // Use .gameObject to destroy the existing instance properly
+            Destroy(Instance);
+            Instance = this;
+            
         }
         else
         {
-            Instance = this;
+            Destroy(Instance.gameObject); // Use .gameObject to destroy the existing instance properly
         }
     }
 
@@ -82,20 +86,46 @@ public class Attack : MonoBehaviour
                 if (DiceManager2.Instance.activeRivalDiceValueSortedLists[i] < DiceManager2.Instance.activePlayerDiceValueSortedLists[i])
                 {
                     numberOfDiceWonByThePlayer++;
+                    Vector3 target = DiceManager2.Instance.activeRivalDiceSortedLists[i].gameObject.transform.position;
+
+
+                    // Zarýn hýzlanarak çarpmasýný saðlamak için Ease.InQuad kullanýlýyor
+                    DiceManager2.Instance.activeRivalDiceSortedLists[i].GetComponent<Dice2>().
+                    DiceMoveForFight(target, attackDuration);
+
+
+
                 }
                 else if (DiceManager2.Instance.activeRivalDiceValueSortedLists[i] > DiceManager2.Instance.activePlayerDiceValueSortedLists[i])
                 {
                     numberOfDiceWonByTheRival++;
+
+                    Vector3 target = DiceManager2.Instance.activeRivalDiceSortedLists[i].gameObject.transform.position;
+
+
+                    // Zarýn hýzlanarak çarpmasýný saðlamak için Ease.InQuad kullanýlýyor
+                    DiceManager2.Instance.activeRivalDiceSortedLists[i].GetComponent<Dice2>().
+                    DiceMoveForFight(target, attackDuration);
+
                 }
                 else
                 {
                     numberOfDrew++;
+
+                    Vector3 target = DiceManager2.Instance.activeRivalDiceSortedLists[i].gameObject.transform.position;
+
+
+                    // Zarýn hýzlanarak çarpmasýný saðlamak için Ease.InQuad kullanýlýyor
+                    DiceManager2.Instance.activeRivalDiceSortedLists[i].GetComponent<Dice2>().
+                    DiceMoveForFight(target, attackDuration);
+
+
                 }
 
             }
             defendingStateGameObject.GetComponent<State>().LostWar(((numberOfDiceWonByThePlayer + numberOfDrew) / 3));
             attackingStateGameObject.GetComponent<State>().LostWar(((numberOfDiceWonByTheRival + numberOfDrew) / 3));
-            DiceManager2.Instance.DiceDisactiveted();
+           // DiceManager2.Instance.DiceDisactiveted();
 
 
 

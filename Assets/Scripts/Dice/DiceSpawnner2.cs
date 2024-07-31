@@ -11,6 +11,7 @@ public class DiceSpawnner2 : MonoBehaviour
     public List<GameObject> rivalDiceLists = new List<GameObject>();
     public List<GameObject> playerDiceLists = new List<GameObject>();
     public Material rivalDiceMatarial, playerDiceMatarial;
+    public float firstScale = 0.035f;
 
 
     private Vector3 offset = new Vector3(20, 0, 0);
@@ -35,6 +36,7 @@ public class DiceSpawnner2 : MonoBehaviour
             rivalDice.transform.position = rivalDicePoint.position + i * offset;
             rivalDice.GetComponent<Dice2>().target = rivalDiceTarget.position+ i* offset;
             rivalDice.GetComponent<Renderer>().material= rivalDiceMatarial;
+            rivalDice.transform.localScale = Vector3.one * firstScale;
             rivalDice.SetActive(false);
             rivalDiceLists.Add(rivalDice);
 
@@ -47,6 +49,7 @@ public class DiceSpawnner2 : MonoBehaviour
             playerDice.GetComponent<DiceRollerDO2>().IsPlayerDice = true;
             playerDice.GetComponent<Dice2>().target = playerDiceTarget.position + i * offset; ;
             playerDice.GetComponent<Renderer>().material = playerDiceMatarial;
+            playerDice.transform.localScale = Vector3.one * firstScale;
             playerDice.SetActive(false);
             playerDiceLists.Add(playerDice);
 

@@ -16,7 +16,7 @@ public class DiceManager2 : MonoBehaviour
     public List<int> activeRivalDiceValueSortedLists = new List<int>();
     public List<int> activePlayerDiceValueSortedLists = new List<int>();
 
-    private float attackDuration = 5.0f;
+    private float attackFinishDuration ;
 
 
     private void Awake()
@@ -25,10 +25,16 @@ public class DiceManager2 : MonoBehaviour
             Instance = this;
         else
             Destroy(gameObject);
+
+       
     }
     Vector3 offset = new Vector3(0, 0, 10);
 
-
+    private void Start()
+    {
+        
+        attackFinishDuration = GameManager.Instance.attackFinidhDuration;
+    }
 
     public void DiceActiveted(int rivalDiceCount)
     {
@@ -62,7 +68,7 @@ public class DiceManager2 : MonoBehaviour
     public IEnumerator DiceDisactiveted()
     {
         // Debug.LogWarning(" dis aktivated 5 sn sonra baþlayacak");
-        yield return new WaitForSeconds(attackDuration);
+        yield return new WaitForSeconds(attackFinishDuration);
         // Debug.LogWarning(" dis aktivated baþladý");
         activePlayerDiceLists.Clear();
         activeRivalDiceLists.Clear();

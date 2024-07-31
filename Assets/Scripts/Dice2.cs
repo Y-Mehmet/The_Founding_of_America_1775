@@ -10,10 +10,10 @@ public class Dice2 : MonoBehaviour
     public float zOffset = -30;
     public bool isRaceRoll = true;
     // Hareket süresi
-     float duration = 1f;
+     float duration ;
     Vector3 startPoint;
     // Sallama süresi
-    public float shakeDuration = 1f;
+    
     // Sallama gücü
     public float shakeStrength = 1f;
     // Sallama titreþim sayýsý
@@ -23,11 +23,20 @@ public class Dice2 : MonoBehaviour
     Vector3 firstScale;
     void Start()
     {
-        firstScale= new Vector3(0.035f, 0.035f, 0.035f);
+        float firstScaleValue = DiceSpawnner2.Instance.firstScale;
+        firstScale = Vector3.one * firstScaleValue;
        
-
+        transform.localScale= firstScale;
         startPoint = transform.position;
+        duration = Attack.Instance.attackDuration;
 
+    }
+    private void Update()
+    {
+        if(transform.localScale.x<firstScale.x)
+        {
+            Debug.LogWarning(" küçülüuor "+firstScale);
+        }
     }
 
     public void DiceRoll()
@@ -47,13 +56,25 @@ public class Dice2 : MonoBehaviour
                 .SetEase(Ease.Linear)
                 .OnComplete(() =>
                 {
-                    // Hareket tamamlandýðýnda boyutu iki katýna çýkarma
-                    //  transform.DOShakeRotation(duration+1, shakeStrength, vibrato, randomness);
                     
+                   //glb
+
                 });
-            transform.DOScale(firstScale.x * 10, duration + 1); // Burada 1f, ölçeklenmenin süresini belirtir
+            transform.DOScale(DiceSpawnner2.Instance.firstScale * 10, duration + 1); // Burada 1f, ölçeklenmenin süresini belirtir
         }
         else
             Debug.LogWarning("target is null");
+    }
+    public void DiceMoveForFight(Vector3 target , float waitingTime)
+    {
+     //   StartCoroutine(StartDiceMoveForFight(target, waitingTime));
+
+    }
+    IEnumerator StartDiceMoveForFight(Vector3 target, float waitingTime)
+    {
+        yield return new WaitForSeconds(waitingTime);
+        Debug.LogWarning("name move çalýþtý " + gameObject.name);
+        transform.DOMove(target, 0.5f) // Animasyon süresini daha kýsa tutarak çarpmanýn daha hýzlý olmasýný saðlayýn
+      .SetEase(Ease.InQuad); // Ease tipi ile hýzlanarak hareket etmesini saðlayýn
     }
 }
