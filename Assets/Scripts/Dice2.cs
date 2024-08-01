@@ -87,6 +87,13 @@ public class Dice2 : MonoBehaviour
         });
 
     }
+    public IEnumerator StartDiceShackForDrawWar(GameObject targetDice, float waitingTime)
+    {
+        yield return new WaitForSeconds(waitingTime);
+        transform.DOShakeRotation(shakingDuration);
+        targetDice.transform.DOShakeRotation(shakingDuration);
+        
+    }
     public Transform GetTransform()
     {
         return transform;

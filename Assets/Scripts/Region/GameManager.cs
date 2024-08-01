@@ -20,8 +20,26 @@ public class GameManager : MonoBehaviour
     public bool IsRegionPanelOpen = false;
     public bool IsAttackFinish  = true;
     public float attackFinishDurtion = 10.0f;
-    
-    
+    public List<State> allStates = new List<State>();
+
+    public List<State> GetStatesByType(StateType stateType)
+    {
+        List<State> states = new List<State>();
+        foreach (State state in allStates)
+        {
+            if (state.stateType == stateType)
+            {
+                states.Add(state);
+            }
+        }
+        return states;
+    }
+
+    public void UpdateStatePanel(State state)
+    {
+        UIManager.Instance.ShowPanel(state);
+    }
+
     public void ChangeIsAttackValueTrue()
     {
         ÝsAttack = true;

@@ -77,7 +77,7 @@ class Neighbor
         List<string> neighborLists = new List<string>();
         foreach (var item in adjacencyList[city])
         {
-            Debug.Log("Komþular yazdý: " + item);
+           // Debug.Log("Komþular yazdý: " + item);
             neighborLists.Add(item);
         }
         return neighborLists;

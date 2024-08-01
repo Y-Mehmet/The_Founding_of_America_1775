@@ -1461,6 +1461,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 00b808d893039c74ca81440aef42058b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  StateName: 
+  ArmySize: 100
+  UnitArmyPower: 0.75
+  TotalArmyPower: 0
+  stateType: 1
 --- !u!1 &442468340899373984
 GameObject:
   m_ObjectHideFlags: 0
@@ -2618,6 +2623,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 00b808d893039c74ca81440aef42058b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  StateName: 
+  ArmySize: 100
+  UnitArmyPower: 0.75
+  TotalArmyPower: 0
+  stateType: 1
 --- !u!1 &520637387639132648
 GameObject:
   m_ObjectHideFlags: 0
@@ -3509,6 +3519,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 00b808d893039c74ca81440aef42058b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  StateName: 
+  ArmySize: 100
+  UnitArmyPower: 0.75
+  TotalArmyPower: 0
+  stateType: 1
 --- !u!1 &558746139052717276
 GameObject:
   m_ObjectHideFlags: 0
@@ -4324,6 +4339,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 00b808d893039c74ca81440aef42058b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  StateName: 
+  ArmySize: 100
+  UnitArmyPower: 0.75
+  TotalArmyPower: 0
+  stateType: 1
 --- !u!1 &643557639462464158
 GameObject:
   m_ObjectHideFlags: 0
@@ -5709,6 +5729,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 00b808d893039c74ca81440aef42058b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  StateName: 
+  ArmySize: 100
+  UnitArmyPower: 0.75
+  TotalArmyPower: 0
+  stateType: 1
 --- !u!1 &847311606461332802
 GameObject:
   m_ObjectHideFlags: 0
@@ -7132,6 +7157,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 00b808d893039c74ca81440aef42058b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  StateName: 
+  ArmySize: 100
+  UnitArmyPower: 0.75
+  TotalArmyPower: 0
+  stateType: 1
 --- !u!1 &871843415255094964
 GameObject:
   m_ObjectHideFlags: 0
@@ -8061,6 +8091,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 00b808d893039c74ca81440aef42058b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  StateName: 
+  ArmySize: 100
+  UnitArmyPower: 0.75
+  TotalArmyPower: 0
+  stateType: 1
 --- !u!1 &873799753949575113
 GameObject:
   m_ObjectHideFlags: 0
@@ -8572,6 +8607,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 00b808d893039c74ca81440aef42058b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  StateName: 
+  ArmySize: 100
+  UnitArmyPower: 0.75
+  TotalArmyPower: 0
+  stateType: 1
 --- !u!1 &922595032560866022
 GameObject:
   m_ObjectHideFlags: 0
@@ -9995,6 +10035,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 00b808d893039c74ca81440aef42058b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  StateName: 
+  ArmySize: 100
+  UnitArmyPower: 0.75
+  TotalArmyPower: 0
+  stateType: 1
 --- !u!1 &1417464043657613978
 GameObject:
   m_ObjectHideFlags: 0
@@ -10620,6 +10665,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 00b808d893039c74ca81440aef42058b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  StateName: 
+  ArmySize: 100
+  UnitArmyPower: 0.75
+  TotalArmyPower: 0
+  stateType: 1
 --- !u!1 &1886162465332741558
 GameObject:
   m_ObjectHideFlags: 0
@@ -12157,6 +12207,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 00b808d893039c74ca81440aef42058b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  StateName: 
+  ArmySize: 100
+  UnitArmyPower: 0.75
+  TotalArmyPower: 0
+  stateType: 1
 --- !u!1 &1949148017121652140
 GameObject:
   m_ObjectHideFlags: 0
@@ -12972,6 +13027,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 00b808d893039c74ca81440aef42058b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  StateName: 
+  ArmySize: 100
+  UnitArmyPower: 0.75
+  TotalArmyPower: 0
+  stateType: 1
 --- !u!1 &2046404400599733115
 GameObject:
   m_ObjectHideFlags: 0
@@ -14851,6 +14911,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 00b808d893039c74ca81440aef42058b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  StateName: 
+  ArmySize: 100
+  UnitArmyPower: 0.75
+  TotalArmyPower: 0
+  stateType: 1
 --- !u!1 &2134313856384191124
 GameObject:
   m_ObjectHideFlags: 0
@@ -16122,6 +16187,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 00b808d893039c74ca81440aef42058b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  StateName: 
+  ArmySize: 100
+  UnitArmyPower: 0.75
+  TotalArmyPower: 0
+  stateType: 1
 --- !u!1 &2164609307252102313
 GameObject:
   m_ObjectHideFlags: 0
@@ -18077,6 +18147,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 00b808d893039c74ca81440aef42058b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  StateName: 
+  ArmySize: 100
+  UnitArmyPower: 0.75
+  TotalArmyPower: 0
+  stateType: 1
 --- !u!1 &2607878033739560338
 GameObject:
   m_ObjectHideFlags: 0
@@ -18702,6 +18777,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 00b808d893039c74ca81440aef42058b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  StateName: 
+  ArmySize: 100
+  UnitArmyPower: 0.75
+  TotalArmyPower: 0
+  stateType: 1
 --- !u!1 &2760757329114820306
 GameObject:
   m_ObjectHideFlags: 0
@@ -20202,6 +20282,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 00b808d893039c74ca81440aef42058b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  StateName: 
+  ArmySize: 100
+  UnitArmyPower: 0.75
+  TotalArmyPower: 0
+  stateType: 1
 --- !u!1 &2841740616390153331
 GameObject:
   m_ObjectHideFlags: 0
@@ -21587,6 +21672,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 00b808d893039c74ca81440aef42058b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  StateName: 
+  ArmySize: 100
+  UnitArmyPower: 0.75
+  TotalArmyPower: 0
+  stateType: 0
 --- !u!1 &3106419484384874495
 GameObject:
   m_ObjectHideFlags: 0
@@ -22060,6 +22150,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 00b808d893039c74ca81440aef42058b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  StateName: 
+  ArmySize: 100
+  UnitArmyPower: 0.75
+  TotalArmyPower: 0
+  stateType: 1
 --- !u!1 &3248680259908681395
 GameObject:
   m_ObjectHideFlags: 0
@@ -22571,6 +22666,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 00b808d893039c74ca81440aef42058b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  StateName: 
+  ArmySize: 100
+  UnitArmyPower: 0.75
+  TotalArmyPower: 0
+  stateType: 1
 --- !u!1 &3253328573927904582
 GameObject:
   m_ObjectHideFlags: 0
@@ -23234,6 +23334,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 00b808d893039c74ca81440aef42058b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  StateName: 
+  ArmySize: 100
+  UnitArmyPower: 0.75
+  TotalArmyPower: 0
+  stateType: 1
 --- !u!1 &3315249335043552056
 GameObject:
   m_ObjectHideFlags: 0
@@ -23973,6 +24078,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 00b808d893039c74ca81440aef42058b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  StateName: 
+  ArmySize: 100
+  UnitArmyPower: 0.75
+  TotalArmyPower: 0
+  stateType: 1
 --- !u!1 &3373300651736048582
 GameObject:
   m_ObjectHideFlags: 0
@@ -24598,6 +24708,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 00b808d893039c74ca81440aef42058b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  StateName: 
+  ArmySize: 100
+  UnitArmyPower: 0.75
+  TotalArmyPower: 0
+  stateType: 1
 --- !u!1 &3428801787420062901
 GameObject:
   m_ObjectHideFlags: 0
@@ -25337,6 +25452,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 00b808d893039c74ca81440aef42058b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  StateName: 
+  ArmySize: 100
+  UnitArmyPower: 0.75
+  TotalArmyPower: 0
+  stateType: 1
 --- !u!1 &3641124331021569309
 GameObject:
   m_ObjectHideFlags: 0
@@ -25734,6 +25854,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 00b808d893039c74ca81440aef42058b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  StateName: 
+  ArmySize: 100
+  UnitArmyPower: 0.75
+  TotalArmyPower: 0
+  stateType: 1
 --- !u!1 &6064803329508048918
 GameObject:
   m_ObjectHideFlags: 0
@@ -26093,6 +26218,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 00b808d893039c74ca81440aef42058b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  StateName: 
+  ArmySize: 100
+  UnitArmyPower: 0.75
+  TotalArmyPower: 0
+  stateType: 1
 --- !u!1 &6210155005816476794
 GameObject:
   m_ObjectHideFlags: 0
@@ -26832,6 +26962,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 00b808d893039c74ca81440aef42058b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  StateName: 
+  ArmySize: 100
+  UnitArmyPower: 0.75
+  TotalArmyPower: 0
+  stateType: 1
 --- !u!1 &6237998021324987520
 GameObject:
   m_ObjectHideFlags: 0
@@ -27191,6 +27326,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 00b808d893039c74ca81440aef42058b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  StateName: 
+  ArmySize: 100
+  UnitArmyPower: 0.75
+  TotalArmyPower: 0
+  stateType: 1
 --- !u!1 &6618564550204916432
 GameObject:
   m_ObjectHideFlags: 0
@@ -28310,6 +28450,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 00b808d893039c74ca81440aef42058b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  StateName: 
+  ArmySize: 100
+  UnitArmyPower: 0.75
+  TotalArmyPower: 0
+  stateType: 1
 --- !u!1 &6698924934384294850
 GameObject:
   m_ObjectHideFlags: 0
@@ -28821,6 +28966,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 00b808d893039c74ca81440aef42058b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  StateName: 
+  ArmySize: 100
+  UnitArmyPower: 0.75
+  TotalArmyPower: 0
+  stateType: 1
 --- !u!1 &6975427622550012833
 GameObject:
   m_ObjectHideFlags: 0
@@ -30016,6 +30166,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 00b808d893039c74ca81440aef42058b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  StateName: 
+  ArmySize: 100
+  UnitArmyPower: 0.75
+  TotalArmyPower: 0
+  stateType: 1
 --- !u!1 &7293508912338759556
 GameObject:
   m_ObjectHideFlags: 0
@@ -30527,6 +30682,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 00b808d893039c74ca81440aef42058b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  StateName: 
+  ArmySize: 100
+  UnitArmyPower: 0.75
+  TotalArmyPower: 0
+  stateType: 1
 --- !u!1 &7312214788430511702
 GameObject:
   m_ObjectHideFlags: 0
@@ -31190,6 +31350,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 00b808d893039c74ca81440aef42058b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  StateName: 
+  ArmySize: 100
+  UnitArmyPower: 0.75
+  TotalArmyPower: 0
+  stateType: 0
 --- !u!1 &7714914894833241428
 GameObject:
   m_ObjectHideFlags: 0
@@ -32119,6 +32284,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 00b808d893039c74ca81440aef42058b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  StateName: 
+  ArmySize: 100
+  UnitArmyPower: 0.75
+  TotalArmyPower: 0
+  stateType: 1
 --- !u!1 &7766793791927714119
 GameObject:
   m_ObjectHideFlags: 0
@@ -32706,6 +32876,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 00b808d893039c74ca81440aef42058b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  StateName: 
+  ArmySize: 100
+  UnitArmyPower: 0.75
+  TotalArmyPower: 0
+  stateType: 1
 --- !u!1 &7831888377801411078
 GameObject:
   m_ObjectHideFlags: 0
@@ -33711,6 +33886,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 00b808d893039c74ca81440aef42058b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  StateName: 
+  ArmySize: 100
+  UnitArmyPower: 0.75
+  TotalArmyPower: 0
+  stateType: 1
 --- !u!1 &8261010106115335372
 GameObject:
   m_ObjectHideFlags: 0
@@ -34412,6 +34592,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 00b808d893039c74ca81440aef42058b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  StateName: 
+  ArmySize: 100
+  UnitArmyPower: 0.75
+  TotalArmyPower: 0
+  stateType: 1
 --- !u!1 &8368426729041219926
 GameObject:
   m_ObjectHideFlags: 0
@@ -35417,6 +35602,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 00b808d893039c74ca81440aef42058b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  StateName: 
+  ArmySize: 100
+  UnitArmyPower: 0.75
+  TotalArmyPower: 0
+  stateType: 1
 --- !u!1 &8411942159558384477
 GameObject:
   m_ObjectHideFlags: 0
@@ -36460,6 +36650,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 00b808d893039c74ca81440aef42058b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  StateName: 
+  ArmySize: 100
+  UnitArmyPower: 0.75
+  TotalArmyPower: 0
+  stateType: 1
 --- !u!1 &8471653417872641049
 GameObject:
   m_ObjectHideFlags: 0
@@ -37769,6 +37964,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 00b808d893039c74ca81440aef42058b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  StateName: 
+  ArmySize: 100
+  UnitArmyPower: 0.75
+  TotalArmyPower: 0
+  stateType: 1
 --- !u!1 &8804277974199264040
 GameObject:
   m_ObjectHideFlags: 0
@@ -38470,6 +38670,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 00b808d893039c74ca81440aef42058b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  StateName: 
+  ArmySize: 100
+  UnitArmyPower: 0.75
+  TotalArmyPower: 0
+  stateType: 1
 --- !u!1 &8871987745183295925
 GameObject:
   m_ObjectHideFlags: 0
@@ -39171,6 +39376,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 00b808d893039c74ca81440aef42058b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  StateName: 
+  ArmySize: 100
+  UnitArmyPower: 0.75
+  TotalArmyPower: 0
+  stateType: 1
 --- !u!1 &8875730642973652650
 GameObject:
   m_ObjectHideFlags: 0
@@ -39720,6 +39930,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 00b808d893039c74ca81440aef42058b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  StateName: 
+  ArmySize: 100
+  UnitArmyPower: 0.75
+  TotalArmyPower: 0
+  stateType: 1
 --- !u!1 &9001357628573448729
 GameObject:
   m_ObjectHideFlags: 0
@@ -40535,6 +40750,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 00b808d893039c74ca81440aef42058b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  StateName: 
+  ArmySize: 100
+  UnitArmyPower: 0.75
+  TotalArmyPower: 0
+  stateType: 1
 --- !u!1 &9075669911450628835
 GameObject:
   m_ObjectHideFlags: 0
@@ -40970,6 +41190,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 00b808d893039c74ca81440aef42058b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  StateName: 
+  ArmySize: 100
+  UnitArmyPower: 0.75
+  TotalArmyPower: 0
+  stateType: 1
 --- !u!1 &9157349777550438078
 GameObject:
   m_ObjectHideFlags: 0
@@ -42013,3 +42238,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 00b808d893039c74ca81440aef42058b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  StateName: 
+  ArmySize: 100
+  UnitArmyPower: 0.75
+  TotalArmyPower: 0
+  stateType: 1

@@ -15,6 +15,7 @@ public class Attack : MonoBehaviour
     public float attackDuration = 2.0f;
     float moveForWarDuration = 3.0f;
     public string lastAttackingState ,  lastDefendingState;
+    float oneAttackDuration = 0.25f;
 
 
 
@@ -67,7 +68,7 @@ public class Attack : MonoBehaviour
             {
                 Debug.LogError("eyaletler bulunamadý");
             }
-            WarCalculator(defendingStateGameObject, attackingStateGameObject);
+            StartCoroutine(WarCalculator(defendingStateGameObject, attackingStateGameObject));
         }
         else
         {
@@ -86,10 +87,10 @@ public class Attack : MonoBehaviour
             {
                 Debug.LogError("statelr bulunamadý");
             }
-            WarCalculator(defendingStateGameObject, attackingStateGameObject);
+            StartCoroutine(WarCalculator(defendingStateGameObject, attackingStateGameObject));
         }
     }
-    void WarCalculator( GameObject defendingStateGameObject,GameObject attackingStateGameObject )
+    IEnumerator WarCalculator( GameObject defendingStateGameObject,GameObject attackingStateGameObject )
     {
         DiceManager2.Instance.DiceActiveted(diceCount);
         int numberOfDiceWonByThePlayer = 0;
@@ -108,6 +109,7 @@ public class Attack : MonoBehaviour
              
                 if (DiceManager2.Instance.activePlayerDiceSortedLists[i].TryGetComponent<Dice2>(out Dice2 diceComponent))
                 {
+                    yield return new WaitForSeconds(oneAttackDuration);
                     
                     diceComponent.DiceMoveForFight(target, moveForWarDuration);
                 }
@@ -124,7 +126,8 @@ public class Attack : MonoBehaviour
 
                 if (DiceManager2.Instance.activeRivalDiceSortedLists[i].TryGetComponent<Dice2>(out Dice2 diceComponent))
                 {
-                   
+                    yield return new WaitForSeconds(oneAttackDuration);
+
                     diceComponent.DiceMoveForFight(target, moveForWarDuration );
                 }
                 else
@@ -134,13 +137,12 @@ public class Attack : MonoBehaviour
             }
             else
             {
+                yield return new WaitForSeconds(oneAttackDuration);
                 numberOfDrew++;
-                GameObject target = DiceManager2.Instance.activeRivalDiceSortedLists[i]; ;
+                GameObject target = DiceManager2.Instance.activePlayerDiceSortedLists[i]; ;
                
-                DiceManager2.Instance.activeRivalDiceSortedLists[i].GetComponent<Dice2>().DiceMoveForFight(target, moveForWarDuration);
-                GameObject target2 = DiceManager2.Instance.activePlayerDiceSortedLists[i]; 
-
-                DiceManager2.Instance.activePlayerDiceSortedLists[i].GetComponent<Dice2>().DiceMoveForFight(target2, moveForWarDuration);
+               StartCoroutine(DiceManager2.Instance.activeRivalDiceSortedLists[i].GetComponent<Dice2>().StartDiceShackForDrawWar(target, moveForWarDuration));
+                
             }
         }
 
