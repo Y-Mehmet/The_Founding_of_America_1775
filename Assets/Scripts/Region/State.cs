@@ -23,6 +23,8 @@ public class State : MonoBehaviour
         ArmySize-= (int)loss;
         if(ArmySize < 0)
             ArmySize = 0;
+        TotalArmyPower = ArmySize * UnitArmyPower;
+
     }
     public void LostWar(float lossRate)
     {

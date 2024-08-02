@@ -15,7 +15,7 @@ public class Attack : MonoBehaviour
     public float attackDuration = 2.0f;
     float moveForWarDuration = 3.0f;
     public string lastAttackingState ,  lastDefendingState;
-    float oneAttackDuration = 0.25f;
+    float oneAttackDuration = 0.5f;
 
 
 
@@ -74,9 +74,9 @@ public class Attack : MonoBehaviour
         {
             // Calculate random loss between 5% and 25%
             float loss = UnityEngine.Random.Range(5f, 25f);
-            Debug.Log("Kayýp: % " + loss);
+            Debug.Log("Kayýp miktarý  % " + loss+ " kayýpdan önce total amry: "+ attackingStateGameObject.GetComponent<State>().ArmySize);
             attackingStateGameObject.GetComponent<State>().ReduceArmySize(loss);
-
+            Debug.Log("kayýptan sonra "+ attackingStateGameObject.GetComponent<State>().ArmySize);
             if (attackingStateGameObject != null && defendingStateGameObject != null)
             {
                 attackingStateTotalArmyPower = attackingStateGameObject.GetComponent<State>().TotalArmyCalculator();

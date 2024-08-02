@@ -73,9 +73,11 @@ public class DiceManager2 : MonoBehaviour
         yield return new WaitForSeconds(duration);
         
         AttackCanvas.SetActive(true);
+
         // Debug.LogWarning(" dis aktivated baþladý");
         activePlayerDiceLists.Clear();
         activeRivalDiceLists.Clear();
+        ClearList();
         for (int i = 0; i < 4; i++)
         {
             GameObject dice = DiceSpawnner2.Instance.rivalDiceLists[i].gameObject;
@@ -119,27 +121,37 @@ public class DiceManager2 : MonoBehaviour
             {
                 if (activeRivalDiceLists[j].GetComponent<DiceRollerDO2>().DiceValue == activeRivalDiceValueSortedLists[i])
                 {
-                    activeRivalDiceSortedLists.Add(activeRivalDiceLists[j]);
+                    if (!activeRivalDiceSortedLists.Contains(activeRivalDiceLists[j]))
+                    {
+                        activeRivalDiceSortedLists.Add(activeRivalDiceLists[j]);
+                    }
+                   
                 }
+                
             }
         }
 
-        for (int i = 0; i < activePlayerDiceLists.Count; i++)
+        for (int i = 0; i < activePlayerDiceValueSortedLists.Count; i++)
         {
             for (int j = 0; j < activePlayerDiceLists.Count; j++)
             {
                 if (activePlayerDiceLists[j].GetComponent<DiceRollerDO2>().DiceValue == activePlayerDiceValueSortedLists[i])
                 {
-                    activePlayerDiceSortedLists.Add(activePlayerDiceLists[j]);
+                    if (!activePlayerDiceSortedLists.Contains(activePlayerDiceLists[j]))
+                    {
+                        activePlayerDiceSortedLists.Add(activePlayerDiceLists[j]);
+                    }
                 }
             }
         }
+
     }
     void ClearList()
     {
+        
+        activeRivalDiceSortedLists.Clear();
         activePlayerDiceSortedLists.Clear();
         activePlayerDiceValueSortedLists.Clear();
-        activeRivalDiceSortedLists.Clear();
         activeRivalDiceValueSortedLists.Clear();
     }
 

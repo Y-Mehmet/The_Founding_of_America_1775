@@ -43,22 +43,8 @@ public class DiceRollerDO2 : MonoBehaviour
         transform.DORotate(targetRotation, rollDuration)
             .SetEase(Ease.OutBounce); // Yavaþlayarak durma efekti
 
-       // float finalMoveDistance = CalculateMoveDistance(); // Hareket mesafesini hesapla
 
-        //if (IsPlayerDice)
-        //{
-        //    // DoTween ile zarý ötele
-        //   // transform.DOMoveX(transform.position.x + finalMoveDistance, rollDuration)
-        //      //  .SetEase(Ease.InOutSine); // Daha doðal bir hareket efekti
-        //}
-        //else
-        //{
-        //    // DoTween ile zarý ötele
-        //   // transform.DOMoveX(transform.position.x - finalMoveDistance, rollDuration)
-        //     //   .SetEase(Ease.InOutSine);
-        //}
-
-        Debug.Log("Üstteki yüz deðeri: " + randomFace);
+        //Debug.Log("Üstteki yüz deðeri: " + randomFace);
     }
 
     private float CalculateMoveDistance()

@@ -12,6 +12,8 @@ public class RegionClickHandler : MonoBehaviour
 
     // Eski renkleri saklamak için bir dictionary (hashmap) oluþturun
     private Dictionary<GameObject, Color> originalColors = new Dictionary<GameObject, Color>();
+    // Tween nesnelerini saklamak için bir Dictionary oluþturun
+    private Dictionary<GameObject, Tween> moveTweens = new Dictionary<GameObject, Tween>();
 
     void Update()
     {
@@ -40,10 +42,10 @@ public class RegionClickHandler : MonoBehaviour
                         }
 
                         // Rengi yeþil yap
-                        
                         Color oldGloryBlue;
                         UnityEngine.ColorUtility.TryParseHtmlString("#002147", out oldGloryBlue);
                         hitObject.GetComponent<Renderer>().material.color = Color.green;
+
                         // Komþu bölgeleri bul ve iþle
                         foreach (string neighborState in Neighbor.Instance.GetNeighbors(hitObject.name))
                         {
@@ -56,21 +58,29 @@ public class RegionClickHandler : MonoBehaviour
                                     originalColors[neighborStateGameobject] = neighborStateGameobject.GetComponent<Renderer>().material.color;
                                 }
 
-                                // Hareket ve renk deðiþimi
-                                neighborStateGameobject.transform.DOMoveY(neighborStateGameobject.transform.position.y + moveAmount, moveDuration)
-                                    .SetLoops(-1, LoopType.Yoyo)  // Sonsuz döngü (Yoyo hareketi)
-                                    .SetEase(Ease.InOutQuad);     // Ease türü (Kolaylaþtýrma)
-                                if(neighborStateGameobject.GetComponent<State>().stateType== StateType.Ally)
+                                if (neighborStateGameobject.GetComponent<State>().stateType == StateType.Ally)
                                 {
-                                   
                                     neighborStates.Add(neighborStateGameobject);
                                 }
                                 else
                                 {
+                                    // Eski animasyonlarý temizle
+                                    if (moveTweens.ContainsKey(neighborStateGameobject))
+                                    {
+                                        moveTweens[neighborStateGameobject].Kill(); // Önceki Tween'i öldür
+                                    }
+
+                                    // Hareket ve renk deðiþimi
+                                    Tween moveTween = neighborStateGameobject.transform.DOMoveY(neighborStateGameobject.transform.position.y + moveAmount, moveDuration)
+                                        .SetLoops(-1, LoopType.Yoyo)  // Sonsuz döngü (Yoyo hareketi)
+                                        .SetEase(Ease.InOutQuad);     // Ease türü (Kolaylaþtýrma)
+
+                                    // Tween nesnesini saklayýn
+                                    moveTweens[neighborStateGameobject] = moveTween;
+
                                     neighborStateGameobject.GetComponent<Renderer>().material.color = Color.grey;
                                     neighborStates.Add(neighborStateGameobject);
                                 }
-                               
                             }
                         }
 
@@ -82,19 +92,34 @@ public class RegionClickHandler : MonoBehaviour
                     {
                         Debug.Log("Savaþýlacak bölge seçildi: " + hitObject.name);
                         Attack.Instance.Attacking(hitObject.name);
-                        GameManager.Instance.ChangeIsAttackValueFalse();
-                        GameManager.Instance.ChanngeIsRegionPanelOpenValueFalse();
 
                         // Eski rengi geri yükle
-                        RestoreOriginalColors();
+                        FinishAttack();
                     }
                 }
             }
         }
     }
 
+    public void FinishAttack()
+    {
+        GameManager.Instance.ChangeIsAttackValueFalse();
+        GameManager.Instance.ChanngeIsRegionPanelOpenValueFalse();
+        RestoreOriginalColors();
+        StopAnimations();
+    }
+
+    public void StopAnimations()
+    {
+        foreach (var kvp in moveTweens)
+        {
+            kvp.Value.Kill(); // Animasyonu durdur ve kaldýr
+        }
+        moveTweens.Clear(); // Tüm Tween nesnelerini temizle
+    }
+
     // Eski renkleri geri yüklemek için bir fonksiyon
-    private void RestoreOriginalColors()
+    public void RestoreOriginalColors()
     {
         foreach (var kvp in originalColors)
         {
