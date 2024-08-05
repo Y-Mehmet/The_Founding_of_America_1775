@@ -31,6 +31,7 @@ public class GameInitalizer : MonoBehaviour
         foreach (string city in cities)
         {
             Neighbor.Instance.AddCity(city);
+           
         }
     }
  

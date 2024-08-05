@@ -4,6 +4,7 @@ public class UIManager : MonoBehaviour
 {
     public static UIManager Instance { get; private set; }
 
+    public GameObject StatePanel;
     public GameObject allyPanel;
     public GameObject enemyPanel;
     public GameObject neutralPanel;
@@ -17,6 +18,7 @@ public class UIManager : MonoBehaviour
     }
     public void ShowPanel(State state)
     {
+        StatePanel.SetActive(true);
         switch (state.stateType)
         {
             case StateType.Ally:

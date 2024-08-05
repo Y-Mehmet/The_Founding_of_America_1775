@@ -5,11 +5,13 @@ using UnityEngine.UI;
 
 public class RegionManager : MonoBehaviour
 {
+
     public TextMeshProUGUI regionNameText;
     public TextMeshProUGUI happinessText;
     public TextMeshProUGUI populationText;
     public TextMeshProUGUI foodStockText;
     public GameObject infoPanel;
+    public Image StateIcon;
 
     public Dictionary<string, Region> regions;
     public static RegionManager instance;
@@ -23,10 +25,10 @@ public class RegionManager : MonoBehaviour
 
     void Start()
     {
-        // Bölge verilerini baþlatma
+        // Bï¿½lge verilerini baï¿½latma
         regions = new Dictionary<string, Region>
         {
-               { "Washington", new Region("Washington", 60.0f, 10000, 1000) },
+    { "Washington", new Region("Washington", 60.0f, 10000, 1000) },
     { "Oregon", new Region("Oregon", 55.0f, 8000, 800) },
     { "Idaho", new Region("Idaho", 50.0f, 5000, 500) },
     { "Montana", new Region("Montana", 50.0f, 5000, 500) },
@@ -71,25 +73,60 @@ public class RegionManager : MonoBehaviour
     { "Tennessee", new Region("Tennessee", 55.0f, 8000, 800) },
     { "Arkansas", new Region("Arkansas", 55.0f, 8000, 800) },
     { "Oklahoma", new Region("Oklahoma", 50.0f, 5000, 500) }
+            
 
         };
 
-       
+        
+
+
     }
     public void ShowRegionInfo(string regionName)
     {
         if (regions.ContainsKey(regionName))
         {
             Region region = regions[regionName];
+            GameObject state = Usa.Instance.gameObject.transform.Find(regionName).gameObject;
+            if (state != null)
+            {
+                regionNameText.text = "Name: " + region.Name;
+                
+                StateIcon.sprite = Usa.Instance.gameObject.transform.Find(region.Name).GetComponent<State>().StateIcon;
 
-            regionNameText.text = "Name: " + region.Name;
-            happinessText.text = "Happiness: " + region.Happiness + "%";
-            populationText.text = "Population: " + region.Population;
-            foodStockText.text = "Food Stock: " + region.FoodStock;
+                if (state.GetComponent<State>().stateType == StateType.Ally )
+                {
+                   GetIntel();
+                }
+                else
+                {
+                    happinessText.text = "Happiness: intelligence could not be received";
+                    populationText.text = "Population: intelligence could not be received";
+                    foodStockText.text = "Food Stock: intelligence could not be received";
+                }
 
-            // Paneli göster
+                
+            }
+            else
+            {
+                Debug.LogWarning("stateden icon alï¿½namadï¿½ state iï¿½ermiyor");
+            }
+            
+           
+            
+
+
+            // Paneli gï¿½ster
             infoPanel.SetActive(true);
         }
+    }
+     public void GetIntel()
+    {
+        string regionName = regionNameText.text.Substring(6);
+        Region region = regions[regionName];
+        GameObject state = Usa.Instance.gameObject.transform.Find(regionName).gameObject;
+        happinessText.text = "Happiness: %" + region.Happiness ;
+        populationText.text = "Population: " + region.Population;
+        foodStockText.text = "Food Stock: " + region.FoodStock;
     }
 
 

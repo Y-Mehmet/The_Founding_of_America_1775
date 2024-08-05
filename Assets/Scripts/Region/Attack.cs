@@ -7,7 +7,9 @@ using System.Net;
 public class Attack : MonoBehaviour
 {
     public static Attack Instance;
-    public TextMeshProUGUI attackingStateText;
+    TextMeshProUGUI attackingStateText;
+    Sprite StateIcon;
+   
     public Transform USA_Transform;
     float diceLowerLimit = 0.5f, diceMidLimit=.75f, diceUpperLimit=1.25f;
     public  int diceCount;
@@ -35,6 +37,7 @@ public class Attack : MonoBehaviour
 
     public IEnumerator AttackingCoroutine(string defendingState)
     {
+        attackingStateText = RegionManager.instance.regionNameText;
         lastDefendingState = defendingState;
         yield return null;
         GameManager.Instance.IsAttackFinish = false;

@@ -7,7 +7,8 @@ public class State : MonoBehaviour
     public string StateName ="";
     public float ArmySize = 100, UnitArmyPower=.75f;
     public float TotalArmyPower;
-    public StateType stateType; // Eyaletin tipi (Ally, Enemy, Neutral)
+    public StateType stateType;
+    public Sprite StateIcon;
     private void Start()
     {
         StateName= gameObject.name;
@@ -41,4 +42,13 @@ public enum StateType
     Ally,
     Enemy,
     Neutral
+}
+public class StateData
+{
+    public string StateName;
+    public float ArmySize;
+    public float UnitArmyPower;
+    public float TotalArmyPower;
+    public StateType stateType;
+    public Sprite StateImage;
 }

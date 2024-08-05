@@ -19,7 +19,10 @@ public class GameManager : MonoBehaviour
     public bool ÝsAttack= false;
     public bool IsRegionPanelOpen = false;
     public bool IsAttackFinish  = true;
+    public bool IsSpy= false;
+
     public float attackFinishDurtion = 10.0f;
+
     public List<State> allStates = new List<State>();
 
     public List<State> GetStatesByType(StateType stateType)
@@ -55,6 +58,10 @@ public class GameManager : MonoBehaviour
     public void ChanngeIsRegionPanelOpenValueFalse()
     {
         IsRegionPanelOpen = false;
+    }
+    public void ChangeIsSpyValueTrue()
+    {
+        IsSpy = true;
     }
    
    
