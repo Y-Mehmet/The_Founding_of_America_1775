@@ -47,7 +47,7 @@ public class Attack : MonoBehaviour
         Debug.Log("Saldýran: " + attackingStateText.text + " Savunan: " + defendingState);
 
         // Trim strings and convert to a common case (e.g., lower case) before comparison
-         string attackingState = attackingStateText.text.Substring(6);
+         string attackingState = attackingStateText.text;
         
 
         GameObject attackingStateGameObject = FindChildByName(USA_Transform, attackingState);
@@ -88,7 +88,7 @@ public class Attack : MonoBehaviour
             }
             else
             {
-                Debug.LogError("statelr bulunamadý");
+                Debug.LogError("stateler bulunamadý");
             }
             StartCoroutine(WarCalculator(defendingStateGameObject, attackingStateGameObject));
         }
@@ -151,6 +151,7 @@ public class Attack : MonoBehaviour
 
         defendingStateGameObject.GetComponent<State>().LostWar(((numberOfDiceWonByThePlayer + numberOfDrew) / DiceManager2.Instance.activeRivalDiceLists.Count));
         attackingStateGameObject.GetComponent<State>().LostWar(((numberOfDiceWonByTheRival + numberOfDrew) / DiceManager2.Instance.activePlayerDiceLists.Count));
+
     }
     public void Attacking(string defendingState)
     {
