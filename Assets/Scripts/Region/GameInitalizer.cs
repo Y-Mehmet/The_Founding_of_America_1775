@@ -4,9 +4,13 @@ using UnityEngine;
 public class GameInitalizer : MonoBehaviour
 {
     public Dictionary<string, Region> regions;
-    private void Awake()
+    private void Start()
     {
+
         // Initialize the Neighbor class with city data
+
+        regions = new Dictionary<string, Region>();
+
         Neighbor game = Neighbor.Instance;
         InitializeCities();
         InitializeNeighbors();
@@ -94,11 +98,11 @@ public class GameInitalizer : MonoBehaviour
 
         };
         // UnitArmyPower ve ArmySize hesaplama
-        
+        System.Random rand = new System.Random();
 
         foreach (var region in regions.Values)
         {
-            System.Random rand = new System.Random(); 
+           
             
             region.UnitArmyPower = (float)(0.75 + rand.NextDouble() * 0.75); // 0.75 ile 1.5 arasında rastgele
             region.ArmySize = (int)(region.Population * 0.25); // Nüfusun %25'i
@@ -117,6 +121,7 @@ public class GameInitalizer : MonoBehaviour
                     s.Morele = region.Morale;
                     s.Resources= region.Resources;
                     s.Population= region.Population;
+                    Debug.Log($"{s.name} adlı statenin bilgileri {s.Morele}");
                     
 
 

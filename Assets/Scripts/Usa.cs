@@ -11,8 +11,8 @@ public class Usa : MonoBehaviour
             Instance = this;
         else
         {
-            Destroy(Instance);
-            Instance = this;
+            Destroy(gameObject);
+            
         }
 
         foreach (Transform state in transform)
