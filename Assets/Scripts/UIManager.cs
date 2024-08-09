@@ -18,7 +18,7 @@ public class UIManager : MonoBehaviour
     }
     public void ShowPanel(State state)
     {
-        StatePanel.SetActive(true);
+       // StatePanel.SetActive(true);
         switch (state.stateType)
         {
             case StateType.Ally:

@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class ShowPanelButton : MonoBehaviour
 {
-    public string panelID;
+    public PanelID panelID;
     public PanelShowBehavior behavior;
     private PanelManager _panelManager;
 

@@ -12,7 +12,7 @@ public class ObjectPool : Singleton<ObjectPool>
 
     // Havuzda tutulan nesnelerin listesi
     
-    private  List<GameObject> _pooledObjects = new List<GameObject>();
+      List<GameObject> _pooledObjects = new List<GameObject>();
 
     // Belirtilen ada sahip bir nesneyi havuzdan alýr
     public GameObject GetObjectFromPool(string objectName)

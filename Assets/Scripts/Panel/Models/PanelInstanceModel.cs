@@ -4,6 +4,6 @@ using UnityEngine;
 
 public class PanelInstanceModel 
 {
-    public string PanelID;
+    public PanelID PanelID;
     public GameObject PanelInstance;
 }
