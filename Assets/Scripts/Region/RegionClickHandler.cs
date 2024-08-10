@@ -5,15 +5,27 @@ using System.Collections.Generic;
 
 public class RegionClickHandler : MonoBehaviour
 {
-    public Camera mainCamera; // Ana kamerayý referans olarak alacaðýz
-    public float moveAmount = 0.33f;    // Y ekseninde hareket edilecek mesafe
-    public float moveDuration = 0.5f; // Hareket süresi
+    public static RegionClickHandler Instance {  get; private set; }
+
+    public Camera mainCamera;
+
     public List<GameObject> neighborStates = new List<GameObject>();
 
     // Eski renkleri saklamak için bir dictionary (hashmap) oluþturun
-    private Dictionary<GameObject, Color> originalColors = new Dictionary<GameObject, Color>();
+    public  Dictionary<GameObject, Color> originalColors = new Dictionary<GameObject, Color>();
     // Tween nesnelerini saklamak için bir Dictionary oluþturun
-    private Dictionary<GameObject, Tween> moveTweens = new Dictionary<GameObject, Tween>();
+    public  Dictionary<GameObject, Tween> moveTweens = new Dictionary<GameObject, Tween>();
+    private GameObject currentState;
+
+    private void Awake()
+    {
+        if(Instance == null)
+            Instance = this;
+        else
+        {
+            Destroy(gameObject);
+        }
+    }
 
     void Update()
     {
@@ -25,7 +37,7 @@ public class RegionClickHandler : MonoBehaviour
             if (Physics.Raycast(ray, out hit))
             {
                 // Hit edilen objeyi al
-                GameObject hitObject = hit.collider.gameObject;
+                GameObject hitObject   = hit.collider.gameObject;
 
                 if (GameManager.Instance.IsAttackFinish)
                 {
@@ -33,98 +45,123 @@ public class RegionClickHandler : MonoBehaviour
                     State state = hitObject.GetComponent<State>();
                     if (state != null && RegionManager.instance != null && !GameManager.Instance.ÝsAttack && !GameManager.Instance.IsRegionPanelOpen)
                     {
-                        Debug.Log("Bölge paneli açýldý: " + hitObject.name);
-
-                        // Eski rengi kaydet
-                        if (!originalColors.ContainsKey(hitObject))
+                        ISelectable selectable = hitObject.GetComponent<ISelectable>();
+                        if (selectable != null)
                         {
-                            originalColors[hitObject] = hitObject.GetComponent<Renderer>().material.color;
+                            currentState = hitObject;
+                         Debug.Log("Bölge paneli açýldý: " + hitObject.name);
+                        selectable.SellectState();
                         }
+                        
 
-                        // Rengi yeþil yap
-                        Color oldGloryBlue;
-                        UnityEngine.ColorUtility.TryParseHtmlString("#002147", out oldGloryBlue);
-                        hitObject.GetComponent<Renderer>().material.color = Color.green;
+                        //// Eski rengi kaydet
+                        //if (!originalColors.ContainsKey(hitObject))
+                        //{
+                        //    originalColors[hitObject] = hitObject.GetComponent<Renderer>().material.color;
+                        //}
 
-                        // Komþu bölgeleri bul ve iþle
-                        foreach (string neighborState in Neighbor.Instance.GetNeighbors(hitObject.name))
-                        {
-                            GameObject neighborStateGameobject = GameObject.Find(neighborState);
-                            if (neighborStateGameobject != null)
-                            {
-                                // Eski rengi kaydet
-                                if (!originalColors.ContainsKey(neighborStateGameobject))
-                                {
-                                    originalColors[neighborStateGameobject] = neighborStateGameobject.GetComponent<Renderer>().material.color;
-                                }
+                        //// Rengi yeþil yap
+                        //Color oldGloryBlue;
+                        //UnityEngine.ColorUtility.TryParseHtmlString("#002147", out oldGloryBlue);
+                        //hitObject.GetComponent<Renderer>().material.color = Color.green;
 
-                                if (neighborStateGameobject.GetComponent<State>().stateType == StateType.Ally)
-                                {
-                                    neighborStates.Add(neighborStateGameobject);
-                                }
-                                else
-                                {
-                                    // Eski animasyonlarý temizle
-                                    if (moveTweens.ContainsKey(neighborStateGameobject))
-                                    {
-                                        moveTweens[neighborStateGameobject].Kill(); // Önceki Tween'i öldür
-                                    }
+                        //// Komþu bölgeleri bul ve iþle
+                        //foreach (string neighborState in Neighbor.Instance.GetNeighbors(hitObject.name))
+                        //{
+                        //    GameObject neighborStateGameobject = GameObject.Find(neighborState);
+                        //    if (neighborStateGameobject != null)
+                        //    {
+                        //        // Eski rengi kaydet
+                        //        if (!originalColors.ContainsKey(neighborStateGameobject))
+                        //        {
+                        //            originalColors[neighborStateGameobject] = neighborStateGameobject.GetComponent<Renderer>().material.color;
+                        //        }
 
-                                    // Hareket ve renk deðiþimi
-                                    Tween moveTween = neighborStateGameobject.transform.DOMoveY(neighborStateGameobject.transform.position.y + moveAmount, moveDuration)
-                                        .SetLoops(-1, LoopType.Yoyo)  // Sonsuz döngü (Yoyo hareketi)
-                                        .SetEase(Ease.InOutQuad);     // Ease türü (Kolaylaþtýrma)
+                        //        if (neighborStateGameobject.GetComponent<State>().stateType == StateType.Ally)
+                        //        {
+                        //            neighborStates.Add(neighborStateGameobject);
+                        //        }
+                        //        else
+                        //        {
+                        //            // Eski animasyonlarý temizle
+                        //            if (moveTweens.ContainsKey(neighborStateGameobject))
+                        //            {
+                        //                moveTweens[neighborStateGameobject].Kill(); // Önceki Tween'i öldür
+                        //            }
 
-                                    // Tween nesnesini saklayýn
-                                    moveTweens[neighborStateGameobject] = moveTween;
+                        //            // Hareket ve renk deðiþimi
+                        //            Tween moveTween = neighborStateGameobject.transform.DOMoveY(neighborStateGameobject.transform.position.y + moveAmount, moveDuration)
+                        //                .SetLoops(-1, LoopType.Yoyo)  // Sonsuz döngü (Yoyo hareketi)
+                        //                .SetEase(Ease.InOutQuad);     // Ease türü (Kolaylaþtýrma)
 
-                                    neighborStateGameobject.GetComponent<Renderer>().material.color = Color.grey;
-                                    neighborStates.Add(neighborStateGameobject);
-                                }
-                            }
-                        }
+                        //            // Tween nesnesini saklayýn
+                        //            moveTweens[neighborStateGameobject] = moveTween;
 
-                        RegionManager.instance.ShowRegionInfo(hitObject.name);
-                        GameManager.Instance.ChanngeIsRegionPanelOpenValueTrue();
-                        GameManager.Instance.UpdateStatePanel(hitObject.GetComponent<State>());
+                        //            neighborStateGameobject.GetComponent<Renderer>().material.color = Color.grey;
+                        //            neighborStates.Add(neighborStateGameobject);
+                        //        }
+                        //    }
+                        //}
+
+                        //RegionManager.instance.ShowRegionInfo(hitObject.name);
+                        //GameManager.Instance.ChanngeIsRegionPanelOpenValueTrue();
+                        //GameManager.Instance.UpdateStatePanel(hitObject.GetComponent<State>());
                     }
                     else if (state != null && RegionManager.instance != null && GameManager.Instance.ÝsAttack)
                     {
-                        Debug.Log("Savaþýlacak bölge seçildi: " + hitObject.name);
-                        Attack.Instance.Attacking(hitObject.name);
+                        //Debug.Log("Savaþýlacak bölge seçildi: " + hitObject.name);
+                        //Attack.Instance.Attacking(hitObject.name);
 
-                        // Eski rengi geri yükle
-                        FinishAttack();
+                        //// Eski rengi geri yükle
+                        //FinishAttack();
+                        ISelectable selectable = hitObject.GetComponent<ISelectable>();
+                        if (selectable != null)
+                        {
+                          
+                            selectable.Attack2();
+                        }
                     }
                 }
             }
         }
     }
-
-    public void FinishAttack()
+    public void CloseBtn_CloseAll()
     {
-        GameManager.Instance.ChangeIsAttackValueFalse();
-        GameManager.Instance.ChanngeIsRegionPanelOpenValueFalse();
-        RestoreOriginalColors();
-        StopAnimations();
-    }
-
-    public void StopAnimations()
-    {
-        foreach (var kvp in moveTweens)
+        ISelectable selectable = currentState.GetComponent<ISelectable>();
+        if(selectable != null && ((MonoBehaviour)selectable).enabled)
         {
-            kvp.Value.Kill(); // Animasyonu durdur ve kaldýr
+            selectable.CloseAll();
         }
-        moveTweens.Clear(); // Tüm Tween nesnelerini temizle
+        else
+        {
+            Debug.LogWarning($"{currentState} selecteble içermiyor ");
+        }
     }
 
-    // Eski renkleri geri yüklemek için bir fonksiyon
-    public void RestoreOriginalColors()
-    {
-        foreach (var kvp in originalColors)
-        {
-            kvp.Key.GetComponent<Renderer>().material.color = kvp.Value;
-        }
-        originalColors.Clear(); // Tüm renkleri geri yükledikten sonra dictionary'i temizle
-    }
+    //public void FinishAttack()
+    //{
+    //    GameManager.Instance.ChangeIsAttackValueFalse();
+    //    GameManager.Instance.ChanngeIsRegionPanelOpenValueFalse();
+    //    RestoreOriginalColors();
+    //    StopAnimations();
+    //}
+
+    //public void StopAnimations()
+    //{
+    //    foreach (var kvp in moveTweens)
+    //    {
+    //        kvp.Value.Kill(); // Animasyonu durdur ve kaldýr
+    //    }
+    //    moveTweens.Clear(); // Tüm Tween nesnelerini temizle
+    //}
+
+    //// Eski renkleri geri yüklemek için bir fonksiyon
+    //public void RestoreOriginalColors()
+    //{
+    //    foreach (var kvp in originalColors)
+    //    {
+    //        kvp.Key.GetComponent<Renderer>().material.color = kvp.Value;
+    //    }
+    //    originalColors.Clear(); // Tüm renkleri geri yükledikten sonra dictionary'i temizle
+    //}
 }

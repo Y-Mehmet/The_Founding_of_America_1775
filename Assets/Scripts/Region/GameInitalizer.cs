@@ -121,7 +121,7 @@ public class GameInitalizer : MonoBehaviour
                     s.Morele = region.Morale;
                     s.Resources= region.Resources;
                     s.Population= region.Population;
-                    Debug.Log($"{s.name} adlı statenin bilgileri {s.Morele}");
+                    //Debug.Log($"{s.name} adlı statenin bilgileri {s.Morele}");
                     
 
 

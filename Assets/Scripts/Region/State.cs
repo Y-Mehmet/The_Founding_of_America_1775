@@ -13,10 +13,25 @@ public class State : MonoBehaviour
     public float Morele;
     public int Population;
     public int Resources;
+    // state el deðitirdikten sonraki army size 
+    int firstArmySize = 100;
     private void Start()
     {
         //StateName= gameObject.name;
         TotalArmyPower = ArmySize * UnitArmyPower;
+        FindISelectibleComponentAndDisable();
+        switch (stateType)
+        {
+            case (StateType.Ally):
+                gameObject.GetComponent<AllyState>().enabled= true;
+                break;
+            case (StateType.Enemy):
+                gameObject.GetComponent<EnemyState>().enabled = true;
+                break;
+            case (StateType.Neutral):
+                gameObject.GetComponent<NaturalState>().enabled = true;
+                break;
+        }
     }
     public float TotalArmyCalculator()
     {
@@ -52,35 +67,87 @@ public class State : MonoBehaviour
     public void LostWar(float lossRate)
     {
         float loss = lossRate * ArmySize ;
+        Debug.LogWarning($"loss: {loss} armysize {ArmySize}  name {gameObject.name} loss rate {lossRate}");
         ReduceArmySize(loss);
         
     }
     void OccupyState()
     {
         Debug.LogWarning("state iþgal edildi");
-        ArmySize = 0;
+        ArmySize = firstArmySize;
         stateType = StateType.Ally;
         Color oldGloryBlue;
         UnityEngine.ColorUtility.TryParseHtmlString("#002147", out oldGloryBlue);
         gameObject.GetComponent<Renderer>().material.color = oldGloryBlue;
+        FindISelectibleComponentAndDisable();
+        
+        AllyState allyState = gameObject.GetComponent<AllyState>();
+        if (allyState != null)
+        {
+            allyState.enabled = true;
+        }
+        else
+        {
+            Debug.LogWarning("ally state bulunamadý ");
+            gameObject.AddComponent<AllyState>();
+        }
+
     }
     void LostState()
     {
         Debug.LogWarning("state kayýbedildi");
-        ArmySize = 0;
+        ArmySize = firstArmySize;
         stateType = StateType.Enemy;
         Color oldGloryRed;
         UnityEngine.ColorUtility.TryParseHtmlString("#B22234", out oldGloryRed);
         gameObject.GetComponent<Renderer>().material.color = oldGloryRed;
+        
+        FindISelectibleComponentAndDisable();
+
+       EnemyState enemyState= gameObject.GetComponent<EnemyState>();
+        if(enemyState != null)
+        {
+            enemyState.enabled = true;
+        }
+        else
+        {
+            Debug.LogWarning("enmey state bulunamadý ");
+            gameObject.AddComponent<EnemyState>();
+        }
     }
     void RelaseState()
     {
         Debug.LogWarning("state özgürleitirildi edildi");
-        ArmySize = 0;
+        ArmySize = firstArmySize;
         stateType = StateType.Neutral;
-      
-        
-        gameObject.GetComponent<Renderer>().material.color = Color.white;
+
+
+        FindISelectibleComponentAndDisable();
+        gameObject.AddComponent<NaturalState>();
+        NaturalState naturalState = gameObject.GetComponent<NaturalState>();
+        if (naturalState != null)
+        {
+            naturalState.enabled = true;
+        }
+        else
+        {
+            Debug.LogWarning("natural state bulunamadý ");
+            gameObject.AddComponent<NaturalState>();
+        }
+    }
+    private void FindISelectibleComponentAndDisable()
+    {
+        // ISelectable arayüzünü implemente eden tüm bileþenleri bul
+        MonoBehaviour[] components = gameObject.GetComponents<MonoBehaviour>();
+
+        foreach (var component in components)
+        {
+            if (component is ISelectable)
+            {
+                component.enabled = false;
+
+            }
+        }
     }
 
 

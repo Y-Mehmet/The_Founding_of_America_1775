@@ -1,0 +1,54 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &6713504186535248905
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 7043229719841896425}
+  - component: {fileID: 1606330452720624517}
+  m_Layer: 5
+  m_Name: ObjectPool
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &7043229719841896425
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6713504186535248905}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.15312421, y: 0.21174093}
+  m_AnchorMax: {x: 0.84512436, y: 0.7231943}
+  m_AnchoredPosition: {x: 1, y: 2}
+  m_SizeDelta: {x: -6, y: 97.99999}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &1606330452720624517
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6713504186535248905}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9eb63dd059bf5ac49af7d306855abb7a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  PrefabsForPool:
+  - {fileID: 3173770123239533107, guid: 21fe10f5b4b9c624597ea18d706a610f, type: 3}
+  - {fileID: 4384355436603261455, guid: c0f8b5b52cef3d048a71c16bfeeca875, type: 3}
+  - {fileID: 2255382876368141048, guid: 41ad1516aa540f44e8116ac3da7aeb61, type: 3}

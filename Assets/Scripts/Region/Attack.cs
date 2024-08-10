@@ -11,7 +11,7 @@ public class Attack : MonoBehaviour
     Sprite StateIcon;
    
     public Transform USA_Transform;
-    float diceLowerLimit = 0.5f, diceMidLimit=.75f, diceUpperLimit=1.25f;
+    float diceLowerLimit = 0.5f, diceMidLimit=0.75f, diceUpperLimit=1.0f;
     public  int diceCount;
 
     public float attackDuration = 2.0f;
@@ -96,9 +96,9 @@ public class Attack : MonoBehaviour
     IEnumerator WarCalculator( GameObject defendingStateGameObject,GameObject attackingStateGameObject )
     {
         DiceManager2.Instance.DiceActiveted(diceCount);
-        int numberOfDiceWonByThePlayer = 0;
-        int numberOfDiceWonByTheRival = 0;
-        int numberOfDrew = 0;
+        float numberOfDiceWonByThePlayer = 0;
+        float numberOfDiceWonByTheRival = 0;
+        float numberOfDrew = 0;
 
         for (int i = 0; i < DiceManager2.Instance.activePlayerDiceLists.Count; i++)
         {
@@ -148,9 +148,9 @@ public class Attack : MonoBehaviour
                 
             }
         }
-
-        defendingStateGameObject.GetComponent<State>().LostWar(((numberOfDiceWonByThePlayer + numberOfDrew) / DiceManager2.Instance.activeRivalDiceLists.Count));
-        attackingStateGameObject.GetComponent<State>().LostWar(((numberOfDiceWonByTheRival + numberOfDrew) / DiceManager2.Instance.activePlayerDiceLists.Count));
+        Debug.Log($" player {numberOfDiceWonByThePlayer} drew {numberOfDrew} rival {numberOfDiceWonByTheRival}");
+        defendingStateGameObject.GetComponent<State>().LostWar((float)((numberOfDiceWonByThePlayer + numberOfDrew) / DiceManager2.Instance.activeRivalDiceLists.Count));
+        attackingStateGameObject.GetComponent<State>().LostWar((float)((numberOfDiceWonByTheRival + numberOfDrew) / DiceManager2.Instance.activePlayerDiceLists.Count));
 
     }
     public void Attacking(string defendingState)
@@ -190,20 +190,22 @@ public class Attack : MonoBehaviour
     int  DiceCountCalcuation(float attackingStateTotalArmyPower,float defendingStateTotalArmyPower)
     {
 
-        if((attackingStateTotalArmyPower*diceLowerLimit)<defendingStateTotalArmyPower)
+        if((attackingStateTotalArmyPower*diceLowerLimit)>defendingStateTotalArmyPower)
         {
+            Debug.LogWarning($" attack state army {attackingStateTotalArmyPower} def army {defendingStateTotalArmyPower}");
             return 1;
         }
-        else if ((attackingStateTotalArmyPower * diceMidLimit) < defendingStateTotalArmyPower)
+        else if ((attackingStateTotalArmyPower * diceMidLimit) > defendingStateTotalArmyPower)
         {
             return 2;
         }
-        else if ((attackingStateTotalArmyPower * diceUpperLimit) < defendingStateTotalArmyPower)
+        else if ((attackingStateTotalArmyPower * diceUpperLimit) > defendingStateTotalArmyPower)
         {
             return 3;
         }
         else
         return 4;
     }
+   
 
 }
