@@ -7,6 +7,9 @@ public enum PanelID
     AllyStatePanel,
     EnemyStatePanel,
     NaturalStatePanel,
-    TroopyPanel
+    TroopyPanel,
+    EspionagePanel,
+    WitchPanel
+
 
 }

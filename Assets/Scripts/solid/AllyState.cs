@@ -61,7 +61,7 @@ public class AllyState : MonoBehaviour, ISelectable
             }
         }
 
-        RegionManager.instance.ShowRegionInfo(gameObject.name);
+        RegionManager.instance.ShowAllyRegionInfo(gameObject.name);
         GameManager.Instance.ChanngeIsRegionPanelOpenValueTrue();
         GameManager.Instance.UpdateStatePanel(gameObject.GetComponent<State>());
     }

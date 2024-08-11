@@ -28,7 +28,7 @@ public class EnemyState : MonoBehaviour, ISelectable
         
        
 
-        RegionManager.instance.ShowRegionInfo(gameObject.name);
+        RegionManager.instance.ShowEnemyRegionInfo(gameObject.name);
         GameManager.Instance.ChanngeIsRegionPanelOpenValueTrue();
         GameManager.Instance.UpdateStatePanel(gameObject.GetComponent<State>());
     }

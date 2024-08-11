@@ -37,7 +37,7 @@ public class Attack : MonoBehaviour
 
     public IEnumerator AttackingCoroutine(string defendingState)
     {
-        attackingStateText = RegionManager.instance.regionNameText;
+        attackingStateText = RegionManager.instance.a_regionNameText;
         lastDefendingState = defendingState;
         yield return null;
         GameManager.Instance.IsAttackFinish = false;

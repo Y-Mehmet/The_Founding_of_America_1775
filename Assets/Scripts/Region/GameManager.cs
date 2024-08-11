@@ -5,17 +5,7 @@ using UnityEngine;
 public class GameManager : MonoBehaviour
 {
    public static GameManager Instance;
-    private void Awake()
-    {
-        if(Instance != null)
-        {
-            Destroy(gameObject);
-
-        }else
-        {
-            Instance = this;
-        }
-    }
+    
     public bool ÝsAttack= false;
     public bool IsRegionPanelOpen = false;
     public bool IsAttackFinish  = true;
@@ -26,7 +16,24 @@ public class GameManager : MonoBehaviour
     public float moveAmount = 0.33f;    // Y ekseninde hareket edilecek mesafe
     public float moveDuration = 0.5f; // Hareket süresi
 
+    public float thresholdForSuccesfulEspionage = 3;
+
     public List<State> allStates = new List<State>();
+
+
+
+    private void Awake()
+    {
+        if (Instance != null)
+        {
+            Destroy(gameObject);
+
+        }
+        else
+        {
+            Instance = this;
+        }
+    }
 
     public List<State> GetStatesByType(StateType stateType)
     {

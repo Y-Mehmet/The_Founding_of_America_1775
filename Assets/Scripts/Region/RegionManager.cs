@@ -6,14 +6,24 @@ using UnityEngine.UI;
 public class RegionManager : MonoBehaviour
 {
 
-    public TextMeshProUGUI regionNameText;
-    public TextMeshProUGUI happinessText;
-    public TextMeshProUGUI populationText;
-    public TextMeshProUGUI foodStockText;
+    public TextMeshProUGUI a_regionNameText;
+    public TextMeshProUGUI a_happinessText;
+    public TextMeshProUGUI a_populationText;
+    public TextMeshProUGUI a_foodStockText;
+    public TextMeshProUGUI e_regionNameText;
+    public TextMeshProUGUI e_happinessText;
+    public TextMeshProUGUI e_populationText;
+    public TextMeshProUGUI e_foodStockText;
+    public TextMeshProUGUI n_regionNameText;
+    public TextMeshProUGUI n_happinessText;
+    public TextMeshProUGUI n_populationText;
+    public TextMeshProUGUI n_foodStockText;
     public GameObject infoPanel;
-    public Image StateIcon;
-
+    public Image a_StateIcon;
+    public Image e_StateIcon;
+    public Image n_StateIcon;
     
+
     public static RegionManager instance;
     private void Awake()
     {
@@ -31,30 +41,25 @@ public class RegionManager : MonoBehaviour
 
 
     }
-    public void ShowRegionInfo(string regionName)
+    public void ShowAllyRegionInfo(string regionName)
     {
        
             
             State state = Usa.Instance.gameObject.transform.Find(regionName).gameObject.GetComponent<State>();
             if (state != null)
             {
-                regionNameText.text = regionName;
+                a_regionNameText.text = regionName;
                 
-                StateIcon.sprite = state.StateIcon;
+                a_StateIcon.sprite = state.StateIcon;
 
-                if (state.GetComponent<State>().stateType == StateType.Ally )
-                {
+                
+                
                     
-                    happinessText.text = "Happiness: %" + state.Morele;
-                    populationText.text = "Population: " + state.Population;
-                    foodStockText.text = "Food Stock: " + state.Resources;
-                }
-                else
-                {
-                    happinessText.text = "Relationship: intelligence could not be received";
-                    populationText.text = "ArmyPower: intelligence could not be received";
-                    foodStockText.text = "Food Stock: intelligence could not be received";
-                }
+                    a_happinessText.text = "Happiness: %" + state.Morele;
+                    a_populationText.text = "Population: " + state.Population;
+                    a_foodStockText.text = "Food Stock: " + state.Resources;
+                
+             
 
                 
             }
@@ -71,14 +76,117 @@ public class RegionManager : MonoBehaviour
             infoPanel.SetActive(true);
         
     }
-     public void GetIntel()
+    public void ShowEnemyRegionInfo(string regionName)
     {
-        State state = Usa.Instance.gameObject.transform.Find(regionNameText.text).gameObject.GetComponent<State>();
+
+
+        State state = Usa.Instance.gameObject.transform.Find(regionName).gameObject.GetComponent<State>();
+        if (state != null)
+        {
+            e_regionNameText.text = regionName;
+
+            e_StateIcon.sprite = state.StateIcon;
+
+            e_happinessText.text = "Relationship: intelligence could not be received";
+            e_populationText.text = "ArmyPower: intelligence could not be received";
+            e_foodStockText.text = "Food Stock: intelligence could not be received";
+
+
+
+
+        }
+        else
+        {
+            Debug.LogWarning("stateden icon al�namad� state i�ermiyor");
+        }
+
+
+
+
+
+        // Paneli g�ster
+        infoPanel.SetActive(true);
+
+    }
+    public void ShowNaturalRegionInfo(string regionName)
+    {
+
+
+        State state = Usa.Instance.gameObject.transform.Find(regionName).gameObject.GetComponent<State>();
+        if (state != null)
+        {
+            n_regionNameText.text = regionName;
+
+            n_StateIcon.sprite = state.StateIcon;
+
+
+
+
+            n_happinessText.text = "Happiness: %" + state.Morele;
+            n_populationText.text = "Population: " + state.Population;
+            n_foodStockText.text = "Food Stock: " + state.Resources;
+
+
+
+
+        }
+        else
+        {
+            Debug.LogWarning("stateden icon al�namad� state i�ermiyor");
+        }
+
+
+
+
+
+        // Paneli g�ster
+        infoPanel.SetActive(true);
+
+    }
+
+    //    a_happinessText.text = "Relationship: intelligence could not be received";
+    //    a_populationText.text = "ArmyPower: intelligence could not be received";
+    //    a_foodStockText.text = "Food Stock: intelligence could not be received";
+    public void GetEnemyIntel()
+    {
+        float thresoldEspinoge = Random.RandomRange(0, 10);
+        if(thresoldEspinoge>GameManager.Instance.thresholdForSuccesfulEspionage)
+        {
+            SuccessfulEspionage();
+
+        }
+        else
+        {
+            FailedEspionage();
+        }
        
-        
-        happinessText.text = "Relationship : %" + state.Morele ;
-        populationText.text = "ArmyPower: " +(int)  state.GetComponent<State>().TotalArmyCalculator();
-        foodStockText.text = "Food Stock: " + state.Resources;
+    }
+    public void FailedEspionage()
+    {
+         State state = Usa.Instance.gameObject.transform.Find(e_regionNameText.text).gameObject.GetComponent<State>();
+
+
+        e_happinessText.text = "Relationship: Your relationship level dropped because the spies were caught";
+        e_populationText.text = "ArmyPower: intelligence could not be received";
+        e_foodStockText.text = "Food Stock: intelligence could not be received";
+    }
+    void SuccessfulEspionage()
+    {
+        State state = Usa.Instance.gameObject.transform.Find(e_regionNameText.text).gameObject.GetComponent<State>();
+
+
+        e_happinessText.text = "Relationship : %" + state.Morele;
+        e_populationText.text = "ArmyPower: " + (int)state.GetComponent<State>().TotalArmyCalculator();
+        e_foodStockText.text = "Food Stock: " + state.Resources;
+    }
+    public void GetNaturalIntel()
+    {
+        State state = Usa.Instance.gameObject.transform.Find(n_regionNameText.text).gameObject.GetComponent<State>();
+
+
+        n_happinessText.text = "Relationship : %" + state.Morele;
+        n_populationText.text = "ArmyPower: " + (int)state.GetComponent<State>().TotalArmyCalculator();
+        n_foodStockText.text = "Food Stock: " + state.Resources;
     }
 
 
