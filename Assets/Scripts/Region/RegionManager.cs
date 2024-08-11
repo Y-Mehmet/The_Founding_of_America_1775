@@ -147,10 +147,11 @@ public class RegionManager : MonoBehaviour
     //    a_happinessText.text = "Relationship: intelligence could not be received";
     //    a_populationText.text = "ArmyPower: intelligence could not be received";
     //    a_foodStockText.text = "Food Stock: intelligence could not be received";
-    public void GetEnemyIntel()
+    public void GetEnemyIntel(float cost)
     {
-        float thresoldEspinoge = Random.RandomRange(0, 10);
-        if(thresoldEspinoge>GameManager.Instance.thresholdForSuccesfulEspionage)
+
+        float thresoldEspinoge = Random.RandomRange(0, cost);
+        if((thresoldEspinoge % GameManager.Instance.spyCostModPurchases )>GameManager.Instance.thresholdForSuccesfulEspionage)
         {
             SuccessfulEspionage();
 

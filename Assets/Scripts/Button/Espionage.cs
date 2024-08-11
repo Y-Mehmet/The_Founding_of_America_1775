@@ -8,16 +8,33 @@ public class Espionage : MonoBehaviour
     public TMP_InputField inputField;
     public TMP_Text spyCostTxt;
     int oneSpyCost = 10;
+    int spyCost = 0;
+    Color originalSpyCostTextColor;
 
     void Start()
     {
         // InputField'ýn metin deðiþikliði olayýna bir dinleyici ekle
         inputField.onValueChanged.AddListener(OnInputValueChanged);
-        Debug.LogWarning("dinleme baþladý");
+       // Debug.LogWarning("dinleme baþladý");
+        originalSpyCostTextColor= spyCostTxt.color;
+        
     }
    public void GetEnemyIntel()
     {
-        RegionManager.instance.GetEnemyIntel();
+        int gold = ResourceManager.Instance.GetResourceAmount(ResourceType.Gold);
+        if(gold>spyCost)
+        {
+            ResourceManager.Instance.ReduceResource(ResourceType.Gold, spyCost);
+            RegionManager.instance.GetEnemyIntel( spyCost);
+            ClearInputField();
+        }
+        else
+        {
+            spyCostTxt.color = Color.red;
+
+            Debug.LogWarning("casus gönderilemiyor gold yetersiz");
+        }
+        
     }
     void OnInputValueChanged(string input)
     {
@@ -27,16 +44,33 @@ public class Espionage : MonoBehaviour
 
         if (int.TryParse(input, out spyCount))
         {
-            int spyCost = spyCount * oneSpyCost;
+             spyCost = spyCount * oneSpyCost;
+            
+            int gold = ResourceManager.Instance.GetResourceAmount(ResourceType.Gold);
+            if (gold >= spyCost)
+            {
+                spyCostTxt.color = originalSpyCostTextColor;
+
+            }
+            else
+            {
+                spyCostTxt.color = Color.red;
+
+              
+            }
             spyCostTxt.text = spyCost.ToString();
 
-            Debug.LogWarning(spyCost + " spy cost deðeri deðiþti");
+            //  Debug.LogWarning(spyCost + " spy cost deðeri deðiþti");
 
         }
         else
             Debug.LogWarning(" deðer yalýþ");
 
 
+    }
+    void ClearInputField()
+    {
+        inputField.text = "0";
     }
 }
 

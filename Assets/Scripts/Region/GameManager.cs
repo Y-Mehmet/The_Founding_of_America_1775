@@ -16,7 +16,8 @@ public class GameManager : MonoBehaviour
     public float moveAmount = 0.33f;    // Y ekseninde hareket edilecek mesafe
     public float moveDuration = 0.5f; // Hareket süresi
 
-    public float thresholdForSuccesfulEspionage = 3;
+    public int thresholdForSuccesfulEspionage = 3;
+    public int spyCostModPurchases = 10;//number of spy cost mod purchases
 
     public List<State> allStates = new List<State>();
 
