@@ -6,20 +6,27 @@ using UnityEngine;
 
 public class State : MonoBehaviour
 {
-    public string StateName ="";
-    public float ArmySize = 100, UnitArmyPower=.75f;
+    public string StateName = "";
+    public float ArmySize = 100;
+    public float UnitArmyPower = 0.75f;
     public float TotalArmyPower;
     public StateType stateType;
+    public float Morale = 1.0f;
+    
     public Sprite StateIcon;
     public float Morele;
     public int Population;
     public int Resources;
-    // state el deðitirdikten sonraki army size 
-    int firstArmySize = 100;
+    
+    int firstArmySize = 100; // state el deðitirdikten sonraki army size 
+    public float MoraleMultiplier = 0.01f; // Moralin asker artýþýna etkisi
+  
+    public float PopulationMultiplier = 0.001f; // Nüfusun asker artýþýna etkisi
     private void Start()
     {
         //StateName= gameObject.name;
         TotalArmyPower = ArmySize * UnitArmyPower;
+        StartCoroutine(IncreaseArmySizeOverTime());
         FindISelectibleComponentAndDisable();
         switch (stateType)
         {
@@ -32,6 +39,21 @@ public class State : MonoBehaviour
             case (StateType.Neutral):
                 gameObject.GetComponent<NaturalState>().enabled = true;
                 break;
+        }
+    }
+
+    private IEnumerator IncreaseArmySizeOverTime()
+    {
+        while (!GameManager.Instance.ÝsGameOver)
+        {
+            float armyIncreasePerSecond = Morale * MoraleMultiplier * Population * PopulationMultiplier;
+            ArmySize += armyIncreasePerSecond;
+
+            TotalArmyPower = ArmySize * UnitArmyPower;
+          
+
+            // Her saniye artýþ yap
+            yield return new WaitForSeconds(1f);
         }
     }
     public float TotalArmyCalculator()

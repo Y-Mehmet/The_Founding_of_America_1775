@@ -18,6 +18,7 @@ public class GameManager : MonoBehaviour
 
     public int thresholdForSuccesfulEspionage = 3;
     public int spyCostModPurchases = 10;//number of spy cost mod purchases
+    public bool ÝsGameOver= false;
 
     public List<State> allStates = new List<State>();
 
