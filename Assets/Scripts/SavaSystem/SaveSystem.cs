@@ -6,6 +6,14 @@ using UnityEngine;
 
 public class SaveSystem : MonoBehaviour
 {
+    public static SaveSystem instance { get; private set; }
+    private void Awake()
+    {
+        if (instance == null)
+            instance = this;
+        else
+            Destroy(gameObject);
+    }
     public string saveName = "SaveData_";
     [Range(0, 10)]
     public int saveDataIndex = 0;

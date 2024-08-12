@@ -6,7 +6,7 @@ using Random = UnityEngine.Random;
 
 public class TestSpawner : MonoBehaviour
 {
-    public SaveSystem saveSystem;
+   
 
     public GameObject prefab;
 
@@ -35,7 +35,7 @@ public class TestSpawner : MonoBehaviour
             data.Add(item.transform.position);
         }
         var dataToSave = JsonUtility.ToJson(data);
-        saveSystem.SaveData(dataToSave);
+        SaveSystem.instance.SaveData(dataToSave);
     }
 
     public void LoadGame()
@@ -43,7 +43,7 @@ public class TestSpawner : MonoBehaviour
 
         Clear();
         string dataToLoad = "";
-        dataToLoad = saveSystem.LoadData();
+        dataToLoad = SaveSystem.instance.LoadData();
         if (String.IsNullOrEmpty(dataToLoad) == false)
         {
             SaveData data = JsonUtility.FromJson<SaveData>(dataToLoad);

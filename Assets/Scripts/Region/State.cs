@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq.Expressions;
@@ -76,9 +77,7 @@ public class State : MonoBehaviour
         Debug.LogWarning("state iþgal edildi");
         ArmySize = firstArmySize;
         stateType = StateType.Ally;
-        Color oldGloryBlue;
-        UnityEngine.ColorUtility.TryParseHtmlString("#002147", out oldGloryBlue);
-        gameObject.GetComponent<Renderer>().material.color = oldGloryBlue;
+        ChangeCollor.Instance.ChangeGameobjectColor(gameObject, stateType);
         FindISelectibleComponentAndDisable();
         
         AllyState allyState = gameObject.GetComponent<AllyState>();
@@ -98,10 +97,8 @@ public class State : MonoBehaviour
         Debug.LogWarning("state kayýbedildi");
         ArmySize = firstArmySize;
         stateType = StateType.Enemy;
-        Color oldGloryRed;
-        UnityEngine.ColorUtility.TryParseHtmlString("#B22234", out oldGloryRed);
-        gameObject.GetComponent<Renderer>().material.color = oldGloryRed;
-        
+        ChangeCollor.Instance.ChangeGameobjectColor(gameObject, stateType);
+
         FindISelectibleComponentAndDisable();
 
        EnemyState enemyState= gameObject.GetComponent<EnemyState>();
@@ -120,6 +117,7 @@ public class State : MonoBehaviour
         Debug.LogWarning("state özgürleitirildi edildi");
         ArmySize = firstArmySize;
         stateType = StateType.Neutral;
+        ChangeCollor.Instance.ChangeGameobjectColor(gameObject, stateType);
 
 
         FindISelectibleComponentAndDisable();
@@ -160,6 +158,7 @@ public enum StateType
     Enemy,
     Neutral
 }
+[Serializable]
 public class StateData
 {
     public string StateName;
@@ -167,5 +166,7 @@ public class StateData
     public float UnitArmyPower;
     public float TotalArmyPower;
     public StateType stateType;
-    public Sprite StateImage;
+    public float Morele;
+    public int Population;
+    public int Resources;
 }
