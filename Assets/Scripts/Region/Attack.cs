@@ -31,7 +31,7 @@ public class Attack : MonoBehaviour
         }
         else
         {
-            Destroy(Instance.gameObject); // Use .gameObject to destroy the existing instance properly
+            Destroy(gameObject); 
         }
     }
 
@@ -40,7 +40,7 @@ public class Attack : MonoBehaviour
         attackingStateText = RegionManager.instance.a_regionNameText;
         lastDefendingState = defendingState;
         yield return null;
-        GameManager.Instance.IsAttackFinish = false;
+        
 
         DiceManager2.Instance.StartDiceDisActivated(GameManager.Instance.attackFinishDurtion);
         // Print attacking and defending state
@@ -155,12 +155,15 @@ public class Attack : MonoBehaviour
     }
     public void Attacking(string defendingState)
     {
+        GameManager.Instance.IsAttackFinish = false;
+        
         StartCoroutine(AttackingCoroutine(defendingState));
     }
 
     public void AttackAgain()
     {
         GameManager.Instance.IsAttackFinish = false;
+        
         GameManager.Instance.ChangeIsAttackValueFalse();
         GameManager.Instance.ChanngeIsRegionPanelOpenValueFalse();
         Attacking(lastDefendingState);
@@ -168,6 +171,7 @@ public class Attack : MonoBehaviour
     public void  AttackFinished()
     {
         GameManager.Instance.IsAttackFinish = true;
+        GameManager.Instance.isGamePause = false;
     }
 
     GameObject FindChildByName(Transform parent, string name)

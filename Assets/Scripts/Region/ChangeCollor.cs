@@ -9,6 +9,7 @@ public class ChangeCollor : MonoBehaviour
     Color oldGloryRed;
     Color oldGloryBlue;
     Color oldGloryWhite;
+    
 
     private void Awake()
     {

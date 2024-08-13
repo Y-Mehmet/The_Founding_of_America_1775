@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -16,11 +17,19 @@ public class GameManager : MonoBehaviour
     public float moveAmount = 0.33f;    // Y ekseninde hareket edilecek mesafe
     public float moveDuration = 0.5f; // Hareket süresi
 
+    public float gameDayTime = 1.0f;
+
     public int thresholdForSuccesfulEspionage = 3;
     public int spyCostModPurchases = 10;//number of spy cost mod purchases
+
+    
+    public bool isGamePause = false;
     public bool ÝsGameOver= false;
 
+
     public List<State> allStates = new List<State>();
+    public event Action OnAttackStarted;
+    public event Action OnAttackStopped;
 
 
 
@@ -58,10 +67,17 @@ public class GameManager : MonoBehaviour
     public void ChangeIsAttackValueTrue()
     {
         ÝsAttack = true;
+        isGamePause = true;
+        OnAttackStarted?.Invoke();
+
     }
     public void ChangeIsAttackValueFalse()
     {
+
         ÝsAttack = false;
+        isGamePause = false;
+        OnAttackStopped?.Invoke(); // Olayý tetikleyin
+
     }
     public void ChanngeIsRegionPanelOpenValueTrue()
     {

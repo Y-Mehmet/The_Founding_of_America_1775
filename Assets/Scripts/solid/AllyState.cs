@@ -10,7 +10,7 @@ public class AllyState : MonoBehaviour, ISelectable
    
     public void SellectState()
     {
-        Debug.Log("ally state seçildi");
+        //Debug.Log("ally state seçildi");
 
         // Eski rengi kaydet
         if (! RegionClickHandler.Instance.originalColors.ContainsKey(gameObject))
@@ -19,9 +19,9 @@ public class AllyState : MonoBehaviour, ISelectable
         }
 
         // Rengi yeþil yap
-        Color oldGloryBlue;
-        UnityEngine.ColorUtility.TryParseHtmlString("#002147", out oldGloryBlue);
+        
         gameObject.GetComponent<Renderer>().material.color = Color.green;
+        
 
         // Komþu bölgeleri bul ve iþle
         foreach (string neighborState in Neighbor.Instance.GetNeighbors(gameObject.name))
@@ -103,4 +103,6 @@ public class AllyState : MonoBehaviour, ISelectable
     {
         FinishAttack();
     }
+
+
 }

@@ -70,5 +70,24 @@ public class ResourceManager : MonoBehaviour
 public enum ResourceType
 {
     Gold,
+    Water,
+    Salt,
+    Meat,
+    Fruits,
+    Vegetables,
     Wheat,
+    Wood,
+    Coal,
+    Iron,
+    Stone,
+    Diamond
+
+}
+[System.Serializable]
+public class ResourceData
+{
+    public int currentAmount;    
+    public int mineCount;        
+    public float productionRate;
+    public int consumptionAmount;
 }

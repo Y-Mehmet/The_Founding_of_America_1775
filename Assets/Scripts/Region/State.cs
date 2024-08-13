@@ -6,6 +6,10 @@ using UnityEngine;
 
 public class State : MonoBehaviour
 {
+  
+    private Coroutine increaseArmySizeCoroutine;
+    private Coroutine resourceProductionCoroutine;
+
     public string StateName = "";
     public float ArmySize = 100;
     public float UnitArmyPower = 0.75f;
@@ -17,16 +21,18 @@ public class State : MonoBehaviour
     public float Morele;
     public int Population;
     public int Resources;
-    
+
+    public Dictionary<ResourceType, ResourceData> resourceData = new Dictionary<ResourceType, ResourceData>();
+
+
     int firstArmySize = 100; // state el deðitirdikten sonraki army size 
     public float MoraleMultiplier = 0.01f; // Moralin asker artýþýna etkisi
   
     public float PopulationMultiplier = 0.001f; // Nüfusun asker artýþýna etkisi
     private void Start()
     {
-        //StateName= gameObject.name;
         TotalArmyPower = ArmySize * UnitArmyPower;
-        StartCoroutine(IncreaseArmySizeOverTime());
+        
         FindISelectibleComponentAndDisable();
         switch (stateType)
         {
@@ -40,21 +46,61 @@ public class State : MonoBehaviour
                 gameObject.GetComponent<NaturalState>().enabled = true;
                 break;
         }
+        GameManager.Instance.OnAttackStarted += HandleAttackStarted;
+        GameManager.Instance.OnAttackStopped += HandleAttackStopped;
+        HandleAttackStopped();
+    }
+    private void HandleAttackStarted()
+    {
+        if (increaseArmySizeCoroutine != null)
+        {
+            StopCoroutine(increaseArmySizeCoroutine);
+            increaseArmySizeCoroutine = null;
+        }
+
+        if (resourceProductionCoroutine != null)
+        {
+            StopCoroutine(resourceProductionCoroutine);
+            resourceProductionCoroutine = null;
+        }
+    }
+
+    private void HandleAttackStopped()
+    {
+        if (increaseArmySizeCoroutine == null)
+            increaseArmySizeCoroutine = StartCoroutine(IncreaseArmySizeOverTime());
+
+        if (resourceProductionCoroutine == null)
+            resourceProductionCoroutine = StartCoroutine(ResourceProduction());
     }
 
     private IEnumerator IncreaseArmySizeOverTime()
     {
-        while (!GameManager.Instance.ÝsGameOver)
+        while (!GameManager.Instance.ÝsGameOver && !GameManager.Instance.isGamePause)
         {
             float armyIncreasePerSecond = Morale * MoraleMultiplier * Population * PopulationMultiplier;
             ArmySize += armyIncreasePerSecond;
-
             TotalArmyPower = ArmySize * UnitArmyPower;
-          
-
-            // Her saniye artýþ yap
-            yield return new WaitForSeconds(1f);
+            yield return new WaitForSeconds(GameManager.Instance.gameDayTime);
         }
+    }
+
+    private IEnumerator ResourceProduction()
+    {
+        while (!GameManager.Instance.ÝsGameOver && !GameManager.Instance.isGamePause)
+        {
+            // Kaynak üretim kodu buraya gelecek
+            yield return new WaitForSeconds(GameManager.Instance.gameDayTime);
+        }
+    }
+
+    public void IncraseMetod()
+    {
+        if (increaseArmySizeCoroutine == null)
+            increaseArmySizeCoroutine = StartCoroutine(IncreaseArmySizeOverTime());
+
+        if (resourceProductionCoroutine == null)
+            resourceProductionCoroutine = StartCoroutine(ResourceProduction());
     }
     public float TotalArmyCalculator()
     {
@@ -64,7 +110,7 @@ public class State : MonoBehaviour
     public void  ReduceArmySize(float loss)
     {
         ArmySize-= (int)loss;
-        if(ArmySize <= 0)
+        if(ArmySize <= 20)
         {
             switch (stateType)
             {
@@ -94,7 +140,7 @@ public class State : MonoBehaviour
         ReduceArmySize(loss);
         
     }
-    void OccupyState()
+     void OccupyState()
     {
         Debug.LogWarning("state iþgal edildi");
         ArmySize = firstArmySize;
@@ -134,7 +180,7 @@ public class State : MonoBehaviour
             gameObject.AddComponent<EnemyState>();
         }
     }
-    void RelaseState()
+  void RelaseState()
     {
         Debug.LogWarning("state özgürleitirildi edildi");
         ArmySize = firstArmySize;

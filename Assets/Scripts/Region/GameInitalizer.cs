@@ -1,29 +1,38 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class GameInitalizer : MonoBehaviour
 {
     public Dictionary<string, Region> regions;
+    public int goldRate, waterRate, saltRate, meatRate, fruitsRate, vegetablesRate, wheatRate, woodRate, coalRate, ironRate, stoneRate, diamondRate;
+    public string[] largeStates, mediumStates, smallStates;
     private void Start()
     {
 
         // Initialize the Neighbor class with city data
+        goldRate = StateResourceSO.Instance.GoldproductionRate;
+        waterRate = StateResourceSO.Instance.WaterproductionRate;
+        saltRate = StateResourceSO.Instance.SaltproductionRate;
+        meatRate = StateResourceSO.Instance.MeatproductionRate;
+        fruitsRate = StateResourceSO.Instance.FruitsproductionRate;
+        vegetablesRate = StateResourceSO.Instance.VegetablesproductionRate;
+        wheatRate = StateResourceSO.Instance.WheatproductionRate;
+        woodRate = StateResourceSO.Instance.WoodproductionRate;
+        coalRate = StateResourceSO.Instance.CoalproductionRate;
+        ironRate = StateResourceSO.Instance.IronproductionRate;
+        stoneRate = StateResourceSO.Instance.StoneproductionRate;
+        diamondRate = StateResourceSO.Instance.DimondproductionRate;
 
         regions = new Dictionary<string, Region>();
-
         Neighbor game = Neighbor.Instance;
         InitializeCities();
+        StateSize();
         InitializeNeighbors();
         InitializedStateDataValue();
 
-
-
-
-
-
+   
     }
-
-
     private void InitializeCities()
     {
         string[] cities = {
@@ -41,102 +50,134 @@ public class GameInitalizer : MonoBehaviour
             Neighbor.Instance.AddCity(city);
            
         }
+
     }
- 
-   
+    private void StateSize()
+    {
+       
+        var largeStateTemplate = new Region("LargeState", 100.0f, 20000, 6000, new Dictionary<ResourceType, ResourceData> {
+    { ResourceType.Gold, new ResourceData { currentAmount = 1500, mineCount = 5, productionRate = goldRate }},
+    { ResourceType.Water, new ResourceData { currentAmount = 4000, mineCount = 4, productionRate = waterRate }},
+    { ResourceType.Salt, new ResourceData { currentAmount = 2000, mineCount = 4, productionRate = saltRate }},
+    { ResourceType.Meat, new ResourceData { currentAmount = 3000, mineCount = 4, productionRate = meatRate }},
+    { ResourceType.Fruits, new ResourceData { currentAmount = 2500, mineCount = 4, productionRate = fruitsRate }},
+    { ResourceType.Vegetables, new ResourceData { currentAmount = 2400, mineCount = 4, productionRate = vegetablesRate }},
+    { ResourceType.Wheat, new ResourceData { currentAmount = 2500, mineCount = 5, productionRate = wheatRate }},
+    { ResourceType.Wood, new ResourceData { currentAmount = 2600, mineCount = 5, productionRate = woodRate }},
+    { ResourceType.Coal, new ResourceData { currentAmount = 2800, mineCount = 4, productionRate = coalRate }},
+    { ResourceType.Iron, new ResourceData { currentAmount = 3000, mineCount = 5, productionRate = ironRate }},
+    { ResourceType.Stone, new ResourceData { currentAmount = 2500, mineCount = 4, productionRate = stoneRate }},
+    { ResourceType.Diamond, new ResourceData { currentAmount = 10, mineCount = 1, productionRate = diamondRate }}
+});
+        var mediumStateTemplate = new Region("MediumState", 90.0f, 15000, 5000, new Dictionary<ResourceType, ResourceData> {
+    { ResourceType.Gold, new ResourceData { currentAmount = 1200, mineCount = 4, productionRate = goldRate }},
+    { ResourceType.Water, new ResourceData { currentAmount = 3500, mineCount = 3, productionRate = waterRate }},
+    { ResourceType.Salt, new ResourceData { currentAmount = 1800, mineCount = 3, productionRate = saltRate }},
+    { ResourceType.Meat, new ResourceData { currentAmount = 2500, mineCount = 3, productionRate = meatRate }},
+    { ResourceType.Fruits, new ResourceData { currentAmount = 2200, mineCount = 3, productionRate = fruitsRate }},
+    { ResourceType.Vegetables, new ResourceData { currentAmount = 2100, mineCount = 3, productionRate = vegetablesRate }},
+    { ResourceType.Wheat, new ResourceData { currentAmount = 2300, mineCount = 4, productionRate = wheatRate }},
+    { ResourceType.Wood, new ResourceData { currentAmount = 2400, mineCount = 4, productionRate = woodRate }},
+    { ResourceType.Coal, new ResourceData { currentAmount = 2600, mineCount = 3, productionRate = coalRate }},
+    { ResourceType.Iron, new ResourceData { currentAmount = 2800, mineCount = 4, productionRate = ironRate }},
+    { ResourceType.Stone, new ResourceData { currentAmount = 2000, mineCount = 3, productionRate = stoneRate }},
+    { ResourceType.Diamond, new ResourceData { currentAmount = 2, mineCount = 0, productionRate = diamondRate }}
+});
+        var smallStateTemplate = new Region("SmallState", 80.0f, 10000, 4000, new Dictionary<ResourceType, ResourceData> {
+    { ResourceType.Gold, new ResourceData { currentAmount = 1000, mineCount = 3, productionRate = goldRate }},
+    { ResourceType.Water, new ResourceData { currentAmount = 3000, mineCount = 2, productionRate = waterRate }},
+    { ResourceType.Salt, new ResourceData { currentAmount = 1600, mineCount = 2, productionRate = saltRate }},
+    { ResourceType.Meat, new ResourceData { currentAmount = 2000, mineCount = 2, productionRate = meatRate }},
+    { ResourceType.Fruits, new ResourceData { currentAmount = 2000, mineCount = 2, productionRate = fruitsRate }},
+    { ResourceType.Vegetables, new ResourceData { currentAmount = 1900, mineCount = 2, productionRate = vegetablesRate }},
+    { ResourceType.Wheat, new ResourceData { currentAmount = 2000, mineCount = 3, productionRate = wheatRate }},
+    { ResourceType.Wood, new ResourceData { currentAmount = 2100, mineCount = 3, productionRate = woodRate }},
+    { ResourceType.Coal, new ResourceData { currentAmount = 2200, mineCount = 2, productionRate = coalRate }},
+    { ResourceType.Iron, new ResourceData { currentAmount = 2400, mineCount = 3, productionRate = ironRate }},
+    { ResourceType.Stone, new ResourceData { currentAmount = 1900, mineCount = 2, productionRate = stoneRate }},
+    { ResourceType.Diamond, new ResourceData { currentAmount = 0, mineCount = 0, productionRate = diamondRate }}
+});
+         largeStates = new[] { "California", "Texas", "New York", "Florida", "Washington", "Georgia" };
+         mediumStates = new[] { "Ohio", "Indiana", "Virginia", "North Carolina", "South Carolina",
+            "Oregon", "Idaho", "Montana", "North Dakota", "Minnesota", "Wisconsin",
+            "Wyoming", "South Dakota", "Iowa", "Illinois", "Michigan",
+              "Massachusetts", "New Jersey", "Pennsylvania", "Maryland",
+            "Ohio", "Indiana", "Virginia", "North Carolina", "South Carolina",
+           "Alabama", "Mississippi", "Louisiana", "New Mexico", "Arizona",
+             "Nevada", "Utah", "Colorado", "Kansas", "Nebraska", "Missouri",
+            "Kentucky", "West Virginia", "Tennessee", "Arkansas", "Oklahoma" };
+         smallStates = new[] { "Maine", "New Hampshire", "Vermont", "Rhode Island", "Delaware" };
+
+       
+
+        foreach (var state in largeStates)
+        {
+            regions[state] = new Region(state, largeStateTemplate.Morale, largeStateTemplate.Population, largeStateTemplate.Resources, new Dictionary<ResourceType, ResourceData>(largeStateTemplate.Resources));
+        }
+
+        foreach (var state in mediumStates)
+        {
+            regions[state] = new Region(state, mediumStateTemplate.Morale, mediumStateTemplate.Population, mediumStateTemplate.Resources, new Dictionary<ResourceType, ResourceData>(mediumStateTemplate.Resources));
+        }
+
+        foreach (var state in smallStates)
+        {
+            regions[state] = new Region(state, smallStateTemplate.Morale, smallStateTemplate.Population, smallStateTemplate.Resources, new Dictionary<ResourceType, ResourceData>(smallStateTemplate.Resources));
+        }
+
+
+    }
+
+
     private void InitializedStateDataValue()
     {
-        // B�lge verilerini ba�latma
-        regions = new Dictionary<string, Region>
-        {
-    { "Washington", new Region("Washington", 60.0f, 10000, 1000) },
-    { "Oregon", new Region("Oregon", 55.0f, 8000, 800) },
-    { "Idaho", new Region("Idaho", 50.0f, 5000, 500) },
-    { "Montana", new Region("Montana", 50.0f, 5000, 500) },
-    { "North Dakota", new Region("North Dakota", 50.0f, 5000, 500) },
-    { "Minnesota", new Region("Minnesota", 55.0f, 8000, 800) },
-    { "Wisconsin", new Region("Wisconsin", 55.0f, 8000, 800) },
-    { "Wyoming", new Region("Wyoming", 50.0f, 5000, 500) },
-    { "South Dakota", new Region("South Dakota", 50.0f, 5000, 500) },
-    { "Iowa", new Region("Iowa", 55.0f, 8000, 800) },
-    { "Illinois", new Region("Illinois", 60.0f, 10000, 1000) },
-    { "Michigan", new Region("Michigan", 60.0f, 10000, 1000) },
-    { "New York", new Region("New York", 75.0f, 15000, 1500) },
-    { "Vermont", new Region("Vermont", 50.0f, 5000, 500) },
-    { "New Hampshire", new Region("New Hampshire", 50.0f, 5000, 500) },
-    { "Maine", new Region("Maine", 50.0f, 5000, 500) },
-    { "Massachusetts", new Region("Massachusetts", 60.0f, 10000, 1000) },
-    { "New Jersey", new Region("New Jersey", 60.0f, 10000, 1000) },
-    { "Pennsylvania", new Region("Pennsylvania", 60.0f, 10000, 1000) },
-    { "Maryland", new Region("Maryland", 55.0f, 8000, 800) },
-    { "Ohio", new Region("Ohio", 60.0f, 10000, 1000) },
-    { "Indiana", new Region("Indiana", 55.0f, 8000, 800) },
-    { "Virginia", new Region("Virginia", 60.0f, 10000, 1000) },
-    { "North Carolina", new Region("North Carolina", 60.0f, 10000, 1000) },
-    { "South Carolina", new Region("South Carolina", 55.0f, 8000, 800) },
-    { "Georgia", new Region("Georgia", 60.0f, 10000, 1000) },
-    { "Florida", new Region("Florida", 60.0f, 10000, 1000) },
-    { "Alabama", new Region("Alabama", 55.0f, 8000, 800) },
-    { "Mississippi", new Region("Mississippi", 55.0f, 8000, 800) },
-    { "Louisiana", new Region("Louisiana", 55.0f, 8000, 800) },
-    { "Texas", new Region("Texas", 70.0f, 12000, 1200) },
-    { "New Mexico", new Region("New Mexico", 50.0f, 5000, 500) },
-    { "Arizona", new Region("Arizona", 50.0f, 5000, 500) },
-    { "California", new Region("California", 75.0f, 15000, 1500) },
-    { "Nevada", new Region("Nevada", 50.0f, 5000, 500) },
-    { "Utah", new Region("Utah", 50.0f, 5000, 500) },
-    { "Colorado", new Region("Colorado", 55.0f, 8000, 800) },
-    { "Kansas", new Region("Kansas", 55.0f, 8000, 800) },
-    { "Nebraska", new Region("Nebraska", 50.0f, 5000, 500) },
-    { "Missouri", new Region("Missouri", 55.0f, 8000, 800) },
-    { "Kentucky", new Region("Kentucky", 55.0f, 8000, 800) },
-    { "West Virginia", new Region("West Virginia", 50.0f, 5000, 500) },
-    { "Tennessee", new Region("Tennessee", 55.0f, 8000, 800) },
-    { "Arkansas", new Region("Arkansas", 55.0f, 8000, 800) },
-    { "Oklahoma", new Region("Oklahoma", 50.0f, 5000, 500) }
+       
 
 
-        };
-        // UnitArmyPower ve ArmySize hesaplama
+
+
         System.Random rand = new System.Random();
 
-        foreach (var region in regions.Values)
-        {
-           
-            
-            region.UnitArmyPower = (float)(0.75 + rand.NextDouble() * 0.75); // 0.75 ile 1.5 arasında rastgele
-            region.ArmySize = (int)(region.Population * 0.25); // Nüfusun %25'i
-        }
+      
         foreach (Transform state in Usa.Instance.transform)
         {
-            if (state.GetComponent<State>() != null )
+            if (state.GetComponent<State>() != null)
             {
                 State s = state.GetComponent<State>();
                 if (regions.ContainsKey(state.name))
                 {
                     Region region = regions[state.name];
+                    if (largeStates.Contains(state.name))
+                    {
+                        s.UnitArmyPower = (float)(0.75 + rand.NextDouble() * 0.25); //ort 0.875
+
+                    }
+                    else if (smallStates.Contains(region.Name))
+                    {
+                        s.UnitArmyPower = (float)(0.75 + rand.NextDouble() * 0.05);
+                    }
+                    else
+                    {
+                        s.UnitArmyPower = (float)(0.75 + rand.NextDouble() * 0.15);
+                    }
+                 
+                   
                     s.StateName = region.Name;
-                    s.UnitArmyPower =  region.UnitArmyPower;
-                    s.ArmySize= region.ArmySize;
+                    s.ArmySize = (int)(region.Population * 0.25); // Nüfusun %25'i
                     s.Morele = region.Morale;
-                    s.Resources= region.Resources;
-                    s.Population= region.Population;
-                    //Debug.Log($"{s.name} adlı statenin bilgileri {s.Morele}");
-                    
+                    s.Resources = region.Resources;
+                    s.Population = region.Population;
+                    s.resourceData = region.ResourceDatas;
+
 
 
                 }
                 else
                 {
-                    Debug.LogWarning(" state ismi regen arrayde bulunamadı "+state.name);
+                    Debug.LogWarning(" state bulunamadı ");
                 }
-            }
-            else
-            {
-                Debug.LogWarning(" state bulunamadı ");
-            }
-            
 
+            }
         }
         
      }
