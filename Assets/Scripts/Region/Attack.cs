@@ -39,6 +39,7 @@ public class Attack : MonoBehaviour
     {
         attackingStateText = RegionManager.instance.a_regionNameText;
         lastDefendingState = defendingState;
+        lastAttackingState = attackingStateText.text;
         yield return null;
         
 
@@ -174,7 +175,7 @@ public class Attack : MonoBehaviour
         GameManager.Instance.isGamePause = false;
     }
 
-    GameObject FindChildByName(Transform parent, string name)
+   public GameObject FindChildByName(Transform parent, string name)
     {
         foreach (Transform child in parent)
         {

@@ -5,9 +5,9 @@ using UnityEngine;
 
 public class AllyState : MonoBehaviour, ISelectable
 {
-    
+
   
-   
+
     public void SellectState()
     {
         //Debug.Log("ally state seçildi");

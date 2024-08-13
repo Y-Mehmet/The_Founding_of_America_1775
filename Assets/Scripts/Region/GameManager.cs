@@ -12,7 +12,7 @@ public class GameManager : MonoBehaviour
     public bool IsAttackFinish  = true;
     public bool IsSpy= false;
 
-    public float attackFinishDurtion = 10.0f;
+    public float attackFinishDurtion = 7.0f;
     //animasyon için 
     public float moveAmount = 0.33f;    // Y ekseninde hareket edilecek mesafe
     public float moveDuration = 0.5f; // Hareket süresi

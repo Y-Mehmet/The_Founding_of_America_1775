@@ -21,6 +21,8 @@ public class State : MonoBehaviour
     public float Morele;
     public int Population;
     public int Resources;
+    public float loss;
+    public int attackCanvasButtonPanelIndex = 1;
 
     public Dictionary<ResourceType, ResourceData> resourceData = new Dictionary<ResourceType, ResourceData>();
 
@@ -112,16 +114,21 @@ public class State : MonoBehaviour
         ArmySize-= (int)loss;
         if(ArmySize <= 20)
         {
+            
             switch (stateType)
             {
                 case (StateType.Ally):
+
                      LostState();
+                    attackCanvasButtonPanelIndex = 3;
                     break;
                 case (StateType.Enemy):
-                    OccupyState();
+                    
+                    attackCanvasButtonPanelIndex = 2;
                     break;
                 case (StateType.Neutral):
-                    RelaseState(); 
+                    RelaseState();
+                    attackCanvasButtonPanelIndex = 2;
                     break;
             }
 
@@ -129,35 +136,46 @@ public class State : MonoBehaviour
             
 
         }
-            
+        else
+        {
+            attackCanvasButtonPanelIndex = 1;
+
+        }
+
         TotalArmyPower = ArmySize * UnitArmyPower;
 
     }
     public void LostWar(float lossRate)
     {
-        float loss = lossRate * ArmySize ;
+        loss = lossRate * ArmySize ;
         Debug.LogWarning($"loss: {loss} armysize {ArmySize}  name {gameObject.name} loss rate {lossRate}");
         ReduceArmySize(loss);
         
     }
-     void OccupyState()
+    public  void OccupyState()
     {
-        Debug.LogWarning("state iþgal edildi");
-        ArmySize = firstArmySize;
-        stateType = StateType.Ally;
-        ChangeCollor.Instance.ChangeGameobjectColor(gameObject, stateType);
-        FindISelectibleComponentAndDisable();
-        
-        AllyState allyState = gameObject.GetComponent<AllyState>();
-        if (allyState != null)
+        if (stateType == StateType.Enemy)
         {
-            allyState.enabled = true;
+            Debug.LogWarning("state iþgal edildi");
+            ArmySize = firstArmySize;
+            stateType = StateType.Ally;
+            ChangeCollor.Instance.ChangeGameobjectColor(gameObject, stateType);
+            FindISelectibleComponentAndDisable();
+
+            AllyState allyState = gameObject.GetComponent<AllyState>();
+            if (allyState != null)
+            {
+                Debug.LogWarning($"ally stete {allyState.name} bulundu ve eneblesi actif edildi");
+                allyState.enabled = true;
+            }
+            else
+            {
+                Debug.LogWarning("ally state bulunamadý ");
+                gameObject.AddComponent<AllyState>();
+            }
         }
         else
-        {
-            Debug.LogWarning("ally state bulunamadý ");
-            gameObject.AddComponent<AllyState>();
-        }
+            Debug.LogWarning("elegeçirmeye çalýþtýðýn satte enmey deðil ");
 
     }
     void LostState()
@@ -210,6 +228,7 @@ public class State : MonoBehaviour
         {
             if (component is ISelectable)
             {
+                
                 component.enabled = false;
 
             }

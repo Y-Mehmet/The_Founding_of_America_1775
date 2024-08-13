@@ -6,7 +6,7 @@ using UnityEngine;
 public class DiceManager2 : MonoBehaviour
 {
     public static DiceManager2 Instance;
-    public GameObject AttackCanvas;
+    
 
     public List<GameObject> activeRivalDiceLists = new List<GameObject>();
     public List<GameObject> activePlayerDiceLists = new List<GameObject>();
@@ -69,12 +69,12 @@ public class DiceManager2 : MonoBehaviour
 
     public IEnumerator DiceDisactiveted(float duration)
     {
-        // Debug.LogWarning(" dis aktivated 5 sn sonra baþlayacak");
+       
         yield return new WaitForSeconds(duration);
-        
-        AttackCanvas.SetActive(true);
 
-        // Debug.LogWarning(" dis aktivated baþladý");
+
+        UIManager.Instance.ShowAttackCanvas();
+        
         activePlayerDiceLists.Clear();
         activeRivalDiceLists.Clear();
         ClearList();

@@ -8,6 +8,7 @@ public class UIManager : MonoBehaviour
     public GameObject allyPanel;
     public GameObject enemyPanel;
     public GameObject neutralPanel;
+    public GameObject attackCanvas;
 
     private void Awake()
     {
@@ -37,5 +38,11 @@ public class UIManager : MonoBehaviour
                 neutralPanel.SetActive(true);
                 break;
         }
+    }
+    public void  ShowAttackCanvas()
+    {
+        attackCanvas.SetActive(true);
+        AttackCanvas.Instance.ShowAttackCanvasInfo(  );
+        
     }
 }

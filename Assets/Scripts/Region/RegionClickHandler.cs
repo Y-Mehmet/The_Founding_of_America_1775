@@ -2,6 +2,7 @@ using UnityEngine;
 using DG.Tweening;
 using Unity.VisualScripting;
 using System.Collections.Generic;
+using System.Linq;
 
 public class RegionClickHandler : MonoBehaviour
 {
@@ -45,12 +46,19 @@ public class RegionClickHandler : MonoBehaviour
                     State state = hitObject.GetComponent<State>();
                     if (state != null && RegionManager.instance != null && !GameManager.Instance.ÝsAttack && !GameManager.Instance.IsRegionPanelOpen)
                     {
-                        ISelectable selectable = hitObject.GetComponent<ISelectable>();
+                        ISelectable selectable = hitObject.GetComponents<MonoBehaviour>()
+                                           .OfType<ISelectable>()
+                                           .FirstOrDefault(selectable => ((MonoBehaviour)selectable).enabled);
+                       
                         if (selectable != null)
                         {
                             currentState = hitObject;
                          Debug.Log("Bölge paneli açýldý: " + hitObject.name);
                         selectable.SellectState();
+                        }
+                        else
+                        {
+                            Debug.LogWarning(" hayda seleced bulunamadý");
                         }
                         
 
@@ -58,12 +66,18 @@ public class RegionClickHandler : MonoBehaviour
                     }
                     else if (state != null && RegionManager.instance != null && GameManager.Instance.ÝsAttack)
                     {
-                        
-                        ISelectable selectable = hitObject.GetComponent<ISelectable>();
+
+                        ISelectable selectable = hitObject.GetComponents<MonoBehaviour>()
+                                           .OfType<ISelectable>()
+                                           .FirstOrDefault(selectable => ((MonoBehaviour)selectable).enabled);
                         if (selectable != null)
                         {
                           
                             selectable.Attack2();
+                        }
+                        else
+                        {
+                            Debug.LogWarning("selectible bulunamadý");
                         }
                     }
                 }
@@ -72,15 +86,20 @@ public class RegionClickHandler : MonoBehaviour
     }
     public void CloseBtn_CloseAll()
     {
-        ISelectable selectable = currentState.GetComponent<ISelectable>();
-        if(selectable != null && ((MonoBehaviour)selectable).enabled)
+        ISelectable activeSelectable = currentState.GetComponents<MonoBehaviour>()
+                                           .OfType<ISelectable>()
+                                           .FirstOrDefault(selectable => ((MonoBehaviour)selectable).enabled);
+
+        if (activeSelectable != null)
         {
-            selectable.CloseAll();
+            activeSelectable.CloseAll();
         }
         else
         {
-            Debug.LogWarning($"{currentState} selecteble içermiyor ");
+            Debug.LogWarning($"{currentState.name} içerisinde aktif bir ISelectable bulunamadý.");
         }
+
+
     }
 
 }

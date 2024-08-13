@@ -7,9 +7,8 @@ public class EnemyState : MonoBehaviour, ISelectable
 {
     public List<GameObject> neighborStates = new List<GameObject>();
 
-  
-    
-    
+
+
     public void Attack2()
     {
         Debug.Log("Savaþýlacak bölge seçildi: " + gameObject.name);
