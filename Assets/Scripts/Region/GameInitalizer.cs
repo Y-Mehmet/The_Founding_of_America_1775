@@ -28,8 +28,9 @@ public class GameInitalizer : MonoBehaviour
         Neighbor game = Neighbor.Instance;
         InitializeCities();
         StateSize();
-        InitializeNeighbors();
         InitializedStateDataValue();
+        InitializeNeighbors();
+        
 
    
     }
@@ -55,7 +56,7 @@ public class GameInitalizer : MonoBehaviour
     private void StateSize()
     {
        
-        var largeStateTemplate = new Region("LargeState", 100.0f, 20000, 6000, new Dictionary<ResourceType, ResourceData> {
+        var largeStateTemplate = new Region("LargeState", 100.0f, 20000, 1, new Dictionary<ResourceType, ResourceData> {
     { ResourceType.Gold, new ResourceData { currentAmount = 1500, mineCount = 5, productionRate = goldRate }},
     { ResourceType.Water, new ResourceData { currentAmount = 4000, mineCount = 4, productionRate = waterRate }},
     { ResourceType.Salt, new ResourceData { currentAmount = 2000, mineCount = 4, productionRate = saltRate }},
@@ -69,7 +70,7 @@ public class GameInitalizer : MonoBehaviour
     { ResourceType.Stone, new ResourceData { currentAmount = 2500, mineCount = 4, productionRate = stoneRate }},
     { ResourceType.Diamond, new ResourceData { currentAmount = 10, mineCount = 1, productionRate = diamondRate }}
 });
-        var mediumStateTemplate = new Region("MediumState", 90.0f, 15000, 5000, new Dictionary<ResourceType, ResourceData> {
+        var mediumStateTemplate = new Region("MediumState", 90.0f, 15000, 1, new Dictionary<ResourceType, ResourceData> {
     { ResourceType.Gold, new ResourceData { currentAmount = 1200, mineCount = 4, productionRate = goldRate }},
     { ResourceType.Water, new ResourceData { currentAmount = 3500, mineCount = 3, productionRate = waterRate }},
     { ResourceType.Salt, new ResourceData { currentAmount = 1800, mineCount = 3, productionRate = saltRate }},
@@ -83,7 +84,7 @@ public class GameInitalizer : MonoBehaviour
     { ResourceType.Stone, new ResourceData { currentAmount = 2000, mineCount = 3, productionRate = stoneRate }},
     { ResourceType.Diamond, new ResourceData { currentAmount = 2, mineCount = 0, productionRate = diamondRate }}
 });
-        var smallStateTemplate = new Region("SmallState", 80.0f, 10000, 4000, new Dictionary<ResourceType, ResourceData> {
+        var smallStateTemplate = new Region("SmallState", 80.0f, 10000, 3, new Dictionary<ResourceType, ResourceData> {
     { ResourceType.Gold, new ResourceData { currentAmount = 1000, mineCount = 3, productionRate = goldRate }},
     { ResourceType.Water, new ResourceData { currentAmount = 3000, mineCount = 2, productionRate = waterRate }},
     { ResourceType.Salt, new ResourceData { currentAmount = 1600, mineCount = 2, productionRate = saltRate }},
@@ -98,7 +99,7 @@ public class GameInitalizer : MonoBehaviour
     { ResourceType.Diamond, new ResourceData { currentAmount = 0, mineCount = 0, productionRate = diamondRate }}
 });
          largeStates = new[] { "California", "Texas", "New York", "Florida", "Washington", "Georgia" };
-         mediumStates = new[] { "Ohio", "Indiana", "Virginia", "North Carolina", "South Carolina",
+         mediumStates = new[] { 
             "Oregon", "Idaho", "Montana", "North Dakota", "Minnesota", "Wisconsin",
             "Wyoming", "South Dakota", "Iowa", "Illinois", "Michigan",
               "Massachusetts", "New Jersey", "Pennsylvania", "Maryland",
@@ -113,6 +114,7 @@ public class GameInitalizer : MonoBehaviour
         foreach (var state in largeStates)
         {
             regions[state] = new Region(state, largeStateTemplate.Morale, largeStateTemplate.Population, largeStateTemplate.Resources, new Dictionary<ResourceType, ResourceData>(largeStateTemplate.Resources));
+                    
         }
 
         foreach (var state in mediumStates)
@@ -150,15 +152,56 @@ public class GameInitalizer : MonoBehaviour
                     if (largeStates.Contains(state.name))
                     {
                         s.UnitArmyPower = (float)(0.75 + rand.NextDouble() * 0.25); //ort 0.875
-
+                        s.resourceData = new Dictionary<ResourceType, ResourceData>
+                        {   { ResourceType.Gold, new ResourceData { currentAmount = 1500, mineCount = 5, productionRate = goldRate }},
+                            { ResourceType.Water, new ResourceData { currentAmount = 4000, mineCount = 4, productionRate = waterRate }},
+                            { ResourceType.Salt, new ResourceData { currentAmount = 2000, mineCount = 4, productionRate = saltRate }},
+                            { ResourceType.Meat, new ResourceData { currentAmount = 3000, mineCount = 4, productionRate = meatRate }},
+                            { ResourceType.Fruits, new ResourceData { currentAmount = 2500, mineCount = 4, productionRate = fruitsRate }},
+                            { ResourceType.Vegetables, new ResourceData { currentAmount = 2400, mineCount = 4, productionRate = vegetablesRate }},
+                            { ResourceType.Wheat, new ResourceData { currentAmount = 2500, mineCount = 5, productionRate = wheatRate }},
+                            { ResourceType.Wood, new ResourceData { currentAmount = 2600, mineCount = 5, productionRate = woodRate }},
+                            { ResourceType.Coal, new ResourceData { currentAmount = 2800, mineCount = 4, productionRate = coalRate }},
+                            { ResourceType.Iron, new ResourceData { currentAmount = 3000, mineCount = 5, productionRate = ironRate }},
+                            { ResourceType.Stone, new ResourceData { currentAmount = 2500, mineCount = 4, productionRate = stoneRate }},
+                            { ResourceType.Diamond, new ResourceData { currentAmount = 10, mineCount = 1, productionRate = diamondRate }}};
                     }
                     else if (smallStates.Contains(region.Name))
                     {
                         s.UnitArmyPower = (float)(0.75 + rand.NextDouble() * 0.05);
+                        s.resourceData = new Dictionary<ResourceType, ResourceData>
+                     {
+                            { ResourceType.Gold, new ResourceData { currentAmount = 1000, mineCount = 3, productionRate = goldRate }},
+                            { ResourceType.Water, new ResourceData { currentAmount = 3000, mineCount = 2, productionRate = waterRate }},
+                            { ResourceType.Salt, new ResourceData { currentAmount = 1600, mineCount = 2, productionRate = saltRate }},
+                            { ResourceType.Meat, new ResourceData { currentAmount = 2000, mineCount = 2, productionRate = meatRate }},
+                            { ResourceType.Fruits, new ResourceData { currentAmount = 2000, mineCount = 2, productionRate = fruitsRate }},
+                            { ResourceType.Vegetables, new ResourceData { currentAmount = 1900, mineCount = 2, productionRate = vegetablesRate }},
+                            { ResourceType.Wheat, new ResourceData { currentAmount = 2000, mineCount = 3, productionRate = wheatRate }},
+                            { ResourceType.Wood, new ResourceData { currentAmount = 2100, mineCount = 3, productionRate = woodRate }},
+                            { ResourceType.Coal, new ResourceData { currentAmount = 2200, mineCount = 2, productionRate = coalRate }},
+                            { ResourceType.Iron, new ResourceData { currentAmount = 2400, mineCount = 3, productionRate = ironRate }},
+                            { ResourceType.Stone, new ResourceData { currentAmount = 1900, mineCount = 2, productionRate = stoneRate }},
+                            { ResourceType.Diamond, new ResourceData { currentAmount = 0, mineCount = 0, productionRate = diamondRate }} };
                     }
                     else
                     {
                         s.UnitArmyPower = (float)(0.75 + rand.NextDouble() * 0.15);
+                        s.resourceData = new Dictionary<ResourceType, ResourceData>
+                        {
+                            { ResourceType.Gold, new ResourceData { currentAmount = 1200, mineCount = 4, productionRate = goldRate }},
+                            { ResourceType.Water, new ResourceData { currentAmount = 3500, mineCount = 3, productionRate = waterRate }},
+                            { ResourceType.Salt, new ResourceData { currentAmount = 1800, mineCount = 3, productionRate = saltRate }},
+                            { ResourceType.Meat, new ResourceData { currentAmount = 2500, mineCount = 3, productionRate = meatRate }},
+                            { ResourceType.Fruits, new ResourceData { currentAmount = 2200, mineCount = 3, productionRate = fruitsRate }},
+                            { ResourceType.Vegetables, new ResourceData { currentAmount = 2100, mineCount = 3, productionRate = vegetablesRate }},
+                            { ResourceType.Wheat, new ResourceData { currentAmount = 2300, mineCount = 4, productionRate = wheatRate }},
+                            { ResourceType.Wood, new ResourceData { currentAmount = 2400, mineCount = 4, productionRate = woodRate }},
+                            { ResourceType.Coal, new ResourceData { currentAmount = 2600, mineCount = 3, productionRate = coalRate }},
+                            { ResourceType.Iron, new ResourceData { currentAmount = 2800, mineCount = 4, productionRate = ironRate }},
+                            { ResourceType.Stone, new ResourceData { currentAmount = 2000, mineCount = 3, productionRate = stoneRate }},
+                            { ResourceType.Diamond, new ResourceData { currentAmount = 2, mineCount = 0, productionRate = diamondRate }}
+                                                };
                     }
                  
                    
@@ -167,10 +210,7 @@ public class GameInitalizer : MonoBehaviour
                     s.Morele = region.Morale;
                     s.Resources = region.Resources;
                     s.Population = region.Population;
-                    s.resourceData = region.ResourceDatas;
-
-
-
+                   
                 }
                 else
                 {

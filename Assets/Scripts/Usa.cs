@@ -29,7 +29,7 @@ public class Usa : MonoBehaviour
                
             else
             {
-                Debug.LogWarning("state  içermiyor");
+                Debug.LogWarning("state componenti   içermiyor");
             }
                 
 

@@ -33,14 +33,7 @@ public class RegionManager : MonoBehaviour
         { Destroy(gameObject); }
     }
 
-    void Start()
-    {
-     
-
-        
-
-
-    }
+   
     public void ShowAllyRegionInfo(string regionName)
     {
        

@@ -45,6 +45,7 @@ public class GameManager : MonoBehaviour
             Instance = this;
         }
     }
+    
 
     public List<State> GetStatesByType(StateType stateType)
     {
@@ -91,8 +92,15 @@ public class GameManager : MonoBehaviour
     {
         IsSpy = true;
     }
-    
-   
-   
-    
+    public void ChangeAttackFinisValueFalse()
+    {
+        IsAttackFinish = false;
+    }
+    public void ChangeAttackFinisValueTrue()
+    {
+        IsAttackFinish = true;
+    }
+
+
+
 }

@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using System.Linq.Expressions;
 using UnityEngine;
 
@@ -20,12 +21,12 @@ public class State : MonoBehaviour
     public Sprite StateIcon;
     public float Morele;
     public int Population;
-    public int Resources;
+    public int Resources; // fav resources 
     public float loss;
     public int attackCanvasButtonPanelIndex = 1;
 
     public Dictionary<ResourceType, ResourceData> resourceData = new Dictionary<ResourceType, ResourceData>();
-
+    public  Dictionary<ResourceType, int> plunderedResources = new Dictionary<ResourceType, int>();
 
     int firstArmySize = 100; // state el deðitirdikten sonraki army size 
     public float MoraleMultiplier = 0.01f; // Moralin asker artýþýna etkisi
@@ -148,7 +149,7 @@ public class State : MonoBehaviour
     public void LostWar(float lossRate)
     {
         loss = lossRate * ArmySize ;
-        Debug.LogWarning($"loss: {loss} armysize {ArmySize}  name {gameObject.name} loss rate {lossRate}");
+       // Debug.LogWarning($"loss: {loss} armysize {ArmySize}  name {gameObject.name} loss rate {lossRate}");
         ReduceArmySize(loss);
         
     }
@@ -234,6 +235,45 @@ public class State : MonoBehaviour
             }
         }
     }
+    public Dictionary<ResourceType, int>  PlunderResource()
+    {
+        plunderedResources.Clear();
+
+
+       
+        ResourceType resourceType = (ResourceType)Resources;
+       
+        
+            plunderedResources.Add(ResourceType.Gold, resourceData[ResourceType.Gold].currentAmount);
+            resourceData[ResourceType.Gold].currentAmount = 0;
+            plunderedResources.Add(resourceType, resourceData[resourceType].currentAmount);
+            resourceData[resourceType].currentAmount = 0;
+
+           // Debug.LogWarning("altýn ve facv kaynak eklaendi "+ resourceType);
+       
+
+        // Eðer baþka kaynaklar da yaðmalanacaksa buraya ekleyebilirsiniz
+
+        return plunderedResources;
+    }
+    
+    public void AddResource(Dictionary<ResourceType, int> plunderedResources)
+{
+    foreach (var resource in plunderedResources)
+    {
+        if (resourceData.ContainsKey(resource.Key))
+        {
+            // Eðer kaynak zaten mevcutsa, miktarý güncelleyebilirsiniz
+            resourceData[resource.Key].currentAmount += resource.Value;
+        }
+        else
+        {
+                Debug.LogWarning("yeni bir tip kaynak eklemeye çalýþýyorsun ");
+        }
+    }
+}
+
+
 
 
 

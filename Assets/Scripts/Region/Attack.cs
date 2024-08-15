@@ -149,7 +149,7 @@ public class Attack : MonoBehaviour
                 
             }
         }
-        Debug.Log($" player {numberOfDiceWonByThePlayer} drew {numberOfDrew} rival {numberOfDiceWonByTheRival}");
+     //   Debug.Log($" player {numberOfDiceWonByThePlayer} drew {numberOfDrew} rival {numberOfDiceWonByTheRival}");
         defendingStateGameObject.GetComponent<State>().LostWar((float)((numberOfDiceWonByThePlayer + numberOfDrew) / DiceManager2.Instance.activeRivalDiceLists.Count));
         attackingStateGameObject.GetComponent<State>().LostWar((float)((numberOfDiceWonByTheRival + numberOfDrew) / DiceManager2.Instance.activePlayerDiceLists.Count));
 

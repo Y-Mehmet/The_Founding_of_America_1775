@@ -17,7 +17,7 @@ public class ResourceManager : MonoBehaviour
 
         // Baþlangýç kaynaklarýný tanýmlama
         resources[ResourceType.Gold] = 1000;
-        resources[ResourceType.Wheat] = 10000;
+       
         // Diðer kaynaklar eklenecekse buraya eklenebilir
     }
 
