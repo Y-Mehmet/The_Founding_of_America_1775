@@ -5,8 +5,8 @@ public class ResourceManager : MonoBehaviour
 {
     public static ResourceManager Instance { get; private set; }
 
-    // Kaynaklarý saklayacaðýmýz bir Dictionary
-    private Dictionary<ResourceType, int> resources = new Dictionary<ResourceType, int>();
+    //merkez bankasýnýn  Kaynaklarý saklayacaðýmýz bir Dictionary
+    private Dictionary<ResourceType, float> resources = new Dictionary<ResourceType, float>();
 
     private void Awake()
     {
@@ -36,13 +36,27 @@ public class ResourceManager : MonoBehaviour
             Debug.LogWarning($"Resource {resourceType} not found.");
         }
     }
+    public void ChargeTax(ResourceType resourceType, float reduceAmount)
+    {
+        if (resources.ContainsKey(resourceType))
+        {
+            resources[resourceType] +=  reduceAmount;
+            // Kaynak miktarý 0'dan az olmamalýdýr
+            if (resources[resourceType] < 0)
+                resources[resourceType] = 0;
+        }
+        else
+        {
+            Debug.LogWarning($"Resource {resourceType} not found.");
+        }
+    }
 
     // Kaynaðýn miktarýný almak için yardýmcý metod
     public int GetResourceAmount(ResourceType resourceType)
     {
         if (resources.ContainsKey(resourceType))
         {
-            return resources[resourceType];
+            return (int) resources[resourceType];
         }
         else
         {
@@ -55,7 +69,7 @@ public class ResourceManager : MonoBehaviour
         int resource = GetResourceAmount(resourceType);
         if( resource>= cost)
         {
-            ReduceResource(resourceType, (int)cost);
+            ReduceResource(resourceType, cost);
 
 
             return true;
@@ -86,8 +100,8 @@ public enum ResourceType
 [System.Serializable]
 public class ResourceData
 {
-    public int currentAmount;    
-    public int mineCount;        
-    public float productionRate;
-    public int consumptionAmount;
+    public float currentAmount;    // mevcut miktar
+    public int mineCount;        // maden sayýsý
+    public float productionRate; // üretim hýzý
+    public float consumptionAmount;// tüketim miktarý
 }

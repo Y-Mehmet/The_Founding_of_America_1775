@@ -25,8 +25,12 @@ public class State : MonoBehaviour
     public float loss;
     public int attackCanvasButtonPanelIndex = 1;
 
+    public float IncomeTax = 10; //üreteim vergisi
+    public float SalesTax = 10;  //  ticaret vergisi
+    public float DirectTax = 10; //  doðrudan vergi
+
     public Dictionary<ResourceType, ResourceData> resourceData = new Dictionary<ResourceType, ResourceData>();
-    public  Dictionary<ResourceType, int> plunderedResources = new Dictionary<ResourceType, int>();
+    public  Dictionary<ResourceType, float> plunderedResources = new Dictionary<ResourceType, float>();
 
     int firstArmySize = 100; // state el deðitirdikten sonraki army size 
     public float MoraleMultiplier = 0.01f; // Moralin asker artýþýna etkisi
@@ -92,7 +96,22 @@ public class State : MonoBehaviour
     {
         while (!GameManager.Instance.ÝsGameOver && !GameManager.Instance.isGamePause)
         {
-            // Kaynak üretim kodu buraya gelecek
+            foreach (var item in resourceData)
+            {
+                float productionAmount = (item.Value.mineCount * item.Value.productionRate);
+                if (item.Key== ResourceType.Gold)
+                {
+                   
+                    float tax = productionAmount /IncomeTax;
+                    ResourceManager.Instance.ChargeTax(ResourceType.Gold, tax);
+                    productionAmount -= tax;
+                }
+               
+                item.Value.currentAmount += productionAmount;
+                item.Value.currentAmount -= (item.Value.consumptionAmount);
+
+            }
+            
             yield return new WaitForSeconds(GameManager.Instance.gameDayTime);
         }
     }
@@ -235,7 +254,7 @@ public class State : MonoBehaviour
             }
         }
     }
-    public Dictionary<ResourceType, int>  PlunderResource()
+    public Dictionary<ResourceType, float>  PlunderResource()
     {
         plunderedResources.Clear();
 
@@ -257,7 +276,7 @@ public class State : MonoBehaviour
         return plunderedResources;
     }
     
-    public void AddResource(Dictionary<ResourceType, int> plunderedResources)
+    public void AddResource(Dictionary<ResourceType, float> plunderedResources)
 {
     foreach (var resource in plunderedResources)
     {

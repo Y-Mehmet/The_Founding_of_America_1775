@@ -26,6 +26,8 @@ public class GameManager : MonoBehaviour
     public bool isGamePause = false;
     public bool ÝsGameOver= false;
 
+   
+
 
     public List<State> allStates = new List<State>();
     public event Action OnAttackStarted;

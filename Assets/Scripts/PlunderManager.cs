@@ -22,7 +22,7 @@ public class PlunderManager : MonoBehaviour
         if (defState != null && attackState!= null)
         {
           //  Debug.Log("yaðam gerçekleþti");
-            Dictionary<ResourceType, int> res = defState.PlunderResource();
+            Dictionary<ResourceType, float> res = defState.PlunderResource();
             if(res != null )
             {
              
