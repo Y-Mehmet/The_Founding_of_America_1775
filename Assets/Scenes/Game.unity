@@ -19105,39 +19105,9 @@ PrefabInstance:
       objectReference: {fileID: 5218428}
     - target: {fileID: 982244820448680404, guid: eb3a6ce67bbaa80429ad8fcfd4b3713b,
         type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 982244820448680404, guid: eb3a6ce67bbaa80429ad8fcfd4b3713b,
-        type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Mode
-      value: 6
-      objectReference: {fileID: 0}
-    - target: {fileID: 982244820448680404, guid: eb3a6ce67bbaa80429ad8fcfd4b3713b,
-        type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 345059924}
-    - target: {fileID: 982244820448680404, guid: eb3a6ce67bbaa80429ad8fcfd4b3713b,
-        type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Target
-      value: 
-      objectReference: {fileID: 1988024858977025306}
-    - target: {fileID: 982244820448680404, guid: eb3a6ce67bbaa80429ad8fcfd4b3713b,
-        type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_MethodName
-      value: SetActive
-      objectReference: {fileID: 0}
-    - target: {fileID: 982244820448680404, guid: eb3a6ce67bbaa80429ad8fcfd4b3713b,
-        type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_TargetAssemblyTypeName
-      value: UnityEngine.GameObject, UnityEngine
-      objectReference: {fileID: 0}
-    - target: {fileID: 982244820448680404, guid: eb3a6ce67bbaa80429ad8fcfd4b3713b,
-        type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_ObjectArgumentAssemblyTypeName
-      value: UnityEngine.Object, UnityEngine
-      objectReference: {fileID: 0}
     - target: {fileID: 999112504301792382, guid: eb3a6ce67bbaa80429ad8fcfd4b3713b,
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Target
@@ -19537,6 +19507,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_AnchoredPosition.x
       value: 30
+      objectReference: {fileID: 0}
+    - target: {fileID: 8548034741589900643, guid: eb3a6ce67bbaa80429ad8fcfd4b3713b,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: DoShowPanel
       objectReference: {fileID: 0}
     - target: {fileID: 8733250377743808433, guid: eb3a6ce67bbaa80429ad8fcfd4b3713b,
         type: 3}
@@ -22449,7 +22424,7 @@ PrefabInstance:
     - target: {fileID: 1606330452720624517, guid: 957e98d162b46874d909fc3fe7c43ea2,
         type: 3}
       propertyPath: PrefabsForPool.Array.size
-      value: 6
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 1606330452720624517, guid: 957e98d162b46874d909fc3fe7c43ea2,
         type: 3}
@@ -22480,6 +22455,12 @@ PrefabInstance:
       propertyPath: PrefabsForPool.Array.data[5]
       value: 
       objectReference: {fileID: 6673368017971130479, guid: 0b6ad4976c008994f90e595276e3c08e,
+        type: 3}
+    - target: {fileID: 1606330452720624517, guid: 957e98d162b46874d909fc3fe7c43ea2,
+        type: 3}
+      propertyPath: PrefabsForPool.Array.data[6]
+      value: 
+      objectReference: {fileID: 3778447717157812073, guid: 1f52e37f5ad99b648b630f1f684e88d0,
         type: 3}
     - target: {fileID: 6713504186535248905, guid: 957e98d162b46874d909fc3fe7c43ea2,
         type: 3}

@@ -10,7 +10,18 @@ public enum PanelID
     TroopyPanel,
     EspionagePanel,
     WitchPanel,
-    PlunderPanel
+    PlunderPanel,
+    TradePanel,
+    CitizenPanel,
+    ProductionPanel,
+    TaxesPanel,
+    ProductRepoPanel,
+    SellPanel,
+    BuyPanel,
+    SellAllPanel,
+    StateProductPanel,
+
+
 
 
 }

@@ -87,6 +87,7 @@ GameObject:
   - component: {fileID: 4126137754597978113}
   - component: {fileID: 1736061404989851298}
   - component: {fileID: 8548034741589900643}
+  - component: {fileID: 3284655999912315372}
   m_Layer: 5
   m_Name: Trade
   m_TagString: Untagged
@@ -195,7 +196,33 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1736061404989851298}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 3284655999912315372}
+        m_TargetAssemblyTypeName: ShowPanelButton, Assembly-CSharp
+        m_MethodName: DoShowPanel
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+--- !u!114 &3284655999912315372
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 304386919177414322}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ade6d0f39e9b68b438f325120ad7706b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  panelID: 7
+  behavior: 0
 --- !u!1 &509377262223161599
 GameObject:
   m_ObjectHideFlags: 0
@@ -671,7 +698,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1287247083569151025}
   m_Layer: 5
-  m_Name: AttackPanel (1)
+  m_Name: TroopyPanel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -889,7 +916,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4799294021675870948}
   m_Layer: 5
-  m_Name: AttackPanel (2)
+  m_Name: CitzenPanel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1621,7 +1648,7 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 6402755456980271324}
         m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
         m_MethodName: SetActive
         m_Mode: 6
@@ -1913,7 +1940,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6037954021284887855}
   m_Layer: 5
-  m_Name: AttackPanel (3)
+  m_Name: TradePanel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2409,7 +2436,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1596888812553713483}
   m_Layer: 5
-  m_Name: AttackPanel (5)
+  m_Name: Taxes
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3361,7 +3388,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4614032562762249100}
   m_Layer: 5
-  m_Name: AttackPanel (4)
+  m_Name: ProductionPanel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
