@@ -21,13 +21,17 @@ public class PlunderManager : MonoBehaviour
         State attackState = Attack.Instance.FindChildByName(Usa.Instance.transform, Attack.Instance.lastAttackingState).GetComponent<State>();
         if (defState != null && attackState!= null)
         {
-          //  Debug.Log("yaðam gerçekleþti");
-            Dictionary<ResourceType, float> res = defState.PlunderResource();
+            //  Debug.Log("yaðam gerçekleþti");
+            defState.PlunderResource();
+            Dictionary<ResourceType, float> res = defState.plunderedResources;
             if(res != null )
             {
-             
+                //Debug.LogWarning($" ilk altýn deðreleri eklemmenden önce  ");
+                //Debug.LogWarning($" atafck state {attackState.name} gold value {attackState.resourceData[ResourceType.Gold].currentAmount} ");
+                //Debug.LogWarning($" def state {defState.name} gold value {defState.resourceData[ResourceType.Gold].currentAmount} ");
                 attackState.AddResource(res);
-               
+                
+
 
 
             }

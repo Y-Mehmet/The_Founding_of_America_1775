@@ -83,7 +83,7 @@ public class State : MonoBehaviour
 
     private IEnumerator IncreaseArmySizeOverTime()
     {
-        while (!GameManager.Instance.ÝsGameOver && !GameManager.Instance.isGamePause)
+        while (!GameManager.Instance.ÝsGameOver && !GameManager.Instance.isGamePause && GameManager.Instance.IsAttackFinish)
         {
             float armyIncreasePerSecond = Morale * MoraleMultiplier * Population * PopulationMultiplier;
             ArmySize += armyIncreasePerSecond;
@@ -94,7 +94,7 @@ public class State : MonoBehaviour
 
     private IEnumerator ResourceProduction()
     {
-        while (!GameManager.Instance.ÝsGameOver && !GameManager.Instance.isGamePause)
+        while (!GameManager.Instance.ÝsGameOver && !GameManager.Instance.isGamePause && GameManager.Instance.IsAttackFinish)
         {
             foreach (var item in resourceData)
             {
@@ -256,26 +256,33 @@ public class State : MonoBehaviour
     }
     public Dictionary<ResourceType, float>  PlunderResource()
     {
-        plunderedResources.Clear();
+        plunderedResources = new Dictionary<ResourceType, float>();
+    plunderedResources.Clear();
 
 
        
         ResourceType resourceType = (ResourceType)Resources;
-       
-        
-            plunderedResources.Add(ResourceType.Gold, resourceData[ResourceType.Gold].currentAmount);
+
+        //Debug.LogWarning($"güncel altýn ilk  durmu plunderliste uzunluðu {plunderedResources.Count} {resourceData[ResourceType.Gold].currentAmount} " + name);
+
+        plunderedResources.Add(ResourceType.Gold, resourceData[ResourceType.Gold].currentAmount);
             resourceData[ResourceType.Gold].currentAmount = 0;
             plunderedResources.Add(resourceType, resourceData[resourceType].currentAmount);
             resourceData[resourceType].currentAmount = 0;
 
-           // Debug.LogWarning("altýn ve facv kaynak eklaendi "+ resourceType);
+        //   Debug.LogWarning($"güncel altýn durmu {resourceData[ResourceType.Gold].currentAmount} "+ name);
        
 
         // Eðer baþka kaynaklar da yaðmalanacaksa buraya ekleyebilirsiniz
 
         return plunderedResources;
     }
-    
+    public Dictionary<ResourceType, float> GetPlundData()
+    {
+        return plunderedResources;
+    }
+
+
     public void AddResource(Dictionary<ResourceType, float> plunderedResources)
 {
     foreach (var resource in plunderedResources)
