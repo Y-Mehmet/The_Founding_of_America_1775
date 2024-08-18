@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class State : MonoBehaviour
@@ -11,6 +12,7 @@ public class State : MonoBehaviour
     private Coroutine increaseArmySizeCoroutine;
     private Coroutine resourceProductionCoroutine;
 
+    public int HierarchicalIndex;
     public string StateName = "";
     public float ArmySize = 100;
     public float UnitArmyPower = 0.75f;
@@ -30,6 +32,9 @@ public class State : MonoBehaviour
     public float DirectTax = 10; //  doðrudan vergi
 
     public Dictionary<ResourceType, ResourceData> resourceData = new Dictionary<ResourceType, ResourceData>();
+    public Trade importTrade;
+    public Trade exportTrade;
+    
     public  Dictionary<ResourceType, float> plunderedResources = new Dictionary<ResourceType, float>();
 
     int firstArmySize = 100; // state el deðitirdikten sonraki army size 
@@ -283,6 +288,7 @@ public class State : MonoBehaviour
     }
 
 
+    
     public void AddResource(Dictionary<ResourceType, float> plunderedResources)
 {
     foreach (var resource in plunderedResources)
@@ -298,6 +304,42 @@ public class State : MonoBehaviour
         }
     }
 }
+     public Trade GetTrade( int  index, ResourceType currentResType)
+    {
+       // Debug.LogWarning($"state name {gameObject.name} exporttrade value {exportTrade.resourceTypes[0]} {exportTrade.resourceTypes[1]} ");
+        if (index == 0)
+        {
+            foreach (var resType in importTrade.resourceTypes)
+            {
+                if (resType == currentResType)
+                {
+                    return importTrade;
+                }
+                //else
+               // { Debug.LogWarning($"state res type {resType}  curent res type {currentResType}"); }
+            }
+        }
+        else
+        {
+            if (index == 1)
+            {
+                foreach (var resType in exportTrade.resourceTypes)
+                {
+                    if (resType == currentResType)
+                    {
+                        Debug.LogWarning($"eþleþme  tamam  {resType}  curent res type {currentResType}");
+
+                        return exportTrade;
+                    }
+                    //else
+                   // { Debug.LogWarning($"state res type {resType}  curent res type {currentResType}"); }
+                }
+            }
+
+        }
+       // Debug.Log("wxport ya da import type eþleþmesi olmadý ******************"+ index);
+        return null;
+    }
 
 
 

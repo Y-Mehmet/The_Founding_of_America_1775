@@ -19,8 +19,8 @@ public enum PanelID
     SellPanel,
     BuyPanel,
     SellAllPanel,
-    StateProductPanel,
-
+    StateProductBuyPanel,
+    StateProductSellPanel
 
 
 

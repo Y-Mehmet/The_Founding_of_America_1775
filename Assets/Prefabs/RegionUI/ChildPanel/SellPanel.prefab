@@ -2471,6 +2471,7 @@ GameObject:
   - component: {fileID: 1524900188778220009}
   - component: {fileID: 9061288696838415751}
   - component: {fileID: 8029537337863997789}
+  - component: {fileID: 25006926886358104}
   m_Layer: 5
   m_Name: Button
   m_TagString: Untagged
@@ -2604,6 +2605,18 @@ MonoBehaviour:
   m_ChildScaleWidth: 0
   m_ChildScaleHeight: 0
   m_ReverseArrangement: 0
+--- !u!114 &25006926886358104
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5132288966918213185}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4a953695643e61b45af58cdd8a15fe36, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &5164325380411430287
 GameObject:
   m_ObjectHideFlags: 0
@@ -3427,6 +3440,7 @@ GameObject:
   - component: {fileID: 1243619706952237014}
   - component: {fileID: 2799485246705847434}
   - component: {fileID: 872640711718959387}
+  - component: {fileID: 5233747141992193305}
   m_Layer: 5
   m_Name: Button
   m_TagString: Untagged
@@ -3532,7 +3546,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ade6d0f39e9b68b438f325120ad7706b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  panelID: 15
+  panelID: 16
   behavior: 0
 --- !u!114 &872640711718959387
 MonoBehaviour:
@@ -3560,6 +3574,18 @@ MonoBehaviour:
   m_ChildScaleWidth: 0
   m_ChildScaleHeight: 0
   m_ReverseArrangement: 0
+--- !u!114 &5233747141992193305
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7947316840849322290}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 311ae2bdf736aa644b0d55821f20d884, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &8254884979696510751
 GameObject:
   m_ObjectHideFlags: 0

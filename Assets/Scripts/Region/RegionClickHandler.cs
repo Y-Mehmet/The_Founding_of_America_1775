@@ -16,7 +16,7 @@ public class RegionClickHandler : MonoBehaviour
     public  Dictionary<GameObject, Color> originalColors = new Dictionary<GameObject, Color>();
     // Tween nesnelerini saklamak için bir Dictionary oluþturun
     public  Dictionary<GameObject, Tween> moveTweens = new Dictionary<GameObject, Tween>();
-    private GameObject currentState;
+    public  GameObject currentState;
 
     private void Awake()
     {

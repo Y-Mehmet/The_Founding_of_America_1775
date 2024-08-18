@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -7,6 +8,11 @@ public class ResourceManager : MonoBehaviour
 
     //merkez bankasýnýn  Kaynaklarý saklayacaðýmýz bir Dictionary
     private Dictionary<ResourceType, float> resources = new Dictionary<ResourceType, float>();
+    public ResourceType curentResource { get;  set; }
+    public string curentTradeStateName {  get; set; }
+
+    public Action<ResourceType> OnResourceChanged;
+    public Action<string> OnStateToTradeChanged;
 
     private void Awake()
     {
@@ -20,6 +26,24 @@ public class ResourceManager : MonoBehaviour
        
         // Diðer kaynaklar eklenecekse buraya eklenebilir
     }
+    private void Start()
+    {
+        SetCurrentResource(ResourceType.Diamond);
+        SetCurrentTradeState("Texas");
+    }
+    public void SetCurrentResource(ResourceType resourceType)
+    {
+        curentResource = resourceType;
+        OnResourceChanged?.Invoke(resourceType);
+    }
+    public void SetCurrentTradeState(string selectedTradeStateName)
+    {
+        curentTradeStateName= selectedTradeStateName;
+        OnStateToTradeChanged?.Invoke(selectedTradeStateName);
+
+    }
+    
+   
 
     // Kaynaðý azaltma metodu
     public void ReduceResource(ResourceType resourceType, float reduceAmount)

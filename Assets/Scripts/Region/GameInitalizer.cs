@@ -4,7 +4,9 @@ using UnityEngine;
 
 public class GameInitalizer : MonoBehaviour
 {
-    public Dictionary<string, Region> regions;
+    public Dictionary<string, Region> regions= new Dictionary<string, Region>();
+    public List<Trade> tradeLists = new List<Trade>();
+
     public int goldRate, waterRate, saltRate, meatRate, fruitsRate, vegetablesRate, wheatRate, woodRate, coalRate, ironRate, stoneRate, diamondRate;
     public string[] largeStates, mediumStates, smallStates;
     private void Start()
@@ -25,6 +27,7 @@ public class GameInitalizer : MonoBehaviour
         diamondRate = StateResourceSO.Instance.DimondproductionRate;
 
         regions = new Dictionary<string, Region>();
+        
         Neighbor game = Neighbor.Instance;
         InitializeCities();
         StateSize();
@@ -70,7 +73,7 @@ public class GameInitalizer : MonoBehaviour
     { ResourceType.Stone, new ResourceData { currentAmount = 2500, mineCount = 4, productionRate = stoneRate }},
     { ResourceType.Diamond, new ResourceData { currentAmount = 10, mineCount = 1, productionRate = diamondRate }}
 });
-        var mediumStateTemplate = new Region("MediumState", 90.0f, 15000, 1, new Dictionary<ResourceType, ResourceData> {
+        var mediumStateTemplate = new Region("MediumState", 90.0f, 15000, 2, new Dictionary<ResourceType, ResourceData> {
     { ResourceType.Gold, new ResourceData { currentAmount = 1200, mineCount = 4, productionRate = goldRate }},
     { ResourceType.Water, new ResourceData { currentAmount = 3500, mineCount = 3, productionRate = waterRate }},
     { ResourceType.Salt, new ResourceData { currentAmount = 1800, mineCount = 3, productionRate = saltRate }},
@@ -98,7 +101,26 @@ public class GameInitalizer : MonoBehaviour
     { ResourceType.Stone, new ResourceData { currentAmount = 1900, mineCount = 2, productionRate = stoneRate }},
     { ResourceType.Diamond, new ResourceData { currentAmount = 0, mineCount = 0, productionRate = diamondRate }}
 });
-         largeStates = new[] { "California", "Texas", "New York", "Florida", "Washington", "Georgia" };
+
+        var smallStateImportList = new Trade(TradeType.Import, new List<ResourceType> { ResourceType.Wood,ResourceType.Coal, ResourceType.Iron}, new List<float> { 5,7}, new List<int>{ 1000, 1250});
+        var smalllStateExportList = new Trade(TradeType.Export, new List<ResourceType> { ResourceType.Fruits, ResourceType.Vegetables, ResourceType.Water }, new List<float> { 5, 7 }, new List<int> { 1000, 1250 });
+       
+        var mediumStateImportList = new Trade(TradeType.Import, new List<ResourceType> { ResourceType.Fruits, ResourceType.Vegetables, ResourceType.Coal, ResourceType.Iron }, new List<float> { 5, 7 }, new List<int> { 1000, 1250 });
+        var mediumStateExportList = new Trade(TradeType.Export, new List<ResourceType> { ResourceType.Salt,  ResourceType.Water }, new List<float> { 5, 7 }, new List<int> { 1000, 1250 });
+        
+        var largeStateImportList = new Trade(TradeType.Import, new List<ResourceType> {  ResourceType.Vegetables, ResourceType.Coal, ResourceType.Iron }, new List<float> { 5, 7 }, new List<int> { 1000, 1250 });
+        var largelStateExportList = new Trade(TradeType.Export, new List<ResourceType> { ResourceType.Meat, ResourceType.Wood, }, new List<float> { 5, 7 }, new List<int> { 1000, 1250 });
+
+
+        tradeLists.Add(smallStateImportList);
+        tradeLists.Add(smalllStateExportList);
+        tradeLists.Add(mediumStateImportList);
+        tradeLists.Add(mediumStateExportList);
+        tradeLists.Add(largeStateImportList);
+        tradeLists.Add(largelStateExportList);
+       
+
+        largeStates = new[] { "California", "Texas", "New York", "Florida", "Washington", "Georgia" };
          mediumStates = new[] { 
             "Oregon", "Idaho", "Montana", "North Dakota", "Minnesota", "Wisconsin",
             "Wyoming", "South Dakota", "Iowa", "Illinois", "Michigan",
@@ -165,7 +187,13 @@ public class GameInitalizer : MonoBehaviour
                             { ResourceType.Iron, new ResourceData { currentAmount = 3000, mineCount = 5, productionRate = ironRate }},
                             { ResourceType.Stone, new ResourceData { currentAmount = 2500, mineCount = 4, productionRate = stoneRate }},
                             { ResourceType.Diamond, new ResourceData { currentAmount = 10, mineCount = 1, productionRate = diamondRate }}};
+                        s.importTrade = new Trade(TradeType.Import, new List<ResourceType>
+                        { ResourceType.Wood, ResourceType.Coal, ResourceType.Iron }, new List<float> { 5, 7 }, new List<int> { 1000, 1250 });
+                        s.exportTrade = new Trade(TradeType.Export, new List<ResourceType>
+                        { ResourceType.Diamond, ResourceType.Vegetables, ResourceType.Water }, new List<float> { 5, 7 }, new List<int> { 1000, 1250 });
+
                     }
+                   
                     else if (smallStates.Contains(region.Name))
                     {
                         s.UnitArmyPower = (float)(0.75 + rand.NextDouble() * 0.05);
@@ -183,6 +211,10 @@ public class GameInitalizer : MonoBehaviour
                             { ResourceType.Iron, new ResourceData { currentAmount = 2400, mineCount = 3, productionRate = ironRate }},
                             { ResourceType.Stone, new ResourceData { currentAmount = 1900, mineCount = 2, productionRate = stoneRate }},
                             { ResourceType.Diamond, new ResourceData { currentAmount = 0, mineCount = 0, productionRate = diamondRate }} };
+                        s.importTrade = new Trade(TradeType.Import, new List<ResourceType>
+                        { ResourceType.Wood, ResourceType.Coal, ResourceType.Iron }, new List<float> { 5, 7 }, new List<int> { 1000, 1250 });
+                        s.exportTrade = new Trade(TradeType.Export, new List<ResourceType>
+                        { ResourceType.Fruits, ResourceType.Vegetables, ResourceType.Water }, new List<float> { 5, 7 }, new List<int> { 1000, 1250 });
                     }
                     else
                     {
@@ -200,8 +232,11 @@ public class GameInitalizer : MonoBehaviour
                             { ResourceType.Coal, new ResourceData { currentAmount = 2600, mineCount = 3, productionRate = coalRate }},
                             { ResourceType.Iron, new ResourceData { currentAmount = 2800, mineCount = 4, productionRate = ironRate }},
                             { ResourceType.Stone, new ResourceData { currentAmount = 2000, mineCount = 3, productionRate = stoneRate }},
-                            { ResourceType.Diamond, new ResourceData { currentAmount = 2, mineCount = 0, productionRate = diamondRate }}
-                                                };
+                            { ResourceType.Diamond, new ResourceData { currentAmount = 2, mineCount = 0, productionRate = diamondRate }}};
+                        s.importTrade = new Trade(TradeType.Import, new List<ResourceType>
+                        { ResourceType.Wood, ResourceType.Coal, ResourceType.Iron }, new List<float> { 5, 7 }, new List<int> { 1000, 1250 });
+                        s.exportTrade = new Trade(TradeType.Export, new List<ResourceType>
+                        { ResourceType.Gold, ResourceType.Vegetables, ResourceType.Water }, new List<float> { 5, 7 }, new List<int> { 1000, 1250 });
                     }
                  
                    
