@@ -300,11 +300,56 @@ public class State : MonoBehaviour
         }
         else
         {
-                Debug.LogWarning("yeni bir tip kaynak eklemeye çalýþýyorsun ");
-        }
+                Debug.LogWarning("u try new resoruce type  ");
+            }
     }
 }
-     public Trade GetTrade( int  index, ResourceType currentResType)
+    public void SellResource(ResourceType resType, float quantity, float earing)
+    {
+        
+            if (resourceData.ContainsKey(resType))
+            {
+                // Eðer kaynak zaten mevcutsa, miktarý güncelleyebilirsiniz
+                resourceData[resType].currentAmount -= quantity;
+                resourceData[ResourceType.Gold].currentAmount += earing;
+            }
+            else
+            {
+                Debug.LogWarning("u try new resoruce type  ");
+            }
+        
+    }
+    public void BuyyResource(ResourceType resType, float quantity, float spending)
+    {
+
+        if (resourceData.ContainsKey(resType))
+        {
+            
+            resourceData[resType].currentAmount += quantity;
+            resourceData[ResourceType.Gold].currentAmount -= spending;
+        }
+        else
+        {
+            Debug.LogWarning("u try new resoruce type  ");
+        }
+
+    }
+    public void InstantlyResource(ResourceType resType, float quantity, float spending)
+    {
+
+        if (resourceData.ContainsKey(resType))
+        {
+
+            resourceData[resType].currentAmount += quantity;
+            resourceData[ResourceType.Diamond].currentAmount -= spending;
+        }
+        else
+        {
+            Debug.LogWarning("u try new resoruce type  ");
+        }
+
+    }
+    public Trade GetTrade( int  index, ResourceType currentResType)
     {
        // Debug.LogWarning($"state name {gameObject.name} exporttrade value {exportTrade.resourceTypes[0]} {exportTrade.resourceTypes[1]} ");
         if (index == 0)
@@ -327,7 +372,7 @@ public class State : MonoBehaviour
                 {
                     if (resType == currentResType)
                     {
-                        Debug.LogWarning($"eþleþme  tamam  {resType}  curent res type {currentResType}");
+                       // Debug.LogWarning($"eþleþme  tamam  {resType}  curent res type {currentResType}");
 
                         return exportTrade;
                     }

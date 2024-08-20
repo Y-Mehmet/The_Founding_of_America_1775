@@ -10,10 +10,7 @@ public class StateCard : MonoBehaviour
     public TextMeshProUGUI StateNameText, CoinValueText, CurentLimitValueText;
     public Image stateFalgImage, resIconImage;
     public bool isExportCard = true;
-    private void Start()
-    {
-      
-    }
+    
     private void OnEnable()
     {
         gameObject.SetActive(true);
@@ -28,8 +25,9 @@ public class StateCard : MonoBehaviour
                 ShowExportPanelInfo();
             }
         }
+        gameObject.GetComponent<Button>().onClick.AddListener(SetCurrentTradeState);
 
-       
+
 
     }
     void ShowExportPanelInfo()
@@ -57,7 +55,18 @@ public class StateCard : MonoBehaviour
                     if (resType == curretResType)
                     {
                         CoinValueText.text = exportTrade.contractPrices[index].ToString();
-                        CurentLimitValueText.text = exportTrade.limits[index].ToString();
+                    if((state.gameObject.GetComponent<State>().resourceData[ResourceType.Gold].currentAmount)>0 )
+                    {
+                        float gold = state.gameObject.GetComponent<State>().resourceData[ResourceType.Gold].currentAmount;
+                        float contPrice =  exportTrade.contractPrices[index];
+                        int limit = (int) (gold / contPrice);
+                        CurentLimitValueText.text = limit.ToString() ;
+                    }
+                    else
+                    {
+                        Debug.LogWarning(" curent statetenin current amaountu null");
+                    }
+                       
                         break;
                     }
                     else
@@ -97,8 +106,15 @@ public class StateCard : MonoBehaviour
                 if (resType == curretResType)
                 {
                     CoinValueText.text = exportTrade.contractPrices[index].ToString();
-                    CurentLimitValueText.text = exportTrade.limits[index].ToString();
-                    break;
+                    if ((state.gameObject.GetComponent<State>().resourceData[resType].currentAmount) >0)
+                    {
+                        CurentLimitValueText.text = state.gameObject.GetComponent<State>().resourceData[resType].currentAmount.ToString();
+                    }
+                    else
+                    {
+                        CurentLimitValueText.text = "0";
+                        Debug.LogWarning(" curent statetenin current amaountu null");
+                    }
                 }
                 else
                     index++;
@@ -111,6 +127,11 @@ public class StateCard : MonoBehaviour
         else
         { gameObject.SetActive(false); }
 
+    }
+    void SetCurrentTradeState()
+    {
+        ResourceManager.Instance.SetCurrentTradeState ( StateNameText.text.ToString());
+        
     }
 
 }

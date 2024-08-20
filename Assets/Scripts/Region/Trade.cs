@@ -11,14 +11,14 @@ public class Trade
     public List<ResourceType> resourceTypes { get; private set; }
     
     public List<float>  contractPrices { get; private set; }
-    public List<int> limits { get; private set; }
 
-    public Trade(TradeType tradeType, List<ResourceType> resourceTypes, List<float> contractPrices, List<int> limits)
+
+    public Trade(TradeType tradeType, List<ResourceType> resourceTypes, List<float> contractPrices)
     {
         this.tradeType = tradeType;
         this.resourceTypes = resourceTypes;
         this.contractPrices= contractPrices;
-        this.limits = limits;
+       
     }
 
 }

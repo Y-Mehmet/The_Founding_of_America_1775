@@ -77,4 +77,17 @@ public class Usa : MonoBehaviour
 
         }
     }
+    public State  FindStateByName(string gameObjectName)
+    {
+        foreach (Transform item in transform)
+        {
+            if( item.name== gameObjectName)
+            {
+                return item.GetComponent<State>();
+            }
+        }
+        Debug.LogWarning("yanlýþ state  adý girildi ");
+        return null;
+
+    }
 }

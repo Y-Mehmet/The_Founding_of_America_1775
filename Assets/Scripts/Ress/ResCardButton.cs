@@ -30,8 +30,8 @@ public class ResCardButton : MonoBehaviour
             // Enum.TryParse yöntemi (daha güvenli)
             if (Enum.TryParse(resourceString, out resource))
             {
-                ResourceManager.Instance.curentResource = resource;
-                
+                ResourceManager.Instance.SetCurrentResource(resource);
+
             }
             else
             {
@@ -43,6 +43,7 @@ public class ResCardButton : MonoBehaviour
         {
             Debug.LogWarning("texetmedhpro içermiyor button");
         }
+        
 
        
          

@@ -11,7 +11,7 @@ public class Espionage : MonoBehaviour
     int spyCost = 0;
     Color originalSpyCostTextColor;
 
-    void Start()
+    void OnEnable()
     {
         // InputField'ýn metin deðiþikliði olayýna bir dinleyici ekle
         inputField.onValueChanged.AddListener(OnInputValueChanged);

@@ -14,6 +14,9 @@ public class ResourceManager : MonoBehaviour
     public Action<ResourceType> OnResourceChanged;
     public Action<string> OnStateToTradeChanged;
 
+    public float DimondRate = 1000;
+    public int InputFieldCaharcterLimit = 6;
+
     private void Awake()
     {
         if (Instance == null)
@@ -27,6 +30,10 @@ public class ResourceManager : MonoBehaviour
         // Diðer kaynaklar eklenecekse buraya eklenebilir
     }
     private void Start()
+    {
+        SetDefaultValue();
+    }
+    public void SetDefaultValue()
     {
         SetCurrentResource(ResourceType.Diamond);
         SetCurrentTradeState("Texas");

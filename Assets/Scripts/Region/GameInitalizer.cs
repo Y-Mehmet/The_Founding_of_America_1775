@@ -102,14 +102,13 @@ public class GameInitalizer : MonoBehaviour
     { ResourceType.Diamond, new ResourceData { currentAmount = 0, mineCount = 0, productionRate = diamondRate }}
 });
 
-        var smallStateImportList = new Trade(TradeType.Import, new List<ResourceType> { ResourceType.Wood,ResourceType.Coal, ResourceType.Iron}, new List<float> { 5,7}, new List<int>{ 1000, 1250});
-        var smalllStateExportList = new Trade(TradeType.Export, new List<ResourceType> { ResourceType.Fruits, ResourceType.Vegetables, ResourceType.Water }, new List<float> { 5, 7 }, new List<int> { 1000, 1250 });
+        var smallStateImportList = new Trade(TradeType.Import, new List<ResourceType> { ResourceType.Wood,ResourceType.Coal, ResourceType.Iron}, new List<float> { 5,7});
+        var smalllStateExportList = new Trade(TradeType.Export, new List<ResourceType> { ResourceType.Fruits, ResourceType.Vegetables, ResourceType.Water }, new List<float> { 5, 7 });
        
-        var mediumStateImportList = new Trade(TradeType.Import, new List<ResourceType> { ResourceType.Fruits, ResourceType.Vegetables, ResourceType.Coal, ResourceType.Iron }, new List<float> { 5, 7 }, new List<int> { 1000, 1250 });
-        var mediumStateExportList = new Trade(TradeType.Export, new List<ResourceType> { ResourceType.Salt,  ResourceType.Water }, new List<float> { 5, 7 }, new List<int> { 1000, 1250 });
-        
-        var largeStateImportList = new Trade(TradeType.Import, new List<ResourceType> {  ResourceType.Vegetables, ResourceType.Coal, ResourceType.Iron }, new List<float> { 5, 7 }, new List<int> { 1000, 1250 });
-        var largelStateExportList = new Trade(TradeType.Export, new List<ResourceType> { ResourceType.Meat, ResourceType.Wood, }, new List<float> { 5, 7 }, new List<int> { 1000, 1250 });
+        var mediumStateImportList = new Trade(TradeType.Import, new List<ResourceType> { ResourceType.Fruits, ResourceType.Vegetables, ResourceType.Coal, ResourceType.Iron }, new List<float> { 5, 7 });
+        var mediumStateExportList = new Trade(TradeType.Export, new List<ResourceType> { ResourceType.Salt, ResourceType.Water }, new List<float> { 5, 7 });
+        var largeStateImportList = new Trade(TradeType.Import, new List<ResourceType> {  ResourceType.Vegetables, ResourceType.Coal, ResourceType.Iron }, new List<float> { 5, 7 });
+        var largelStateExportList = new Trade(TradeType.Export, new List<ResourceType> { ResourceType.Meat, ResourceType.Wood, }, new List<float> { 5, 7 });
 
 
         tradeLists.Add(smallStateImportList);
@@ -188,9 +187,9 @@ public class GameInitalizer : MonoBehaviour
                             { ResourceType.Stone, new ResourceData { currentAmount = 2500, mineCount = 4, productionRate = stoneRate }},
                             { ResourceType.Diamond, new ResourceData { currentAmount = 10, mineCount = 1, productionRate = diamondRate }}};
                         s.importTrade = new Trade(TradeType.Import, new List<ResourceType>
-                        { ResourceType.Wood, ResourceType.Coal, ResourceType.Iron }, new List<float> { 5, 7 }, new List<int> { 1000, 1250 });
+                        { ResourceType.Wood, ResourceType.Coal, ResourceType.Iron }, new List<float> { 5,8,6});
                         s.exportTrade = new Trade(TradeType.Export, new List<ResourceType>
-                        { ResourceType.Diamond, ResourceType.Vegetables, ResourceType.Water }, new List<float> { 5, 7 }, new List<int> { 1000, 1250 });
+                        { ResourceType.Diamond, ResourceType.Vegetables, ResourceType.Water }, new List<float> { 5, 8, 6 });
 
                     }
                    
@@ -212,9 +211,9 @@ public class GameInitalizer : MonoBehaviour
                             { ResourceType.Stone, new ResourceData { currentAmount = 1900, mineCount = 2, productionRate = stoneRate }},
                             { ResourceType.Diamond, new ResourceData { currentAmount = 0, mineCount = 0, productionRate = diamondRate }} };
                         s.importTrade = new Trade(TradeType.Import, new List<ResourceType>
-                        { ResourceType.Wood, ResourceType.Coal, ResourceType.Iron }, new List<float> { 5, 7 }, new List<int> { 1000, 1250 });
+                        { ResourceType.Wood, ResourceType.Coal, ResourceType.Iron }, new List<float> { 5, 8, 6 });
                         s.exportTrade = new Trade(TradeType.Export, new List<ResourceType>
-                        { ResourceType.Fruits, ResourceType.Vegetables, ResourceType.Water }, new List<float> { 5, 7 }, new List<int> { 1000, 1250 });
+                        { ResourceType.Fruits, ResourceType.Vegetables, ResourceType.Water }, new List<float> { 5, 8, 6 });
                     }
                     else
                     {
@@ -234,9 +233,9 @@ public class GameInitalizer : MonoBehaviour
                             { ResourceType.Stone, new ResourceData { currentAmount = 2000, mineCount = 3, productionRate = stoneRate }},
                             { ResourceType.Diamond, new ResourceData { currentAmount = 2, mineCount = 0, productionRate = diamondRate }}};
                         s.importTrade = new Trade(TradeType.Import, new List<ResourceType>
-                        { ResourceType.Wood, ResourceType.Coal, ResourceType.Iron }, new List<float> { 5, 7 }, new List<int> { 1000, 1250 });
+                        { ResourceType.Wood, ResourceType.Coal, ResourceType.Iron }, new List<float> { 5, 7 });
                         s.exportTrade = new Trade(TradeType.Export, new List<ResourceType>
-                        { ResourceType.Gold, ResourceType.Vegetables, ResourceType.Water }, new List<float> { 5, 7 }, new List<int> { 1000, 1250 });
+                        { ResourceType.Gold, ResourceType.Vegetables, ResourceType.Water },/* contract price */ new List<float> { 5, 7,5 });
                     }
                  
                    

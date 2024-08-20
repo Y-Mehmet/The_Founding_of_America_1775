@@ -34,5 +34,30 @@ public class IncreaseNumber : MonoBehaviour
             inputField.text = "0"; // Alternatif olarak, baþlangýç deðeri olarak 0 ata
         }
     }
+    public void IncraseValueWhitParameter(int value)
+    {
+        // Input Field'in dolu olup olmadýðýný kontrol et
+        if (string.IsNullOrEmpty(inputField.text))
+        {
+            inputField.text = "0"; // Eðer boþsa baþlangýç deðeri olarak 0 ata
+        }
+
+        // Input Field'daki deðeri al ve integer'a çevirmeye çalýþ
+        int currentValue;
+        if (int.TryParse(inputField.text, out currentValue))
+        {
+            
+            currentValue += value;
+
+            // Artýrýlmýþ deðeri tekrar Input Field'a yaz
+            inputField.text = currentValue.ToString();
+        }
+        else
+        {
+           
+            Debug.LogWarning("InputField'daki deðer geçerli bir sayý deðil.");
+            inputField.text = "0";
+        }
+    }
 
 }
