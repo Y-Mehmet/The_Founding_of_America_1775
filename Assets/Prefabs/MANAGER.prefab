@@ -46,6 +46,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   mainCamera: {fileID: 0}
   neighborStates: []
+  currentState: {fileID: 0}
 --- !u!1 &1064789098393445404
 GameObject:
   m_ObjectHideFlags: 0
@@ -255,6 +256,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fe712c27235085942be43aa348269c24, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  DimondRate: 1000
+  InputFieldCaharcterLimit: 6
 --- !u!1 &1849995187969613885
 GameObject:
   m_ObjectHideFlags: 0
@@ -380,6 +383,7 @@ MonoBehaviour:
   allyPanel: {fileID: 0}
   enemyPanel: {fileID: 0}
   neutralPanel: {fileID: 0}
+  attackCanvas: {fileID: 0}
 --- !u!1 &3549052421157924371
 GameObject:
   m_ObjectHideFlags: 0
@@ -484,6 +488,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7147871574192014235}
   - component: {fileID: 249639971533306311}
+  - component: {fileID: 1739217352671779369}
   m_Layer: 0
   m_Name: AttackManager
   m_TagString: Untagged
@@ -523,6 +528,18 @@ MonoBehaviour:
   attackDuration: 1
   lastAttackingState: 
   lastDefendingState: 
+--- !u!114 &1739217352671779369
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6161275094372325651}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a0f0f3b2c4ce3c249a56710ea8b34460, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &6196677600776659294
 GameObject:
   m_ObjectHideFlags: 0
@@ -565,6 +582,7 @@ Transform:
   - {fileID: 6645099598530149084}
   - {fileID: 4854122883046157945}
   - {fileID: 1443460608840500189}
+  - {fileID: 4134577716743376528}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &6742798097656719256
@@ -611,13 +629,57 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 170466a99b50cbc4db56ab041ba0880f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  AttackCanvas: {fileID: 0}
   activeRivalDiceLists: []
   activePlayerDiceLists: []
   activeRivalDiceSortedLists: []
   activePlayerDiceSortedLists: []
   activeRivalDiceValueSortedLists: 
   activePlayerDiceValueSortedLists: 
+--- !u!1 &7202052424872887281
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4134577716743376528}
+  - component: {fileID: 8295529625198289959}
+  m_Layer: 0
+  m_Name: MineManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4134577716743376528
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7202052424872887281}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 5687146723757708717}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &8295529625198289959
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7202052424872887281}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6c2836f2d7b6b454da5d99ec62fd5b18, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  curentResource: 0
 --- !u!1 &8211175344201325688
 GameObject:
   m_ObjectHideFlags: 0
@@ -670,8 +732,11 @@ MonoBehaviour:
   attackFinishDurtion: 10
   moveAmount: 0.33
   moveDuration: 0.5
+  gameDayTime: 1
   thresholdForSuccesfulEspionage: 3
   spyCostModPurchases: 10
+  isGamePause: 0
+  "\u0130sGameOver": 0
   allStates:
   - {fileID: 0}
   - {fileID: 0}
@@ -731,3 +796,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 49eca2b5b4d13b645ab1a94341785f73, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  goldRate: 0
+  waterRate: 0
+  saltRate: 0
+  meatRate: 0
+  fruitsRate: 0
+  vegetablesRate: 0
+  wheatRate: 0
+  woodRate: 0
+  coalRate: 0
+  ironRate: 0
+  stoneRate: 0
+  diamondRate: 0
+  largeStates: []
+  mediumStates: []
+  smallStates: []

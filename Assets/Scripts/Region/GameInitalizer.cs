@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class GameInitalizer : MonoBehaviour
 {
-    public Dictionary<string, Region> regions= new Dictionary<string, Region>();
+    public Dictionary<string, Region> regions = new Dictionary<string, Region>();
     public List<Trade> tradeLists = new List<Trade>();
 
     public int goldRate, waterRate, saltRate, meatRate, fruitsRate, vegetablesRate, wheatRate, woodRate, coalRate, ironRate, stoneRate, diamondRate;
@@ -27,15 +27,76 @@ public class GameInitalizer : MonoBehaviour
         diamondRate = StateResourceSO.Instance.DimondproductionRate;
 
         regions = new Dictionary<string, Region>();
-        
+
         Neighbor game = Neighbor.Instance;
         InitializeCities();
         StateSize();
         InitializedStateDataValue();
         InitializeNeighbors();
-        
+        SetMineRequaredValue();
+        SetMineName();
 
-   
+
+    }
+    void SetMineName()
+    {
+        MineManager.instance.ResMineNameList.Clear();
+        MineManager.instance.ResMineNameList.Add(ResourceType.Gold, "Gold Mine");
+        MineManager.instance.ResMineNameList.Add(ResourceType.Water, "Mineral Water Factory");
+        MineManager.instance.ResMineNameList.Add(ResourceType.Salt, "Salt Mine");
+        MineManager.instance.ResMineNameList.Add(ResourceType.Meat, "Cattle Farm");
+        MineManager.instance.ResMineNameList.Add(ResourceType.Fruits, "Garden");
+        MineManager.instance.ResMineNameList.Add(ResourceType.Vegetables, "Greenhouse");
+        MineManager.instance.ResMineNameList.Add(ResourceType.Wheat,"Wheat Field");
+        MineManager.instance.ResMineNameList.Add(ResourceType.Wood,"Forest");
+        MineManager.instance.ResMineNameList.Add(ResourceType.Coal,"Coal Mine");
+        MineManager.instance.ResMineNameList.Add(ResourceType.Iron, "Iron Mine");
+        MineManager.instance.ResMineNameList.Add(ResourceType.Stone,"Quarry");
+        MineManager.instance.ResMineNameList.Add(ResourceType.Diamond, " Gem Mine");
+
+
+    }
+    void SetMineRequaredValue()
+    {
+        MineManager.instance.MineRequiredResList.Clear();
+        MineManager.instance.MineRequiredResList.Add(ResourceType.Gold, new MineMatarials
+       (new List<ResourceType> { ResourceType.Coal, ResourceType.Iron, ResourceType.Stone },  new List<int>{1000,2000,3000}));
+
+        MineManager.instance.MineRequiredResList.Add(ResourceType.Water, new MineMatarials
+       (new List<ResourceType> { ResourceType.Coal, ResourceType.Iron, ResourceType.Stone }, new List<int> { 1000, 2000, 3000 }));
+
+        MineManager.instance.MineRequiredResList.Add(ResourceType.Salt, new MineMatarials
+       (new List<ResourceType> { ResourceType.Coal, ResourceType.Iron, ResourceType.Stone }, new List<int> { 1000, 2000, 3000 }));
+
+        MineManager.instance.MineRequiredResList.Add(ResourceType.Meat, new MineMatarials
+       (new List<ResourceType> { ResourceType.Coal, ResourceType.Iron, ResourceType.Stone }, new List<int> { 1000, 2000, 3000 }));
+
+        MineManager.instance.MineRequiredResList.Add(ResourceType.Fruits, new MineMatarials
+       (new List<ResourceType> { ResourceType.Coal, ResourceType.Iron, ResourceType.Stone }, new List<int> { 1000, 2000, 3000 }));
+
+        MineManager.instance.MineRequiredResList.Add(ResourceType.Vegetables, new MineMatarials
+       (new List<ResourceType> { ResourceType.Coal, ResourceType.Iron, ResourceType.Stone }, new List<int> { 1000, 2000, 3000 }));
+
+        MineManager.instance.MineRequiredResList.Add(ResourceType.Wheat, new MineMatarials
+       (new List<ResourceType> { ResourceType.Coal, ResourceType.Iron, ResourceType.Stone }, new List<int> { 1000, 2000, 3000 }));
+
+        MineManager.instance.MineRequiredResList.Add(ResourceType.Wood, new MineMatarials
+       (new List<ResourceType> { ResourceType.Coal, ResourceType.Iron, ResourceType.Stone }, new List<int> { 1000, 2000, 3000 }));
+
+        MineManager.instance.MineRequiredResList.Add(ResourceType.Coal, new MineMatarials
+       (new List<ResourceType> { ResourceType.Coal, ResourceType.Iron, ResourceType.Stone }, new List<int> { 1000, 2000, 3000 }));
+
+        MineManager.instance.MineRequiredResList.Add(ResourceType.Iron, new MineMatarials
+       (new List<ResourceType> { ResourceType.Coal, ResourceType.Iron, ResourceType.Stone }, new List<int> { 1000, 2000, 3000 }));
+
+        MineManager.instance.MineRequiredResList.Add(ResourceType.Stone, new MineMatarials
+       (new List<ResourceType> { ResourceType.Coal, ResourceType.Iron, ResourceType.Stone }, new List<int> { 1000, 2000, 3000 }));
+
+        MineManager.instance.MineRequiredResList.Add(ResourceType.Diamond, new MineMatarials
+     (new List<ResourceType> { ResourceType.Coal, ResourceType.Iron, ResourceType.Stone }, new List<int> { 1000, 2000, 3000 }));
+
+
+
     }
     private void InitializeCities()
     {

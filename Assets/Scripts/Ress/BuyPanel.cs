@@ -218,7 +218,34 @@ public class BuyPanel : MonoBehaviour
 
 
     }
-    
+    public void InstantlyButtonClicked()
+    {
+        ResourceType type = ResourceManager.Instance.curentResource;
+        float spending;
+        if (float.TryParse(contrackPriceValueText.text, out spending))
+        {
+            float Dimond = (float)Math.Ceiling((spending / ResourceManager.Instance.DimondRate));
+
+            if (spending > 0)
+            {
+                if (currentState.resourceData[ResourceType.Gold].currentAmount > spending)
+                {
+                    RegionClickHandler.Instance.currentState.GetComponent<State>().InstantlyResource(type, quantity, Dimond);
+                }
+                else
+                {
+                    Debug.Log("dimond not enaugh for resource");
+                }
+            }
+
+            else
+                Debug.LogWarning(" spending value 0");
+        }
+        else
+            Debug.LogWarning("spending value can not parse float");
+
+    }
+
     public void SetNewTradeState()
     {
 
@@ -251,33 +278,7 @@ public class BuyPanel : MonoBehaviour
 
 
     }
-    public void InstantlyButtonClicked()
-    {
-        ResourceType type = ResourceManager.Instance.curentResource;
-        float spending;
-        if (float.TryParse(contrackPriceValueText.text, out spending))
-        {
-            float Dimond = (float) Math.Ceiling((spending / ResourceManager.Instance.DimondRate));
-                
-            if (spending > 0)
-            {
-                if (currentState.resourceData[ResourceType.Gold].currentAmount > spending)
-                {
-                    RegionClickHandler.Instance.currentState.GetComponent<State>().InstantlyResource(type, quantity, Dimond);
-                }
-                else
-                {
-                    Debug.Log("dimond not enaugh for resource");
-                }
-            }
-               
-            else
-                Debug.LogWarning(" spending value 0");
-        }
-        else
-            Debug.LogWarning("spending value can not parse float");
-
-    }
+    
 
 
 }
