@@ -6,7 +6,7 @@ using UnityEngine.UI;
 
 public class MineUpgradePanel : MonoBehaviour
 {
-    public TMP_Text MineNameText, BuyCoinValueText, InstatnlyDimondValueText;
+    public TMP_Text MineNameText, BuyCoinValueText, InstatnlyDimondValueText, productionPerDayText, buyButtonText, instantlyButtonText;
     public List<TMP_Text> reqResValueTextList; //  mine iþsaasý için gerekli madenlerin harcanacak miktarý
     public List<TMP_Text> reqResCurrentAmountValueTextList;
     public List<Image> reqResIconList;
@@ -14,47 +14,57 @@ public class MineUpgradePanel : MonoBehaviour
     public Button BuyButton, InstantlyButton;
     public TMP_InputField inputField;
     public Button macButton, plusButton;
+    float goldSpending = 0;
 
     List<int> RequiredResValueList = new List<int>();
     List<ResourceType> RequiredResTypeValueList = new List<ResourceType>();
     State currentState;
     ResourceType currentResType;
-    float quantity;
+    int quantity=0;
+    float buyButtonCoinValue=0, instatnlyButtonGemValue = 0;
     Color originalTextColor;
     
     private void Start()
     {
         inputField.characterLimit = ResourceManager.Instance.InputFieldCaharcterLimit;
         originalTextColor= reqResValueTextList[0].color;
+        
     }
     private void OnEnable()
     {
+        ResetUI();
         currentState = RegionClickHandler.Instance.currentState.GetComponent<State>();
         currentResType = MineManager.instance.curentResource;
-        RequiredResValueList = MineManager.instance.GetReqResValue();
-        RequiredResTypeValueList = MineManager.instance.GetReqResType();
+        
+        
         MineManager.instance.OnResourceChanged += OnResourceTypeChanged;
         inputField.onValueChanged.AddListener(OnInputValueChanged);
         macButton.onClick.AddListener(MacButtonClicked);
-        
+        BuyButton.onClick.AddListener(BuyButtonClicked);
+        InstantlyButton.onClick.AddListener(InstantlyButtonClicked);
+
+
         ShowPanelInfo();
     }
     private void OnDisable()
     {
         MineManager.instance.OnResourceChanged -= OnResourceTypeChanged;
-        ResetUI();
+        
 
     }
     void OnResourceTypeChanged(ResourceType resType)
     {
+        currentResType = resType;
         ShowPanelInfo();
     }
     void ShowPanelInfo()
     {
         MineNameText.text= MineManager.instance.GetMineName();
+        RequiredResValueList = MineManager.instance.GetReqResValue();
+        RequiredResTypeValueList = MineManager.instance.GetReqResType();
         
-       
-        for(int i=0;i<RequiredResTypeValueList.Count;i++)
+
+        for (int i=0;i<RequiredResTypeValueList.Count;i++)
         {
             // spend value 
             reqResValueTextList[i].text ="- "+ RequiredResValueList[i].ToString();
@@ -75,7 +85,13 @@ public class MineUpgradePanel : MonoBehaviour
     }
     void ResetUI()
     {
-        inputField.text = "";
+        inputField.text = "0";
+        OnInputValueChanged("0");
+        productionPerDayText.text = "0";
+        instantlyButtonText.text = "0";
+        buyButtonText.text= "0";
+        buyButtonCoinValue = 0;
+        instatnlyButtonGemValue = 0;
     }
     IEnumerator CurrentAmountTextUpdate()
     {
@@ -107,7 +123,7 @@ public class MineUpgradePanel : MonoBehaviour
 
 
 
-        if (float.TryParse(input, out quantity))
+        if (int.TryParse(input, out quantity))
         {
 
             for (int i = 0; i < RequiredResTypeValueList.Count; i++)
@@ -127,7 +143,40 @@ public class MineUpgradePanel : MonoBehaviour
                 }
                 else
                 {
-                    reqResValueTextList[i].text = "- " + (RequiredResValueList[i] * quantity);
+                    if (GameEconomy.Instance == null)
+                        Debug.LogWarning("game oeconomy yok");
+                        reqResValueTextList[i].text = "- " + (RequiredResValueList[i] * quantity);
+                    float productPerDayValue = (currentState.resourceData[currentResType].productionRate * quantity);
+                    productionPerDayText.text ="+ "+ productPerDayValue.ToString();
+                    float productPerDayToGoldValue = GameEconomy.Instance.GetGoldValue(currentResType, productPerDayValue);
+                    buyButtonCoinValue = productPerDayToGoldValue * GameEconomy.Instance.PayBackValue;
+
+                    buyButtonText.text = buyButtonCoinValue.ToString();
+                    instatnlyButtonGemValue = GameEconomy.Instance.GetGemValue(buyButtonCoinValue);
+                    instantlyButtonText.text = instatnlyButtonGemValue.ToString();
+                    if (currentState.resourceData[ResourceType.Diamond].currentAmount> instatnlyButtonGemValue)
+                    {
+                        
+                        instantlyButtonText.color = originalTextColor;
+                    }
+                    else
+                    {
+                        
+                        instantlyButtonText.color = Color.red;
+
+                    }
+                    if (currentState.resourceData[ResourceType.Gold].currentAmount > buyButtonCoinValue)
+                    {
+
+                        buyButtonText.color = originalTextColor;
+                    }
+                    else
+                    {
+
+                        buyButtonText.color = Color.red;
+
+                    }
+
                     reqResValueTextList[i].color = originalTextColor;
                 }
 
@@ -135,7 +184,7 @@ public class MineUpgradePanel : MonoBehaviour
           
         }
         else
-            Debug.LogWarning(" deðer yalýþ");
+            Debug.LogWarning(" deðer yalýþ "+ input);
 
 
     }
@@ -183,51 +232,61 @@ public class MineUpgradePanel : MonoBehaviour
     public void BuyButtonClicked()
     {
         float spending = 0;
+        
         int maxProduction = GetMaxProductionMineCount();
-        if(quantity<maxProduction)
+        if (currentState.resourceData[ResourceType.Gold].currentAmount > buyButtonCoinValue)
         {
-            Dictionary<ResourceType, float> spendRes = new Dictionary<ResourceType, float>();
-            for (int i = 0; i < RequiredResTypeValueList.Count; i++)
+            if (int.TryParse(inputField.text, out quantity))
             {
-                ResourceType resType = RequiredResTypeValueList[i];
-                float resCurrentAmountValue = currentState.resourceData[resType].currentAmount;
+                // Debug.LogWarning($"cuantati {quantity} maxxxxx" + maxProduction);
+                if (quantity <= maxProduction)
+                {
+                    Dictionary<ResourceType, float> spendRes = new Dictionary<ResourceType, float>();
+                    for (int i = 0; i < RequiredResTypeValueList.Count; i++)
+                    {
+                        ResourceType resType = RequiredResTypeValueList[i];
+                        float resCurrentAmountValue = currentState.resourceData[resType].currentAmount;
 
-                // Üretim için gereken toplam miktarý hesaptan çýkar
-                spending = RequiredResValueList[i] * quantity * -1;
-                spendRes.Add(resType, spending);
+                        // Üretim için gereken toplam miktarý hesaptan çýkar
+                        spending = RequiredResValueList[i] * quantity;
+                        spendRes.Add(resType, -spending);
 
+                    }
+                    spendRes.Add(ResourceType.Gold, -buyButtonCoinValue);
+                    currentState.AddResource(spendRes);
+
+                    currentState.resourceData[currentResType].mineCount += quantity;
+
+                }
             }
-            currentState.AddResource(spendRes);
         }
+            
+      
+        
 
     }
-    //public void InstantlyButtonClicked()
-    //{
-    //    ResourceType type = ResourceManager.Instance.curentResource;
-    //    float spending;
-    //    if (float.TryParse(contrackPriceValueText.text, out spending))
-    //    {
-    //        float Dimond = (float)Math.Ceiling((spending / ResourceManager.Instance.DimondRate));
+    public void InstantlyButtonClicked()
+    {
 
-    //        if (spending > 0)
-    //        {
-    //            if (currentState.resourceData[ResourceType.Gold].currentAmount > spending)
-    //            {
-    //                RegionClickHandler.Instance.currentState.GetComponent<State>().InstantlyResource(type, quantity, Dimond);
-    //            }
-    //            else
-    //            {
-    //                Debug.Log("dimond not enaugh for resource");
-    //            }
-    //        }
+        if (currentState.resourceData[ResourceType.Diamond].currentAmount> instatnlyButtonGemValue)
+        {
+            if (int.TryParse(inputField.text, out quantity))
+            {
+                Dictionary<ResourceType, float> spendRes = new Dictionary<ResourceType, float>();
+                spendRes.Add(ResourceType.Diamond, -instatnlyButtonGemValue);
+                currentState.AddResource(spendRes);
+                currentState.resourceData[currentResType].mineCount += quantity;
+            }
+            else
+            {
+                Debug.LogWarning("Invalid quantity input.");
+            }
 
-    //        else
-    //            Debug.LogWarning(" spending value 0");
-    //    }
-    //    else
-    //        Debug.LogWarning("spending value can not parse float");
+        }
+        
+       
+    }
 
-    //}
 
 
 

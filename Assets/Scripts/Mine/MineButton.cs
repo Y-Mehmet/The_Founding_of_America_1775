@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -26,11 +27,17 @@ public class MineButton : MonoBehaviour
 
        
     }
+
     IEnumerator ResValueTextUpdate()
     {
         
-        yield return new WaitForSeconds(duration);
-        resValueText.text = currentState.resourceData[resourceType].currentAmount.ToString();
+       while(true)
+        {
+            resValueText.text = currentState.resourceData[resourceType].currentAmount.ToString();
+            mineCountText.text = currentState.resourceData[resourceType].mineCount.ToString();
+            yield return new WaitForSeconds(duration);
+           
+        }
     }
     void ButtonisClicked()
     {

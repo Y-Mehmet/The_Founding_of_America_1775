@@ -291,12 +291,13 @@ public class State : MonoBehaviour
     
     public void AddResource(Dictionary<ResourceType, float> plunderedResources)
 {
+        
     foreach (var resource in plunderedResources)
     {
         if (resourceData.ContainsKey(resource.Key))
         {
-            // Eðer kaynak zaten mevcutsa, miktarý güncelleyebilirsiniz
-            resourceData[resource.Key].currentAmount += resource.Value;
+                
+                resourceData[resource.Key].currentAmount += resource.Value;
         }
         else
         {
