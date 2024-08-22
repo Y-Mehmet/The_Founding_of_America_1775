@@ -23,6 +23,7 @@ public enum PanelID
     StateProductSellPanel,
     PruductMinePanel,
     MineUpgradePanel,
+    TaxPanel,
 
 
 

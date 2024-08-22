@@ -27,9 +27,10 @@ public class State : MonoBehaviour
     public float loss;
     public int attackCanvasButtonPanelIndex = 1;
 
-    public float IncomeTax = 10; //üreteim vergisi
-    public float SalesTax = 10;  //  ticaret vergisi
-    public float DirectTax = 10; //  doðrudan vergi
+    public int IncomeTax = 10; //üreteim vergisi
+    public int ValueAddedTax = 10;  //  ticaret vergisi satarken 
+    public int DirectTax = 10; //  doðrudan vergi
+    public int StampTax = 0; // damga vergisi çok riskli
 
     public Dictionary<ResourceType, ResourceData> resourceData = new Dictionary<ResourceType, ResourceData>();
     public Trade importTrade;
