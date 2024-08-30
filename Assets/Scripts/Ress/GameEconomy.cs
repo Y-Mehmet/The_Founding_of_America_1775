@@ -6,7 +6,8 @@ public class GameEconomy : MonoBehaviour
 {
     public static GameEconomy Instance { get; private set; }
     private Dictionary<ResourceType, float> resourceToGoldValue;
-    public float PayBackValue;
+    
+     public float PayBackValue;
     public float payBackTime = 100;
     private void Awake()
     {

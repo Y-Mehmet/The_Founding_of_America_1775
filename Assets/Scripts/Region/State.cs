@@ -18,19 +18,17 @@ public class State : MonoBehaviour
     public float UnitArmyPower = 0.75f;
     public float TotalArmyPower;
     public StateType stateType;
-    public float Morale = 1.0f;
+    public float Morele = 100.0f;
+    public float TotalMoraleImpact=0;
     
     public Sprite StateIcon;
-    public float Morele;
     public int Population;
     public int Resources; // fav resources 
     public float loss;
     public int attackCanvasButtonPanelIndex = 1;
 
-    public int IncomeTax = 10; //üreteim vergisi
-    public int ValueAddedTax = 10;  //  ticaret vergisi satarken 
-    public int DirectTax = 10; //  doðrudan vergi
-    public int StampTax = 0; // damga vergisi çok riskli
+  
+    public List<TaxData> Taxes = new List<TaxData>();
 
     public Dictionary<ResourceType, ResourceData> resourceData = new Dictionary<ResourceType, ResourceData>();
     public Trade importTrade;
@@ -42,6 +40,28 @@ public class State : MonoBehaviour
     public float MoraleMultiplier = 0.01f; // Moralin asker artýþýna etkisi
   
     public float PopulationMultiplier = 0.001f; // Nüfusun asker artýþýna etkisi
+   
+    public void SetTotalMoraleImpact(float impact)
+    {
+        TotalMoraleImpact += impact;
+    }
+    public void AdjustTaxRate(TaxType taxType, float newRate)
+    {
+        TaxData tax = Taxes.Find(t => t.taxType == taxType);
+        if (tax != null)
+        {
+            tax.currentRate = newRate;
+            if (newRate > tax.toleranceLimit)
+            {
+                float impact=tax.currentRate-tax.toleranceLimit;
+                SetTotalMoraleImpact((float)impact); 
+                Debug.LogWarning($"Tolerans eþiði aþýldý! Vergi Türü: {taxType}");
+            }
+        }
+    }
+
+   
+
     private void Start()
     {
         TotalArmyPower = ArmySize * UnitArmyPower;
@@ -62,6 +82,7 @@ public class State : MonoBehaviour
         GameManager.Instance.OnAttackStarted += HandleAttackStarted;
         GameManager.Instance.OnAttackStopped += HandleAttackStopped;
         HandleAttackStopped();
+        StartCoroutine(ChangeMorale());
     }
     private void HandleAttackStarted()
     {
@@ -86,12 +107,19 @@ public class State : MonoBehaviour
         if (resourceProductionCoroutine == null)
             resourceProductionCoroutine = StartCoroutine(ResourceProduction());
     }
-
+    private IEnumerator ChangeMorale()
+    {
+        while (!GameManager.Instance.ÝsGameOver && !GameManager.Instance.isGamePause && GameManager.Instance.IsAttackFinish)
+        {
+            Morele += TotalMoraleImpact;
+            yield return new WaitForSeconds(GameManager.Instance.gameDayTime);
+        }
+    }
     private IEnumerator IncreaseArmySizeOverTime()
     {
         while (!GameManager.Instance.ÝsGameOver && !GameManager.Instance.isGamePause && GameManager.Instance.IsAttackFinish)
         {
-            float armyIncreasePerSecond = Morale * MoraleMultiplier * Population * PopulationMultiplier;
+            float armyIncreasePerSecond = Morele * MoraleMultiplier * Population * PopulationMultiplier;
             ArmySize += armyIncreasePerSecond;
             TotalArmyPower = ArmySize * UnitArmyPower;
             yield return new WaitForSeconds(GameManager.Instance.gameDayTime);
@@ -107,16 +135,39 @@ public class State : MonoBehaviour
                 float productionAmount = (item.Value.mineCount * item.Value.productionRate);
                 if (item.Key== ResourceType.Gold)
                 {
-                   
-                    float tax = productionAmount /IncomeTax;
-                    ResourceManager.Instance.ChargeTax(ResourceType.Gold, tax);
-                    productionAmount -= tax;
+                    foreach (var item1 in Taxes)
+                    {
+                        if(item1.taxType==TaxType.IncomeTax)
+                        {
+                            float tax = (productionAmount / 100)* item1.currentRate;
+                            Debug.LogWarning(tax);
+                            item1.taxIncome= tax;
+                            ResourceManager.Instance.ChargeTax(ResourceType.Gold, tax);
+                            productionAmount -= tax;
+
+                        }
+                        else if(item1.taxType== TaxType.StampTax)
+                        {
+                            float tax=(item.Value.currentAmount / 100) * item1.currentRate;
+                            if( tax<0)
+                            {
+                                tax = 0;
+
+                            }
+                            item1.taxIncome = tax;
+                           ResourceManager.Instance.ChargeTax(ResourceType.Gold, tax);
+                           item.Value.currentAmount -= tax;
+                        }
+                        
+                    }
+                    
                 }
                
                 item.Value.currentAmount += productionAmount;
                 item.Value.currentAmount -= (item.Value.consumptionAmount);
 
             }
+
             
             yield return new WaitForSeconds(GameManager.Instance.gameDayTime);
         }
@@ -313,7 +364,16 @@ public class State : MonoBehaviour
             {
                 // Eðer kaynak zaten mevcutsa, miktarý güncelleyebilirsiniz
                 resourceData[resType].currentAmount -= quantity;
-                resourceData[ResourceType.Gold].currentAmount += earing;
+            foreach (var item in Taxes)
+            {
+                if(item.taxType== TaxType.ValueAddedTax)
+                {
+                    float tax = (earing / 100) * item.currentRate;
+                    ResourceManager.Instance.ChargeTax(ResourceType.Gold, tax);
+                    earing -= tax;
+                }
+            }
+            resourceData[ResourceType.Gold].currentAmount += earing;
             }
             else
             {
@@ -411,4 +471,21 @@ public class StateData
     public float Morele;
     public int Population;
     public int Resources;
+}
+public enum TaxType
+{
+    IncomeTax,
+    ValueAddedTax,
+    DirectTax,
+    StampTax
+}
+
+[Serializable]
+public class TaxData
+{
+    public TaxType taxType;
+    public float currentRate; // Mevcut vergi oraný
+    public float toleranceLimit; // Tolerans eþiði
+    public float taxIncome; // Bu verginin getirdiði gelir
+    public float unitTaxIncome;
 }

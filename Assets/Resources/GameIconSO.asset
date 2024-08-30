@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2be2ccf5de3e62e4991943286074c29a, type: 3}
+  m_Name: GameIconSO
+  m_EditorClassIdentifier: 
+  HappinesIcon:
+  - {fileID: 21300000, guid: 3a15efefaf91a344293fdcac639f852c, type: 3}
+  - {fileID: 21300000, guid: 522c20bf4dc3c2542af9796710e72f40, type: 3}
+  - {fileID: 21300000, guid: 2d79b3dc96dde1c41bb1459b75383b21, type: 3}
+  - {fileID: 21300000, guid: 12ef6ca2f214f574e90683d6b6f8765a, type: 3}
+  - {fileID: 21300000, guid: 9e43090554f116146a4ff4cf89668fcf, type: 3}
+  - {fileID: 21300000, guid: 2505d612cd558e54d94f5cc01dce9d03, type: 3}

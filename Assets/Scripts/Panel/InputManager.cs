@@ -71,7 +71,7 @@ public class InputManager : MonoBehaviour
             // Eðer dokunulan yer herhangi bir panel deðilse, aktif paneli kapat
             if (!isTouchOnPanel)
             {
-                PanelManager.Instance.HideLastPanel();
+               // PanelManager.Instance.HideLastPanel();
             }
         }
     }

@@ -1,9 +1,12 @@
 using System;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
 public class ResourceManager : MonoBehaviour
 {
+    // USA CENTER BANK
+    public TMP_Text goldText;
     public static ResourceManager Instance { get; private set; }
 
     //merkez bankasýnýn  Kaynaklarý saklayacaðýmýz bir Dictionary
@@ -69,6 +72,8 @@ public class ResourceManager : MonoBehaviour
     }
     public void ChargeTax(ResourceType resourceType, float reduceAmount)
     {
+        goldText.text = ((int)resources[ResourceType.Gold]).ToString();
+        
         if (resources.ContainsKey(resourceType))
         {
             resources[resourceType] +=  reduceAmount;

@@ -251,6 +251,42 @@ public class GameInitalizer : MonoBehaviour
                         { ResourceType.Wood, ResourceType.Coal, ResourceType.Iron }, new List<float> { 5,8,6});
                         s.exportTrade = new Trade(TradeType.Export, new List<ResourceType>
                         { ResourceType.Diamond, ResourceType.Vegetables, ResourceType.Water }, new List<float> { 5, 8, 6 });
+                        TaxData StampTax = new TaxData
+                        {
+                            taxType = TaxType.StampTax,
+                            currentRate = 0,
+                            toleranceLimit = 0,
+                            taxIncome = 0 ,
+                            unitTaxIncome = 20
+                        };
+                        TaxData IncomeTax = new TaxData
+                        {
+                            taxType = TaxType.IncomeTax,
+                            currentRate = 0,
+                            toleranceLimit = 10,
+                            taxIncome = 0,
+                            unitTaxIncome = 20
+                        };
+                        TaxData DirectTax = new TaxData
+                        {
+                            taxType = TaxType.DirectTax,
+                            currentRate = 0,
+                            toleranceLimit = 10,
+                            taxIncome = 0,
+                            unitTaxIncome = 20
+                        };
+                        TaxData ValueAddedTax = new TaxData
+                        {
+                            taxType = TaxType.ValueAddedTax,
+                            currentRate = 0,
+                            toleranceLimit = 7,
+                            taxIncome = 0,
+                            unitTaxIncome = 0
+                        };
+                        s.Taxes.Add(StampTax);
+                        s.Taxes.Add(IncomeTax);
+                        s.Taxes.Add(DirectTax);
+                        s.Taxes.Add(ValueAddedTax);
 
                     }
                    
@@ -275,6 +311,42 @@ public class GameInitalizer : MonoBehaviour
                         { ResourceType.Wood, ResourceType.Coal, ResourceType.Iron }, new List<float> { 5, 8, 6 });
                         s.exportTrade = new Trade(TradeType.Export, new List<ResourceType>
                         { ResourceType.Fruits, ResourceType.Vegetables, ResourceType.Water }, new List<float> { 5, 8, 6 });
+                        TaxData StampTax = new TaxData
+                        {
+                            taxType = TaxType.StampTax,
+                            currentRate = 0,
+                            toleranceLimit = 7,
+                            taxIncome = 0,
+                            unitTaxIncome = 20
+                        };
+                        TaxData IncomeTax = new TaxData
+                        {
+                            taxType = TaxType.IncomeTax,
+                            currentRate = 0,
+                            toleranceLimit = 25,
+                            taxIncome = 0,
+                            unitTaxIncome = 0
+                        };
+                        TaxData DirectTax = new TaxData
+                        {
+                            taxType = TaxType.DirectTax,
+                            currentRate = 0,
+                            toleranceLimit = 30,
+                            taxIncome = 10,
+                            unitTaxIncome = 20
+                        };
+                        TaxData ValueAddedTax = new TaxData
+                        {
+                            taxType = TaxType.ValueAddedTax,
+                            currentRate = 0,
+                            toleranceLimit = 18,
+                            taxIncome = 0,
+                            unitTaxIncome = 0
+                        };
+                        s.Taxes.Add(StampTax);
+                        s.Taxes.Add(IncomeTax);
+                        s.Taxes.Add(DirectTax);
+                        s.Taxes.Add(ValueAddedTax);
                     }
                     else
                     {
@@ -297,6 +369,42 @@ public class GameInitalizer : MonoBehaviour
                         { ResourceType.Wood, ResourceType.Coal, ResourceType.Iron }, new List<float> { 5, 7 });
                         s.exportTrade = new Trade(TradeType.Export, new List<ResourceType>
                         { ResourceType.Gold, ResourceType.Vegetables, ResourceType.Water },/* contract price */ new List<float> { 5, 7,5 });
+                        TaxData StampTax = new TaxData
+                        {
+                            taxType = TaxType.StampTax,
+                            currentRate = 0,
+                            toleranceLimit = 3,
+                            taxIncome = 0,
+                            unitTaxIncome=20
+                        };
+                        TaxData IncomeTax = new TaxData
+                        {
+                            taxType = TaxType.IncomeTax,
+                            currentRate = 0,
+                            toleranceLimit = 12,
+                            taxIncome = 0,
+                            unitTaxIncome = 0
+                        };
+                        TaxData DirectTax = new TaxData
+                        {
+                            taxType = TaxType.DirectTax,
+                            currentRate = 0,
+                            toleranceLimit = 20,
+                            taxIncome = 0,
+                            unitTaxIncome = 20
+                        };
+                        TaxData ValueAddedTax = new TaxData
+                        {
+                            taxType = TaxType.ValueAddedTax,
+                            currentRate = 0,
+                            toleranceLimit = 18,
+                            taxIncome = 0,
+                            unitTaxIncome = 0
+                        };
+                        s.Taxes.Add(StampTax);
+                        s.Taxes.Add(IncomeTax);
+                        s.Taxes.Add(DirectTax);
+                        s.Taxes.Add(ValueAddedTax);
                     }
                  
                    
