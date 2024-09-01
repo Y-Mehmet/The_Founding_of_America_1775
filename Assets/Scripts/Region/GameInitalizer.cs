@@ -349,7 +349,7 @@ public class GameInitalizer : MonoBehaviour
                         s.Taxes.Add(ValueAddedTax);
                     }
                     else
-                    {
+                    {// midle rigion
                         s.UnitArmyPower = (float)(0.75 + rand.NextDouble() * 0.15);
                         s.resourceData = new Dictionary<ResourceType, ResourceData>
                         {

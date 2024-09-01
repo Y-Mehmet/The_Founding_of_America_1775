@@ -50,6 +50,8 @@ public class ResourceManager : MonoBehaviour
     {
         curentTradeStateName= selectedTradeStateName;
         OnStateToTradeChanged?.Invoke(selectedTradeStateName);
+       // Debug.LogError(" yeni state seçildi res manager " + selectedTradeStateName);
+      
 
     }
     

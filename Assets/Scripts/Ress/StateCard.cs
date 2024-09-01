@@ -20,12 +20,12 @@ public class StateCard : MonoBehaviour
             {
                 ShowImportPanelInfo();
             }
-            else
+            else if(parent.tradeType == TradeType.Export)
             {
                 ShowExportPanelInfo();
             }
         }
-        gameObject.GetComponent<Button>().onClick.AddListener(SetCurrentTradeState);
+       
 
 
 
@@ -34,8 +34,10 @@ public class StateCard : MonoBehaviour
     {
         var exportTradeList = gameObject.transform.parent.GetComponent<StateProductPanelScript>().GetExportTradeList();
         int gameObjectindex = gameObject.transform.GetSiblingIndex()-1;
+       
         if (gameObjectindex< exportTradeList.Count)
         {
+            gameObject.GetComponent<Button>().onClick.AddListener(SetCurrentTradeState);
             ResourceType curretResType = ResourceManager.Instance.curentResource;
 
            
@@ -85,8 +87,10 @@ public class StateCard : MonoBehaviour
     {
         var exportTradeList = gameObject.transform.parent.GetComponent<StateProductPanelScript>().GetImportTradeList();
         int gameObjectindex = gameObject.transform.GetSiblingIndex() - 1;
+       
         if (gameObjectindex < exportTradeList.Count)
         {
+            gameObject.GetComponent<Button>().onClick.AddListener(SetCurrentTradeState);
             ResourceType curretResType = ResourceManager.Instance.curentResource;
 
 
@@ -131,7 +135,8 @@ public class StateCard : MonoBehaviour
     void SetCurrentTradeState()
     {
         ResourceManager.Instance.SetCurrentTradeState ( StateNameText.text.ToString());
-        
+      //  Debug.LogWarning(" yeni sate seçildi  state card" + StateNameText.text.ToString());
+
     }
 
 }

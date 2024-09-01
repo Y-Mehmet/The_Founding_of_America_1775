@@ -140,7 +140,7 @@ public class State : MonoBehaviour
                         if(item1.taxType==TaxType.IncomeTax)
                         {
                             float tax = (productionAmount / 100)* item1.currentRate;
-                            Debug.LogWarning(tax);
+                           // Debug.LogWarning(tax);
                             item1.taxIncome= tax;
                             ResourceManager.Instance.ChargeTax(ResourceType.Gold, tax);
                             productionAmount -= tax;
@@ -148,15 +148,10 @@ public class State : MonoBehaviour
                         }
                         else if(item1.taxType== TaxType.StampTax)
                         {
-                            float tax=(item.Value.currentAmount / 100) * item1.currentRate;
-                            if( tax<0)
-                            {
-                                tax = 0;
-
-                            }
-                            item1.taxIncome = tax;
+                            float tax =  item1.taxIncome;
+                            
                            ResourceManager.Instance.ChargeTax(ResourceType.Gold, tax);
-                           item.Value.currentAmount -= tax;
+                          
                         }
                         
                     }
@@ -348,6 +343,22 @@ public class State : MonoBehaviour
     {
         if (resourceData.ContainsKey(resource.Key))
         {
+                if(resource.Key== ResourceType.Gold)
+                {
+                    foreach (var item1 in Taxes)
+                    {
+                        if (item1.taxType == TaxType.DirectTax)// victory 
+                        {
+                            float tax = (resource.Value / 100) * item1.currentRate;
+                            Debug.LogWarning("plunder tax: "+tax);
+                            item1.taxIncome = tax;
+                            ResourceManager.Instance.ChargeTax(ResourceType.Gold, tax);
+                            resourceData[ResourceType.Gold].currentAmount -= tax;
+                                
+                        }
+                    }
+                    
+                }
                 
                 resourceData[resource.Key].currentAmount += resource.Value;
         }
@@ -476,7 +487,7 @@ public enum TaxType
 {
     IncomeTax,
     ValueAddedTax,
-    DirectTax,
+    DirectTax, //  victory
     StampTax
 }
 

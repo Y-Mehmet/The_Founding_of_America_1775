@@ -28,11 +28,11 @@ public class TaxTypePanel : MonoBehaviour
                 if( item.taxType== taxType )
                 {
                     Debug.LogWarning(slider.value);
-                    if( taxType== TaxType.StampTax || taxType== TaxType.DirectTax)
+                    if( taxType== TaxType.StampTax )
                     {
                         item.taxIncome = slider.value * item.unitTaxIncome;
                     }
-                    if( taxType== TaxType.ValueAddedTax)
+                    else
                     {
                         item.taxIncome = 0;
                     }

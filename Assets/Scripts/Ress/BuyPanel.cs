@@ -31,7 +31,7 @@ public class BuyPanel : MonoBehaviour
          currentState = Usa.Instance.FindStateByName(ResourceManager.Instance.curentTradeStateName).GetComponent<State>();
         // Olaylara abone ol
         ResourceManager.Instance.OnResourceChanged += OnResourceOrStateChanged;
-        ResourceManager.Instance.OnStateToTradeChanged += OnResourceOrStateChanged;
+       // ResourceManager.Instance.OnStateToTradeChanged += OnResourceOrStateChanged;
         inputField.onValueChanged.AddListener(OnInputValueChanged);
         macButton.onClick.AddListener(MacButtonClicked);
         buyButton.onClick.AddListener(BuyButtonClicked);
@@ -48,7 +48,7 @@ public class BuyPanel : MonoBehaviour
     {
         // Olaylardan aboneliði kaldýr
         ResourceManager.Instance.OnResourceChanged -= OnResourceOrStateChanged;
-        ResourceManager.Instance.OnStateToTradeChanged -= OnResourceOrStateChanged;
+        //ResourceManager.Instance.OnStateToTradeChanged -= OnResourceOrStateChanged;
     }
     void Restart()
     {
@@ -257,7 +257,13 @@ public class BuyPanel : MonoBehaviour
             Trade trade = stateTransform.GetComponent<State>().GetTrade(0, curretResType);
             if (trade != null)
             {
-                ResourceManager.Instance.SetCurrentTradeState(stateTransform.name);
+
+               if(test==0)
+                {
+                    Debug.LogWarning("state deðiþti buyda " + stateTransform.name);
+                    ResourceManager.Instance.SetCurrentTradeState(stateTransform.name);
+                }
+                    
                 test++;
 
             }

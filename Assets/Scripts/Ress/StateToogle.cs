@@ -23,7 +23,7 @@ public class StateToogle : MonoBehaviour
 
     private void OnStateToTradeChanged(string stateName)
     {
-
+     //   Debug.LogWarning(" state deðiþti statetoogle " + stateName);
 
         if (gameObject.transform.GetChild(1).TryGetComponent<Image>(out Image stateFlag))
         {

@@ -28,7 +28,7 @@ public class SellPanel : MonoBehaviour
          currentStateGameObjcet = RegionClickHandler.Instance.currentState;
         // Olaylara abone ol
         ResourceManager.Instance.OnResourceChanged += OnResourceOrStateChanged;
-        ResourceManager.Instance.OnStateToTradeChanged += OnResourceOrStateChanged;
+       // ResourceManager.Instance.OnStateToTradeChanged += OnResourceOrStateChanged;
         inputField.onValueChanged.AddListener(OnInputValueChanged);
         macButton.onClick.AddListener(MacButtonClicked);
         sellButton.onClick.AddListener(SellButtonClicked);
@@ -46,7 +46,7 @@ public class SellPanel : MonoBehaviour
     {
         // Olaylardan aboneliði kaldýr
         ResourceManager.Instance.OnResourceChanged -= OnResourceOrStateChanged;
-        ResourceManager.Instance.OnStateToTradeChanged -= OnResourceOrStateChanged;
+        //ResourceManager.Instance.OnStateToTradeChanged -= OnResourceOrStateChanged;
     }
     void Restart()
     {
@@ -144,8 +144,12 @@ public class SellPanel : MonoBehaviour
     }
     private IEnumerator UpdateAvableValueText(State currentState , ResourceType resType)
     {
-        yield return new WaitForSeconds(1.0f);
-        amoutAvableValueText.text = currentState.resourceData[resType].currentAmount.ToString();
+        while (rightBox.gameObject.activeSelf)
+        {
+            yield return new WaitForSeconds(1.0f);
+            amoutAvableValueText.text = currentState.resourceData[resType].currentAmount.ToString();
+        }
+
     }
     public void MacButtonClicked()
     {
@@ -170,18 +174,28 @@ public class SellPanel : MonoBehaviour
     public void SellButtonClicked()
     {
         ResourceType type = ResourceManager.Instance.curentResource;
+        
         float earing;
         if (float.TryParse(contrackPriceValueText.text, out earing))
         {
             if (earing > 0)
+            {
+               
                 currentStateGameObjcet.GetComponent<State>().SellResource(type, quantity, earing);
+                OnInputValueChanged("0");
+                amoutAvableValueText.text= currentStateGameObjcet.GetComponent<State>().resourceData[type].currentAmount.ToString();
+            }
+               
             else
                 Debug.LogWarning(" earing value 0");
         }
         else
             Debug.LogWarning("earing value can not parse float");
 
-       
+        OnInputValueChanged("0");
+        amoutAvableValueText.text = currentStateGameObjcet.GetComponent<State>().resourceData[type].currentAmount.ToString();
+
+
     }
     
     public void SetNewTradeState( )
@@ -194,8 +208,12 @@ public class SellPanel : MonoBehaviour
             {
                 Trade trade = stateTransform.GetComponent<State>().GetTrade(1, curretResType);
                 if (trade != null)
+                {if( test==0)
                 {
-                ResourceManager.Instance.SetCurrentTradeState(stateTransform.name);
+                   // Debug.LogWarning("state deðiþti: selde  " + stateTransform.name);
+                    ResourceManager.Instance.SetCurrentTradeState(stateTransform.name);
+                }
+                
                    test++;
                    
                 }
