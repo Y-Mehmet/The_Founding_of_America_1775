@@ -260,7 +260,7 @@ public class BuyPanel : MonoBehaviour
 
                if(test==0)
                 {
-                    Debug.LogWarning("state deðiþti buyda " + stateTransform.name);
+                   // Debug.LogWarning("state deðiþti buyda " + stateTransform.name);
                     ResourceManager.Instance.SetCurrentTradeState(stateTransform.name);
                 }
                     

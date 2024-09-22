@@ -111,34 +111,45 @@ public class SellPanel : MonoBehaviour
     }
     void OnInputValueChanged(string input)
     {
-         
 
 
 
+        float resLimit=0;
         if (float.TryParse(input, out quantity))
         {
 
+            State tradeState = Usa.Instance.FindStateByName(ResourceManager.Instance.curentTradeStateName);
+            for (int i = 0; i < tradeState.importTrade.resourceTypes.Count; i++)
+            {
+                if (ResourceManager.Instance.curentResource == tradeState.importTrade.resourceTypes[i])
+                {
+                    resLimit = tradeState.importTrade.limit[i]; 
+                    Debug.LogWarning($" current trade state name {tradeState.name} res type {ResourceManager.Instance.curentResource} res limit {resLimit}");
+                }
+            }
 
-            float amountAvaible = RegionClickHandler.Instance.currentState.GetComponent<State>().resourceData[ResourceManager.Instance.curentResource].currentAmount;
 
 
-                if (amountAvaible >= quantity )
+
+
+            if (resLimit >= quantity )
                 {
                 contrackPriceValueText.text = (quantity * contrackPrice).ToString();
                 }
                 else
                 {
-                inputField.text = amountAvaible.ToString();
-                contrackPriceValueText.text = (amountAvaible * contrackPrice).ToString();
+                inputField.text = resLimit.ToString();
+                contrackPriceValueText.text = (resLimit * contrackPrice).ToString();
 
                 }
+            Debug.LogWarning("reslimit " + resLimit);
             
 
            
 
         }
         else
-            Debug.LogWarning(" deðer yalýþ");
+            Debug.LogWarning(" input floata dönüþtürülemedi input: "+input);
 
 
     }
@@ -146,8 +157,9 @@ public class SellPanel : MonoBehaviour
     {
         while (rightBox.gameObject.activeSelf)
         {
-            yield return new WaitForSeconds(1.0f);
+            
             amoutAvableValueText.text = currentState.resourceData[resType].currentAmount.ToString();
+            yield return new WaitForSeconds(1.0f);
         }
 
     }
@@ -182,7 +194,7 @@ public class SellPanel : MonoBehaviour
             {
                
                 currentStateGameObjcet.GetComponent<State>().SellResource(type, quantity, earing);
-                OnInputValueChanged("0");
+              //  OnInputValueChanged("0");
                 amoutAvableValueText.text= currentStateGameObjcet.GetComponent<State>().resourceData[type].currentAmount.ToString();
             }
                
@@ -194,7 +206,17 @@ public class SellPanel : MonoBehaviour
 
         OnInputValueChanged("0");
         amoutAvableValueText.text = currentStateGameObjcet.GetComponent<State>().resourceData[type].currentAmount.ToString();
+        State tradeState = Usa.Instance.FindStateByName(ResourceManager.Instance.curentTradeStateName);
+        if (tradeState!= null)
+        {
+            foreach (var resType in tradeState.importTrade.resourceTypes)
+            {
+                if(resType==type)
+                {
 
+                }
+            }
+        }
 
     }
     

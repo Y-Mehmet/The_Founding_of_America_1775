@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using TMPro;
 using UnityEngine;
+using UnityEngine.Rendering;
 using UnityEngine.UI;
 
 public class StateCard : MonoBehaviour
@@ -62,7 +63,23 @@ public class StateCard : MonoBehaviour
                         float gold = state.gameObject.GetComponent<State>().resourceData[ResourceType.Gold].currentAmount;
                         float contPrice =  exportTrade.contractPrices[index];
                         int limit = (int) (gold / contPrice);
-                        CurentLimitValueText.text = limit.ToString() ;
+                        State tradeState = state.GetComponent<State>();
+                        if ( tradeState!=null)
+                        {
+                            for(int i = 0;i< tradeState.importTrade.resourceTypes.Count;i++)
+                            {
+                                if (tradeState.importTrade.resourceTypes[i] == curretResType)
+                                {
+                                    if (limit> tradeState.importTrade.limit[i])
+                                    {
+                                        limit = (int)tradeState.importTrade.limit[i];
+                                    }
+                                }
+                            }
+                            
+                        }
+                            
+                            CurentLimitValueText.text = limit.ToString() ;
                     }
                     else
                     {
@@ -110,15 +127,33 @@ public class StateCard : MonoBehaviour
                 if (resType == curretResType)
                 {
                     CoinValueText.text = exportTrade.contractPrices[index].ToString();
-                    if ((state.gameObject.GetComponent<State>().resourceData[resType].currentAmount) >0)
+                    float limit = state.gameObject.GetComponent<State>().resourceData[resType].currentAmount;
+                    
+                    State tradeState = state.GetComponent<State>();
+                    if (tradeState != null)
                     {
-                        CurentLimitValueText.text = state.gameObject.GetComponent<State>().resourceData[resType].currentAmount.ToString();
+                        for (int i = 0; i < tradeState.exportTrade.resourceTypes.Count; i++)
+                        {
+                            if (tradeState.exportTrade.resourceTypes[i] == curretResType)
+                            {
+                                if (limit > tradeState.exportTrade.limit[i])
+                                {
+                                    limit = (int)tradeState.exportTrade.limit[i];
+                                }
+                            }
+                        }
+
+                    }
+                    if (limit > 0)
+                    {
+                        CurentLimitValueText.text = limit.ToString();
                     }
                     else
                     {
                         CurentLimitValueText.text = "0";
                         Debug.LogWarning(" curent statetenin current amaountu null");
                     }
+
                 }
                 else
                     index++;
