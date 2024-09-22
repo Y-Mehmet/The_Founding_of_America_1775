@@ -10329,6 +10329,18 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1200239486}
   m_CullTransparentMesh: 1
+--- !u!114 &1219139868 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 365727327315466566, guid: c0f8b5b52cef3d048a71c16bfeeca875,
+    type: 3}
+  m_PrefabInstance: {fileID: 5367793496214463314}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ade6d0f39e9b68b438f325120ad7706b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!43 &1223339862
 Mesh:
   m_ObjectHideFlags: 0
@@ -21601,6 +21613,16 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: -178.33333
       objectReference: {fileID: 0}
+    - target: {fileID: 2640187334208161288, guid: c0f8b5b52cef3d048a71c16bfeeca875,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 1219139868}
+    - target: {fileID: 2640187334208161288, guid: c0f8b5b52cef3d048a71c16bfeeca875,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: DoShowPanel
+      objectReference: {fileID: 0}
     - target: {fileID: 2790505730003499731, guid: c0f8b5b52cef3d048a71c16bfeeca875,
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Target
@@ -22599,32 +22621,32 @@ PrefabInstance:
     - target: {fileID: 7043229719841896425, guid: 957e98d162b46874d909fc3fe7c43ea2,
         type: 3}
       propertyPath: m_AnchorMax.x
-      value: 0.5
+      value: 0.75
       objectReference: {fileID: 0}
     - target: {fileID: 7043229719841896425, guid: 957e98d162b46874d909fc3fe7c43ea2,
         type: 3}
       propertyPath: m_AnchorMax.y
-      value: 0.5
+      value: 0.75
       objectReference: {fileID: 0}
     - target: {fileID: 7043229719841896425, guid: 957e98d162b46874d909fc3fe7c43ea2,
         type: 3}
       propertyPath: m_AnchorMin.x
-      value: 0.5
+      value: 0.25
       objectReference: {fileID: 0}
     - target: {fileID: 7043229719841896425, guid: 957e98d162b46874d909fc3fe7c43ea2,
         type: 3}
       propertyPath: m_AnchorMin.y
-      value: 0.5
+      value: 0.25
       objectReference: {fileID: 0}
     - target: {fileID: 7043229719841896425, guid: 957e98d162b46874d909fc3fe7c43ea2,
         type: 3}
       propertyPath: m_SizeDelta.x
-      value: 900
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7043229719841896425, guid: 957e98d162b46874d909fc3fe7c43ea2,
         type: 3}
       propertyPath: m_SizeDelta.y
-      value: 455
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7043229719841896425, guid: 957e98d162b46874d909fc3fe7c43ea2,
         type: 3}
