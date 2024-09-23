@@ -1098,7 +1098,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8711e182ef5bb15418fbd69bd07fbcd7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  textType: 0
+  HappinesPanel: {fileID: 0}
+  taxType: 0
+  slider: {fileID: 0}
+  taxCoinValueText: {fileID: 0}
 --- !u!1 &9056750290751498274
 GameObject:
   m_ObjectHideFlags: 0

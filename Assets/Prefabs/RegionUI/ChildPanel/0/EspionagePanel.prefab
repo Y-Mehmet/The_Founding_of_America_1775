@@ -1454,8 +1454,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Padding:
-    m_Left: 0
-    m_Right: 0
+    m_Left: -20
+    m_Right: -20
     m_Top: 0
     m_Bottom: 0
   m_ChildAlignment: 4
@@ -1896,10 +1896,10 @@ RectTransform:
   - {fileID: 3227253397336486387}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 1, y: 1}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_SizeDelta: {x: 960, y: 540}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &3891308735294288359
 CanvasRenderer:
@@ -1922,7 +1922,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.42352942, g: 0.36078432, b: 0.90588236, a: 1}
+  m_Color: {r: 0.88235295, g: 0.4392157, b: 0.33333334, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -2225,6 +2225,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_text
       value: 'Spy Count:'
+      objectReference: {fileID: 0}
+    - target: {fileID: 7405575899557550783, guid: 4de88bcf48ea1e946a6e01cd2aeac44b,
+        type: 3}
+      propertyPath: m_fontSize
+      value: 50
       objectReference: {fileID: 0}
     - target: {fileID: 8810154890692749361, guid: 4de88bcf48ea1e946a6e01cd2aeac44b,
         type: 3}
