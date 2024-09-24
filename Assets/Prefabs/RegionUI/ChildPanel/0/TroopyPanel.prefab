@@ -264,11 +264,11 @@ MonoBehaviour:
   m_Value: 0
   m_Options:
     m_Options:
-    - m_Text: Option A
+    - m_Text: Henry Knox
       m_Image: {fileID: 21300000, guid: f9ec97f22ad45a648a9c91b1be195c88, type: 3}
-    - m_Text: Option B
+    - m_Text: John Paul Jones
       m_Image: {fileID: 1408694350, guid: 40d4ea3da4f2dd74fb9f061b7fe20c82, type: 3}
-    - m_Text: Option C
+    - m_Text: Nathaniel Greene
       m_Image: {fileID: 21300000, guid: 92d728ab0f219164181500d62a7afce8, type: 3}
   m_OnValueChanged:
     m_PersistentCalls:
@@ -474,10 +474,11 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Option A
+  m_text: Henry Knox
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: d3215549f486c2c4cb52aab0599a410e, type: 2}
+  m_sharedMaterial: {fileID: 7781170026592962715, guid: d3215549f486c2c4cb52aab0599a410e,
+    type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
