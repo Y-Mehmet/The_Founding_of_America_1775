@@ -14,13 +14,17 @@ public class TaxTypePanel : MonoBehaviour
     State currentState;
     private void Awake()
     {
+      
         slider.onValueChanged.AddListener(OnSliderValueChanged);
+        
         currentState = RegionClickHandler.Instance.currentState.GetComponent<State>();
     }
 
     
     private void OnEnable()
     {
+        OnSliderValueChanged(slider.value);
+
         List<TaxData> TaxDatas = currentState.Taxes;
         {
             foreach (var item in TaxDatas)

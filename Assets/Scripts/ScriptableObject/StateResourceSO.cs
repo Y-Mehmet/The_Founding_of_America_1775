@@ -5,7 +5,7 @@ using UnityEngine;
 [CreateAssetMenu(menuName = "StateResourceSO", fileName ="newStateResourceSO")]
 public class StateResourceSO : SingletonScriptableObject<StateResourceSO>
 {
-
+    // bir madenin üretim hýzý 
     public int GoldproductionRate = 5;
     public int WaterproductionRate = 340;
     public int SaltproductionRate = 4;
@@ -17,7 +17,19 @@ public class StateResourceSO : SingletonScriptableObject<StateResourceSO>
     public int CoalproductionRate = 5;
     public int IronproductionRate = 5;
     public int StoneproductionRate = 5;
-    public int DimondproductionRate = 1;
+    public int DimondproductionRate = 1;  
+
+    // 1K insanýn günlük kaynak tüketim miktarý
+    public float WaterConsumptionRate = 65;
+
+    // 1k için günlük doüum oraný 
+    public float BaseBirthRate = 1;
+
+    // 1K için günlük ölüm oraný
+    public float BaseDeathRate = 1;
+
+    // 1k asker için 30 günlük idame maliyeti
+    public float SoliderCost = 300;
   
 
 }

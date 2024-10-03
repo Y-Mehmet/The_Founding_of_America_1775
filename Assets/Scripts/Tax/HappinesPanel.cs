@@ -9,6 +9,7 @@ public class HappinesPanel : MonoBehaviour
 {
     // Mutluluk yüzdesi
     public TMP_Text happinessPercentageText;
+    State currentState;
 
     
 
@@ -22,6 +23,7 @@ public class HappinesPanel : MonoBehaviour
     private void Start()
     {
         spriteCount = GameIconSO.Instance.HappinesIcon.Count;
+        
     }
 
 
@@ -43,33 +45,13 @@ public class HappinesPanel : MonoBehaviour
     }
     void ChangeHappinesImage(float percentage, float limit)
     {
-        Debug.LogWarning("limit: " + limit);
-        /*
-         
-            min= 0;
-            max= 50;
-            limit;
-            persent;
-            resault= persent-limit;
-        if( resault>0)
-        {
-        paylaştırılacakAlan= max-limit;
-        paylaştıılacakAlanBirimUZunluğu= paylaştırılacakAlan/ (iconCount/2)
-        index= resault/ paylaştıılacakAlanBirimUZunluğu+(iconCount/2)
-        }
-        else
-        {
-        paylaştırılacakAlan= limit;
-         paylaştıılacakAlanBirimUZunluğu= paylaştırılacakAlan/ (iconCount/2)
-        index= persent/ paylaştıılacakAlanBirimUZunluğu
-        }
-
-
-         */
+     
         float result = percentage - limit;
+       
         int index=0;
         if (result >= 0)
         {
+            
             float a = (50 - limit) / (spriteCount / 2);
             index = (int)(result / a) + (spriteCount / 2) ; 
             {
@@ -78,6 +60,7 @@ public class HappinesPanel : MonoBehaviour
         }
         else
         {
+          
             float a = limit / (spriteCount / 2);  
             index = (int)(percentage / a);
             if (index < 0)
@@ -88,6 +71,7 @@ public class HappinesPanel : MonoBehaviour
         UpdateHappinessSprite(index);
         happinessPercentageText.text = "%" + percentage;
     }
+  
     public void CahangeHappinesPersengeText(float value)
     {
         happinessPercentageText.text = value.ToString();

@@ -37,7 +37,7 @@ public class GameEconomy : MonoBehaviour
             { ResourceType.Coal, 0.07f },    
             { ResourceType.Iron, 0.09f },     
             { ResourceType.Stone, 0.05f },    
-            { ResourceType.Diamond, 1000 }     
+            { ResourceType.Diamond, 100 }     
         };
         }
 

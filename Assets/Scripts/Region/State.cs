@@ -19,7 +19,8 @@ public class State : MonoBehaviour
     public float TotalArmyPower;
     public StateType stateType;
     public float Morele = 100.0f;
-    public float TotalMoraleImpact=0;
+    
+    public float TotalMoraleImpact=0; // kullanýlmýyor
     
     public Sprite StateIcon;
     public int Population;
@@ -45,22 +46,10 @@ public class State : MonoBehaviour
     {
         TotalMoraleImpact += impact;
     }
-    public void AdjustTaxRate(TaxType taxType, float newRate)
-    {
-        TaxData tax = Taxes.Find(t => t.taxType == taxType);
-        if (tax != null)
-        {
-            tax.currentRate = newRate;
-            if (newRate > tax.toleranceLimit)
-            {
-                float impact=tax.currentRate-tax.toleranceLimit;
-                SetTotalMoraleImpact((float)impact); 
-                Debug.LogWarning($"Tolerans eþiði aþýldý! Vergi Türü: {taxType}");
-            }
-        }
-    }
+    
 
-   
+
+
 
     private void Start()
     {
@@ -84,6 +73,25 @@ public class State : MonoBehaviour
         HandleAttackStopped();
         StartCoroutine(ChangeMorale());
     }
+    private float GetTaxSatisfactionRate()
+    {
+        float taxSatisfactionRate = 0;
+        foreach (var tax in Taxes)
+        {
+            float result = tax.currentRate - tax.toleranceLimit;
+
+            if (result > 0)
+            {
+                // Exponential etki: Farkýn karesi veya baþka bir üs
+                // Burada 2. dereceden bir etki uyguluyoruz, fark daha hýzlý artacak
+                taxSatisfactionRate -= Mathf.Pow(result, 1.5f); // Farkýn karesi (result^2)
+
+               
+            }
+        }
+        return taxSatisfactionRate * 0.01f;
+    }
+
     private void HandleAttackStarted()
     {
         if (increaseArmySizeCoroutine != null)
@@ -111,7 +119,14 @@ public class State : MonoBehaviour
     {
         while (!GameManager.Instance.ÝsGameOver && !GameManager.Instance.isGamePause && GameManager.Instance.IsAttackFinish)
         {
-            Morele += TotalMoraleImpact;
+            Morele += GetTaxSatisfactionRate();
+            Morele = Mathf.Clamp(Morele, 0, 100);
+            if(this.gameObject==RegionClickHandler.Instance.currentState)
+            {
+                Debug.LogWarning($" morale: " + Morele);
+            }
+         
+            
             yield return new WaitForSeconds(GameManager.Instance.gameDayTime);
         }
     }
@@ -132,7 +147,7 @@ public class State : MonoBehaviour
         {
             foreach (var item in resourceData)
             {
-                float productionAmount = (item.Value.mineCount * item.Value.productionRate);
+                float productionAmount = (item.Value.mineCount * item.Value.productionRate) / 100 * Morele;
                 if (item.Key== ResourceType.Gold)
                 {
                     foreach (var item1 in Taxes)

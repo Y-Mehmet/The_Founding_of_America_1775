@@ -6,7 +6,7 @@ using UnityEngine;
 public class MineManager : MonoBehaviour
 {
     public static MineManager instance { get; set; }
-    public Dictionary<ResourceType, MineMatarials> MineRequiredResList = new Dictionary<ResourceType, MineMatarials> ();
+    public Dictionary<ResourceType, MineMatarials> MineRequiredResList = new Dictionary<ResourceType, MineMatarials> (); //  game initte atandý
     public Dictionary<ResourceType, string> ResMineNameList = new Dictionary<ResourceType, string> ();
     public ResourceType curentResource;
     public Action<ResourceType> OnResourceChanged;
