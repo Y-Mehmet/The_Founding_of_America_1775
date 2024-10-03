@@ -38,24 +38,20 @@ public class RegionManager : MonoBehaviour
     {
        
             
-            State state = Usa.Instance.gameObject.transform.Find(regionName).gameObject.GetComponent<State>();
+            //State state = Usa.Instance.gameObject.transform.Find(regionName).gameObject.GetComponent<State>();
+           State state= RegionClickHandler.Instance.currentState.GetComponent<State>();
             if (state != null)
             {
                 a_regionNameText.text = regionName;
-                
                 a_StateIcon.sprite = state.StateIcon;
 
-                
-                
-                    
-                    a_happinessText.text = "Happiness: %" + state.Morele;
-                    a_populationText.text = "Population: " + state.Population;
-                    a_foodStockText.text = "Food Stock: " + state.Resources;
-                
-             
+                a_happinessText.text = "Happiness: %" + state.Morele;
+                a_populationText.text = "Population: " + state.Population;
+                a_foodStockText.text = "Fav Resource: " + state.Resources;
 
-                
-            }
+            state.OnMoreleChanged += UpdateAllayUIInfoPanel;
+
+        }
             else
             {
                 Debug.LogWarning("stateden icon al�namad� state i�ermiyor");
@@ -68,6 +64,13 @@ public class RegionManager : MonoBehaviour
             // Paneli g�ster
             infoPanel.SetActive(true);
         
+    }
+    void UpdateAllayUIInfoPanel(float Morele, State state2)
+    {
+        State state = RegionClickHandler.Instance.currentState.GetComponent<State>();
+        a_happinessText.text = "Happiness: %" + state.Morele;
+        a_populationText.text = "Population: " + state.Population;
+        a_foodStockText.text = "Fav Resource: " + state.Resources;
     }
     public void ShowEnemyRegionInfo(string regionName)
     {

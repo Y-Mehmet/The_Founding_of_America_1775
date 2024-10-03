@@ -9,7 +9,7 @@ public class HappinesPanel : MonoBehaviour
 {
     // Mutluluk yüzdesi
     public TMP_Text happinessPercentageText;
-    State currentState;
+   
 
     
 

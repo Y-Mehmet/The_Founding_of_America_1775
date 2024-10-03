@@ -19,6 +19,7 @@ public class Plunder : MonoBehaviour
     void ChangeAttackFinisValueTrue()
     {
         GameManager.Instance.ChangeAttackFinisValueTrue();
+        GameManager.Instance.ChangeIsAttackValueFalse();
     }
     public void ShowPlunderPanel()
     {

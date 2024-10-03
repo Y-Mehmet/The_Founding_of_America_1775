@@ -14,62 +14,80 @@ public class TaxTypePanel : MonoBehaviour
     State currentState;
     private void Awake()
     {
-      
-        slider.onValueChanged.AddListener(OnSliderValueChanged);
         
-        currentState = RegionClickHandler.Instance.currentState.GetComponent<State>();
+       
     }
 
     
     private void OnEnable()
     {
-        OnSliderValueChanged(slider.value);
 
-        List<TaxData> TaxDatas = currentState.Taxes;
+        currentState = RegionClickHandler.Instance.currentState.GetComponent<State>();
+        if (currentState == null)
         {
-            foreach (var item in TaxDatas)
+            Debug.LogWarning("current state is null"); 
+        }else
+        {
+            List<TaxData> TaxDatas = currentState.Taxes;
             {
-                if( item.taxType== taxType )
+                foreach (var item in TaxDatas)
                 {
-                    Debug.LogWarning(slider.value);
-                    if( taxType== TaxType.StampTax )
+                    if (item.taxType == taxType)
                     {
-                        item.taxIncome = slider.value * item.unitTaxIncome;
+                        slider.value = item.currentRate;
+                        Debug.LogWarning(item.currentRate);
+                        slider.onValueChanged.AddListener(OnSliderValueChanged);
+
+                        if (taxType == TaxType.StampTax)
+                        {
+                            item.taxIncome = slider.value * item.unitTaxIncome;
+                        }
+                        else
+                        {
+                            item.taxIncome = 0;
+                        }
+
+                        HappinesPanel.GetComponent<HappinesPanel>().SetHappiness(slider.value, item.toleranceLimit);
+                        taxCoinValueText.text = item.taxIncome.ToString();
+                        item.currentRate = slider.value;
                     }
-                    else
-                    {
-                        item.taxIncome = 0;
-                    }
-                   
-                    HappinesPanel.GetComponent<HappinesPanel>().SetHappiness(slider.value, item.toleranceLimit);
-                    taxCoinValueText.text = item.taxIncome.ToString();
-                    item.currentRate = slider.value;
                 }
             }
         }
+
+
+        
 
     
        
        
     }
+    private void OnDisable()
+    {
+        slider.onValueChanged.RemoveListener(OnSliderValueChanged);
+    }
 
     // Slider deðeri deðiþtiðinde çaðrýlacak iþlev
     void OnSliderValueChanged(float value)
     {
-        List<TaxData> TaxDatas = RegionClickHandler.Instance.currentState.GetComponent<State>().Taxes;
+      
         {
-            foreach (var item in TaxDatas)
+            List<TaxData> TaxDatas = RegionClickHandler.Instance.currentState.GetComponent<State>().Taxes;
             {
-                if (item.taxType == taxType)
+                foreach (var item in TaxDatas)
                 {
-                    if (taxType == TaxType.StampTax || taxType == TaxType.DirectTax)
-                        item.taxIncome = value * item.unitTaxIncome;
-                    HappinesPanel.GetComponent<HappinesPanel>().OnHappinessChanged?.Invoke(value,item.toleranceLimit);
-                    taxCoinValueText.text = item.taxIncome.ToString();
-                    item.currentRate = value;
+                    if (item.taxType == taxType)
+                    {
+                        if (taxType == TaxType.StampTax || taxType == TaxType.DirectTax)
+                            item.taxIncome = value * item.unitTaxIncome;
+                        HappinesPanel.GetComponent<HappinesPanel>().OnHappinessChanged?.Invoke(value, item.toleranceLimit);
+                        taxCoinValueText.text = item.taxIncome.ToString();
+                        item.currentRate = value;
+                    }
                 }
             }
         }
+        
     }
 
 

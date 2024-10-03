@@ -16,6 +16,7 @@ public class Annex : MonoBehaviour
         {
             defState.OccupyState();
             GameManager.Instance.IsAttackFinish = true;
+            GameManager.Instance.ChangeIsAttackValueFalse();
         }
         else
             Debug.LogWarning("def state is null");

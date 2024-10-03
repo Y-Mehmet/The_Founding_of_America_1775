@@ -11,14 +11,18 @@ public class State : MonoBehaviour
   
     private Coroutine increaseArmySizeCoroutine;
     private Coroutine resourceProductionCoroutine;
+    private Coroutine moreleCoroutine;
+    private Coroutine incrasePopulationCoroutine;
+    private Coroutine decreasePopulationCoroutine;
+    public Action<float, State> OnMoreleChanged;
 
     public int HierarchicalIndex;
     public string StateName = "";
-    public float ArmySize = 100;
-    public float UnitArmyPower = 0.75f;
+    public float ArmySize ;
+    public float UnitArmyPower ;
     public float TotalArmyPower;
     public StateType stateType;
-    public float Morele = 100.0f;
+    public float Morele ;
     
     public float TotalMoraleImpact=0; // kullanýlmýyor
     
@@ -41,7 +45,8 @@ public class State : MonoBehaviour
     public float MoraleMultiplier = 0.01f; // Moralin asker artýþýna etkisi
   
     public float PopulationMultiplier = 0.001f; // Nüfusun asker artýþýna etkisi
-   
+    private float populationGrowthRateMultiplier=0.00001f; // population growth rate multiplier
+
     public void SetTotalMoraleImpact(float impact)
     {
         TotalMoraleImpact += impact;
@@ -71,7 +76,8 @@ public class State : MonoBehaviour
         GameManager.Instance.OnAttackStarted += HandleAttackStarted;
         GameManager.Instance.OnAttackStopped += HandleAttackStopped;
         HandleAttackStopped();
-        StartCoroutine(ChangeMorale());
+        
+
     }
     private float GetTaxSatisfactionRate()
     {
@@ -105,6 +111,19 @@ public class State : MonoBehaviour
             StopCoroutine(resourceProductionCoroutine);
             resourceProductionCoroutine = null;
         }
+        if (moreleCoroutine != null)
+        {
+            StopCoroutine(moreleCoroutine);
+            moreleCoroutine = null;
+        }
+        if(incrasePopulationCoroutine != null)
+        {
+            StopCoroutine(incrasePopulationCoroutine);
+            StopCoroutine(decreasePopulationCoroutine);
+            incrasePopulationCoroutine = null;
+            decreasePopulationCoroutine = null;
+        }
+           
     }
 
     private void HandleAttackStopped()
@@ -114,19 +133,40 @@ public class State : MonoBehaviour
 
         if (resourceProductionCoroutine == null)
             resourceProductionCoroutine = StartCoroutine(ResourceProduction());
+        if (moreleCoroutine == null)
+            moreleCoroutine = StartCoroutine(ChangeMorale());
+        if (incrasePopulationCoroutine == null)
+        {
+            incrasePopulationCoroutine = StartCoroutine(IncrasePopulationOverTime());
+
+            decreasePopulationCoroutine = StartCoroutine(ReducePopulationOverTime());
+        }
+       
     }
     private IEnumerator ChangeMorale()
     {
         while (!GameManager.Instance.ÝsGameOver && !GameManager.Instance.isGamePause && GameManager.Instance.IsAttackFinish)
         {
-            Morele += GetTaxSatisfactionRate();
-            Morele = Mathf.Clamp(Morele, 0, 100);
-            if(this.gameObject==RegionClickHandler.Instance.currentState)
-            {
-                Debug.LogWarning($" morale: " + Morele);
-            }
-         
+            float addedTaxValue= GetTaxSatisfactionRate();
             
+            {
+                Morele += addedTaxValue;
+                Morele = Mathf.Clamp(Morele, 0, 100);
+                State state = gameObject.GetComponent<State>();
+               
+               
+                {
+                   
+                    {
+                        OnMoreleChanged?.Invoke(Morele, state);
+                        Debug.LogWarning($" morale: " + Morele);
+                    }
+                }
+
+
+            }
+
+
             yield return new WaitForSeconds(GameManager.Instance.gameDayTime);
         }
     }
@@ -137,6 +177,28 @@ public class State : MonoBehaviour
             float armyIncreasePerSecond = Morele * MoraleMultiplier * Population * PopulationMultiplier;
             ArmySize += armyIncreasePerSecond;
             TotalArmyPower = ArmySize * UnitArmyPower;
+            yield return new WaitForSeconds(GameManager.Instance.gameDayTime);
+        }
+    }
+    private IEnumerator IncrasePopulationOverTime()
+    {
+
+        while (!GameManager.Instance.ÝsGameOver && !GameManager.Instance.isGamePause && GameManager.Instance.IsAttackFinish)
+        {
+            int populationIncreasePerSecond =(int)( Morele * Population * populationGrowthRateMultiplier);
+            Population += populationIncreasePerSecond;
+            
+            yield return new WaitForSeconds(GameManager.Instance.gameDayTime);
+        }
+    }
+    private IEnumerator ReducePopulationOverTime()
+    {
+
+        while (!GameManager.Instance.ÝsGameOver && !GameManager.Instance.isGamePause && GameManager.Instance.IsAttackFinish)
+        {
+            int populationIncreasePerSecond = (int)((100-Morele) * Population * populationGrowthRateMultiplier);
+            Population -= populationIncreasePerSecond;
+
             yield return new WaitForSeconds(GameManager.Instance.gameDayTime);
         }
     }
@@ -199,6 +261,7 @@ public class State : MonoBehaviour
     public void  ReduceArmySize(float loss)
     {
         ArmySize-= (int)loss;
+        ArmySize = Mathf.Clamp(ArmySize, 0, 9999999999999);
         if(ArmySize <= 20)
         {
             

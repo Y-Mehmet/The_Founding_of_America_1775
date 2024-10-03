@@ -293,7 +293,7 @@ public class GameInitalizer : MonoBehaviour
                    
                     else if (smallStates.Contains(region.Name))
                     {
-                        s.UnitArmyPower = (float)(0.75 + rand.NextDouble() * 0.05);
+                        s.UnitArmyPower = (float)(0.35 + rand.NextDouble() * 0.05);
                         s.resourceData = new Dictionary<ResourceType, ResourceData>
                      {
                             { ResourceType.Gold, new ResourceData { currentAmount = 1000, mineCount = 3, productionRate = goldRate }},
