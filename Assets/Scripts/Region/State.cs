@@ -159,7 +159,7 @@ public class State : MonoBehaviour
                    
                     {
                         OnMoreleChanged?.Invoke(Morele, state);
-                        Debug.LogWarning($" morale: " + Morele);
+                      //  Debug.LogWarning($" morale: " + Morele);
                     }
                 }
 
