@@ -53,7 +53,7 @@ public class RegionClickHandler : MonoBehaviour
                         if (selectable != null)
                         {
                             currentState = hitObject;
-                         Debug.Log("Bölge paneli açýldý: " + hitObject.name);
+                        // Debug.Log("Bölge paneli açýldý: " + hitObject.name);
                         selectable.SellectState();
                         }
                         else

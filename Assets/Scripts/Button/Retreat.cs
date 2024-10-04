@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 public class Retreat : MonoBehaviour
 {
-    private void Start()
+    private void OnEnable()
     {
         gameObject.GetComponent<Button>().onClick.AddListener(RetreatState);
     }
@@ -15,5 +15,9 @@ public class Retreat : MonoBehaviour
             GameManager.Instance.IsAttackFinish = true;
             GameManager.Instance.ChangeIsAttackValueFalse();
        
+    }
+    private void OnDisable()
+    {
+        gameObject.GetComponent<Button>().onClick.RemoveListener(RetreatState);
     }
 }

@@ -23,7 +23,7 @@ public class GameDateManager : MonoBehaviour
     {
         if (GameManager.Instance != null)
         {
-            timeScale = GameManager.Instance.gameDayTime;
+            timeScale = GameManager.gameDayTime;
         }
         else
             Debug.LogWarning("gameManager is null");
@@ -40,7 +40,7 @@ public class GameDateManager : MonoBehaviour
         if (!isPaused)
         {
             currentDate = currentDate.AddDays(1);
-            Debug.Log("Current Game Date: " + currentDate.ToString("MM/dd/yyyy")); // Amerikan tarih formatý
+          //  Debug.Log("Current Game Date: " + currentDate.ToString("MM/dd/yyyy")); // Amerikan tarih formatý
         }
     }
 

@@ -167,7 +167,7 @@ public class State : MonoBehaviour
             }
 
 
-            yield return new WaitForSeconds(GameManager.Instance.gameDayTime);
+            yield return new WaitForSeconds(GameManager.gameDayTime);
         }
     }
     private IEnumerator IncreaseArmySizeOverTime()
@@ -177,7 +177,7 @@ public class State : MonoBehaviour
             float armyIncreasePerSecond = Morele * MoraleMultiplier * Population * PopulationMultiplier;
             ArmySize += armyIncreasePerSecond;
             TotalArmyPower = ArmySize * UnitArmyPower;
-            yield return new WaitForSeconds(GameManager.Instance.gameDayTime);
+            yield return new WaitForSeconds(GameManager.gameDayTime);
         }
     }
     private IEnumerator IncrasePopulationOverTime()
@@ -188,7 +188,7 @@ public class State : MonoBehaviour
             int populationIncreasePerSecond =(int)( Morele * Population * populationGrowthRateMultiplier);
             Population += populationIncreasePerSecond;
             
-            yield return new WaitForSeconds(GameManager.Instance.gameDayTime);
+            yield return new WaitForSeconds(GameManager.gameDayTime);
         }
     }
     private IEnumerator ReducePopulationOverTime()
@@ -199,13 +199,13 @@ public class State : MonoBehaviour
             int populationIncreasePerSecond = (int)((100-Morele) * Population * populationGrowthRateMultiplier);
             Population -= populationIncreasePerSecond;
 
-            yield return new WaitForSeconds(GameManager.Instance.gameDayTime);
+            yield return new WaitForSeconds(GameManager.gameDayTime);
         }
     }
 
     private IEnumerator ResourceProduction()
     {
-        while (!GameManager.Instance.ÝsGameOver && !GameManager.Instance.isGamePause && GameManager.Instance.IsAttackFinish && false)
+        while (!GameManager.Instance.ÝsGameOver && !GameManager.Instance.isGamePause && GameManager.Instance.IsAttackFinish )
         {
             foreach (var item in resourceData)
             {
@@ -241,7 +241,7 @@ public class State : MonoBehaviour
             }
 
             
-            yield return new WaitForSeconds(GameManager.Instance.gameDayTime);
+            yield return new WaitForSeconds(GameManager.gameDayTime);
         }
     }
 

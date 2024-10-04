@@ -64,6 +64,9 @@ public class Plunder : MonoBehaviour
         }
 
     }
+    private void OnDisable()
+    {
+        plunderBtn.onClick.RemoveListener(ChangeAttackFinisValueTrue);
+    }
 
-   
 }

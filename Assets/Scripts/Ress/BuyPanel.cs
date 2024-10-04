@@ -11,7 +11,7 @@ public class BuyPanel : MonoBehaviour
     public TMP_InputField inputField;
     public Button  buyButton, instantlyButton, macButton;
     
-    public TMP_Text contrackPriceValueText, InstantlyValueText;
+    public TMP_Text contrackPriceValueText, InstantlyValueText, secondValueText,buyValueTax;
     int indexOfLimit;
     float contrackPrice;
     
@@ -27,28 +27,41 @@ public class BuyPanel : MonoBehaviour
     private void OnEnable()
     {
         
+
+        
         SetNewTradeState();
-         currentState = Usa.Instance.FindStateByName(ResourceManager.Instance.curentTradeStateName).GetComponent<State>();
+        currentState = Usa.Instance.FindStateByName(ResourceManager.Instance.curentTradeStateName).GetComponent<State>();
         // Olaylara abone ol
         ResourceManager.Instance.OnResourceChanged += OnResourceOrStateChanged;
-       // ResourceManager.Instance.OnStateToTradeChanged += OnResourceOrStateChanged;
+        ResourceManager.Instance.OnStateToTradeChanged += OnStateToTradeChanged;
+        // ResourceManager.Instance.OnStateToTradeChanged += OnResourceOrStateChanged;
+        // Diðer abonelikler
         inputField.onValueChanged.AddListener(OnInputValueChanged);
+
+        // Daha önce eklenen listener'larý kaldýr, ardýndan tekrar ekle.
+        macButton.onClick.RemoveListener(MacButtonClicked);
         macButton.onClick.AddListener(MacButtonClicked);
-        buyButton.onClick.AddListener(BuyButtonClicked);
+
+        buyButton.onClick.RemoveListener(BuyButtonClicked); // Önce kaldýr
+        buyButton.onClick.AddListener(BuyButtonClicked);    // Sonra ekle
+
+        instantlyButton.onClick.RemoveListener(InstantlyButtonClicked);
         instantlyButton.onClick.AddListener(InstantlyButtonClicked);
 
         // Panel bilgisini göster
         ShowPanelInfo();
         originalTextColor = contrackPriceValueText.color;
         Restart();
-
     }
+
 
     private void OnDisable()
     {
         // Olaylardan aboneliði kaldýr
         ResourceManager.Instance.OnResourceChanged -= OnResourceOrStateChanged;
-        //ResourceManager.Instance.OnStateToTradeChanged -= OnResourceOrStateChanged;
+        buyButton.onClick.RemoveListener(BuyButtonClicked); // Önce kaldýr
+        instantlyButton.onClick.RemoveListener(InstantlyButtonClicked);
+        macButton.onClick.RemoveListener(MacButtonClicked);
     }
     void Restart()
     {
@@ -61,9 +74,26 @@ public class BuyPanel : MonoBehaviour
         ShowPanelInfo();
     }
 
-    private void OnResourceOrStateChanged(string stateName)
+    private void OnStateToTradeChanged(string stateName)
     {
-        ShowPanelInfo();
+        string currentStateName= RegionClickHandler.Instance.currentState.name;
+        string currentTradeStateName = ResourceManager.Instance.curentTradeStateName;
+        if(Neighbor.Instance!= null)
+        {
+          if (Neighbor.Instance.AreNeighbors(currentStateName, currentTradeStateName))
+            {
+                secondValueText.text=GameManager.neigbordTradeTime.ToString();
+            }
+          else
+            {
+                secondValueText.text = GameManager.nonNeigbordTradeTime.ToString();
+            }
+        }
+        else
+        {
+            Debug.LogWarning("neignord is null");
+        }
+        
     }
 
     void ShowPanelInfo()
@@ -125,27 +155,38 @@ public class BuyPanel : MonoBehaviour
 
 
             float amountAvaible = currentState.resourceData[ResourceManager.Instance.curentResource].currentAmount;
+            float buyPrice = quantity * contrackPrice;
+            float goldResAmount = RegionClickHandler.Instance.currentState.GetComponent<State>().resourceData[ResourceType.Gold].currentAmount;
+            float dimondResAmount= RegionClickHandler.Instance.currentState.GetComponent<State>().resourceData[ResourceType.Diamond].currentAmount;
 
-
-            if (amountAvaible >= quantity)
+            if (amountAvaible >= quantity && goldResAmount>=buyPrice )
             {
                 contrackPriceValueText.color = originalTextColor;
-                contrackPriceValueText.text = (quantity * contrackPrice).ToString();
+                contrackPriceValueText.text = buyPrice.ToString();
             }
             else
             {
                 contrackPriceValueText.color = Color.red;
-                contrackPriceValueText.text = (quantity * contrackPrice).ToString();
+                contrackPriceValueText.text = buyPrice.ToString();
 
             }
+            
             float spending;
             if (float.TryParse(contrackPriceValueText.text, out spending))
             {
-                float Dimond = (float)Math.Ceiling((spending / ResourceManager.Instance.DimondRate));
+                float Dimond = GameEconomy.Instance.GetGemValue(spending);
 
                 if (Dimond >0)
                 {
-                    InstantlyValueText.text = Dimond.ToString();
+                    if (amountAvaible >= quantity && dimondResAmount>Dimond)
+                    {
+                        InstantlyValueText.color = originalTextColor;
+                    }
+                    else
+                    {
+                        InstantlyValueText.color = Color.red;
+                    }
+                        InstantlyValueText.text = Dimond.ToString();
                 }
                     
                 else
@@ -165,7 +206,11 @@ public class BuyPanel : MonoBehaviour
 
         }
         else
-            Debug.LogWarning(" deðer yalýþ");
+        {
+            InstantlyValueText.text = "0";
+            contrackPriceValueText.text = "0";
+        }
+            
 
 
     }
@@ -203,6 +248,7 @@ public class BuyPanel : MonoBehaviour
                 {
                     currentState.BuyyResource(type, quantity, spending);
                     buyButton.GetComponent<HideLastPanelButton>().DoHidePanel();
+                    Debug.LogWarning($"res satýn alýndý quantaty {quantity} harcanan altýn {spending}");
                 }
                else
                 {
@@ -224,13 +270,14 @@ public class BuyPanel : MonoBehaviour
         float spending;
         if (float.TryParse(contrackPriceValueText.text, out spending))
         {
-            float Dimond = (float)Math.Ceiling((spending / ResourceManager.Instance.DimondRate));
+            float Dimond = GameEconomy.Instance.GetGemValue(spending);
 
             if (spending > 0)
             {
-                if (currentState.resourceData[ResourceType.Gold].currentAmount > spending)
+                if (currentState.resourceData[ResourceType.Diamond].currentAmount > Dimond)
                 {
                     RegionClickHandler.Instance.currentState.GetComponent<State>().InstantlyResource(type, quantity, Dimond);
+                    buyButton.GetComponent<HideLastPanelButton>().DoHidePanel();
                 }
                 else
                 {

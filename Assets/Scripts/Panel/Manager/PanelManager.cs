@@ -71,8 +71,8 @@ public class PanelManager : Singleton<PanelManager>
                 }
             }
         }
-        else
-            Debug.LogWarning("hibir panel açýk deðil");
+        //else
+           // Debug.LogWarning("hibir panel açýk deðil");
     }
 
     // Tüm panelleri gizleme fonksiyonu

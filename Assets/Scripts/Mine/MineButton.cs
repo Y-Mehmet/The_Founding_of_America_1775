@@ -18,7 +18,7 @@ public class MineButton : MonoBehaviour
         currentState = RegionClickHandler.Instance.currentState.GetComponent<State>();
         if(currentState != null)
         {
-            duration = GameManager.Instance.gameDayTime;
+            duration = GameManager.gameDayTime;
             mineCountText.text = currentState.resourceData[resourceType].mineCount.ToString();
             StartCoroutine(ResValueTextUpdate());
         }
@@ -42,5 +42,9 @@ public class MineButton : MonoBehaviour
     void ButtonisClicked()
     {
         MineManager.instance.SetCurrentResource(resourceType);
+    }
+    private void OnDisable()
+    {
+        gameObject.GetComponent<Button>().onClick.RemoveListener(ButtonisClicked);
     }
 }

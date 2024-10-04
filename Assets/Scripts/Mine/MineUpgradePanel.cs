@@ -49,7 +49,10 @@ public class MineUpgradePanel : MonoBehaviour
     private void OnDisable()
     {
         MineManager.instance.OnResourceChanged -= OnResourceTypeChanged;
-        
+        macButton.onClick.RemoveListener(MacButtonClicked);
+        BuyButton.onClick.RemoveListener(BuyButtonClicked);
+        InstantlyButton.onClick.RemoveListener(InstantlyButtonClicked);
+
 
     }
     void OnResourceTypeChanged(ResourceType resType)
@@ -97,7 +100,7 @@ public class MineUpgradePanel : MonoBehaviour
     {
        while(true)
         {
-            float duration = GameManager.Instance.gameDayTime;
+            float duration = GameManager.gameDayTime;
             yield return new WaitForSeconds(duration);
 
 

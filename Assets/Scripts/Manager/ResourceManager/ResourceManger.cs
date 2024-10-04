@@ -17,8 +17,9 @@ public class ResourceManager : MonoBehaviour
     public Action<ResourceType> OnResourceChanged;
     public Action<string> OnStateToTradeChanged;
 
-    public float DimondRate = 1000;
+    public static  float DimondRate = 100;
     public int InputFieldCaharcterLimit = 6;
+    
 
     private void Awake()
     {

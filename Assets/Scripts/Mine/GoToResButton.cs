@@ -18,4 +18,8 @@ public class GoToResButton : MonoBehaviour
         MineManager.instance.SetCurrentResource(resourceType);
         
     }
+    private void OnDisable()
+    {
+        gameObject.GetComponent<Button>().onClick.RemoveListener(ButtonisClicked);
+    }
 }

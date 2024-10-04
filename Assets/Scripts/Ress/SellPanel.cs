@@ -46,7 +46,9 @@ public class SellPanel : MonoBehaviour
     {
         // Olaylardan aboneliði kaldýr
         ResourceManager.Instance.OnResourceChanged -= OnResourceOrStateChanged;
-        //ResourceManager.Instance.OnStateToTradeChanged -= OnResourceOrStateChanged;
+        inputField.onValueChanged.RemoveListener(OnInputValueChanged);
+        macButton.onClick.RemoveListener(MacButtonClicked);
+        sellButton.onClick.RemoveListener(SellButtonClicked);
     }
     void Restart()
     {

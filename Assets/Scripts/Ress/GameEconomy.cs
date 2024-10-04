@@ -8,7 +8,7 @@ public class GameEconomy : MonoBehaviour
     private Dictionary<ResourceType, float> resourceToGoldValue;
     
      public float PayBackValue;
-    public float payBackTime = 100;
+    public  float payBackTime = 100;
     private void Awake()
     {
         if(Instance == null)
@@ -18,7 +18,7 @@ public class GameEconomy : MonoBehaviour
     }
     private void Start()
     {
-        PayBackValue = GameManager.Instance.gameDayTime * payBackTime;
+        PayBackValue = GameManager.gameDayTime * payBackTime;
     }
 
     public GameEconomy()
@@ -37,7 +37,7 @@ public class GameEconomy : MonoBehaviour
             { ResourceType.Coal, 0.07f },    
             { ResourceType.Iron, 0.09f },     
             { ResourceType.Stone, 0.05f },    
-            { ResourceType.Diamond, 100 }     
+            { ResourceType.Diamond, ResourceManager.DimondRate }     
         };
         }
 
@@ -55,7 +55,7 @@ public class GameEconomy : MonoBehaviour
         }
     public float GetGemValue(float goldAmount)
     {
-        float gemValue = goldAmount / ResourceManager.Instance.DimondRate;
+        float gemValue = goldAmount / ResourceManager.DimondRate;
         return Mathf.Ceil( gemValue);
     }
 

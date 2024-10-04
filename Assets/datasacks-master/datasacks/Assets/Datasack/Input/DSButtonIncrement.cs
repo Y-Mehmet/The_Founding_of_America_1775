@@ -84,8 +84,9 @@ public class DSButtonIncrement : MonoBehaviour
 	void	OnEnable()
 	{
 		button = GetComponent<Button> ();
+	
 
-		button.onClick.AddListener (OnChanged);
+        button.onClick.AddListener (OnChanged);
 	}
 	void	OnDisable()
 	{

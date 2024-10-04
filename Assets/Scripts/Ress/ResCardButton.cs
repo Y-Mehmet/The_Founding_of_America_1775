@@ -48,4 +48,8 @@ public class ResCardButton : MonoBehaviour
        
          
     }
+    private void OnDisable()
+    {
+        gameObject.GetComponent<Button>().onClick.RemoveListener(SetCurentResource);
+    }
 }

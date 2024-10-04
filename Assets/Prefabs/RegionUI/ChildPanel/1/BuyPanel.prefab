@@ -1620,6 +1620,7 @@ MonoBehaviour:
   macButton: {fileID: 8338748698118657194}
   contrackPriceValueText: {fileID: 4941926975172550933}
   InstantlyValueText: {fileID: 8601008271027369225}
+  secondValueText: {fileID: 8101175068234382769}
 --- !u!1 &7323720803322093740
 GameObject:
   m_ObjectHideFlags: 0
@@ -2699,6 +2700,11 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6207735019481945928, guid: 03b39009289e4924084ccecd343115ca,
+        type: 3}
+      propertyPath: m_text
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6790685286359565680, guid: 03b39009289e4924084ccecd343115ca,
         type: 3}
       propertyPath: m_Pivot.x
@@ -2819,6 +2825,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &8101175068234382769 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 6207735019481945928, guid: 03b39009289e4924084ccecd343115ca,
+    type: 3}
+  m_PrefabInstance: {fileID: 2759415544315980537}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!224 &8680184273120669577 stripped

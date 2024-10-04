@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 public class Annex : MonoBehaviour
 {
-    private void Start()
+    private void OnEnable()
     {
         gameObject.GetComponent<Button>().onClick.AddListener(AnnexState);
     }
@@ -20,5 +20,9 @@ public class Annex : MonoBehaviour
         }
         else
             Debug.LogWarning("def state is null");
+    }
+    private void OnDisable()
+    {
+        gameObject.GetComponent<Button>().onClick.RemoveListener(AnnexState);
     }
 }
