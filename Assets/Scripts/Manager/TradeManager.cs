@@ -5,7 +5,7 @@ using UnityEngine;
 public class TradeManager : MonoBehaviour
 {
    public static TradeManager instance { get; private set; }
-    int maxTransactionCount = 6; // uý gösterilecek max iþlem sayýsý
+   public  int maxTransactionCount = 6; // uý gösterilecek max iþlem sayýsý
   
    private Queue<TradeHistory> TradeHistoryQueue = new Queue<TradeHistory>();
     private void Awake()
@@ -29,15 +29,27 @@ public class TradeManager : MonoBehaviour
             TradeHistoryQueue.Dequeue();
         }
         TradeHistoryQueue.Enqueue(tradeHistory);
+        Debug.LogWarning("que count "+TradeHistoryQueue.Count);
     }
     public Queue<TradeHistory> GetTradeHistoryQueue() { return TradeHistoryQueue; }
 }
 public class TradeHistory
 {
-    public  TradeType tradeType;
+    public TradeType tradeType;
     public string dateString;
     public int productSpriteIndex;
     public float quantity;
     public float cost;
-    public string tradeStateFlagName;
+    public int tradeStateFlagIndex;
+
+    // Constructor
+    public TradeHistory(TradeType tradeType, string dateString, int productSpriteIndex, float quantity, float cost, int tradeStateFlagIndex)
+    {
+        this.tradeType = tradeType;
+        this.dateString = dateString;
+        this.productSpriteIndex = productSpriteIndex;
+        this.quantity = quantity;
+        this.cost = cost;
+        this.tradeStateFlagIndex = tradeStateFlagIndex;
+    }
 }

@@ -13,7 +13,7 @@ public class GameDateManager : MonoBehaviour
             Destroy(gameObject);
     }
 
-    public DateTime currentDate;     // Þu anki oyun tarihi
+    public static DateTime currentDate;     // Þu anki oyun tarihi
     private float timeScale ;   // Zaman akýþýný kontrol eden faktör
     private bool isPaused = false;   // Zamanýn durdurulup durdurulmadýðýný kontrol eden deðiþken
 
@@ -54,5 +54,9 @@ public class GameDateManager : MonoBehaviour
     public void ResumeTime()
     {
         isPaused = false;
+    }
+    public string GetCurrentDataString()
+    {
+        return currentDate.ToString("MM/dd/yyyy");
     }
 }

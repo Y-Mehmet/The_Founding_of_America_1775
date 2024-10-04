@@ -247,6 +247,12 @@ public class BuyPanel : MonoBehaviour
                if (currentState.resourceData[ResourceType.Gold].currentAmount >= spending)
                 {
                     currentState.BuyyResource(type, quantity, spending);
+                    
+                     int stateFlagIndex = currentState.gameObject.transform.GetSiblingIndex();
+                       
+                    
+                    TradeHistory transaction = new TradeHistory(TradeType.Import, GameDateManager.instance.GetCurrentDataString(),(int) type, quantity, spending, stateFlagIndex);
+                    TradeManager.instance.AddTransaction(transaction);
                     buyButton.GetComponent<HideLastPanelButton>().DoHidePanel();
                     Debug.LogWarning($"res satýn alýndý quantaty {quantity} harcanan altýn {spending}");
                 }
