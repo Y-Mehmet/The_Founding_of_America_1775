@@ -26,7 +26,8 @@ public class StateCard : MonoBehaviour
                 ShowExportPanelInfo();
             }
         }
-       
+        gameObject.GetComponent<Button>().onClick.AddListener(SetCurrentTradeState);
+
 
 
 
@@ -38,7 +39,7 @@ public class StateCard : MonoBehaviour
        
         if (gameObjectindex< exportTradeList.Count)
         {
-            gameObject.GetComponent<Button>().onClick.AddListener(SetCurrentTradeState);
+           
             ResourceType curretResType = ResourceManager.Instance.curentResource;
 
            
@@ -107,7 +108,7 @@ public class StateCard : MonoBehaviour
        
         if (gameObjectindex < exportTradeList.Count)
         {
-            gameObject.GetComponent<Button>().onClick.AddListener(SetCurrentTradeState);
+           
             ResourceType curretResType = ResourceManager.Instance.curentResource;
 
 
@@ -169,8 +170,30 @@ public class StateCard : MonoBehaviour
     }
     void SetCurrentTradeState()
     {
-        ResourceManager.Instance.SetCurrentTradeState ( StateNameText.text.ToString());
-      //  Debug.LogWarning(" yeni sate seçildi  state card" + StateNameText.text.ToString());
+        if (gameObject.transform.parent.TryGetComponent<StateProductPanelScript>(out StateProductPanelScript parent))
+        {
+            int gameObjectindex = gameObject.transform.GetSiblingIndex() - 1;
+            if (parent.tradeType == TradeType.Export)
+            {
+
+                var exportTradeList = gameObject.transform.parent.GetComponent<StateProductPanelScript>().GetExportTradeList();
+                Transform state = exportTradeList.ElementAt(gameObjectindex).Key;
+                ResourceManager.Instance.SetCurrentTradeState(state.name);
+                Debug.LogWarning(" yeni sate seçildi  state card" + state.name);
+
+            }
+            else
+            {
+                var importTradeList = gameObject.transform.parent.GetComponent<StateProductPanelScript>().GetImportTradeList();
+                Transform state = importTradeList.ElementAt(gameObjectindex).Key;
+                ResourceManager.Instance.SetCurrentTradeState(state.name);
+                Debug.LogWarning(" yeni sate seçildi  state card" + state.name);
+            }
+            
+        }
+         
+            
+      
 
     }
 

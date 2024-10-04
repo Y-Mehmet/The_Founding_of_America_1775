@@ -44,7 +44,7 @@ public class StateProductPanelScript : MonoBehaviour
         return GetTradeList(1);
     }
     
-    public Dictionary<Transform, Trade> GetTradeList(int  enumIndexNum )
+    public Dictionary<Transform, Trade> GetTradeList(int  enumIndexNum /* trade type belirler */ )
         {
        // Debug.LogWarning(" get trade çalýþtý");
         if(stateTransformAndTradeList!= null)

@@ -19,7 +19,7 @@ public class TextGoldDeneme : MonoBehaviour
         {
             yield return new WaitForSeconds(5.0f);
             if (RegionClickHandler.Instance.currentState.TryGetComponent<State>(out State state) )
-                gameObject.GetComponent<TMP_Text>().text = RegionClickHandler.Instance.currentState.GetComponent<State>().resourceData[ResourceType.Gold].currentAmount.ToString();
+                gameObject.GetComponent<TMP_Text>().text = "state gold: "+RegionClickHandler.Instance.currentState.GetComponent<State>().resourceData[ResourceType.Gold].currentAmount.ToString();
             
         }
        

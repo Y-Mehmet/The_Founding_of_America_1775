@@ -205,7 +205,7 @@ public class State : MonoBehaviour
 
     private IEnumerator ResourceProduction()
     {
-        while (!GameManager.Instance.ÝsGameOver && !GameManager.Instance.isGamePause && GameManager.Instance.IsAttackFinish)
+        while (!GameManager.Instance.ÝsGameOver && !GameManager.Instance.isGamePause && GameManager.Instance.IsAttackFinish && false)
         {
             foreach (var item in resourceData)
             {

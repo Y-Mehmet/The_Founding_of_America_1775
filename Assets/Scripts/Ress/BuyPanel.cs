@@ -199,14 +199,14 @@ public class BuyPanel : MonoBehaviour
             if (spending > 0)
             {
                 State currentState = RegionClickHandler.Instance.currentState.GetComponent<State>();
-               if (currentState.resourceData[ResourceType.Gold].currentAmount > spending)
+               if (currentState.resourceData[ResourceType.Gold].currentAmount >= spending)
                 {
                     currentState.BuyyResource(type, quantity, spending);
                     buyButton.GetComponent<HideLastPanelButton>().DoHidePanel();
                 }
                else
                 {
-                    Debug.Log(" gold dont eneaugh for but resource");
+                    Debug.Log(" gold dont eneaugh for buy resource");
                 }
                     
             }
