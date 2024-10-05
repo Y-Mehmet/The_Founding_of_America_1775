@@ -451,8 +451,10 @@ public class State : MonoBehaviour
         
             if (resourceData.ContainsKey(resType))
             {
+            Debug.LogWarning($"{gameObject.name} statesinde {resType} kaynaðý {quantity} miktarý kadar eksildi eksilmeden önceki miktar {resourceData[resType].currentAmount}");
                 // Eðer kaynak zaten mevcutsa, miktarý güncelleyebilirsiniz
                 resourceData[resType].currentAmount -= quantity;
+            Debug.LogWarning($"{gameObject.name} statesinde {resType} kaynaðý {quantity} miktarý kadar eksildi eksilmeden sonraki  miktar {resourceData[resType].currentAmount}");
             foreach (var item in Taxes)
             {
                 if(item.taxType== TaxType.ValueAddedTax)

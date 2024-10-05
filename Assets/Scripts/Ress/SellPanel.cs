@@ -1,5 +1,4 @@
 using System.Collections;
-using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -16,7 +15,7 @@ public class SellPanel : MonoBehaviour
     int amountAvailable;
     float quantity;
     Color originalTextColor;
-    GameObject currentStateGameObjcet;
+    State currentState;
     private void Start()
     {
         inputField.characterLimit = ResourceManager.Instance.InputFieldCaharcterLimit;
@@ -25,10 +24,11 @@ public class SellPanel : MonoBehaviour
     {
        
         SetNewTradeState();
-         currentStateGameObjcet = RegionClickHandler.Instance.currentState;
+         currentState = RegionClickHandler.Instance.currentState.GetComponent<State>();
         // Olaylara abone ol
         ResourceManager.Instance.OnResourceChanged += OnResourceOrStateChanged;
-       // ResourceManager.Instance.OnStateToTradeChanged += OnResourceOrStateChanged;
+        ResourceManager.Instance.OnStateToTradeChanged += OnResourceOrStateChanged;
+        
         inputField.onValueChanged.AddListener(OnInputValueChanged);
         macButton.onClick.AddListener(MacButtonClicked);
         sellButton.onClick.AddListener(SellButtonClicked);
@@ -39,17 +39,19 @@ public class SellPanel : MonoBehaviour
         Restart();
 
     }
-
-
-
     private void OnDisable()
     {
         // Olaylardan aboneliði kaldýr
         ResourceManager.Instance.OnResourceChanged -= OnResourceOrStateChanged;
+        ResourceManager.Instance.OnStateToTradeChanged -= OnResourceOrStateChanged;
         inputField.onValueChanged.RemoveListener(OnInputValueChanged);
         macButton.onClick.RemoveListener(MacButtonClicked);
         sellButton.onClick.RemoveListener(SellButtonClicked);
     }
+
+
+
+
     void Restart()
     {
         inputField.text = "";
@@ -74,15 +76,15 @@ public class SellPanel : MonoBehaviour
             ResourceType resourceType = ResourceManager.Instance.curentResource;
 
             resIconImage.sprite = ResSpriteSO.Instance.resIcon[(int)resourceType];
-            State currentState = currentStateGameObjcet.GetComponent<State>();
+            
 
-            foreach (var resType in currentState.exportTrade.resourceTypes)
+            foreach (var resType in currentState.importTrade.resourceTypes)
             {
                 if (resType == resourceType)
                 {
-                    if (currentState.exportTrade.resourceTypes.IndexOf(resType) != -1)
+                    if (currentState.importTrade.resourceTypes.IndexOf(resType) != -1)
                     {
-                        indexOfLimit = currentState.exportTrade.resourceTypes.IndexOf(resType);
+                        indexOfLimit = currentState.importTrade.resourceTypes.IndexOf(resType);
 
                     }
                     else
@@ -94,16 +96,16 @@ public class SellPanel : MonoBehaviour
             StartCoroutine(UpdateAvableValueText(currentState, resourceType));
 
 
-            float.TryParse(currentState.exportTrade.contractPrices[indexOfLimit].ToString(), out contrackPrice);
+            float.TryParse(currentState.importTrade.contractPrices[indexOfLimit].ToString(), out contrackPrice);
 
-            if (contrackPrice >= 0)
+            if (contrackPrice > 0)
             {
                 contrackPriceValueText.text = contrackPrice.ToString();
 
             }
             else
             {
-                Debug.LogWarning(" conrrat picie dýfýrdan küçük olamamlý ");
+                Debug.LogWarning(" conrrat picie sýfýrdan küçük olamamlý ");
                 contrackPriceValueText.text = "0";
 
             }
@@ -114,11 +116,10 @@ public class SellPanel : MonoBehaviour
     void OnInputValueChanged(string input)
     {
 
-
-
         float resLimit=0;
         if (float.TryParse(input, out quantity))
         {
+           // Debug.LogWarning("input" + quantity);
 
             State tradeState = Usa.Instance.FindStateByName(ResourceManager.Instance.curentTradeStateName);
             for (int i = 0; i < tradeState.importTrade.resourceTypes.Count; i++)
@@ -126,7 +127,7 @@ public class SellPanel : MonoBehaviour
                 if (ResourceManager.Instance.curentResource == tradeState.importTrade.resourceTypes[i])
                 {
                     resLimit = tradeState.importTrade.limit[i]; 
-                    Debug.LogWarning($" current trade state name {tradeState.name} res type {ResourceManager.Instance.curentResource} res limit {resLimit}");
+                  //  Debug.LogWarning($" current trade state name {tradeState.name} res type {ResourceManager.Instance.curentResource} res limit {resLimit}");
                 }
             }
 
@@ -144,7 +145,7 @@ public class SellPanel : MonoBehaviour
                 contrackPriceValueText.text = (resLimit * contrackPrice).ToString();
 
                 }
-            Debug.LogWarning("reslimit " + resLimit);
+          //  Debug.LogWarning("reslimit " + resLimit);
             
 
            
@@ -194,20 +195,34 @@ public class SellPanel : MonoBehaviour
         {
             if (earing > 0)
             {
-               
-                currentStateGameObjcet.GetComponent<State>().SellResource(type, quantity, earing);
-              //  OnInputValueChanged("0");
-                amoutAvableValueText.text= currentStateGameObjcet.GetComponent<State>().resourceData[type].currentAmount.ToString();
+
+                if (quantity<= currentState.resourceData[type].currentAmount)
+                {
+                    this.currentState.SellResource(type, quantity, earing);
+
+                    amoutAvableValueText.text = this.currentState.resourceData[type].currentAmount.ToString();
+
+
+
+                    int stateFlagIndex = currentState.gameObject.transform.GetSiblingIndex();
+
+                    TradeHistory transaction = new TradeHistory(TradeType.Export, GameDateManager.instance.GetCurrentDataString(), (int)type, quantity, earing, stateFlagIndex);
+
+                    TradeManager.instance.AddTransaction(transaction);
+                    OnInputValueChanged("0");
+                    sellButton.GetComponent<HideLastPanelButton>().DoHidePanel();
+                }
+
+
             }
-               
             else
                 Debug.LogWarning(" earing value 0");
         }
         else
             Debug.LogWarning("earing value can not parse float");
 
-        OnInputValueChanged("0");
-        amoutAvableValueText.text = currentStateGameObjcet.GetComponent<State>().resourceData[type].currentAmount.ToString();
+        //OnInputValueChanged("0");
+        amoutAvableValueText.text = currentState.resourceData[type].currentAmount.ToString();
         State tradeState = Usa.Instance.FindStateByName(ResourceManager.Instance.curentTradeStateName);
         if (tradeState!= null)
         {
@@ -230,11 +245,12 @@ public class SellPanel : MonoBehaviour
        
             foreach (Transform stateTransform in Usa.Instance.transform)
             {
-                Trade trade = stateTransform.GetComponent<State>().GetTrade(1, curretResType);
+            // index 0 = import index 1 = export
+                Trade trade = stateTransform.GetComponent<State>().GetTrade(0, curretResType);
                 if (trade != null)
                 {if( test==0)
                 {
-                   // Debug.LogWarning("state deðiþti: selde  " + stateTransform.name);
+                    //Debug.LogWarning("state deðiþti: selde  " + stateTransform.name);
                     ResourceManager.Instance.SetCurrentTradeState(stateTransform.name);
                 }
                 
@@ -252,6 +268,7 @@ public class SellPanel : MonoBehaviour
         }
             else
         {
+           // Debug.LogWarning("bluann state  deðeri " + test);
             rightBox.SetActive(true);
             emtyStateBox.SetActive(false);
         }

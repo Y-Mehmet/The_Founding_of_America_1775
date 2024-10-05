@@ -1,6 +1,3 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -108,13 +105,13 @@ public class BuyPanel : MonoBehaviour
 
             if ( currentState!= null)
             {
-                foreach (var resType in currentState.importTrade.resourceTypes)
+                foreach (var resType in currentState.exportTrade.resourceTypes)
                 {
                     if (resType == resourceType)
                     {
-                        if (currentState.importTrade.resourceTypes.IndexOf(resType) != -1)
+                        if (currentState.exportTrade.resourceTypes.IndexOf(resType) != -1)
                         {
-                            indexOfLimit = currentState.importTrade.resourceTypes.IndexOf(resType);
+                            indexOfLimit = currentState.exportTrade.resourceTypes.IndexOf(resType);
 
                         }
                         else
@@ -126,7 +123,7 @@ public class BuyPanel : MonoBehaviour
                
 
 
-                float.TryParse(currentState.importTrade.contractPrices[indexOfLimit].ToString(), out contrackPrice);
+                float.TryParse(currentState.exportTrade.contractPrices[indexOfLimit].ToString(), out contrackPrice);
 
                 if (contrackPrice >= 0)
                 {
@@ -307,13 +304,13 @@ public class BuyPanel : MonoBehaviour
 
         foreach (Transform stateTransform in Usa.Instance.transform)
         {
-            Trade trade = stateTransform.GetComponent<State>().GetTrade(0, curretResType);
+            Trade trade = stateTransform.GetComponent<State>().GetTrade(1, curretResType);
             if (trade != null)
             {
 
                if(test==0)
                 {
-                   // Debug.LogWarning("state deðiþti buyda " + stateTransform.name);
+                  // Debug.LogWarning("state deðiþti buyda " + stateTransform.name);
                     ResourceManager.Instance.SetCurrentTradeState(stateTransform.name);
                 }
                     
@@ -331,6 +328,7 @@ public class BuyPanel : MonoBehaviour
         }
         else
         {
+         //   Debug.LogWarning("bluann state  deðeri " + test);
             rightBox.SetActive(true);
             emtyStateBox.SetActive(false);
         }

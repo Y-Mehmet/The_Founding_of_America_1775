@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -6,8 +7,8 @@ public class TradeManager : MonoBehaviour
 {
    public static TradeManager instance { get; private set; }
    public  int maxTransactionCount = 6; // uý gösterilecek max iþlem sayýsý
-  
-   private Queue<TradeHistory> TradeHistoryQueue = new Queue<TradeHistory>();
+   public Action onTradeHistoryQueueChanged;
+    private Queue<TradeHistory> TradeHistoryQueue = new Queue<TradeHistory>();
     private void Awake()
     {
         if(instance == null)
@@ -28,8 +29,10 @@ public class TradeManager : MonoBehaviour
         {
             TradeHistoryQueue.Dequeue();
         }
+        
         TradeHistoryQueue.Enqueue(tradeHistory);
-        Debug.LogWarning("que count "+TradeHistoryQueue.Count);
+       // Debug.LogWarning("que count "+TradeHistoryQueue.Count);
+        onTradeHistoryQueueChanged?.Invoke();
     }
     public Queue<TradeHistory> GetTradeHistoryQueue() { return TradeHistoryQueue; }
 }
