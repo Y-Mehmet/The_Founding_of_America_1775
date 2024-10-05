@@ -9,6 +9,13 @@ public class GameInitalizer : MonoBehaviour
 
     public int goldRate, waterRate, saltRate, meatRate, fruitsRate, vegetablesRate, wheatRate, woodRate, coalRate, ironRate, stoneRate, diamondRate;
     public string[] largeStates, mediumStates, smallStates;
+    Dictionary<string, List<ResourceType>> statesImportTradeResTypeList;
+    Dictionary<string, List<ResourceType>> statesExportTradeResTypeList;
+    Dictionary<string, List<float>> statesImportTradeContratPriceList = new Dictionary<string, List<float>>();
+    Dictionary<string, List<float>> statesExportTradeContratPriceList = new Dictionary<string, List<float>>();
+    Dictionary<string, List<float>> statesImporTradeLimitList = new Dictionary<string, List<float>>();
+    Dictionary<string, List<float>> statesExportTradLimitList = new Dictionary<string, List<float>>();
+
     private void Start()
     {
 
@@ -38,6 +45,114 @@ public class GameInitalizer : MonoBehaviour
 
 
     }
+    void SetTradeData()
+    {
+        // İthalat ve ihracat çarpanlarını belirle
+        float smallStateImportMultiplier = 0.95f;
+        float mediumStateImportMultiplier = 0.90f;
+        float largeStateImportMultiplier = 0.85f;
+
+        float smallStateExportMultiplier = 1.05f;
+        float mediumStateExportMultiplier = 1.10f;
+        float largeStateExportMultiplier = 1.15f;
+
+        // İthalat ve ihracat için kaynak listelerini oluştur
+        statesImportTradeResTypeList = new Dictionary<string, List<ResourceType>>
+    {
+        { "smallStates", new List<ResourceType> { ResourceType.Wood, ResourceType.Coal, ResourceType.Iron } },
+        { "mediumStates", new List<ResourceType> { ResourceType.Wood, ResourceType.Coal, ResourceType.Iron, ResourceType.Stone } },
+        { "largeStates", new List<ResourceType> { ResourceType.Coal, ResourceType.Iron, ResourceType.Stone, ResourceType.Meat, ResourceType.Water, ResourceType.Diamond, ResourceType.Fruits, ResourceType.Salt, ResourceType.Vegetables, ResourceType.Wheat } }
+    };
+
+        statesExportTradeResTypeList = new Dictionary<string, List<ResourceType>>
+    {
+        { "smallStates", new List<ResourceType> { ResourceType.Fruits, ResourceType.Vegetables, ResourceType.Water } },
+        { "mediumStates", new List<ResourceType> { ResourceType.Fruits, ResourceType.Vegetables, ResourceType.Meat, ResourceType.Wheat, ResourceType.Salt } },
+        { "largeStates", new List<ResourceType> { ResourceType.Diamond, ResourceType.Wheat, ResourceType.Meat, ResourceType.Water, ResourceType.Iron, ResourceType.Stone, ResourceType.Coal, ResourceType.Wood } }
+    };
+
+        // İthalat kontrat fiyatlarını dinamik çarpanlarla hesapla
+        statesImportTradeContratPriceList = new Dictionary<string, List<float>>
+    {
+        { "smallStates", new List<float>
+            {
+                GameEconomy.Instance.GetGoldValue(ResourceType.Wood) * smallStateImportMultiplier,
+                GameEconomy.Instance.GetGoldValue(ResourceType.Coal) * smallStateImportMultiplier,
+                GameEconomy.Instance.GetGoldValue(ResourceType.Iron) * smallStateImportMultiplier
+            }
+        },
+        { "mediumStates", new List<float>
+            {
+                GameEconomy.Instance.GetGoldValue(ResourceType.Wood) * mediumStateImportMultiplier,
+                GameEconomy.Instance.GetGoldValue(ResourceType.Coal) * mediumStateImportMultiplier,
+                GameEconomy.Instance.GetGoldValue(ResourceType.Iron) * mediumStateImportMultiplier,
+                GameEconomy.Instance.GetGoldValue(ResourceType.Stone) * mediumStateImportMultiplier
+            }
+        },
+        { "largeStates", new List<float>
+            {
+                GameEconomy.Instance.GetGoldValue(ResourceType.Coal) * largeStateImportMultiplier,
+                GameEconomy.Instance.GetGoldValue(ResourceType.Iron) * largeStateImportMultiplier,
+                GameEconomy.Instance.GetGoldValue(ResourceType.Stone) * largeStateImportMultiplier,
+                GameEconomy.Instance.GetGoldValue(ResourceType.Meat) * largeStateImportMultiplier,
+                GameEconomy.Instance.GetGoldValue(ResourceType.Water) * largeStateImportMultiplier,
+                GameEconomy.Instance.GetGoldValue(ResourceType.Diamond) * largeStateImportMultiplier,
+                GameEconomy.Instance.GetGoldValue(ResourceType.Fruits) * largeStateImportMultiplier,
+                GameEconomy.Instance.GetGoldValue(ResourceType.Salt) * largeStateImportMultiplier,
+                GameEconomy.Instance.GetGoldValue(ResourceType.Vegetables) * largeStateImportMultiplier,
+                GameEconomy.Instance.GetGoldValue(ResourceType.Wheat) * largeStateImportMultiplier
+            }
+        }
+    };
+
+        // İhracat kontrat fiyatlarını dinamik çarpanlarla hesapla
+        statesExportTradeContratPriceList = new Dictionary<string, List<float>>
+    {
+        { "smallStates", new List<float>
+            {
+                GameEconomy.Instance.GetGoldValue(ResourceType.Fruits) * smallStateExportMultiplier,
+                GameEconomy.Instance.GetGoldValue(ResourceType.Vegetables) * smallStateExportMultiplier,
+                GameEconomy.Instance.GetGoldValue(ResourceType.Water) * smallStateExportMultiplier
+            }
+        },
+        { "mediumStates", new List<float>
+            {
+                GameEconomy.Instance.GetGoldValue(ResourceType.Fruits) * mediumStateExportMultiplier,
+                GameEconomy.Instance.GetGoldValue(ResourceType.Vegetables) * mediumStateExportMultiplier,
+                GameEconomy.Instance.GetGoldValue(ResourceType.Meat) * mediumStateExportMultiplier,
+                GameEconomy.Instance.GetGoldValue(ResourceType.Wheat) * mediumStateExportMultiplier,
+                GameEconomy.Instance.GetGoldValue(ResourceType.Salt) * mediumStateExportMultiplier
+            }
+        },
+        { "largeStates", new List<float>
+            {
+                GameEconomy.Instance.GetGoldValue(ResourceType.Diamond) * largeStateExportMultiplier,
+                GameEconomy.Instance.GetGoldValue(ResourceType.Wheat) * largeStateExportMultiplier,
+                GameEconomy.Instance.GetGoldValue(ResourceType.Meat) * largeStateExportMultiplier,
+                GameEconomy.Instance.GetGoldValue(ResourceType.Water) * largeStateExportMultiplier,
+                GameEconomy.Instance.GetGoldValue(ResourceType.Iron) * largeStateExportMultiplier,
+                GameEconomy.Instance.GetGoldValue(ResourceType.Stone) * largeStateExportMultiplier,
+                GameEconomy.Instance.GetGoldValue(ResourceType.Coal) * largeStateExportMultiplier,
+                GameEconomy.Instance.GetGoldValue(ResourceType.Wood) * largeStateExportMultiplier
+            }
+        }
+    };
+        // İthalat ve ihracat limitlerini 10 olarak ayarla
+        statesImporTradeLimitList = new Dictionary<string, List<float>>
+    {
+        { "smallStates", new List<float> { 10, 10, 10 } },
+        { "mediumStates", new List<float> { 10, 10, 10, 10 } },
+        { "largeStates", new List<float> { 100, 100, 10, 100, 100, 100, 100, 100, 100, 100 } }
+    };
+
+        statesExportTradLimitList = new Dictionary<string, List<float>>
+    {
+        { "smallStates", new List<float> { 10, 10, 10 } },
+        { "mediumStates", new List<float> { 10, 10, 10, 10, 10 } },
+        { "largeStates", new List<float> { 100, 100, 100, 100, 100, 100, 100, 100 } }
+    };
+    }
+
     void SetMineName()
     {
         MineManager.instance.ResMineNameList.Clear();
@@ -208,7 +323,7 @@ public class GameInitalizer : MonoBehaviour
 
         System.Random rand = new System.Random();
 
-      
+        SetTradeData();
         foreach (Transform state in Usa.Instance.transform)
         {
             if (state.GetComponent<State>() != null)
@@ -233,10 +348,22 @@ public class GameInitalizer : MonoBehaviour
                             { ResourceType.Iron, new ResourceData { currentAmount = 3000, mineCount = 5, productionRate = ironRate }},
                             { ResourceType.Stone, new ResourceData { currentAmount = 2500, mineCount = 4, productionRate = stoneRate }},
                             { ResourceType.Diamond, new ResourceData { currentAmount = 10, mineCount = 1, productionRate = diamondRate }}};
-                        s.importTrade = new Trade(TradeType.Import, new List<ResourceType>
-                        { ResourceType.Wood, ResourceType.Coal, ResourceType.Iron }, new List<float> { 5,8,6}, new List<float> { 1565, 1880, 1600 });
-                        s.exportTrade = new Trade(TradeType.Export, new List<ResourceType>
-                        { ResourceType.Diamond, ResourceType.Vegetables, ResourceType.Water }, new List<float> { 105, 8, 6 }, new List<float> { 10, 1880, 1600 });
+                        // Import Trade - largeStates için
+                        s.importTrade = new Trade(
+                            TradeType.Import,
+                            statesImportTradeResTypeList["largeStates"],                // İthalat için 'largeStates' kaynakları
+                            statesImportTradeContratPriceList["largeStates"],           // İthalat fiyatları
+                            statesImporTradeLimitList["largeStates"]                    // İthalat limitleri
+                        );
+
+                        // Export Trade - largeStates için
+                        s.exportTrade = new Trade(
+                            TradeType.Export,
+                            statesExportTradeResTypeList["largeStates"],                // İhracat için 'largeStates' kaynakları
+                            statesExportTradeContratPriceList["largeStates"],           // İhracat fiyatları
+                            statesExportTradLimitList["largeStates"]                    // İhracat limitleri
+                        );
+
                         TaxData StampTax = new TaxData
                         {
                             taxType = TaxType.StampTax,
@@ -293,10 +420,21 @@ public class GameInitalizer : MonoBehaviour
                             { ResourceType.Iron, new ResourceData { currentAmount = 2400, mineCount = 3, productionRate = ironRate }},
                             { ResourceType.Stone, new ResourceData { currentAmount = 1900, mineCount = 2, productionRate = stoneRate }},
                             { ResourceType.Diamond, new ResourceData { currentAmount = 0, mineCount = 0, productionRate = diamondRate }} };
-                        s.importTrade = new Trade(TradeType.Import, new List<ResourceType>
-                        { ResourceType.Wood, ResourceType.Coal, ResourceType.Iron }, new List<float> { 5, 8, 6 }, new List<float> { 565, 880, 600 });
-                        s.exportTrade = new Trade(TradeType.Export, new List<ResourceType>
-                        { ResourceType.Fruits, ResourceType.Vegetables, ResourceType.Water }, new List<float> { 5, 8, 6 }, new List<float> { 565, 880, 600 });
+                        // Import Trade - smallStates için
+                        s.importTrade = new Trade(
+                            TradeType.Import,
+                            statesImportTradeResTypeList["smallStates"],                // İthalat için 'smallStates' kaynakları
+                            statesImportTradeContratPriceList["smallStates"],           // İthalat fiyatları
+                            statesImporTradeLimitList["smallStates"]                    // İthalat limitleri
+                        );
+
+                        // Export Trade - smallStates için
+                        s.exportTrade = new Trade(
+                            TradeType.Export,
+                            statesExportTradeResTypeList["smallStates"],                // İhracat için 'smallStates' kaynakları
+                            statesExportTradeContratPriceList["smallStates"],           // İhracat fiyatları
+                            statesExportTradLimitList["smallStates"]                    // İhracat limitleri
+                        );
                         TaxData StampTax = new TaxData
                         {
                             taxType = TaxType.StampTax,
@@ -351,10 +489,21 @@ public class GameInitalizer : MonoBehaviour
                             { ResourceType.Iron, new ResourceData { currentAmount = 2800, mineCount = 4, productionRate = ironRate }},
                             { ResourceType.Stone, new ResourceData { currentAmount = 2000, mineCount = 3, productionRate = stoneRate }},
                             { ResourceType.Diamond, new ResourceData { currentAmount = 2, mineCount = 0, productionRate = diamondRate }}};
-                        s.importTrade = new Trade(TradeType.Import, new List<ResourceType>
-                        { ResourceType.Wood, ResourceType.Coal, ResourceType.Iron }, new List<float> { 5, 7 }, new List<float> {  880, 600 });
-                        s.exportTrade = new Trade(TradeType.Export, new List<ResourceType>
-                        { ResourceType.Gold, ResourceType.Vegetables, ResourceType.Water },/* contract price */ new List<float> { 5, 7,5 }, new List<float> { 965, 880, 900 });
+                        // Import Trade - mediumStates için
+                        s.importTrade = new Trade(
+                            TradeType.Import,
+                            statesImportTradeResTypeList["mediumStates"],               // İthalat için 'mediumStates' kaynakları
+                            statesImportTradeContratPriceList["mediumStates"],          // İthalat fiyatları
+                            statesImporTradeLimitList["mediumStates"]                   // İthalat limitleri
+                        );
+
+                        // Export Trade - mediumStates için
+                        s.exportTrade = new Trade(
+                            TradeType.Export,
+                            statesExportTradeResTypeList["mediumStates"],               // İhracat için 'mediumStates' kaynakları
+                            statesExportTradeContratPriceList["mediumStates"],          // İhracat fiyatları
+                            statesExportTradLimitList["mediumStates"]                   // İhracat limitleri
+                        );
                         TaxData StampTax = new TaxData
                         {
                             taxType = TaxType.StampTax,

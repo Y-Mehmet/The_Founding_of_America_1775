@@ -37,11 +37,11 @@ public class GameEconomy : MonoBehaviour
             { ResourceType.Coal, 0.07f },    
             { ResourceType.Iron, 0.09f },     
             { ResourceType.Stone, 0.05f },    
-            { ResourceType.Diamond, ResourceManager.DimondRate }     
+            { ResourceType.Diamond, ResourceManager.DimondRate }   //100  
         };
         }
 
-        public float GetGoldValue(ResourceType resourceType, float amount)
+        public float GetGoldValue(ResourceType resourceType, float amount=1)
         {
             if (resourceToGoldValue.TryGetValue(resourceType, out float valuePerUnit))
             {

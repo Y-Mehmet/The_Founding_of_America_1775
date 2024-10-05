@@ -11,6 +11,7 @@ public class StateCard : MonoBehaviour
     public TextMeshProUGUI StateNameText, CoinValueText, CurentLimitValueText;
     public Image stateFalgImage, resIconImage;
     public bool isExportCard = true;
+    int thousand = 1000;
     
     private void OnEnable()
     {
@@ -58,7 +59,7 @@ public class StateCard : MonoBehaviour
 
                     if (resType == curretResType)
                     {
-                        CoinValueText.text = exportTrade.contractPrices[index].ToString();
+                        CoinValueText.text = (exportTrade.contractPrices[index]*thousand).ToString();
                     if((state.gameObject.GetComponent<State>().resourceData[ResourceType.Gold].currentAmount)>0 )
                     {
                         float gold = state.gameObject.GetComponent<State>().resourceData[ResourceType.Gold].currentAmount;
@@ -127,7 +128,7 @@ public class StateCard : MonoBehaviour
 
                 if (resType == curretResType)
                 {
-                    CoinValueText.text = exportTrade.contractPrices[index].ToString();
+                    CoinValueText.text = (exportTrade.contractPrices[index] * thousand).ToString();
                     float limit = state.gameObject.GetComponent<State>().resourceData[resType].currentAmount;
                     
                     State tradeState = state.GetComponent<State>();
