@@ -16,19 +16,23 @@ public class SellPanel : MonoBehaviour
     float quantity;
     Color originalTextColor;
     State currentState;
-    State currentTradeState;
+    
     private void Start()
     {
         inputField.characterLimit = ResourceManager.Instance.InputFieldCaharcterLimit;
     }
     private void OnEnable()
     {
+        
        
-        SetNewTradeState();
+            SetNewTradeState();
+       
+        
          currentState = RegionClickHandler.Instance.currentState.GetComponent<State>();
         // Olaylara abone ol
         ResourceManager.Instance.OnResourceChanged += OnResourceOrStateChanged;
-        ResourceManager.Instance.OnStateToTradeChanged += OnResourceOrStateChanged;
+        ResourceManager.Instance.OnStateToTradeChanged += OnStateChanged;
+        
         
         inputField.onValueChanged.AddListener(OnInputValueChanged);
         macButton.onClick.AddListener(MacButtonClicked);
@@ -44,7 +48,8 @@ public class SellPanel : MonoBehaviour
     {
         // Olaylardan aboneliði kaldýr
         ResourceManager.Instance.OnResourceChanged -= OnResourceOrStateChanged;
-        ResourceManager.Instance.OnStateToTradeChanged -= OnResourceOrStateChanged;
+        ResourceManager.Instance.OnStateToTradeChanged -= OnStateChanged;
+
         inputField.onValueChanged.RemoveListener(OnInputValueChanged);
         macButton.onClick.RemoveListener(MacButtonClicked);
         sellButton.onClick.RemoveListener(SellButtonClicked);
@@ -61,31 +66,23 @@ public class SellPanel : MonoBehaviour
     // Olay tetiklendiðinde bu metod çalýþacak
     private void OnResourceOrStateChanged(ResourceType resourceType)
     {
-        SetNewTradeState();
-        ShowPanelInfo();
-    }
 
-    private void OnResourceOrStateChanged(string stateName)
+
+        ShowPanelInfo();
+
+    }
+    private void OnStateChanged(string stateName)
     {
-        if(ResourceManager.Instance.curentTradeStateName== null)
-        {
-            SetNewTradeState();
-
-        }
-        if (ResourceManager.Instance.curentTradeStateName != null)
-            currentTradeState = Usa.Instance.FindStateByName(ResourceManager.Instance.curentTradeStateName);
-        else
-            Debug.LogWarning("cureenet trade name is null");
-
         ShowPanelInfo();
     }
+
+
 
     void ShowPanelInfo()
     {
 
-        if (currentTradeState == null)
-            SetNewTradeState();
-        if(currentTradeState != null)
+        
+        if(ResourceManager.CurrentTradeState != null)
         {
             if (rightBox.gameObject.activeSelf)
             {
@@ -94,13 +91,13 @@ public class SellPanel : MonoBehaviour
                 resIconImage.sprite = ResSpriteSO.Instance.resIcon[(int)resourceType];
 
 
-                foreach (var resType in currentTradeState.importTrade.resourceTypes)
+                foreach (var resType in (ResourceManager.CurrentTradeState.importTrade.resourceTypes))
                 {
                     if (resType == resourceType)
                     {
-                        if (currentTradeState.importTrade.resourceTypes.IndexOf(resType) != -1)
+                        if ((ResourceManager.CurrentTradeState.importTrade.resourceTypes.IndexOf(resType) != -1))
                         {
-                            indexOfLimit = currentTradeState.importTrade.resourceTypes.IndexOf(resType);
+                            indexOfLimit = (ResourceManager.CurrentTradeState.importTrade.resourceTypes.IndexOf(resType));
 
                         }
                         else
@@ -113,11 +110,11 @@ public class SellPanel : MonoBehaviour
                 StartCoroutine(UpdateAvableValueText(currentState, resourceType));
 
 
-                float.TryParse(currentTradeState.importTrade.contractPrices[indexOfLimit].ToString(), out contrackPrice);
+                float.TryParse(ResourceManager.CurrentTradeState.importTrade.contractPrices[indexOfLimit].ToString(), out contrackPrice);
 
                 if (contrackPrice > 0)
                 {
-                    Debug.LogWarning("contrat price " + contrackPrice + "curent rade state name " + currentTradeState.name);
+                    Debug.LogWarning("contrat price " + contrackPrice + "curent rade state name " + (ResourceManager.CurrentTradeState.name));
                     contrackPriceValueText.text = contrackPrice.ToString();
 
                 }
@@ -220,7 +217,7 @@ public class SellPanel : MonoBehaviour
                 if (quantity<= currentState.resourceData[type].currentAmount)
                 {
                     this.currentState.SellResource(type, quantity, earing);
-                    currentTradeState.BuyyResource(type, quantity, earing);
+                    ResourceManager.CurrentTradeState.BuyyResource(type, quantity, earing);
 
                     amoutAvableValueText.text = this.currentState.resourceData[type].currentAmount.ToString();
 
@@ -262,27 +259,44 @@ public class SellPanel : MonoBehaviour
     public void SetNewTradeState( )
     {
 
-        int test = 0;
+        bool test = false; // o ürün için ticaret yapan ülke vars test bitibi true yap
+        bool shouldTradeStateChange = true;
         ResourceType curretResType = ResourceManager.Instance.curentResource;
+        string newTradeStatename = "";
        
             foreach (Transform stateTransform in Usa.Instance.transform)
             {
             // index 0 = import index 1 = export
-                Trade trade = stateTransform.GetComponent<State>().GetTrade(0, curretResType);
+                State newTradeState=stateTransform.GetComponent<State>();
+                Trade trade = newTradeState.GetTrade(0, curretResType);
                 if (trade != null)
-                {if( test==0)
-                {
-                    //Debug.LogWarning("state deðiþti: selde  " + stateTransform.name);
-                    ResourceManager.Instance.SetCurrentTradeState(stateTransform.name);
-                }
+                    {
+                        if(newTradeState== ResourceManager.CurrentTradeState)
+                            {
+                                 test = true;
+                                 shouldTradeStateChange = false;
+                    Debug.LogWarning("eski stateden devam");
+                                break;
+                            }
+                        if( test==false)
+                            {
+                                //Debug.LogWarning("state deðiþti: selde  " + stateTransform.name);
+                           
+                                newTradeStatename = newTradeState.name;
+                                test = true;
+                            
+                            }
                 
-                   test++;
+                       
+                
                    
-                }
+                    }
+                
                 
 
             }
-            if( test==0)
+            
+            if( test==false)
         {
             rightBox.SetActive(false);
             emtyStateBox.SetActive(true);
@@ -290,6 +304,10 @@ public class SellPanel : MonoBehaviour
         }
             else
         {
+            if(shouldTradeStateChange)
+            {
+                ResourceManager.Instance.SetCurrentTradeState(newTradeStatename);
+            }
            // Debug.LogWarning("bluann state  deðeri " + test);
             rightBox.SetActive(true);
             emtyStateBox.SetActive(false);

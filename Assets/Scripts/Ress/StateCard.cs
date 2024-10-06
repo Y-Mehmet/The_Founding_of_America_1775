@@ -15,7 +15,7 @@ public class StateCard : MonoBehaviour
     
     private void OnEnable()
     {
-        gameObject.SetActive(true);
+        
         if(gameObject.transform.parent.TryGetComponent<StateProductPanelScript>(out StateProductPanelScript parent) )
         {
             if(parent.tradeType== TradeType.Import)
@@ -29,9 +29,10 @@ public class StateCard : MonoBehaviour
         }
         gameObject.GetComponent<Button>().onClick.AddListener(SetCurrentTradeState);
 
-
-
-
+    }
+    private void OnDisable()
+    {
+        gameObject.GetComponent<Button>().onClick.RemoveListener(SetCurrentTradeState);
     }
     void ShowExportPanelInfo()
     {

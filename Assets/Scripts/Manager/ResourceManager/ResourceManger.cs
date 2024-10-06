@@ -13,12 +13,14 @@ public class ResourceManager : MonoBehaviour
     private Dictionary<ResourceType, float> resources = new Dictionary<ResourceType, float>();
     public ResourceType curentResource { get;  set; }
     public string curentTradeStateName {  get; set; }
+    public static State CurrentTradeState;
 
     public Action<ResourceType> OnResourceChanged;
     public Action<string> OnStateToTradeChanged;
 
     public static  float DimondRate = 100;
     public int InputFieldCaharcterLimit = 6;
+    
     
 
     private void Awake()
@@ -50,13 +52,21 @@ public class ResourceManager : MonoBehaviour
     public void SetCurrentTradeState(string selectedTradeStateName)
     {
         curentTradeStateName= selectedTradeStateName;
+        CurrentTradeState= Usa.Instance.FindStateByName(curentTradeStateName);
         OnStateToTradeChanged?.Invoke(selectedTradeStateName);
        // Debug.LogError(" yeni state seçildi res manager " + selectedTradeStateName);
       
 
     }
-    
-   
+    public void SetCurrentTradeState2(State tradeState)
+    {
+        CurrentTradeState = tradeState;
+       
+        OnStateToTradeChanged?.Invoke(tradeState.name);
+        // Debug.LogError(" yeni state seçildi res manager " + selectedTradeStateName);
+    }
+
+
 
     // Kaynaðý azaltma metodu
     public void ReduceResource(ResourceType resourceType, float reduceAmount)

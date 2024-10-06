@@ -7,7 +7,7 @@ using UnityEngine.UI;
 public class StateProductPanelScript : MonoBehaviour
 {
     public Dictionary<Transform, Trade> stateTransformAndTradeList = new Dictionary<Transform, Trade>();
-    public TradeType tradeType; // bizim trade typýmýz yani bizbir þeyi satýn alýyorsak  exportu list gelmeli çünkü biz ithalat ürün alacaksak bunu ihraç yani export eden ülkelerden alcaz
+    public TradeType tradeType; // eðer sell yapacaksak bize import trade lazým çünkü biz o ürünü import edecek ülkelerin listesini istiyoruz 
 
 
     private void OnEnable()
@@ -53,7 +53,7 @@ public class StateProductPanelScript : MonoBehaviour
 
         ResourceType curretResType = ResourceManager.Instance.curentResource;
       //  Debug.LogWarning("curentr res type " + curretResType);
-        if( curretResType!= null )
+        if(ResourceManager.Instance.curentResource != null )
         {
             foreach (Transform stateTransform in Usa.Instance.transform)
             {

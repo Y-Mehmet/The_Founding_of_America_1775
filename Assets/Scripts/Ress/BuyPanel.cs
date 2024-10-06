@@ -90,7 +90,9 @@ public class BuyPanel : MonoBehaviour
         {
             Debug.LogWarning("neignord is null");
         }
-        
+        ShowPanelInfo();
+
+
     }
 
     void ShowPanelInfo()
