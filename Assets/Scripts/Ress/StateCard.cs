@@ -180,7 +180,7 @@ public class StateCard : MonoBehaviour
                 var exportTradeList = gameObject.transform.parent.GetComponent<StateProductPanelScript>().GetExportTradeList();
                 Transform state = exportTradeList.ElementAt(gameObjectindex).Key;
                 ResourceManager.Instance.SetCurrentTradeState(state.name);
-               // Debug.LogWarning(" yeni sate seçildi  state card" + state.name);
+                Debug.LogWarning(" yeni sate seçildi  state card" + state.name);
 
             }
             else
@@ -188,7 +188,7 @@ public class StateCard : MonoBehaviour
                 var importTradeList = gameObject.transform.parent.GetComponent<StateProductPanelScript>().GetImportTradeList();
                 Transform state = importTradeList.ElementAt(gameObjectindex).Key;
                 ResourceManager.Instance.SetCurrentTradeState(state.name);
-               // Debug.LogWarning(" yeni sate seçildi  state card" + state.name);
+                Debug.LogWarning(" yeni sate seçildi  state card" + state.name);
             }
             
         }

@@ -16,6 +16,7 @@ public class SellPanel : MonoBehaviour
     float quantity;
     Color originalTextColor;
     State currentState;
+    State currentTradeState;
     private void Start()
     {
         inputField.characterLimit = ResourceManager.Instance.InputFieldCaharcterLimit;
@@ -47,6 +48,7 @@ public class SellPanel : MonoBehaviour
         inputField.onValueChanged.RemoveListener(OnInputValueChanged);
         macButton.onClick.RemoveListener(MacButtonClicked);
         sellButton.onClick.RemoveListener(SellButtonClicked);
+        StopAllCoroutines();
     }
 
 
@@ -65,51 +67,70 @@ public class SellPanel : MonoBehaviour
 
     private void OnResourceOrStateChanged(string stateName)
     {
+        if(ResourceManager.Instance.curentTradeStateName== null)
+        {
+            SetNewTradeState();
+
+        }
+        if (ResourceManager.Instance.curentTradeStateName != null)
+            currentTradeState = Usa.Instance.FindStateByName(ResourceManager.Instance.curentTradeStateName);
+        else
+            Debug.LogWarning("cureenet trade name is null");
+
         ShowPanelInfo();
     }
 
     void ShowPanelInfo()
     {
-        
-       if(rightBox.gameObject.activeSelf)
+
+        if (currentTradeState == null)
+            SetNewTradeState();
+        if(currentTradeState != null)
         {
-            ResourceType resourceType = ResourceManager.Instance.curentResource;
-
-            resIconImage.sprite = ResSpriteSO.Instance.resIcon[(int)resourceType];
-            
-
-            foreach (var resType in currentState.importTrade.resourceTypes)
+            if (rightBox.gameObject.activeSelf)
             {
-                if (resType == resourceType)
-                {
-                    if (currentState.importTrade.resourceTypes.IndexOf(resType) != -1)
-                    {
-                        indexOfLimit = currentState.importTrade.resourceTypes.IndexOf(resType);
+                ResourceType resourceType = ResourceManager.Instance.curentResource;
 
-                    }
-                    else
+                resIconImage.sprite = ResSpriteSO.Instance.resIcon[(int)resourceType];
+
+
+                foreach (var resType in currentTradeState.importTrade.resourceTypes)
+                {
+                    if (resType == resourceType)
                     {
-                        Debug.LogWarning("Hatalý index eriþimi -1 olmamalý");
+                        if (currentTradeState.importTrade.resourceTypes.IndexOf(resType) != -1)
+                        {
+                            indexOfLimit = currentTradeState.importTrade.resourceTypes.IndexOf(resType);
+
+                        }
+                        else
+                        {
+                            Debug.LogWarning("Hatalý index eriþimi -1 olmamalý");
+                        }
                     }
                 }
-            }
-            StartCoroutine(UpdateAvableValueText(currentState, resourceType));
+                StopAllCoroutines();
+                StartCoroutine(UpdateAvableValueText(currentState, resourceType));
 
 
-            float.TryParse(currentState.importTrade.contractPrices[indexOfLimit].ToString(), out contrackPrice);
+                float.TryParse(currentTradeState.importTrade.contractPrices[indexOfLimit].ToString(), out contrackPrice);
 
-            if (contrackPrice > 0)
-            {
-                contrackPriceValueText.text = contrackPrice.ToString();
+                if (contrackPrice > 0)
+                {
+                    Debug.LogWarning("contrat price " + contrackPrice + "curent rade state name " + currentTradeState.name);
+                    contrackPriceValueText.text = contrackPrice.ToString();
+
+                }
+                else
+                {
+                    Debug.LogWarning(" conrrat picie sýfýrdan küçük olamamlý ");
+                    contrackPriceValueText.text = "0";
+
+                }
 
             }
             else
-            {
-                Debug.LogWarning(" conrrat picie sýfýrdan küçük olamamlý ");
-                contrackPriceValueText.text = "0";
-
-            }
-
+                Debug.LogWarning("current trade is null");
         }
 
     }
@@ -199,6 +220,7 @@ public class SellPanel : MonoBehaviour
                 if (quantity<= currentState.resourceData[type].currentAmount)
                 {
                     this.currentState.SellResource(type, quantity, earing);
+                    currentTradeState.BuyyResource(type, quantity, earing);
 
                     amoutAvableValueText.text = this.currentState.resourceData[type].currentAmount.ToString();
 
