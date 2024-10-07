@@ -7,16 +7,16 @@ using UnityEngine.UI;
 
 public class ResCardButton : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+   
 
     private void OnEnable()
     {
         
         gameObject.GetComponent<Button>().onClick.AddListener(SetCurentResource);
+    }
+    private void OnDisable()
+    {
+        gameObject.GetComponent<Button>().onClick.RemoveListener(SetCurentResource);
     }
     void SetCurentResource()
     {
@@ -30,7 +30,9 @@ public class ResCardButton : MonoBehaviour
             // Enum.TryParse yöntemi (daha güvenli)
             if (Enum.TryParse(resourceString, out resource))
             {
+
                 ResourceManager.Instance.SetCurrentResource(resource);
+                
 
             }
             else
@@ -48,8 +50,5 @@ public class ResCardButton : MonoBehaviour
        
          
     }
-    private void OnDisable()
-    {
-        gameObject.GetComponent<Button>().onClick.RemoveListener(SetCurentResource);
-    }
+  
 }

@@ -51,9 +51,9 @@ public class StateProductPanelScript : MonoBehaviour
         if(stateTransformAndTradeList!= null)
         stateTransformAndTradeList.Clear();
 
-        ResourceType curretResType = ResourceManager.Instance.curentResource;
+        ResourceType curretResType = ResourceManager.curentResource;
       //  Debug.LogWarning("curentr res type " + curretResType);
-        if(ResourceManager.Instance.curentResource != null )
+        if( ResourceManager.curentResource != null )
         {
             foreach (Transform stateTransform in Usa.Instance.transform)
             {

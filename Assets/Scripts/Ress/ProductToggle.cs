@@ -11,7 +11,7 @@ public class ProductToggle : MonoBehaviour
         if (ResourceManager.Instance != null)
         {
             ResourceManager.Instance.OnResourceChanged += OnResourceTypeChanged;
-            OnResourceTypeChanged(ResourceManager.Instance.curentResource);
+            OnResourceTypeChanged(ResourceManager.curentResource);
           
 
         }

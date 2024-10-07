@@ -11,7 +11,7 @@ public class ResourceManager : MonoBehaviour
 
     //merkez bankasýnýn  Kaynaklarý saklayacaðýmýz bir Dictionary
     private Dictionary<ResourceType, float> resources = new Dictionary<ResourceType, float>();
-    public ResourceType curentResource { get;  set; }
+    public static  ResourceType curentResource { get;  set; }
     public string curentTradeStateName {  get; set; }
     public static State CurrentTradeState;
 

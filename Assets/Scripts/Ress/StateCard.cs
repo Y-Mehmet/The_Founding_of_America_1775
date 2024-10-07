@@ -42,7 +42,7 @@ public class StateCard : MonoBehaviour
         if (gameObjectindex< exportTradeList.Count)
         {
            
-            ResourceType curretResType = ResourceManager.Instance.curentResource;
+            ResourceType curretResType = ResourceManager.curentResource;
 
            
                 Trade exportTrade = exportTradeList.ElementAt(gameObjectindex).Value;
@@ -111,7 +111,7 @@ public class StateCard : MonoBehaviour
         if (gameObjectindex < exportTradeList.Count)
         {
            
-            ResourceType curretResType = ResourceManager.Instance.curentResource;
+            ResourceType curretResType = ResourceManager.curentResource;
 
 
             Trade exportTrade = exportTradeList.ElementAt(gameObjectindex).Value;
