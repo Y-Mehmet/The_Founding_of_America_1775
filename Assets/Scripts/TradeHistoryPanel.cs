@@ -8,16 +8,25 @@ public class TradeHistoryPanel : MonoBehaviour
     private void OnEnable()
     {
         ChilGameObjcetActiveted();
-
+      
 
         if (TradeManager.instance != null)
         {
             TradeManager.instance.onTradeHistoryQueueChanged += NextChildGameObjcetActiveted;
-        }else
+        }
+        else
         {
             Debug.LogWarning("trade manager is null");
         }
 
+    }
+    private void OnDisable()
+    {
+       
+        if (TradeManager.instance != null)
+        {
+            TradeManager.instance.onTradeHistoryQueueChanged -= NextChildGameObjcetActiveted;
+        }
     }
     private void ChilGameObjcetActiveted()
     {
@@ -75,11 +84,5 @@ public class TradeHistoryPanel : MonoBehaviour
             
 
     }
-    private void OnDisable()
-    {
-        if (TradeManager.instance != null)
-        {
-            TradeManager.instance.onTradeHistoryQueueChanged -= NextChildGameObjcetActiveted;
-        }
-    }
+   
 }

@@ -39,20 +39,23 @@ public class TradeManager : MonoBehaviour
 public class TradeHistory
 {
     public TradeType tradeType;
-    public string dateString;
+    public DateTime deliveryTime;
     public int productSpriteIndex;
     public float quantity;
     public float cost;
     public int tradeStateFlagIndex;
+    public State tradeState;
+    
 
     // Constructor
-    public TradeHistory(TradeType tradeType, string dateString, int productSpriteIndex, float quantity, float cost, int tradeStateFlagIndex)
+    public TradeHistory(TradeType tradeType, DateTime deliveryTime, int productSpriteIndex, float quantity, float cost, int tradeStateFlagIndex, State tradeState)
     {
         this.tradeType = tradeType;
-        this.dateString = dateString;
+        this.deliveryTime = deliveryTime;
         this.productSpriteIndex = productSpriteIndex;
         this.quantity = quantity;
         this.cost = cost;
         this.tradeStateFlagIndex = tradeStateFlagIndex;
+        this.tradeState = tradeState;
     }
 }

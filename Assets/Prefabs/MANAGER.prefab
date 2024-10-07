@@ -44,7 +44,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: defe2af201ba2404689bddc6fe71d152, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  timeScale: 0
 --- !u!1 &293023359309847435
 GameObject:
   m_ObjectHideFlags: 0
@@ -302,7 +301,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   goldText: {fileID: 0}
-  DimondRate: 1000
   InputFieldCaharcterLimit: 6
 --- !u!1 &1849995187969613885
 GameObject:
@@ -350,6 +348,50 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   saveName: SaveRegionData_
   saveDataIndex: 0
+--- !u!1 &2058123527934435249
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 7764609765622872444}
+  - component: {fileID: 8319756175361505406}
+  m_Layer: 0
+  m_Name: EventManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &7764609765622872444
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2058123527934435249}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 5687146723757708717}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &8319756175361505406
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2058123527934435249}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1ae9af6b0aefc7e4fa57eb061509dc18, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &2575706489614612353
 GameObject:
   m_ObjectHideFlags: 0
@@ -425,6 +467,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1389c3bdec41360458e6df385d55a8db, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  maxTransactionCount: 6
 --- !u!1 &3531515096269104356
 GameObject:
   m_ObjectHideFlags: 0
@@ -676,6 +719,7 @@ Transform:
   - {fileID: 1544202901484257542}
   - {fileID: 2886065854232935962}
   - {fileID: 2095580686574037527}
+  - {fileID: 7764609765622872444}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &6624118641007274749
@@ -871,7 +915,6 @@ MonoBehaviour:
   attackFinishDurtion: 10
   moveAmount: 0.33
   moveDuration: 0.5
-  gameDayTime: 1
   thresholdForSuccesfulEspionage: 3
   spyCostModPurchases: 10
   isGamePause: 0

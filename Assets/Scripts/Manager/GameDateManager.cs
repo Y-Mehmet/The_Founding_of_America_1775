@@ -49,14 +49,27 @@ public class GameDateManager : MonoBehaviour
     {
         isPaused = true;
     }
+    public void ResumeTime()
 
     // Zamaný tekrar baþlatma fonksiyonu
-    public void ResumeTime()
     {
         isPaused = false;
     }
     public string GetCurrentDataString()
     {
         return currentDate.ToString("MM/dd/yyyy");
+    }
+    public string ConvertDateToString(DateTime date)
+    {
+        return date.ToString("MM/dd/yyyy");
+    }
+    public DateTime GetCurrentDate()
+    {
+        return currentDate;
+    }
+    public DateTime CalculateDeliveryDateTime(float addedTime = 0)
+    {
+        DateTime deliveryTime = currentDate.AddDays(addedTime);
+        return deliveryTime;
     }
 }

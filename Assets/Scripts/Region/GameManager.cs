@@ -18,8 +18,8 @@ public class GameManager : MonoBehaviour
     public float moveDuration = 0.5f; // Hareket süresi
 
     public static float gameDayTime = 1.0f;
-    public static  float  neigbordTradeTime= 30 *gameDayTime;
-    public static float  nonNeigbordTradeTime= 90 *gameDayTime;
+    public static  float  neigbordTradeTime= 3 *gameDayTime;
+    public static float  nonNeigbordTradeTime= 9 *gameDayTime;
 
     public int thresholdForSuccesfulEspionage = 3;
     public int spyCostModPurchases = 10;//number of spy cost mod purchases

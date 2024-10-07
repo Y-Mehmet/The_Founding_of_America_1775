@@ -451,10 +451,10 @@ public class State : MonoBehaviour
         
             if (resourceData.ContainsKey(resType))
             {
-            Debug.LogWarning($"{gameObject.name} statesinde {resType} kaynaðý {quantity} miktarý kadar eksildi eksilmeden önceki miktar {resourceData[resType].currentAmount}");
+           // Debug.LogWarning($"{gameObject.name} statesinde {resType} kaynaðý {quantity} miktarý kadar eksildi eksilmeden önceki miktar {resourceData[resType].currentAmount}");
                 // Eðer kaynak zaten mevcutsa, miktarý güncelleyebilirsiniz
                 resourceData[resType].currentAmount -= quantity;
-            Debug.LogWarning($"{gameObject.name} statesinde {resType} kaynaðý {quantity} miktarý kadar eksildi eksilmeden sonraki  miktar {resourceData[resType].currentAmount}");
+           // Debug.LogWarning($"{gameObject.name} statesinde {resType} kaynaðý {quantity} miktarý kadar eksildi eksilmeden sonraki  miktar {resourceData[resType].currentAmount}");
             foreach (var item in Taxes)
             {
                 if(item.taxType== TaxType.ValueAddedTax)
@@ -472,21 +472,31 @@ public class State : MonoBehaviour
             }
         
     }
-    public void BuyyResource(ResourceType resType, float quantity, float spending)
+    public void BuyyResource(ResourceType resType, float quantity, float spending, float deliveryTime = 0)
     {
-
         if (resourceData.ContainsKey(resType))
         {
-            
-            resourceData[resType].currentAmount += quantity;
             resourceData[ResourceType.Gold].currentAmount -= spending;
+           // Debug.Log($"Coroutine baþlatýlýyor: {resType}, Miktar: {quantity}, Teslimat Süresi: {deliveryTime}");
+            StartCoroutine(BuyResource(resType, quantity, deliveryTime));
+            
         }
         else
         {
-            Debug.LogWarning("u try new resoruce type  ");
+            Debug.LogWarning("Yeni bir kaynak türü denediniz.");
         }
-
     }
+
+    IEnumerator BuyResource(ResourceType resType, float quantity, float deliveryTime = 0)
+    {
+        //Debug.Log($"Coroutine baþladý: {resType}, Teslimat Süresi: {deliveryTime}");
+        yield return new WaitForSeconds(deliveryTime);
+        //Debug.LogWarning($"{resType} ürünü {this.name}'a ulaþtý");
+        resourceData[resType].currentAmount += quantity;
+        EventManager.Instance.ProductReceived();
+        //Debug.Log($"Coroutine bitti: {resType}");
+    }
+
     public void InstantlyResource(ResourceType resType, float quantity, float spending)
     {
 
@@ -538,12 +548,6 @@ public class State : MonoBehaviour
        // Debug.Log("wxport ya da import type eþleþmesi olmadý ******************"+ index);
         return null;
     }
-
-
-
-
-
-
 }
 public enum StateType
 {

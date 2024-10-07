@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using TMPro;
 using UnityEngine;
@@ -20,7 +21,7 @@ public class SellPanel : MonoBehaviour
     private void Start()
     {
         inputField.characterLimit = ResourceManager.Instance.InputFieldCaharcterLimit;
-        originalTextColor = amoutAvableValueText.color;
+        originalTextColor = Color.black;
     }
     private void OnEnable()
     {
@@ -219,8 +220,9 @@ public class SellPanel : MonoBehaviour
 
 
                     int stateFlagIndex = currentState.gameObject.transform.GetSiblingIndex();
-
-                    TradeHistory transaction = new TradeHistory(TradeType.Export, GameDateManager.instance.GetCurrentDataString(), (int)type, quantity, earing, stateFlagIndex);
+                    DateTime deliverTime = GameDateManager.instance.GetCurrentDate();
+                    
+                    TradeHistory transaction = new TradeHistory(TradeType.Export, deliverTime, (int)type, quantity, earing, stateFlagIndex, ResourceManager.CurrentTradeState);
 
                     TradeManager.instance.AddTransaction(transaction);
                     OnInputValueChanged("0");

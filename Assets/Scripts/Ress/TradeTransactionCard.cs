@@ -1,4 +1,5 @@
 
+using System;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -8,29 +9,41 @@ public class TradeTransactionCard : MonoBehaviour
     public Image  resIcon,stateFlagIcon;
     TradeHistory transaction;
     Button buyAgainButton;// buy or sell duruma göre deðiþir
-    Color originalTextColor;
+    Color originalTextColor = Color.black;
     Color errorTextColor = Color.red;
 
-
+    
 
     private void OnEnable()
     {
 
-        originalTextColor = tradeTypeBtnText.color;
+        EventManager.Instance.OnProductReceived += TradeTansactionCardUIUpdate;
          buyAgainButton = tradeTypeBtnText.transform.parent.GetComponent<Button>();
         InvokeRepeating("ButtonTextCollorUpdate", 0, GameManager.gameDayTime);
         if (buyAgainButton != null)
         {
             buyAgainButton.onClick.AddListener(OnBuyAgainButtonListenner);
-
+            
         }
         else
         {
             Debug.LogError("buy button is null");
         }
-           
 
-
+    }
+    private void OnDisable()
+    {
+        EventManager.Instance.OnProductReceived -= TradeTansactionCardUIUpdate;
+        resetCollor();
+        if (TradeManager.instance != null)
+        {
+            TradeManager.instance.onTradeHistoryQueueChanged += TradeTansactionCardUIUpdate;
+        }
+        else
+        {
+            Debug.LogWarning("trade manager is null");
+        }
+        buyAgainButton.onClick.RemoveListener(OnBuyAgainButtonListenner);
     }
     void ButtonTextCollorUpdate()
     {
@@ -76,6 +89,7 @@ public class TradeTransactionCard : MonoBehaviour
     
     public void TradeTansactionCardUIUpdate()
     {
+        //Debug.LogWarning("trad uý uodate çalýþtý");
         ButtonTextCollorUpdate();
         if (TradeManager.instance != null)
         {
@@ -93,7 +107,21 @@ public class TradeTransactionCard : MonoBehaviour
                 {
                     tradeTypeBtnText.text = "Sell";
                 }
-                dateText.text = transaction.dateString;
+
+
+                DateTime deliveryDate = transaction.deliveryTime;
+
+
+                if (deliveryDate> GameDateManager.currentDate)
+                {
+                    //Debug.LogWarning($"delivery date {deliveryDate} cuurent date {GameDateManager.currentDate}");
+                    dateText.color = errorTextColor;
+                }else
+                {
+                    dateText.color = originalTextColor;
+                }
+              
+                dateText.text = GameDateManager.instance.ConvertDateToString(deliveryDate);
                 quantityText.text = transaction.quantity.ToString();
                 costText.text = transaction.cost.ToString();
                 resIcon.sprite = ResSpriteSO.Instance.resIcon[(int)transaction.productSpriteIndex];
@@ -128,8 +156,14 @@ public class TradeTransactionCard : MonoBehaviour
                         {
                             if (currentState.resourceData[ResourceType.Gold].currentAmount >= spending)
                             {
-                                currentState.BuyyResource(type, quantity, spending);
-                                newTransaction = new TradeHistory(TradeType.Import, GameDateManager.instance.GetCurrentDataString(), (int)type, quantity, spending, stateFlagIndex);
+                        float deliveryTime = GameManager.nonNeigbordTradeTime;
+                        if (Neighbor.Instance.AreNeighbors(currentState.name, transaction.tradeState.name))
+                        {
+                            deliveryTime = GameManager.neigbordTradeTime;
+                        }
+                        currentState.BuyyResource(type, quantity, spending,deliveryTime);
+                                
+                                newTransaction = new TradeHistory(TradeType.Import, GameDateManager.instance.CalculateDeliveryDateTime(deliveryTime), (int)type, quantity, spending, stateFlagIndex,transaction.tradeState);
                                 TradeManager.instance.AddTransaction(newTransaction);
                             }
                             else
@@ -144,7 +178,7 @@ public class TradeTransactionCard : MonoBehaviour
                                 currentState.SellResource(type, quantity, spending);
 
 
-                                newTransaction = new TradeHistory(TradeType.Export, GameDateManager.instance.GetCurrentDataString(), (int)type, quantity, spending, stateFlagIndex);
+                                newTransaction = new TradeHistory(TradeType.Export, GameDateManager.instance.GetCurrentDate(), (int)type, quantity, spending, stateFlagIndex, transaction.tradeState);
                                 TradeManager.instance.AddTransaction(newTransaction);
                             }
                             else
@@ -170,19 +204,6 @@ public class TradeTransactionCard : MonoBehaviour
             Debug.LogWarning("transaction is null");
         ButtonTextCollorUpdate();
     }
-    private void OnDisable()
-    {
-        resetCollor();
-        if (TradeManager.instance != null)
-        {
-            TradeManager.instance.onTradeHistoryQueueChanged += TradeTansactionCardUIUpdate;
-        }
-        else
-        {
-            Debug.LogWarning("trade manager is null");
-        }
 
-        buyAgainButton.onClick.RemoveListener(OnBuyAgainButtonListenner);
-    }
 
 }

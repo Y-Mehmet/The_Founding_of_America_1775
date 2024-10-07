@@ -1,3 +1,4 @@
+using System;
 using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
@@ -12,9 +13,8 @@ public class BuyPanel : MonoBehaviour
     public TMP_Text contrackPriceValueText, InstantlyValueText, secondValueText,buyValueTax;
     int indexOfLimit;
     float contrackPrice;
-    
-    
     float quantity;
+    float deliveryTime;
     Color originalTextColor;
     
 
@@ -74,35 +74,42 @@ public class BuyPanel : MonoBehaviour
     private void OnStateToTradeChanged(string stateName)
     {
       
-        string currentStateName= RegionClickHandler.Instance.currentState.name;
-        string currentTradeStateName = ResourceManager.Instance.curentTradeStateName;
-        if(Neighbor.Instance!= null)
+        
+        ShowPanelInfo();
+
+
+    }
+    void SetSecondValueText()
+    {
+        string currentStateName = RegionClickHandler.Instance.currentState.name;
+        string currentTradeStateName = ResourceManager.CurrentTradeState.name;
+        if (Neighbor.Instance != null)
         {
-          if (Neighbor.Instance.AreNeighbors(currentStateName, currentTradeStateName))
+            if (Neighbor.Instance.AreNeighbors(currentStateName, currentTradeStateName))
             {
-                secondValueText.text=GameManager.neigbordTradeTime.ToString();
+                deliveryTime = GameManager.neigbordTradeTime;
+                secondValueText.text = deliveryTime.ToString();
             }
-          else
+            else
             {
-                secondValueText.text = GameManager.nonNeigbordTradeTime.ToString();
+                deliveryTime = GameManager.nonNeigbordTradeTime;
+                secondValueText.text = deliveryTime.ToString();
             }
         }
         else
         {
             Debug.LogWarning("neignord is null");
         }
-        ShowPanelInfo();
-
-
     }
 
     void ShowPanelInfo()
     {
+       
         if (ResourceManager.CurrentTradeState != null)
         {
             if (rightBox.gameObject.activeSelf)
             {
-
+               
                 bool test = false; // test biti eðer trade export ya da import listimizde current rres varsa true döncek 
                 foreach (var resType in ResourceManager.CurrentTradeState.exportTrade.resourceTypes)
                 {
@@ -130,16 +137,17 @@ public class BuyPanel : MonoBehaviour
                     if (price >= 0)
                     {
                         contrackPrice = price;
-                        Debug.LogWarning("contrat price " + contrackPrice + "curent rade state name " + ResourceManager.CurrentTradeState.name + " currnet res" + ResourceManager.curentResource);
+                       // Debug.LogWarning("contrat price " + contrackPrice + "curent rade state name " + ResourceManager.CurrentTradeState.name + " currnet res" + ResourceManager.curentResource);
                         contrackPriceValueText.text = contrackPrice.ToString();
 
                     }
                     else
                     {
-                        Debug.LogWarning(" conrrat picie dýfýrdan küçük olamamlý ");
+                        Debug.LogWarning(" conrrat picie sýfýrdan küçük olamamlý ");
                         contrackPriceValueText.text = "0";
 
                     }
+                    SetSecondValueText();
                 }
             }
         }
@@ -250,16 +258,21 @@ public class BuyPanel : MonoBehaviour
                 State currentState = RegionClickHandler.Instance.currentState.GetComponent<State>();
                if (currentState.resourceData[ResourceType.Gold].currentAmount >= spending)
                 {
-                    currentState.BuyyResource(type, quantity, spending);
-                    ResourceManager.CurrentTradeState.SellResource(type, quantity, spending);
+                    if(deliveryTime>0)
+                    {
+                        currentState.BuyyResource(type, quantity, spending,deliveryTime);
+                        ResourceManager.CurrentTradeState.SellResource(type, quantity, spending);
+
+                        int stateFlagIndex = currentState.gameObject.transform.GetSiblingIndex();
+
+                        DateTime deliverTime = GameDateManager.instance.CalculateDeliveryDateTime(deliveryTime);
+                        TradeHistory transaction = new TradeHistory(TradeType.Import, deliverTime, (int)type, quantity, spending, stateFlagIndex, ResourceManager.CurrentTradeState);
+                        TradeManager.instance.AddTransaction(transaction);
+                        buyButton.GetComponent<HideLastPanelButton>().DoHidePanel();
+                        Debug.LogWarning($"res satýn alýndý quantaty {quantity} harcanan altýn {spending}");
+                    }else
+                    { Debug.LogError("delivery time is null"); }
                     
-                     int stateFlagIndex = currentState.gameObject.transform.GetSiblingIndex();
-                       
-                    
-                    TradeHistory transaction = new TradeHistory(TradeType.Import, GameDateManager.instance.GetCurrentDataString(),(int) type, quantity, spending, stateFlagIndex);
-                    TradeManager.instance.AddTransaction(transaction);
-                    buyButton.GetComponent<HideLastPanelButton>().DoHidePanel();
-                    Debug.LogWarning($"res satýn alýndý quantaty {quantity} harcanan altýn {spending}");
                 }
                else
                 {
