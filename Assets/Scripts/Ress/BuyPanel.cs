@@ -17,6 +17,7 @@ public class BuyPanel : MonoBehaviour
     float deliveryTime;
     Color originalTextColor;
     
+    
 
     private void Start()
     {
@@ -269,7 +270,7 @@ public class BuyPanel : MonoBehaviour
                         TradeHistory transaction = new TradeHistory(TradeType.Import, deliverTime, (int)type, quantity, spending, stateFlagIndex, ResourceManager.CurrentTradeState);
                         TradeManager.instance.AddTransaction(transaction);
                         buyButton.GetComponent<HideLastPanelButton>().DoHidePanel();
-                        Debug.LogWarning($"res satýn alýndý quantaty {quantity} harcanan altýn {spending}");
+                       // Debug.LogWarning($"res satýn alýndý quantaty {quantity} harcanan altýn {spending}");
                     }else
                     { Debug.LogError("delivery time is null"); }
                     
@@ -294,13 +295,20 @@ public class BuyPanel : MonoBehaviour
         float spending;
         if (float.TryParse(contrackPriceValueText.text, out spending))
         {
+            
             float Dimond = GameEconomy.Instance.GetGemValue(spending);
-
-            if (spending > 0)
+            spending = Dimond;
+            if (spending > 0 && quantity >0)
             {
-                if (ResourceManager.CurrentTradeState.resourceData[ResourceType.Diamond].currentAmount > Dimond)
+                if (ResourceManager.CurrentTradeState.resourceData[ResourceType.Diamond].currentAmount > spending)
                 {
-                    RegionClickHandler.Instance.currentState.GetComponent<State>().InstantlyResource(type, quantity, Dimond);
+                    
+                    int stateFlagIndex = RegionClickHandler.Instance.currentState.gameObject.transform.GetSiblingIndex();
+                    RegionClickHandler.Instance.currentState.GetComponent<State>().InstantlyResource(type, quantity, spending);
+                    DateTime deliverTime = GameDateManager.instance.GetCurrentDate();
+                    bool payWhitGem = true;
+                    TradeHistory transaction = new TradeHistory(TradeType.Import, deliverTime, (int)type, quantity, spending, stateFlagIndex, ResourceManager.CurrentTradeState, payWhitGem);
+                    TradeManager.instance.AddTransaction(transaction);
                     buyButton.GetComponent<HideLastPanelButton>().DoHidePanel();
                 }
                 else

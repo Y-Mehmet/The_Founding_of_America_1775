@@ -56,24 +56,40 @@ public class TradeTransactionCard : MonoBehaviour
         if (transaction != null)
         {
             State currentState = RegionClickHandler.Instance.currentState.GetComponent<State>();
-            if (transaction.tradeType== TradeType.Import)
+           if(transaction.payWhitGem)
             {
-                if(transaction.cost <= currentState.resourceData[ResourceType.Gold].currentAmount)
-                {
-                    tradeTypeBtnText.color = originalTextColor;
-                }else
-                {
-                    tradeTypeBtnText.color = errorTextColor;
-                }
-            }else
-            {
-                if(transaction.quantity<= currentState.resourceData[(ResourceType)transaction.productSpriteIndex].currentAmount)
+                if (transaction.cost <= currentState.resourceData[ResourceType.Diamond].currentAmount)
                 {
                     tradeTypeBtnText.color = originalTextColor;
                 }
                 else
                 {
                     tradeTypeBtnText.color = errorTextColor;
+                }
+            }
+            else
+            {
+                if (transaction.tradeType == TradeType.Import)
+                {
+                    if (transaction.cost <= currentState.resourceData[ResourceType.Gold].currentAmount)
+                    {
+                        tradeTypeBtnText.color = originalTextColor;
+                    }
+                    else
+                    {
+                        tradeTypeBtnText.color = errorTextColor;
+                    }
+                }
+                else
+                {
+                    if (transaction.quantity <= currentState.resourceData[(ResourceType)transaction.productSpriteIndex].currentAmount)
+                    {
+                        tradeTypeBtnText.color = originalTextColor;
+                    }
+                    else
+                    {
+                        tradeTypeBtnText.color = errorTextColor;
+                    }
                 }
             }
         }
@@ -99,7 +115,7 @@ public class TradeTransactionCard : MonoBehaviour
             if (transaction != null)
             {
                
-                if (transaction.tradeType == 0)
+                if (transaction.tradeType == TradeType.Import)
                 {
                     tradeTypeBtnText.text = "Buy";
                 }
@@ -141,64 +157,99 @@ public class TradeTransactionCard : MonoBehaviour
     {
         if (transaction != null)
         {
-
-            
-            float spending = transaction.cost;
-            float quantity = transaction.quantity;
-            if (spending > 0 && quantity>0)
+            if(transaction.payWhitGem )
             {
-                ResourceType type = (ResourceType)transaction.productSpriteIndex;
-                State currentState = RegionClickHandler.Instance.currentState.GetComponent<State>();
-                TradeHistory newTransaction;
-                int stateFlagIndex = currentState.gameObject.transform.GetSiblingIndex();
 
-                        if (transaction.tradeType == 0)
-                        {
-                            if (currentState.resourceData[ResourceType.Gold].currentAmount >= spending)
-                            {
-                        float deliveryTime = GameManager.nonNeigbordTradeTime;
-                        if (Neighbor.Instance.AreNeighbors(currentState.name, transaction.tradeState.name))
-                        {
-                            deliveryTime = GameManager.neigbordTradeTime;
-                        }
-                        currentState.BuyyResource(type, quantity, spending,deliveryTime);
-                                
-                                newTransaction = new TradeHistory(TradeType.Import, GameDateManager.instance.CalculateDeliveryDateTime(deliveryTime), (int)type, quantity, spending, stateFlagIndex,transaction.tradeState);
-                                TradeManager.instance.AddTransaction(newTransaction);
-                            }
-                            else
-                            {
-                                Debug.Log(" gold dont eneaugh for buy resource");
-                            }
+                float spending = transaction.cost;
+                float quantity = transaction.quantity;
+                if (spending > 0 && quantity > 0)
+                {
+                    ResourceType type = (ResourceType)transaction.productSpriteIndex;
+                    State currentState = RegionClickHandler.Instance.currentState.GetComponent<State>();
+                    TradeHistory newTransaction;
+                    int stateFlagIndex = currentState.gameObject.transform.GetSiblingIndex();
+                        if (currentState.resourceData[ResourceType.Diamond].currentAmount >= spending)
+                        {                           
+                            currentState.InstantlyResource(type, quantity, spending);
+                        float goldValue =Mathf.Ceil( GameEconomy.Instance.GetGoldValue(type, spending));
+                        ResourceManager.CurrentTradeState.SellResource(type, quantity, goldValue);
+                            DateTime currentDate = GameDateManager.instance.GetCurrentDate();
+                        bool payWhitGem = true;
+                            newTransaction = new TradeHistory(TradeType.Import, currentDate, (int)type, quantity, spending, stateFlagIndex, transaction.tradeState, payWhitGem);
+                            TradeManager.instance.AddTransaction(newTransaction);
                         }
                         else
                         {
-                            if (currentState.resourceData[type].currentAmount >= quantity)
-                            {
-                                currentState.SellResource(type, quantity, spending);
-
-
-                                newTransaction = new TradeHistory(TradeType.Export, GameDateManager.instance.GetCurrentDate(), (int)type, quantity, spending, stateFlagIndex, transaction.tradeState);
-                                TradeManager.instance.AddTransaction(newTransaction);
-                            }
-                            else
-                            {
-                                Debug.LogWarning("res not eneught for sell ");
-                            }
-                                
-                          
+                            Debug.Log(" dimond dont eneaugh for buy resource");
                         }
-                    
+                    // Debug.LogWarning($"res satýn alýndý quantaty {quantity} harcanan altýn {spending}");
 
-                    
 
-                   // Debug.LogWarning($"res satýn alýndý quantaty {quantity} harcanan altýn {spending}");
-                
-               
 
+                }
+                else
+                    Debug.LogWarning(" spending or cuantity value 0");
             }
             else
-                Debug.LogWarning(" spending or cuantity value 0");
+            {
+
+                float spending = transaction.cost;
+                float quantity = transaction.quantity;
+                if (spending > 0 && quantity > 0)
+                {
+                    ResourceType type = (ResourceType)transaction.productSpriteIndex;
+                    State currentState = RegionClickHandler.Instance.currentState.GetComponent<State>();
+                    TradeHistory newTransaction;
+                    int stateFlagIndex = currentState.gameObject.transform.GetSiblingIndex();
+
+                    if (transaction.tradeType == 0)
+                    {
+                        if (currentState.resourceData[ResourceType.Gold].currentAmount >= spending)
+                        {
+                            float deliveryTime = GameManager.nonNeigbordTradeTime;
+                            if (Neighbor.Instance.AreNeighbors(currentState.name, transaction.tradeState.name))
+                            {
+                                deliveryTime = GameManager.neigbordTradeTime;
+                            }
+                            currentState.BuyyResource(type, quantity, spending, deliveryTime);
+
+                            newTransaction = new TradeHistory(TradeType.Import, GameDateManager.instance.CalculateDeliveryDateTime(deliveryTime), (int)type, quantity, spending, stateFlagIndex, transaction.tradeState);
+                            TradeManager.instance.AddTransaction(newTransaction);
+                        }
+                        else
+                        {
+                            Debug.Log(" gold dont eneaugh for buy resource");
+                        }
+                    }
+                    else
+                    {
+                        if (currentState.resourceData[type].currentAmount >= quantity)
+                        {
+                            currentState.SellResource(type, quantity, spending);
+
+
+                            newTransaction = new TradeHistory(TradeType.Export, GameDateManager.instance.GetCurrentDate(), (int)type, quantity, spending, stateFlagIndex, transaction.tradeState);
+                            TradeManager.instance.AddTransaction(newTransaction);
+                        }
+                        else
+                        {
+                            Debug.LogWarning("res not eneught for sell ");
+                        }
+
+
+                    }
+
+
+
+
+                    // Debug.LogWarning($"res satýn alýndý quantaty {quantity} harcanan altýn {spending}");
+
+
+
+                }
+                else
+                    Debug.LogWarning(" spending or cuantity value 0");
+            }
         }
         else
             Debug.LogWarning("transaction is null");

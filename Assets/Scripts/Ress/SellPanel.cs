@@ -207,28 +207,21 @@ public class SellPanel : MonoBehaviour
         float earing;
         if (float.TryParse(contrackPriceValueText.text, out earing))
         {
-            if (earing > 0)
+            if (earing > 0 && quantity>0)
             {
 
                 if (quantity<= currentState.resourceData[type].currentAmount)
                 {
                     this.currentState.SellResource(type, quantity, earing);
                     ResourceManager.CurrentTradeState.BuyyResource(type, quantity, earing);
-
                     amoutAvableValueText.text = this.currentState.resourceData[type].currentAmount.ToString();
-
-
-
                     int stateFlagIndex = currentState.gameObject.transform.GetSiblingIndex();
-                    DateTime deliverTime = GameDateManager.instance.GetCurrentDate();
-                    
+                    DateTime deliverTime = GameDateManager.instance.GetCurrentDate();                 
                     TradeHistory transaction = new TradeHistory(TradeType.Export, deliverTime, (int)type, quantity, earing, stateFlagIndex, ResourceManager.CurrentTradeState);
-
                     TradeManager.instance.AddTransaction(transaction);
                     OnInputValueChanged("0");
                     sellButton.GetComponent<HideLastPanelButton>().DoHidePanel();
                 }
-
 
             }
             else
@@ -239,17 +232,17 @@ public class SellPanel : MonoBehaviour
 
         //OnInputValueChanged("0");
         amoutAvableValueText.text = currentState.resourceData[type].currentAmount.ToString();
-        State tradeState = Usa.Instance.FindStateByName(ResourceManager.Instance.curentTradeStateName);
-        if (tradeState!= null)
-        {
-            foreach (var resType in tradeState.importTrade.resourceTypes)
-            {
-                if(resType==type)
-                {
+        //State tradeState = Usa.Instance.FindStateByName(ResourceManager.Instance.curentTradeStateName);
+        //if (tradeState!= null)
+        //{
+        //    foreach (var resType in tradeState.importTrade.resourceTypes)
+        //    {
+        //        if(resType==type)
+        //        {
 
-                }
-            }
-        }
+        //        }
+        //    }
+        //}
 
     }
     
