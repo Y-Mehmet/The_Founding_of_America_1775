@@ -31,7 +31,7 @@ public class NaturalState : MonoBehaviour, ISelectable
 
         RegionManager.instance.ShowNaturalRegionInfo(gameObject.name);
         GameManager.Instance.ChanngeIsRegionPanelOpenValueTrue();
-        GameManager.Instance.UpdateStatePanel(gameObject.GetComponent<State>());
+        UIManager.Instance.GetComponent<ShowPanelButton>().DoShowPanelWhitId(PanelID.NaturalStatePanel);
     }
     public void FinishAttack()
     {

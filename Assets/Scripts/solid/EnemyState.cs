@@ -29,7 +29,7 @@ public class EnemyState : MonoBehaviour, ISelectable
 
         RegionManager.instance.ShowEnemyRegionInfo(gameObject.name);
         GameManager.Instance.ChanngeIsRegionPanelOpenValueTrue();
-        GameManager.Instance.UpdateStatePanel(gameObject.GetComponent<State>());
+        UIManager.Instance.GetComponent<ShowPanelButton>().DoShowPanelWhitId(PanelID.EnemyStatePanel);
     }
     public void FinishAttack()
     {

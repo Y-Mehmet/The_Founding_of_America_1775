@@ -63,7 +63,7 @@ public class AllyState : MonoBehaviour, ISelectable
 
         RegionManager.instance.ShowAllyRegionInfo(gameObject.name);
         GameManager.Instance.ChanngeIsRegionPanelOpenValueTrue();
-        GameManager.Instance.UpdateStatePanel(gameObject.GetComponent<State>());
+        UIManager.Instance.GetComponent<ShowPanelButton>().DoShowPanelWhitId(PanelID.AllyStatePanel);
     }
     
 

@@ -17,4 +17,8 @@ public class ShowPanelButton : MonoBehaviour
         _panelManager.ShowPanel(panelID, behavior);
 
     }
+    public void  DoShowPanelWhitId(PanelID panelID)
+    {
+        _panelManager.ShowPanel(panelID, behavior);
+    }
 }

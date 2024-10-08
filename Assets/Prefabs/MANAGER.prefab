@@ -478,6 +478,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4935879085035614121}
   - component: {fileID: 9169612523563885193}
+  - component: {fileID: 4185023534982666342}
   m_Layer: 0
   m_Name: UIManager
   m_TagString: Untagged
@@ -517,6 +518,20 @@ MonoBehaviour:
   enemyPanel: {fileID: 0}
   neutralPanel: {fileID: 0}
   attackCanvas: {fileID: 0}
+--- !u!114 &4185023534982666342
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3531515096269104356}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ade6d0f39e9b68b438f325120ad7706b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  panelID: 0
+  behavior: 0
 --- !u!1 &3549052421157924371
 GameObject:
   m_ObjectHideFlags: 0

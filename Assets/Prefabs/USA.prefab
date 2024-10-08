@@ -1464,15 +1464,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 00b808d893039c74ca81440aef42058b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  HierarchicalIndex: 0
   StateName: 
   ArmySize: 100
   UnitArmyPower: 0.75
   TotalArmyPower: 0
   stateType: 1
-  StateIcon: {fileID: 0}
   Morele: 0
+  TotalMoraleImpact: 0
+  StateIcon: {fileID: 0}
   Population: 0
   Resources: 0
+  loss: 0
+  attackCanvasButtonPanelIndex: 1
+  Taxes: []
+  MoraleMultiplier: 0.01
+  PopulationMultiplier: 0.001
 --- !u!114 &8516185398008700812
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2671,15 +2678,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 00b808d893039c74ca81440aef42058b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  HierarchicalIndex: 0
   StateName: 
   ArmySize: 100
   UnitArmyPower: 0.75
   TotalArmyPower: 0
   stateType: 1
-  StateIcon: {fileID: 0}
   Morele: 0
+  TotalMoraleImpact: 0
+  StateIcon: {fileID: 0}
   Population: 0
   Resources: 0
+  loss: 0
+  attackCanvasButtonPanelIndex: 1
+  Taxes: []
+  MoraleMultiplier: 0.01
+  PopulationMultiplier: 0.001
 --- !u!114 &7851601795024017695
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3612,15 +3626,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 00b808d893039c74ca81440aef42058b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  HierarchicalIndex: 0
   StateName: 
   ArmySize: 100
   UnitArmyPower: 0.75
   TotalArmyPower: 0
   stateType: 1
-  StateIcon: {fileID: 0}
   Morele: 0
+  TotalMoraleImpact: 0
+  StateIcon: {fileID: 0}
   Population: 0
   Resources: 0
+  loss: 0
+  attackCanvasButtonPanelIndex: 1
+  Taxes: []
+  MoraleMultiplier: 0.01
+  PopulationMultiplier: 0.001
 --- !u!114 &3291117474764230924
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4477,15 +4498,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 00b808d893039c74ca81440aef42058b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  HierarchicalIndex: 0
   StateName: 
   ArmySize: 100
   UnitArmyPower: 0.75
   TotalArmyPower: 0
   stateType: 1
-  StateIcon: {fileID: 0}
   Morele: 0
+  TotalMoraleImpact: 0
+  StateIcon: {fileID: 0}
   Population: 0
   Resources: 0
+  loss: 0
+  attackCanvasButtonPanelIndex: 1
+  Taxes: []
+  MoraleMultiplier: 0.01
+  PopulationMultiplier: 0.001
 --- !u!114 &3274548875670431021
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5912,15 +5940,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 00b808d893039c74ca81440aef42058b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  HierarchicalIndex: 0
   StateName: 
   ArmySize: 100
   UnitArmyPower: 0.75
   TotalArmyPower: 0
   stateType: 1
-  StateIcon: {fileID: 0}
   Morele: 0
+  TotalMoraleImpact: 0
+  StateIcon: {fileID: 0}
   Population: 0
   Resources: 0
+  loss: 0
+  attackCanvasButtonPanelIndex: 1
+  Taxes: []
+  MoraleMultiplier: 0.01
+  PopulationMultiplier: 0.001
 --- !u!114 &9175583780597812875
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7385,15 +7420,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 00b808d893039c74ca81440aef42058b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  HierarchicalIndex: 0
   StateName: 
   ArmySize: 100
   UnitArmyPower: 0.75
   TotalArmyPower: 0
   stateType: 1
-  StateIcon: {fileID: 0}
   Morele: 0
+  TotalMoraleImpact: 0
+  StateIcon: {fileID: 0}
   Population: 0
   Resources: 0
+  loss: 0
+  attackCanvasButtonPanelIndex: 1
+  Taxes: []
+  MoraleMultiplier: 0.01
+  PopulationMultiplier: 0.001
 --- !u!114 &4378028441143170085
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8364,15 +8406,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 00b808d893039c74ca81440aef42058b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  HierarchicalIndex: 0
   StateName: 
   ArmySize: 100
   UnitArmyPower: 0.75
   TotalArmyPower: 0
   stateType: 1
-  StateIcon: {fileID: 0}
   Morele: 0
+  TotalMoraleImpact: 0
+  StateIcon: {fileID: 0}
   Population: 0
   Resources: 0
+  loss: 0
+  attackCanvasButtonPanelIndex: 1
+  Taxes: []
+  MoraleMultiplier: 0.01
+  PopulationMultiplier: 0.001
 --- !u!114 &7306872059592485070
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8925,15 +8974,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 00b808d893039c74ca81440aef42058b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  HierarchicalIndex: 0
   StateName: 
   ArmySize: 100
   UnitArmyPower: 0.75
   TotalArmyPower: 0
   stateType: 1
-  StateIcon: {fileID: 0}
   Morele: 0
+  TotalMoraleImpact: 0
+  StateIcon: {fileID: 0}
   Population: 0
   Resources: 0
+  loss: 0
+  attackCanvasButtonPanelIndex: 1
+  Taxes: []
+  MoraleMultiplier: 0.01
+  PopulationMultiplier: 0.001
 --- !u!114 &3067606960146895052
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -10398,15 +10454,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 00b808d893039c74ca81440aef42058b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  HierarchicalIndex: 0
   StateName: 
   ArmySize: 100
   UnitArmyPower: 0.75
   TotalArmyPower: 0
   stateType: 1
-  StateIcon: {fileID: 0}
   Morele: 0
+  TotalMoraleImpact: 0
+  StateIcon: {fileID: 0}
   Population: 0
   Resources: 0
+  loss: 0
+  attackCanvasButtonPanelIndex: 1
+  Taxes: []
+  MoraleMultiplier: 0.01
+  PopulationMultiplier: 0.001
 --- !u!114 &2185225125003511809
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -11073,15 +11136,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 00b808d893039c74ca81440aef42058b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  HierarchicalIndex: 0
   StateName: 
   ArmySize: 100
   UnitArmyPower: 0.75
   TotalArmyPower: 0
   stateType: 1
-  StateIcon: {fileID: 0}
   Morele: 0
+  TotalMoraleImpact: 0
+  StateIcon: {fileID: 0}
   Population: 0
   Resources: 0
+  loss: 0
+  attackCanvasButtonPanelIndex: 1
+  Taxes: []
+  MoraleMultiplier: 0.01
+  PopulationMultiplier: 0.001
 --- !u!114 &1452695428680069157
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -12735,15 +12805,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 00b808d893039c74ca81440aef42058b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  HierarchicalIndex: 0
   StateName: 
   ArmySize: 100
   UnitArmyPower: 0.75
   TotalArmyPower: 0
   stateType: 1
-  StateIcon: {fileID: 0}
   Morele: 0
+  TotalMoraleImpact: 0
+  StateIcon: {fileID: 0}
   Population: 0
   Resources: 0
+  loss: 0
+  attackCanvasButtonPanelIndex: 1
+  Taxes: []
+  MoraleMultiplier: 0.01
+  PopulationMultiplier: 0.001
 --- !u!114 &7063675648744811160
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -13600,15 +13677,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 00b808d893039c74ca81440aef42058b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  HierarchicalIndex: 0
   StateName: 
   ArmySize: 100
   UnitArmyPower: 0.75
   TotalArmyPower: 0
   stateType: 1
-  StateIcon: {fileID: 0}
   Morele: 0
+  TotalMoraleImpact: 0
+  StateIcon: {fileID: 0}
   Population: 0
   Resources: 0
+  loss: 0
+  attackCanvasButtonPanelIndex: 1
+  Taxes: []
+  MoraleMultiplier: 0.01
+  PopulationMultiplier: 0.001
 --- !u!114 &679554934847904270
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -15529,15 +15613,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 00b808d893039c74ca81440aef42058b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  HierarchicalIndex: 0
   StateName: 
   ArmySize: 100
   UnitArmyPower: 0.75
   TotalArmyPower: 0
   stateType: 1
-  StateIcon: {fileID: 0}
   Morele: 0
+  TotalMoraleImpact: 0
+  StateIcon: {fileID: 0}
   Population: 0
   Resources: 0
+  loss: 0
+  attackCanvasButtonPanelIndex: 1
+  Taxes: []
+  MoraleMultiplier: 0.01
+  PopulationMultiplier: 0.001
 --- !u!114 &5915101391792280374
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -16850,15 +16941,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 00b808d893039c74ca81440aef42058b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  HierarchicalIndex: 0
   StateName: 
   ArmySize: 100
   UnitArmyPower: 0.75
   TotalArmyPower: 0
   stateType: 1
-  StateIcon: {fileID: 0}
   Morele: 0
+  TotalMoraleImpact: 0
+  StateIcon: {fileID: 0}
   Population: 0
   Resources: 0
+  loss: 0
+  attackCanvasButtonPanelIndex: 1
+  Taxes: []
+  MoraleMultiplier: 0.01
+  PopulationMultiplier: 0.001
 --- !u!114 &7358406277580523672
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -18855,15 +18953,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 00b808d893039c74ca81440aef42058b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  HierarchicalIndex: 0
   StateName: 
   ArmySize: 100
   UnitArmyPower: 0.75
   TotalArmyPower: 0
   stateType: 1
-  StateIcon: {fileID: 0}
   Morele: 0
+  TotalMoraleImpact: 0
+  StateIcon: {fileID: 0}
   Population: 0
   Resources: 0
+  loss: 0
+  attackCanvasButtonPanelIndex: 1
+  Taxes: []
+  MoraleMultiplier: 0.01
+  PopulationMultiplier: 0.001
 --- !u!114 &2817838504651812851
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -19530,15 +19635,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 00b808d893039c74ca81440aef42058b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  HierarchicalIndex: 0
   StateName: 
   ArmySize: 100
   UnitArmyPower: 0.75
   TotalArmyPower: 0
   stateType: 1
-  StateIcon: {fileID: 0}
   Morele: 0
+  TotalMoraleImpact: 0
+  StateIcon: {fileID: 0}
   Population: 0
   Resources: 0
+  loss: 0
+  attackCanvasButtonPanelIndex: 1
+  Taxes: []
+  MoraleMultiplier: 0.01
+  PopulationMultiplier: 0.001
 --- !u!114 &6416840343279815765
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -21093,15 +21205,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 00b808d893039c74ca81440aef42058b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  HierarchicalIndex: 0
   StateName: 
   ArmySize: 100
   UnitArmyPower: 0.75
   TotalArmyPower: 0
   stateType: 1
-  StateIcon: {fileID: 0}
   Morele: 0
+  TotalMoraleImpact: 0
+  StateIcon: {fileID: 0}
   Population: 0
   Resources: 0
+  loss: 0
+  attackCanvasButtonPanelIndex: 1
+  Taxes: []
+  MoraleMultiplier: 0.01
+  PopulationMultiplier: 0.001
 --- !u!114 &5121579152104298373
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -22528,15 +22647,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 00b808d893039c74ca81440aef42058b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  HierarchicalIndex: 0
   StateName: 
   ArmySize: 100
   UnitArmyPower: 0.75
   TotalArmyPower: 0
   stateType: 0
-  StateIcon: {fileID: 0}
   Morele: 0
+  TotalMoraleImpact: 0
+  StateIcon: {fileID: 0}
   Population: 0
   Resources: 0
+  loss: 0
+  attackCanvasButtonPanelIndex: 1
+  Taxes: []
+  MoraleMultiplier: 0.01
+  PopulationMultiplier: 0.001
 --- !u!114 &6299302994206831352
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -23051,15 +23177,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 00b808d893039c74ca81440aef42058b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  HierarchicalIndex: 0
   StateName: 
   ArmySize: 100
   UnitArmyPower: 0.75
   TotalArmyPower: 0
   stateType: 1
-  StateIcon: {fileID: 0}
   Morele: 0
+  TotalMoraleImpact: 0
+  StateIcon: {fileID: 0}
   Population: 0
   Resources: 0
+  loss: 0
+  attackCanvasButtonPanelIndex: 1
+  Taxes: []
+  MoraleMultiplier: 0.01
+  PopulationMultiplier: 0.001
 --- !u!114 &1695199853241804822
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -23612,15 +23745,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 00b808d893039c74ca81440aef42058b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  HierarchicalIndex: 0
   StateName: 
   ArmySize: 100
   UnitArmyPower: 0.75
   TotalArmyPower: 0
   stateType: 1
-  StateIcon: {fileID: 0}
   Morele: 0
+  TotalMoraleImpact: 0
+  StateIcon: {fileID: 0}
   Population: 0
   Resources: 0
+  loss: 0
+  attackCanvasButtonPanelIndex: 1
+  Taxes: []
+  MoraleMultiplier: 0.01
+  PopulationMultiplier: 0.001
 --- !u!114 &8874208401994550563
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -24325,15 +24465,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 00b808d893039c74ca81440aef42058b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  HierarchicalIndex: 0
   StateName: 
   ArmySize: 100
   UnitArmyPower: 0.75
   TotalArmyPower: 0
   stateType: 1
-  StateIcon: {fileID: 0}
   Morele: 0
+  TotalMoraleImpact: 0
+  StateIcon: {fileID: 0}
   Population: 0
   Resources: 0
+  loss: 0
+  attackCanvasButtonPanelIndex: 1
+  Taxes: []
+  MoraleMultiplier: 0.01
+  PopulationMultiplier: 0.001
 --- !u!114 &3394795859105462255
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -25115,15 +25262,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 00b808d893039c74ca81440aef42058b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  HierarchicalIndex: 0
   StateName: 
   ArmySize: 100
   UnitArmyPower: 0.75
   TotalArmyPower: 0
   stateType: 1
-  StateIcon: {fileID: 0}
   Morele: 0
+  TotalMoraleImpact: 0
+  StateIcon: {fileID: 0}
   Population: 0
   Resources: 0
+  loss: 0
+  attackCanvasButtonPanelIndex: 1
+  Taxes: []
+  MoraleMultiplier: 0.01
+  PopulationMultiplier: 0.001
 --- !u!114 &1727270737585321623
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -25790,15 +25944,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 00b808d893039c74ca81440aef42058b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  HierarchicalIndex: 0
   StateName: 
   ArmySize: 100
   UnitArmyPower: 0.75
   TotalArmyPower: 0
   stateType: 1
-  StateIcon: {fileID: 0}
   Morele: 0
+  TotalMoraleImpact: 0
+  StateIcon: {fileID: 0}
   Population: 0
   Resources: 0
+  loss: 0
+  attackCanvasButtonPanelIndex: 1
+  Taxes: []
+  MoraleMultiplier: 0.01
+  PopulationMultiplier: 0.001
 --- !u!114 &214147277575072177
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -26579,15 +26740,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 00b808d893039c74ca81440aef42058b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  HierarchicalIndex: 0
   StateName: 
   ArmySize: 100
   UnitArmyPower: 0.75
   TotalArmyPower: 0
   stateType: 1
-  StateIcon: {fileID: 0}
   Morele: 0
+  TotalMoraleImpact: 0
+  StateIcon: {fileID: 0}
   Population: 0
   Resources: 0
+  loss: 0
+  attackCanvasButtonPanelIndex: 1
+  Taxes: []
+  MoraleMultiplier: 0.01
+  PopulationMultiplier: 0.001
 --- !u!114 &7697608408175883774
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -27026,15 +27194,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 00b808d893039c74ca81440aef42058b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  HierarchicalIndex: 0
   StateName: 
   ArmySize: 100
   UnitArmyPower: 0.75
   TotalArmyPower: 0
   stateType: 1
-  StateIcon: {fileID: 0}
   Morele: 0
+  TotalMoraleImpact: 0
+  StateIcon: {fileID: 0}
   Population: 0
   Resources: 0
+  loss: 0
+  attackCanvasButtonPanelIndex: 1
+  Taxes: []
+  MoraleMultiplier: 0.01
+  PopulationMultiplier: 0.001
 --- !u!114 &7727812410106056170
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -27778,15 +27953,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 00b808d893039c74ca81440aef42058b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  HierarchicalIndex: 0
   StateName: 
   ArmySize: 100
   UnitArmyPower: 0.75
   TotalArmyPower: 0
   stateType: 1
-  StateIcon: {fileID: 0}
   Morele: 0
+  TotalMoraleImpact: 0
+  StateIcon: {fileID: 0}
   Population: 0
   Resources: 0
+  loss: 0
+  attackCanvasButtonPanelIndex: 1
+  Taxes: []
+  MoraleMultiplier: 0.01
+  PopulationMultiplier: 0.001
 --- !u!114 &7322841236171747556
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -28567,15 +28749,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 00b808d893039c74ca81440aef42058b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  HierarchicalIndex: 0
   StateName: 
   ArmySize: 100
   UnitArmyPower: 0.75
   TotalArmyPower: 0
   stateType: 1
-  StateIcon: {fileID: 0}
   Morele: 0
+  TotalMoraleImpact: 0
+  StateIcon: {fileID: 0}
   Population: 0
   Resources: 0
+  loss: 0
+  attackCanvasButtonPanelIndex: 1
+  Taxes: []
+  MoraleMultiplier: 0.01
+  PopulationMultiplier: 0.001
 --- !u!114 &5035786029573465976
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -28976,15 +29165,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 00b808d893039c74ca81440aef42058b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  HierarchicalIndex: 0
   StateName: 
   ArmySize: 100
   UnitArmyPower: 0.75
   TotalArmyPower: 0
   stateType: 1
-  StateIcon: {fileID: 0}
   Morele: 0
+  TotalMoraleImpact: 0
+  StateIcon: {fileID: 0}
   Population: 0
   Resources: 0
+  loss: 0
+  attackCanvasButtonPanelIndex: 1
+  Taxes: []
+  MoraleMultiplier: 0.01
+  PopulationMultiplier: 0.001
 --- !u!114 &5332670988382922105
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -30145,15 +30341,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 00b808d893039c74ca81440aef42058b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  HierarchicalIndex: 0
   StateName: 
   ArmySize: 100
   UnitArmyPower: 0.75
   TotalArmyPower: 0
   stateType: 1
-  StateIcon: {fileID: 0}
   Morele: 0
+  TotalMoraleImpact: 0
+  StateIcon: {fileID: 0}
   Population: 0
   Resources: 0
+  loss: 0
+  attackCanvasButtonPanelIndex: 1
+  Taxes: []
+  MoraleMultiplier: 0.01
+  PopulationMultiplier: 0.001
 --- !u!114 &5284221818235706020
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -30706,15 +30909,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 00b808d893039c74ca81440aef42058b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  HierarchicalIndex: 0
   StateName: 
   ArmySize: 100
   UnitArmyPower: 0.75
   TotalArmyPower: 0
   stateType: 1
-  StateIcon: {fileID: 0}
   Morele: 0
+  TotalMoraleImpact: 0
+  StateIcon: {fileID: 0}
   Population: 0
   Resources: 0
+  loss: 0
+  attackCanvasButtonPanelIndex: 1
+  Taxes: []
+  MoraleMultiplier: 0.01
+  PopulationMultiplier: 0.001
 --- !u!114 &4751132213216766030
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -31951,15 +32161,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 00b808d893039c74ca81440aef42058b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  HierarchicalIndex: 0
   StateName: 
   ArmySize: 100
   UnitArmyPower: 0.75
   TotalArmyPower: 0
   stateType: 1
-  StateIcon: {fileID: 0}
   Morele: 0
+  TotalMoraleImpact: 0
+  StateIcon: {fileID: 0}
   Population: 0
   Resources: 0
+  loss: 0
+  attackCanvasButtonPanelIndex: 1
+  Taxes: []
+  MoraleMultiplier: 0.01
+  PopulationMultiplier: 0.001
 --- !u!114 &5505377346811998870
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -32512,15 +32729,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 00b808d893039c74ca81440aef42058b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  HierarchicalIndex: 0
   StateName: 
   ArmySize: 100
   UnitArmyPower: 0.75
   TotalArmyPower: 0
   stateType: 1
-  StateIcon: {fileID: 0}
   Morele: 0
+  TotalMoraleImpact: 0
+  StateIcon: {fileID: 0}
   Population: 0
   Resources: 0
+  loss: 0
+  attackCanvasButtonPanelIndex: 1
+  Taxes: []
+  MoraleMultiplier: 0.01
+  PopulationMultiplier: 0.001
 --- !u!114 &3619399072122398052
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -33226,15 +33450,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 00b808d893039c74ca81440aef42058b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  HierarchicalIndex: 0
   StateName: 
   ArmySize: 100
   UnitArmyPower: 0.75
   TotalArmyPower: 0
   stateType: 1
-  StateIcon: {fileID: 0}
   Morele: 0
+  TotalMoraleImpact: 0
+  StateIcon: {fileID: 0}
   Population: 0
   Resources: 0
+  loss: 0
+  attackCanvasButtonPanelIndex: 1
+  Taxes: []
+  MoraleMultiplier: 0.01
+  PopulationMultiplier: 0.001
 --- !u!114 &3976168697398035274
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -34205,15 +34436,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 00b808d893039c74ca81440aef42058b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  HierarchicalIndex: 0
   StateName: 
   ArmySize: 100
   UnitArmyPower: 0.75
   TotalArmyPower: 0
   stateType: 1
-  StateIcon: {fileID: 0}
   Morele: 0
+  TotalMoraleImpact: 0
+  StateIcon: {fileID: 0}
   Population: 0
   Resources: 0
+  loss: 0
+  attackCanvasButtonPanelIndex: 1
+  Taxes: []
+  MoraleMultiplier: 0.01
+  PopulationMultiplier: 0.001
 --- !u!114 &4069593690803067092
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -34842,15 +35080,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 00b808d893039c74ca81440aef42058b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  HierarchicalIndex: 0
   StateName: 
   ArmySize: 100
   UnitArmyPower: 0.75
   TotalArmyPower: 0
   stateType: 1
-  StateIcon: {fileID: 0}
   Morele: 0
+  TotalMoraleImpact: 0
+  StateIcon: {fileID: 0}
   Population: 0
   Resources: 0
+  loss: 0
+  attackCanvasButtonPanelIndex: 1
+  Taxes: []
+  MoraleMultiplier: 0.01
+  PopulationMultiplier: 0.001
 --- !u!114 &5691297028760171633
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -35897,15 +36142,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 00b808d893039c74ca81440aef42058b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  HierarchicalIndex: 0
   StateName: 
   ArmySize: 100
   UnitArmyPower: 0.75
   TotalArmyPower: 0
   stateType: 1
-  StateIcon: {fileID: 0}
   Morele: 0
+  TotalMoraleImpact: 0
+  StateIcon: {fileID: 0}
   Population: 0
   Resources: 0
+  loss: 0
+  attackCanvasButtonPanelIndex: 1
+  Taxes: []
+  MoraleMultiplier: 0.01
+  PopulationMultiplier: 0.001
 --- !u!114 &3296531151087429254
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -36648,15 +36900,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 00b808d893039c74ca81440aef42058b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  HierarchicalIndex: 0
   StateName: 
   ArmySize: 100
   UnitArmyPower: 0.75
   TotalArmyPower: 0
   stateType: 1
-  StateIcon: {fileID: 0}
   Morele: 0
+  TotalMoraleImpact: 0
+  StateIcon: {fileID: 0}
   Population: 0
   Resources: 0
+  loss: 0
+  attackCanvasButtonPanelIndex: 1
+  Taxes: []
+  MoraleMultiplier: 0.01
+  PopulationMultiplier: 0.001
 --- !u!114 &822531649550150014
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -37703,15 +37962,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 00b808d893039c74ca81440aef42058b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  HierarchicalIndex: 0
   StateName: 
   ArmySize: 100
   UnitArmyPower: 0.75
   TotalArmyPower: 0
   stateType: 1
-  StateIcon: {fileID: 0}
   Morele: 0
+  TotalMoraleImpact: 0
+  StateIcon: {fileID: 0}
   Population: 0
   Resources: 0
+  loss: 0
+  attackCanvasButtonPanelIndex: 1
+  Taxes: []
+  MoraleMultiplier: 0.01
+  PopulationMultiplier: 0.001
 --- !u!114 &3215952016390878913
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -38796,15 +39062,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 00b808d893039c74ca81440aef42058b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  HierarchicalIndex: 0
   StateName: 
   ArmySize: 100
   UnitArmyPower: 0.75
   TotalArmyPower: 0
   stateType: 1
-  StateIcon: {fileID: 0}
   Morele: 0
+  TotalMoraleImpact: 0
+  StateIcon: {fileID: 0}
   Population: 0
   Resources: 0
+  loss: 0
+  attackCanvasButtonPanelIndex: 1
+  Taxes: []
+  MoraleMultiplier: 0.01
+  PopulationMultiplier: 0.001
 --- !u!114 &7105560843890663219
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -40155,15 +40428,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 00b808d893039c74ca81440aef42058b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  HierarchicalIndex: 0
   StateName: 
   ArmySize: 100
   UnitArmyPower: 0.75
   TotalArmyPower: 0
   stateType: 1
-  StateIcon: {fileID: 0}
   Morele: 0
+  TotalMoraleImpact: 0
+  StateIcon: {fileID: 0}
   Population: 0
   Resources: 0
+  loss: 0
+  attackCanvasButtonPanelIndex: 1
+  Taxes: []
+  MoraleMultiplier: 0.01
+  PopulationMultiplier: 0.001
 --- !u!114 &3322771229137700580
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -40906,15 +41186,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 00b808d893039c74ca81440aef42058b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  HierarchicalIndex: 0
   StateName: 
   ArmySize: 100
   UnitArmyPower: 0.75
   TotalArmyPower: 0
   stateType: 1
-  StateIcon: {fileID: 0}
   Morele: 0
+  TotalMoraleImpact: 0
+  StateIcon: {fileID: 0}
   Population: 0
   Resources: 0
+  loss: 0
+  attackCanvasButtonPanelIndex: 1
+  Taxes: []
+  MoraleMultiplier: 0.01
+  PopulationMultiplier: 0.001
 --- !u!114 &8508229449652567561
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -41657,15 +41944,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 00b808d893039c74ca81440aef42058b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  HierarchicalIndex: 0
   StateName: 
   ArmySize: 100
   UnitArmyPower: 0.75
   TotalArmyPower: 0
   stateType: 1
-  StateIcon: {fileID: 0}
   Morele: 0
+  TotalMoraleImpact: 0
+  StateIcon: {fileID: 0}
   Population: 0
   Resources: 0
+  loss: 0
+  attackCanvasButtonPanelIndex: 1
+  Taxes: []
+  MoraleMultiplier: 0.01
+  PopulationMultiplier: 0.001
 --- !u!114 &8047511726937287024
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -42256,15 +42550,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 00b808d893039c74ca81440aef42058b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  HierarchicalIndex: 0
   StateName: 
   ArmySize: 100
   UnitArmyPower: 0.75
   TotalArmyPower: 0
   stateType: 1
-  StateIcon: {fileID: 0}
   Morele: 0
+  TotalMoraleImpact: 0
+  StateIcon: {fileID: 0}
   Population: 0
   Resources: 0
+  loss: 0
+  attackCanvasButtonPanelIndex: 1
+  Taxes: []
+  MoraleMultiplier: 0.01
+  PopulationMultiplier: 0.001
 --- !u!114 &7874006438781649468
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -43121,15 +43422,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 00b808d893039c74ca81440aef42058b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  HierarchicalIndex: 0
   StateName: 
   ArmySize: 100
   UnitArmyPower: 0.75
   TotalArmyPower: 0
   stateType: 1
-  StateIcon: {fileID: 0}
   Morele: 0
+  TotalMoraleImpact: 0
+  StateIcon: {fileID: 0}
   Population: 0
   Resources: 0
+  loss: 0
+  attackCanvasButtonPanelIndex: 1
+  Taxes: []
+  MoraleMultiplier: 0.01
+  PopulationMultiplier: 0.001
 --- !u!114 &344826404755642693
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -43606,15 +43914,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 00b808d893039c74ca81440aef42058b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  HierarchicalIndex: 0
   StateName: 
   ArmySize: 100
   UnitArmyPower: 0.75
   TotalArmyPower: 0
   stateType: 1
-  StateIcon: {fileID: 0}
   Morele: 0
+  TotalMoraleImpact: 0
+  StateIcon: {fileID: 0}
   Population: 0
   Resources: 0
+  loss: 0
+  attackCanvasButtonPanelIndex: 1
+  Taxes: []
+  MoraleMultiplier: 0.01
+  PopulationMultiplier: 0.001
 --- !u!114 &593522528471147052
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -44699,15 +45014,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 00b808d893039c74ca81440aef42058b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  HierarchicalIndex: 0
   StateName: 
   ArmySize: 100
   UnitArmyPower: 0.75
   TotalArmyPower: 0
   stateType: 1
-  StateIcon: {fileID: 0}
   Morele: 0
+  TotalMoraleImpact: 0
+  StateIcon: {fileID: 0}
   Population: 0
   Resources: 0
+  loss: 0
+  attackCanvasButtonPanelIndex: 1
+  Taxes: []
+  MoraleMultiplier: 0.01
+  PopulationMultiplier: 0.001
 --- !u!114 &6987420257047175713
 MonoBehaviour:
   m_ObjectHideFlags: 0
