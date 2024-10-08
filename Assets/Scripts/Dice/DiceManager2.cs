@@ -73,7 +73,8 @@ public class DiceManager2 : MonoBehaviour
         yield return new WaitForSeconds(duration);
 
 
-        UIManager.Instance.ShowAttackCanvas();
+        //UIManager.Instance.ShowAttackCanvas();
+        UIManager.Instance.GetComponent<ShowPanelButton>().DoShowPanelWhitId(PanelID.AttackPanel);
         
         activePlayerDiceLists.Clear();
         activeRivalDiceLists.Clear();

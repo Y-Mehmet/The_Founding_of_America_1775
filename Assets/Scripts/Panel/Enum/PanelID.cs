@@ -24,6 +24,7 @@ public enum PanelID
     PruductMinePanel,
     MineUpgradePanel,
     TaxPanel,
+    AttackPanel
 
 
 
