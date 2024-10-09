@@ -44,7 +44,7 @@ public class RegionClickHandler : MonoBehaviour
                 {
                     // Eðer obje bir bölge ise bilgilerini göster
                     State state = hitObject.GetComponent<State>();
-                    if (state != null && RegionManager.instance != null && !GameManager.Instance.ÝsAttack && !GameManager.Instance.IsRegionPanelOpen)
+                    if (state != null  && !GameManager.Instance.ÝsAttack && !GameManager.Instance.IsRegionPanelOpen)
                     {
                         ISelectable selectable = hitObject.GetComponents<MonoBehaviour>()
                                            .OfType<ISelectable>()
@@ -64,7 +64,7 @@ public class RegionClickHandler : MonoBehaviour
 
                      
                     }
-                    else if (state != null && RegionManager.instance != null && GameManager.Instance.ÝsAttack)
+                    else if (state !=null && GameManager.Instance.ÝsAttack)
                     {
 
                         ISelectable selectable = hitObject.GetComponents<MonoBehaviour>()

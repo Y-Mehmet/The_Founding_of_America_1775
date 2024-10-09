@@ -22,12 +22,13 @@ public class EnemyState : MonoBehaviour, ISelectable
     {
         Debug.LogWarning("enemy state seçildi");
 
-       
 
+
+
+
+
+        // RegionManager.instance.ShowEnemyRegionInfo(gameObject.name);
         
-       
-
-        RegionManager.instance.ShowEnemyRegionInfo(gameObject.name);
         GameManager.Instance.ChanngeIsRegionPanelOpenValueTrue();
         UIManager.Instance.GetComponent<ShowPanelButton>().DoShowPanelWhitId(PanelID.EnemyStatePanel);
     }

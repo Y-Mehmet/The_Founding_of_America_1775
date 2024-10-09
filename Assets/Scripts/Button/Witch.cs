@@ -60,7 +60,7 @@ public class Witch : MonoBehaviour
         {
             ResourceManager.Instance.ReduceResource(ResourceType.Gold, witchCost);
             Transform USA_Transform = Usa.Instance.gameObject.transform;
-            stateName = RegionManager.instance.e_regionNameText;
+            stateName.text = RegionClickHandler.Instance.currentState.name.ToString();
             string state = stateName.text;
 
             GameObject enemyState = FindChildByName(USA_Transform, state);

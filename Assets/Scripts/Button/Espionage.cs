@@ -25,7 +25,7 @@ public class Espionage : MonoBehaviour
         if(gold>spyCost)
         {
             ResourceManager.Instance.ReduceResource(ResourceType.Gold, spyCost);
-            RegionManager.instance.GetEnemyIntel( spyCost);
+            EnemyStateInfoPanel.Instance.ShowInfo(spyCost);
             ClearInputField();
         }
         else

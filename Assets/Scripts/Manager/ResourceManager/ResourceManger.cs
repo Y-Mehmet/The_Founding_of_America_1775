@@ -146,6 +146,21 @@ public enum ResourceType
     Diamond
 
 }
+public enum MainResourceType
+{
+    Goldshire,
+    Waterford,
+    Saltcrag,
+    Meathollow,
+    Fruitgrove,
+    Greensvale,
+    Wheatland,
+    Woodcrest,
+    Coalridge,
+    Ironhaven,
+    Stonefall,
+    Diamondpeak
+}
 [System.Serializable]
 public class ResourceData
 {
