@@ -17,6 +17,7 @@ public class Annex : MonoBehaviour
             defState.OccupyState();
             GameManager.Instance.IsAttackFinish = true;
             GameManager.Instance.ChangeIsAttackValueFalse();
+            UIManager.Instance.GetComponent<HideLastPanelButton>().DoHidePanel();
         }
         else
             Debug.LogWarning("def state is null");

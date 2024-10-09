@@ -4,11 +4,11 @@ public class UIManager : MonoBehaviour
 {
     public static UIManager Instance { get; private set; }
 
-    public GameObject StatePanel;
-    public GameObject allyPanel;
-    public GameObject enemyPanel;
-    public GameObject neutralPanel;
-    public GameObject attackCanvas;
+    //public GameObject StatePanel;
+    //public GameObject allyPanel;
+    //public GameObject enemyPanel;
+    //public GameObject neutralPanel;
+    //public GameObject attackCanvas;
 
     private void Awake()
     {
@@ -17,32 +17,41 @@ public class UIManager : MonoBehaviour
         else 
             Destroy(gameObject);
     }
-    public void ShowPanel(State state)
+    public  void HideLastPanel()
     {
-       // StatePanel.SetActive(true);
-        switch (state.stateType)
-        {
-            case StateType.Ally:
-                allyPanel.SetActive(true);
-                enemyPanel.SetActive(false);
-                neutralPanel.SetActive(false);
-                break;
-            case StateType.Enemy:
-                allyPanel.SetActive(false);
-                enemyPanel.SetActive(true);
-                neutralPanel.SetActive(false);
-                break;
-            case StateType.Neutral:
-                allyPanel.SetActive(false);
-                enemyPanel.SetActive(false);
-                neutralPanel.SetActive(true);
-                break;
-        }
+        GetComponent<HideLastPanelButton>().DoHidePanel();
     }
-    public void  ShowAttackCanvas()
+    public void HideAllPanel()
     {
-        attackCanvas.SetActive(true);
-        AttackCanvas.Instance.ShowAttackCanvasInfo(  );
+        GetComponent<HideAllPanelButton>().DoHidePanel();
+    }
+    
+    //public void ShowPanel(State state)
+    //{
+    //   // StatePanel.SetActive(true);
+    //    switch (state.stateType)
+    //    {
+    //        case StateType.Ally:
+    //            allyPanel.SetActive(true);
+    //            enemyPanel.SetActive(false);
+    //            neutralPanel.SetActive(false);
+    //            break;
+    //        case StateType.Enemy:
+    //            allyPanel.SetActive(false);
+    //            enemyPanel.SetActive(true);
+    //            neutralPanel.SetActive(false);
+    //            break;
+    //        case StateType.Neutral:
+    //            allyPanel.SetActive(false);
+    //            enemyPanel.SetActive(false);
+    //            neutralPanel.SetActive(true);
+    //            break;
+    //    }
+    //}
+    //public void  ShowAttackCanvas()
+    //{
+    //    attackCanvas.SetActive(true);
+    //    AttackCanvas.Instance.ShowAttackCanvasInfo(  );
         
-    }
+    //}
 }

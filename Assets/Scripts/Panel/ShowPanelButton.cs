@@ -19,7 +19,7 @@ public class ShowPanelButton : MonoBehaviour
     }
     public void  DoShowPanelWhitId(PanelID panelID)
     {
-        Debug.LogWarning(" panel açýldý " + panelID.ToString());
+       // Debug.LogWarning(" panel açýldý " + panelID.ToString());
         _panelManager.ShowPanel(panelID, behavior);
     }
 }

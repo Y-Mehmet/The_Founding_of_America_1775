@@ -20,7 +20,7 @@ public class EnemyState : MonoBehaviour, ISelectable
 
     public void SellectState()
     {
-        Debug.LogWarning("enemy state seçildi");
+      //  Debug.LogWarning("enemy state seçildi");
 
 
 

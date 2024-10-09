@@ -64,10 +64,10 @@ public class GameManager : MonoBehaviour
         return states;
     }
 
-    public void UpdateStatePanel(State state)
-    {
-        UIManager.Instance.ShowPanel(state);
-    }
+    //public void UpdateStatePanel(State state)
+    //{
+    //    UIManager.Instance.ShowPanel(state);
+    //}
 
     public void ChangeIsAttackValueTrue()
     {

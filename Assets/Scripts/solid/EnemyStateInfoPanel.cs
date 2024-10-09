@@ -7,7 +7,7 @@ public class EnemyStateInfoPanel : MonoBehaviour
     public static EnemyStateInfoPanel Instance { get; private set; }
     State currnetState;
     
-    public TMP_Text happinesText, totalArmyPowerText, mainResTypeText;
+    public TMP_Text happinesText, totalArmyPowerText, mainResTypeText, stateNameText;
     public Image flagImage;
     private void Awake()
     {
@@ -19,35 +19,71 @@ public class EnemyStateInfoPanel : MonoBehaviour
         }
         
     }
+    private void Start()
+    {
+        happinesText.text = "?! Send Spy";
+        totalArmyPowerText.text = "?! Send Spy";
+        mainResTypeText.text = "?! Send Spy";
+    }
     private void OnEnable()
     {
         currnetState = RegionClickHandler.Instance.currentState.GetComponent<State>();
         if(currnetState != null)
         {
-            happinesText.text = "?! Send Spy";
-            totalArmyPowerText.text = "?! Send Spy";
-            mainResTypeText.text = "?! Send Spy";
+            stateNameText.text= currnetState.name;
+
+            Sprite flag = currnetState.StateIcon;
+            if (flag != null)
+            {
+                flagImage.sprite = flag;
+            }
+            else
+            {
+                Debug.LogError("falg is null");
+            }
+            
         }
         else
         {
             Debug.LogError("curent state is null");
         }
     }
+    private void OnDisable()
+    {
+        happinesText.text = "?! Send Spy";
+        totalArmyPowerText.text = "?! Send Spy";
+        mainResTypeText.text = "?! Send Spy";
+    }
 
-    public void ShowInfo(float cost)
+    public void ShowInfo(float esca, float sucs)
     {
 
         
         if (currnetState != null)
         {
-            float thresoldEspinoge = Random.RandomRange(0, cost);
-            if ((thresoldEspinoge % GameManager.Instance.spyCostModPurchases) > GameManager.Instance.thresholdForSuccesfulEspionage)
+            
+            float randomValue = Random.Range(0, 99);
+           /// Debug.Log($"geçemedik  sucs {sucs} esca {esca} random {randomValue}");
+            if (esca > randomValue)
             {
-                SuccessfulEspionage();
+             //   Debug.Log($"geçemedik  sucs {sucs} esca {esca} random {randomValue}");
+                if (sucs>randomValue)
+                {
+                   // Debug.Log($"geçebildik  sucs {sucs} esca {esca} random {randomValue}");
+                    SuccessfulEspionage();
+                }
+                else
+                {
+                  //  Debug.Log($"geçemedik  sucs {sucs} esca {esca} random {randomValue}");
+                    happinesText.text = "Huh ! A close shave";
+                    totalArmyPowerText.text = "Huh ! A close shave";
+                    mainResTypeText.text = "Huh ! A close shave";
+                }
 
             }
             else
             {
+              //  Debug.Log($"geçemedik  sucs {sucs} esca {esca} random {randomValue}");
                 FailedEspionage();
             }
         }
@@ -63,12 +99,12 @@ public class EnemyStateInfoPanel : MonoBehaviour
     public void SuccessfulEspionage()
     {
         
-        {
+        
             happinesText.text = "Happines: " + currnetState.Morele.ToString();
             totalArmyPowerText.text = "Army: " + currnetState.TotalArmyPower.ToString();
-            mainResTypeText.text = "Main Resoruce" + ((MainResourceType)currnetState.Resources).ToString();
+            mainResTypeText.text = "Main Resoruce: " + ((MainResourceType)currnetState.Resources).ToString();
 
-        }
+        
     }
   
     public void FailedEspionage()

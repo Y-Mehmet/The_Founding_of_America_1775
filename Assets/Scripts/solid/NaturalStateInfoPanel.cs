@@ -8,7 +8,7 @@ public class NaturalStateInfoPanel : MonoBehaviour
     public static NaturalStateInfoPanel Instance { get; private set; }
     State currnetState;
     float repeatTime;
-    public TMP_Text happinesText, totalArmyPowerText, mainResTypeText;
+    public TMP_Text happinesText, totalArmyPowerText, mainResTypeText, stateNameText;
     public Image flagImage;
     private void Awake()
     {
@@ -30,7 +30,20 @@ public class NaturalStateInfoPanel : MonoBehaviour
         currnetState = RegionClickHandler.Instance.currentState.GetComponent<State>();
         repeatTime = GameManager.gameDayTime;
         if (currnetState != null)
+        {
+            stateNameText.text = currnetState.name;
+            Sprite flag = currnetState.StateIcon;
+            if (flag != null)
+            {
+                flagImage.sprite = flag;
+            }
+            else
+            {
+                Debug.LogError("falg is null");
+            }
             InvokeRepeating("GetIntel", 0, repeatTime);
+        }
+          
         else
         {
             Debug.LogError("curent state is null");

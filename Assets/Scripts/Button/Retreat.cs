@@ -14,6 +14,7 @@ public class Retreat : MonoBehaviour
        
             GameManager.Instance.IsAttackFinish = true;
             GameManager.Instance.ChangeIsAttackValueFalse();
+            UIManager.Instance.GetComponent<HideLastPanelButton>().DoHidePanel();
        
     }
     private void OnDisable()

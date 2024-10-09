@@ -7,7 +7,7 @@ using System.Net;
 public class Attack : MonoBehaviour
 {
     public static Attack Instance;
-    TextMeshProUGUI attackingStateText;
+    public string attackingStateText;
     Sprite StateIcon;
    
     public Transform USA_Transform;
@@ -37,18 +37,21 @@ public class Attack : MonoBehaviour
 
     public IEnumerator AttackingCoroutine(string defendingState)
     {
-        attackingStateText.text = RegionClickHandler.Instance.currentState.name.ToString(); // RegionManager.instance.a_regionNameText;
+        if (RegionClickHandler.Instance.currentState != null)
+            attackingStateText = RegionClickHandler.Instance.currentState.name.ToString(); // RegionManager.instance.a_regionNameText;
+        else
+            Debug.LogError(" curernt res is null");
         lastDefendingState = defendingState;
-        lastAttackingState = attackingStateText.text;
+        lastAttackingState = attackingStateText;
         yield return null;
         
 
         DiceManager2.Instance.StartDiceDisActivated(GameManager.Instance.attackFinishDurtion);
         // Print attacking and defending state
-        Debug.Log("Saldýran: " + attackingStateText.text + " Savunan: " + defendingState);
+        Debug.Log("Saldýran: " + attackingStateText + " Savunan: " + defendingState);
 
         // Trim strings and convert to a common case (e.g., lower case) before comparison
-         string attackingState = attackingStateText.text;
+         string attackingState = attackingStateText;
         
 
         GameObject attackingStateGameObject = FindChildByName(USA_Transform, attackingState);
@@ -157,7 +160,7 @@ public class Attack : MonoBehaviour
     public void Attacking(string defendingState)
     {
         GameManager.Instance.IsAttackFinish = false;
-        
+        Debug.LogWarning(defendingState);
         StartCoroutine(AttackingCoroutine(defendingState));
     }
 

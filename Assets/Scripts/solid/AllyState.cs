@@ -10,7 +10,7 @@ public class AllyState : MonoBehaviour, ISelectable
 
     public void SellectState()
     {
-        Debug.Log("ally state seçildi");
+       // Debug.Log("ally state seçildi");
 
         // Eski rengi kaydet
         if (! RegionClickHandler.Instance.originalColors.ContainsKey(gameObject))

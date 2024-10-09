@@ -9,7 +9,7 @@ public class AllyStateInfoPanel : MonoBehaviour
     public static AllyStateInfoPanel Instance { get; private set; } 
     State currnetState;
     float repeatTime;
-    public TMP_Text happinesText, totalArmyPowerText, mainResTypeText;
+    public TMP_Text happinesText, totalArmyPowerText, mainResTypeText, stateNameText;
     public Image flagImage;
     private void Awake()
     {
@@ -28,10 +28,24 @@ public class AllyStateInfoPanel : MonoBehaviour
 
     public void ShowInfo()
     {
+
         currnetState = RegionClickHandler.Instance.currentState.GetComponent<State>();
         repeatTime = GameManager.gameDayTime;
+        stateNameText.text = currnetState.name;
         if (currnetState != null)
+        {
+            Sprite flag = currnetState.StateIcon;
+            if ( flag!= null)
+            {
+                flagImage.sprite = flag;
+            }
+            else
+            {
+                Debug.LogError("falg is null");
+            }
             InvokeRepeating("GetIntel", 0, repeatTime);
+        }
+            
         else
         {
             Debug.LogError("curent state is null");

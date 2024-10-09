@@ -746,8 +746,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 1.819e-12, y: 486.88}
-  m_SizeDelta: {x: 1040.623, y: 149.99707}
+  m_AnchoredPosition: {x: 0, y: 490}
+  m_SizeDelta: {x: 1100, y: 150}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &5652916521020544310
 CanvasRenderer:
@@ -1079,6 +1079,7 @@ MonoBehaviour:
   happinesText: {fileID: 2941056138791864831}
   totalArmyPowerText: {fileID: 5823291560639110137}
   mainResTypeText: {fileID: 2935429668446224486}
+  stateNameText: {fileID: 1077026367924341645}
   flagImage: {fileID: 6444946480542349410}
 --- !u!1001 &310429814955758105
 PrefabInstance:
