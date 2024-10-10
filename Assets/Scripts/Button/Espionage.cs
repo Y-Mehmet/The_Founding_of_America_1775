@@ -7,6 +7,7 @@ using UnityEngine.UI;
 
 public class Espionage : MonoBehaviour
 {
+
     public Button gemButton, goldButton;
     public Slider slider; // Slider kullanýlýyor
     public TMP_Text goldBtnText, gemBtnText, succsesText, ecsapeText;

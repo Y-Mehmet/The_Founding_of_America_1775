@@ -236,7 +236,7 @@ GameObject:
   - component: {fileID: 4618124322353716286}
   - component: {fileID: 7243721417479258103}
   - component: {fileID: 7071101072012404067}
-  - component: {fileID: 2452300124269166729}
+  - component: {fileID: 6962355927953977704}
   m_Layer: 5
   m_Name: WitchPanel
   m_TagString: Untagged
@@ -258,8 +258,8 @@ RectTransform:
   m_Children:
   - {fileID: 520198456920228570}
   - {fileID: 991599349711332786}
-  - {fileID: 3503949458347383702}
   - {fileID: 2444467426512586128}
+  - {fileID: 3503949458347383702}
   - {fileID: 7643036013293371961}
   - {fileID: 5472723035031680117}
   - {fileID: 7998345894321453946}
@@ -308,7 +308,7 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!114 &2452300124269166729
+--- !u!114 &6962355927953977704
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -317,16 +317,16 @@ MonoBehaviour:
   m_GameObject: {fileID: 8335221803995492033}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ea803d549155e2747b5cbed46c2b22f8, type: 3}
+  m_Script: {fileID: 11500000, guid: da0f3d1bd1d83f94fbfbdfda16d0be0b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gemButton: {fileID: 7643036013293371960}
   goldButton: {fileID: 5472723035031680116}
+  gemButton: {fileID: 7643036013293371960}
   slider: {fileID: 991599349928634583}
   goldBtnText: {fileID: 5472723034868604554}
   gemBtnText: {fileID: 7643036011509278918}
-  succsesText: {fileID: 2444467425810665567}
-  ecsapeText: {fileID: 3503949458981867097}
+  spreadText: {fileID: 3503949458981867097}
+  beliveText: {fileID: 2444467425810665567}
   starImageList:
   - {fileID: 354097160977977174}
   - {fileID: 985173278482838026}
@@ -339,6 +339,17 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 4618124322353716286}
     m_Modifications:
+    - target: {fileID: 793964467874161233, guid: f3293c78e982941b09f36505f32ded5e,
+        type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 08dc3aaaf8a8c754a8bf4a3884f934f3,
+        type: 3}
+    - target: {fileID: 793964467874161233, guid: f3293c78e982941b09f36505f32ded5e,
+        type: 3}
+      propertyPath: m_Color.a
+      value: 0.4509804
+      objectReference: {fileID: 0}
     - target: {fileID: 793964468285143981, guid: f3293c78e982941b09f36505f32ded5e,
         type: 3}
       propertyPath: m_Sprite
@@ -777,7 +788,7 @@ PrefabInstance:
     - target: {fileID: 2258048433776428162, guid: bc799233d91999542b065917dd4d769e,
         type: 3}
       propertyPath: m_Name
-      value: chapture
+      value: spread
       objectReference: {fileID: 0}
     - target: {fileID: 2258048433776428165, guid: bc799233d91999542b065917dd4d769e,
         type: 3}
@@ -882,7 +893,7 @@ PrefabInstance:
     - target: {fileID: 2258048434212425986, guid: bc799233d91999542b065917dd4d769e,
         type: 3}
       propertyPath: m_text
-      value: Chances of a spy avoiding capture
+      value: Witch rumor spread
       objectReference: {fileID: 0}
     - target: {fileID: 2258048434212425987, guid: bc799233d91999542b065917dd4d769e,
         type: 3}
@@ -953,7 +964,7 @@ PrefabInstance:
     - target: {fileID: 2258048433776428162, guid: bc799233d91999542b065917dd4d769e,
         type: 3}
       propertyPath: m_Name
-      value: sucses
+      value: belive
       objectReference: {fileID: 0}
     - target: {fileID: 2258048433776428165, guid: bc799233d91999542b065917dd4d769e,
         type: 3}
@@ -1058,7 +1069,7 @@ PrefabInstance:
     - target: {fileID: 2258048434212425986, guid: bc799233d91999542b065917dd4d769e,
         type: 3}
       propertyPath: m_text
-      value: Probability of intel success
+      value: Witchcraft tales' credibility
       objectReference: {fileID: 0}
     - target: {fileID: 2258048434212425987, guid: bc799233d91999542b065917dd4d769e,
         type: 3}
@@ -1336,7 +1347,7 @@ PrefabInstance:
     - target: {fileID: 7216595548343900242, guid: 642c7baabff554d75a2a3e1a1a0c891e,
         type: 3}
       propertyPath: m_text
-      value: Intelligence Operations
+      value: Witchcraft Rumor
       objectReference: {fileID: 0}
     - target: {fileID: 7216595548343900242, guid: 642c7baabff554d75a2a3e1a1a0c891e,
         type: 3}
