@@ -33,8 +33,8 @@ public class MineButton : MonoBehaviour
         
        while(true)
         {
-            resValueText.text = currentState.resourceData[resourceType].currentAmount.ToString();
-            mineCountText.text = currentState.resourceData[resourceType].mineCount.ToString();
+            resValueText.text = ((int)currentState.resourceData[resourceType].currentAmount).ToString();
+            mineCountText.text = ((int)currentState.resourceData[resourceType].mineCount).ToString();
             yield return new WaitForSeconds(duration);
            
         }
@@ -42,9 +42,12 @@ public class MineButton : MonoBehaviour
     void ButtonisClicked()
     {
         MineManager.instance.SetCurrentResource(resourceType);
+        UIManager.Instance.GetComponent<ShowPanelButton>().DoShowPanelWhitId(PanelID.MineUpgradePanel);
+        
     }
     private void OnDisable()
     {
         gameObject.GetComponent<Button>().onClick.RemoveListener(ButtonisClicked);
+        StopCoroutine(ResValueTextUpdate());
     }
 }

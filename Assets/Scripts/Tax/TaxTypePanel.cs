@@ -83,6 +83,7 @@ public class TaxTypePanel : MonoBehaviour
                         HappinesPanel.GetComponent<HappinesPanel>().OnHappinessChanged?.Invoke(value, item.toleranceLimit);
                         taxCoinValueText.text = item.taxIncome.ToString();
                         item.currentRate = value;
+                        
                     }
                 }
             }
