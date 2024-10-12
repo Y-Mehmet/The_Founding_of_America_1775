@@ -48,7 +48,7 @@ public class ResCard : MonoBehaviour
                                 item.gameObject.GetComponent<TextMeshProUGUI>().text = curentState.resourceData.Keys.ElementAt(counter).ToString();
                                 break;
                             case 3:
-                                item.gameObject.GetComponent<TextMeshProUGUI>().text = curentState.resourceData.ElementAt(counter).Value.currentAmount.ToString();
+                                item.gameObject.GetComponent<TextMeshProUGUI>().text =((int) curentState.resourceData.ElementAt(counter).Value.currentAmount).ToString();
                                 break;
                             default:
                                 break;

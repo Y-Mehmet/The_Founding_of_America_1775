@@ -1,4 +1,5 @@
 using System;
+using System.Security.Cryptography.X509Certificates;
 using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
@@ -67,16 +68,16 @@ public class BuyPanel : MonoBehaviour
     // Olay tetiklendiðinde bu metod çalýþacak
     private void OnResourceOrStateChanged(ResourceType resourceType)
     {
-       
-        ShowPanelInfo();
+        Debug.LogWarning($"res deðiþti {resourceType} res  {ResourceManager.curentResource} ");
+       // SetNewTradeState();
 
     }
 
     private void OnStateToTradeChanged(string stateName)
     {
-      
-        
-        ShowPanelInfo();
+        Debug.LogWarning($"State deðiþti {stateName} res  {ResourceManager.curentResource} ");
+
+       // SetNewTradeState();
 
 
     }
@@ -151,6 +152,10 @@ public class BuyPanel : MonoBehaviour
                     SetSecondValueText();
                 }
             }
+            else
+            {
+                Debug.LogWarning("rifght box actif self is false");
+            }
         }
         else
         {
@@ -167,10 +172,10 @@ public class BuyPanel : MonoBehaviour
         {
 
 
-            float amountAvaible = ResourceManager.CurrentTradeState.resourceData[ResourceManager.curentResource].currentAmount;
+            float amountAvaible = ResourceManager.CurrentTradeState.GetCurrentResValue(ResourceManager.curentResource);
             float buyPrice = quantity * contrackPrice;
-            float goldResAmount = RegionClickHandler.Instance.currentState.GetComponent<State>().resourceData[ResourceType.Gold].currentAmount;
-            float dimondResAmount= RegionClickHandler.Instance.currentState.GetComponent<State>().resourceData[ResourceType.Diamond].currentAmount;
+            float goldResAmount = RegionClickHandler.Instance.currentState.GetComponent<State>().GetCurrentResValue(ResourceType.Gold);
+            float dimondResAmount= RegionClickHandler.Instance.currentState.GetComponent<State>().GetCurrentResValue(ResourceType.Diamond);
 
             if (amountAvaible >= quantity && goldResAmount>=buyPrice )
             {
@@ -191,7 +196,7 @@ public class BuyPanel : MonoBehaviour
 
                 if (Dimond >0)
                 {
-                    if (amountAvaible >= quantity && dimondResAmount>Dimond)
+                    if (amountAvaible >= quantity && dimondResAmount>=Dimond)
                     {
                         InstantlyValueText.color = originalTextColor;
                     }
@@ -267,9 +272,11 @@ public class BuyPanel : MonoBehaviour
                         int stateFlagIndex = currentState.gameObject.transform.GetSiblingIndex();
 
                         DateTime deliverTime = GameDateManager.instance.CalculateDeliveryDateTime(deliveryTime);
+                       
                         TradeHistory transaction = new TradeHistory(TradeType.Import, deliverTime, (int)type, quantity, spending, stateFlagIndex, ResourceManager.CurrentTradeState);
+                        //Debug.LogWarning(" tanaction sate name " + transaction.tradeState.name);
                         TradeManager.instance.AddTransaction(transaction);
-                        buyButton.GetComponent<HideLastPanelButton>().DoHidePanel();
+                        UIManager.Instance.GetComponent<HideLastPanelButton>().DoHidePanel();
                        // Debug.LogWarning($"res satýn alýndý quantaty {quantity} harcanan altýn {spending}");
                     }else
                     { Debug.LogError("delivery time is null"); }
@@ -309,7 +316,7 @@ public class BuyPanel : MonoBehaviour
                     bool payWhitGem = true;
                     TradeHistory transaction = new TradeHistory(TradeType.Import, deliverTime, (int)type, quantity, spending, stateFlagIndex, ResourceManager.CurrentTradeState, payWhitGem);
                     TradeManager.instance.AddTransaction(transaction);
-                    buyButton.GetComponent<HideLastPanelButton>().DoHidePanel();
+                    UIManager.Instance.GetComponent<HideLastPanelButton>().DoHidePanel();
                 }
                 else
                 {
@@ -327,12 +334,10 @@ public class BuyPanel : MonoBehaviour
 
     public void SetNewTradeState()
     {
-
         bool haveAnyTradeState = false; // o ürün için ticaret yapan ülke vars test bitibi true yap
         bool shouldTradeStateChange = true;
-        ResourceType curretResType = ResourceManager.curentResource;
+        ResourceType curretResType = ResourceManager.curentResource;       
         string newTradeStatename = "";
-
         foreach (Transform stateTransform in Usa.Instance.transform)
         {
             // index 0 = import index 1 = export
@@ -351,57 +356,35 @@ public class BuyPanel : MonoBehaviour
                     if (haveAnyTradeState == false)
                     {
                         //Debug.LogWarning("state deðiþti: selde  " + stateTransform.name);
-
                         newTradeStatename = newTradeState.name;
                         haveAnyTradeState = true;
-
                     }
-
                 }
                 else
                 {
-                  
+                    Debug.LogWarning("ResourceManager.CurrentTradeState is null");
                 }
-
-
-
-
             }
-
-
-
         }
-
         if (haveAnyTradeState == false)
         {
+            Debug.LogWarning("hiçbir trade yapýlacak state bulunamadý res: " + ResourceManager.curentResource +" "+ curretResType);
             rightBox.SetActive(false);
             emtyStateBox.SetActive(true);
-
         }
         else
         {
             if (shouldTradeStateChange)
             {
-                ResourceManager.Instance.SetCurrentTradeState(newTradeStatename);
-
+                ResourceManager.Instance.SetCurrentTradeState(newTradeStatename);             
             }
-            else { ShowPanelInfo(); }
-                
-            
-           
-               
-            
-            
+            else
+            {
+                ShowPanelInfo();
+            }
             rightBox.SetActive(true);
             emtyStateBox.SetActive(false);
-            
-
+            ShowPanelInfo();
         }
-
-
     }
-
-
-
-
 }

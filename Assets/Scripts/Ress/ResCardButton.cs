@@ -45,6 +45,7 @@ public class ResCardButton : MonoBehaviour
         {
             Debug.LogWarning("texetmedhpro içermiyor button");
         }
+        UIManager.Instance.GetComponent<HideLastPanelButton>().DoHidePanel();
         
 
        

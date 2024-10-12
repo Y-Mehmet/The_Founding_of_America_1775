@@ -130,7 +130,7 @@ public class StateCard : MonoBehaviour
                 if (resType == curretResType)
                 {
                     CoinValueText.text = (exportTrade.contractPrices[index] * thousand).ToString();
-                    float limit = state.gameObject.GetComponent<State>().resourceData[resType].currentAmount;
+                    float limit = (int)state.gameObject.GetComponent<State>().resourceData[resType].currentAmount;
                     
                     State tradeState = state.GetComponent<State>();
                     if (tradeState != null)
@@ -193,6 +193,7 @@ public class StateCard : MonoBehaviour
             }
             
         }
+        UIManager.Instance.GetComponent<HideLastPanelButton>().DoHidePanel();
          
             
       

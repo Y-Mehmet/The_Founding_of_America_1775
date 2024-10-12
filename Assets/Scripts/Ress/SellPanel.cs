@@ -8,7 +8,7 @@ public class SellPanel : MonoBehaviour
 {
     public GameObject rightBox, emtyStateBox;
     public TMP_InputField inputField;
-    public Button plusOneKButton, sellButton, cancelButton, macButton;
+    public Button plusOneKButton, sellButton, macButton;
     public Image resIconImage;
     public TMP_Text amoutAvableValueText, contrackPriceValueText;
     int indexOfLimit;
@@ -26,17 +26,13 @@ public class SellPanel : MonoBehaviour
     private void OnEnable()
     {
         currentState = RegionClickHandler.Instance.currentState.GetComponent<State>();
-
         ResourceManager.Instance.OnResourceChanged += OnResourceOrStateChanged;
-        ResourceManager.Instance.OnStateToTradeChanged += OnStateChanged;
-              
+        ResourceManager.Instance.OnStateToTradeChanged += OnStateChanged;             
         inputField.onValueChanged.AddListener(OnInputValueChanged);
         macButton.onClick.AddListener(MacButtonClicked);
         sellButton.onClick.AddListener(SellButtonClicked);
-
         Restart();
         SetNewTradeState();
-
     }
     private void OnDisable()
     {
@@ -50,9 +46,6 @@ public class SellPanel : MonoBehaviour
         StopAllCoroutines();
     }
 
-
-
-
     void Restart()
     {
         inputField.text = "";
@@ -60,11 +53,11 @@ public class SellPanel : MonoBehaviour
     // Olay tetiklendiðinde bu metod çalýþacak
     private void OnResourceOrStateChanged(ResourceType resourceType)
     {
-        ShowPanelInfo();
+        //ShowPanelInfo();
     }
     private void OnStateChanged(string stateName)
     {
-        ShowPanelInfo();
+       // ShowPanelInfo();
     }
 
     void ShowPanelInfo()
@@ -88,7 +81,6 @@ public class SellPanel : MonoBehaviour
                             indexOfLimit = (ResourceManager.CurrentTradeState.importTrade.resourceTypes.IndexOf(resType));
                             test = true;
                             break;
-
                         }
                         else
                         {
@@ -134,19 +126,15 @@ public class SellPanel : MonoBehaviour
         if (float.TryParse(input, out quantity))
         {
            // Debug.LogWarning("input" + quantity);
-
             State tradeState = Usa.Instance.FindStateByName(ResourceManager.Instance.curentTradeStateName);
             for (int i = 0; i < tradeState.importTrade.resourceTypes.Count; i++)
             {
                 if (ResourceManager.curentResource == tradeState.importTrade.resourceTypes[i])
                 {
-                    resLimit = tradeState.importTrade.limit[i]; 
-                  //  Debug.LogWarning($" current trade state name {tradeState.name} res type {ResourceManager.Instance.curentResource} res limit {resLimit}");
+                    resLimit = tradeState.importTrade.limit[i];
+                    //  Debug.LogWarning($" current trade state name {tradeState.name} res type {ResourceManager.Instance.curentResource} res limit {resLimit}");
                 }
             }
-
-
-
 
 
             if (resLimit >= quantity )
@@ -157,34 +145,25 @@ public class SellPanel : MonoBehaviour
                 {
                 inputField.text = resLimit.ToString();
                 contrackPriceValueText.text = (resLimit * contrackPrice).ToString();
-
-                }
+               }
           //  Debug.LogWarning("reslimit " + resLimit);
-            
-
-           
-
         }
         else
             Debug.LogWarning(" input floata dönüþtürülemedi input: "+input);
-
-
     }
     private IEnumerator UpdateAvableValueText(State currentState , ResourceType resType)
     {
         while (rightBox.gameObject.activeSelf)
         {
             
-            amoutAvableValueText.text = currentState.resourceData[resType].currentAmount.ToString();
+            amoutAvableValueText.text = currentState.GetCurrentResValue(resType).ToString();
             yield return new WaitForSeconds(1.0f);
         }
 
     }
     public void MacButtonClicked()
-    {
-      
-        inputField.text = amountAvailable.ToString();
-     
+    {    
+            inputField.text = amountAvailable.ToString();    
         
             if(int.TryParse( amoutAvableValueText.text, out amountAvailable))
             {
@@ -194,11 +173,6 @@ public class SellPanel : MonoBehaviour
             {
                 Debug.LogWarning(" amaoutny avaible inte dönüþtüürlemedi");
             }
-           
-        
-       
-        
-
     }
     public void SellButtonClicked()
     {
@@ -214,13 +188,13 @@ public class SellPanel : MonoBehaviour
                 {
                     this.currentState.SellResource(type, quantity, earing);
                     ResourceManager.CurrentTradeState.BuyyResource(type, quantity, earing);
-                    amoutAvableValueText.text = this.currentState.resourceData[type].currentAmount.ToString();
+                    amoutAvableValueText.text = this.currentState.GetCurrentResValue(type).ToString();
                     int stateFlagIndex = currentState.gameObject.transform.GetSiblingIndex();
                     DateTime deliverTime = GameDateManager.instance.GetCurrentDate();                 
                     TradeHistory transaction = new TradeHistory(TradeType.Export, deliverTime, (int)type, quantity, earing, stateFlagIndex, ResourceManager.CurrentTradeState);
                     TradeManager.instance.AddTransaction(transaction);
                     OnInputValueChanged("0");
-                    sellButton.GetComponent<HideLastPanelButton>().DoHidePanel();
+                    UIManager.Instance.GetComponent<HideLastPanelButton>().DoHidePanel();
                 }
 
             }
@@ -231,7 +205,7 @@ public class SellPanel : MonoBehaviour
             Debug.LogWarning("earing value can not parse float");
 
         //OnInputValueChanged("0");
-        amoutAvableValueText.text = currentState.resourceData[type].currentAmount.ToString();
+        amoutAvableValueText.text = currentState.GetCurrentResValue(type).ToString();
         //State tradeState = Usa.Instance.FindStateByName(ResourceManager.Instance.curentTradeStateName);
         //if (tradeState!= null)
         //{
@@ -244,8 +218,7 @@ public class SellPanel : MonoBehaviour
         //    }
         //}
 
-    }
-    
+    }   
     public void SetNewTradeState( )
     {
 
@@ -275,19 +248,12 @@ public class SellPanel : MonoBehaviour
                                 haveAnyTradeState = true;
                             
                             }
-                
-                       
-                
-                   
+              
                 }
                 else
                 {
-                    Debug.LogError("currnet trade is null");
+                   // Debug.LogError("currnet trade is null");
                 }
-
-                
-                
-
             }
             
             if( haveAnyTradeState==false)

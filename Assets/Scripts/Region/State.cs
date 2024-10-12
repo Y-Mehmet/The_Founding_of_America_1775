@@ -47,15 +47,7 @@ public class State : MonoBehaviour
     public float PopulationMultiplier = 0.001f; // Nüfusun asker artýþýna etkisi
     private float populationGrowthRateMultiplier=0.00001f; // population growth rate multiplier
 
-    public void SetTotalMoraleImpact(float impact)
-    {
-        TotalMoraleImpact += impact;
-    }
     
-
-
-
-
     private void Start()
     {
         TotalArmyPower = ArmySize * UnitArmyPower;
@@ -78,6 +70,14 @@ public class State : MonoBehaviour
         HandleAttackStopped();
         
 
+    }
+    public void SetTotalMoraleImpact(float impact)
+    {
+        TotalMoraleImpact += impact;
+    }
+    public int GetCurrentResValue(ResourceType resourceType)
+    {
+        return (int) resourceData[resourceType].currentAmount;
     }
     private float GetTaxSatisfactionRate()
     {

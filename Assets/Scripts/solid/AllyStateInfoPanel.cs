@@ -57,8 +57,8 @@ public class AllyStateInfoPanel : MonoBehaviour
     {
 
         {
-            happinesText.text = "Happines: " + currnetState.Morele.ToString();
-            totalArmyPowerText.text = "Army: " + currnetState.TotalArmyPower.ToString();
+            happinesText.text = "Happines: " + ((int)currnetState.Morele).ToString();
+            totalArmyPowerText.text = "Army: " +((int) currnetState.TotalArmyPower).ToString();
             mainResTypeText.text = "Main Resoruce" + ((MainResourceType)currnetState.Resources).ToString();
 
         }

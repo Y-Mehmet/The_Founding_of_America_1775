@@ -9,14 +9,14 @@ public class TradeTransactionCard : MonoBehaviour
     public Image  resIcon,stateFlagIcon;
     TradeHistory transaction;
     Button buyAgainButton;// buy or sell duruma göre deðiþir
-    Color originalTextColor = Color.black;
+    Color originalTextColor;
     Color errorTextColor = Color.red;
 
     
 
     private void OnEnable()
     {
-
+        originalTextColor = tradeTypeBtnText.color;
         EventManager.Instance.OnProductReceived += TradeTansactionCardUIUpdate;
          buyAgainButton = tradeTypeBtnText.transform.parent.GetComponent<Button>();
         InvokeRepeating("ButtonTextCollorUpdate", 0, GameManager.gameDayTime);
@@ -56,7 +56,7 @@ public class TradeTransactionCard : MonoBehaviour
         if (transaction != null)
         {
             State currentState = RegionClickHandler.Instance.currentState.GetComponent<State>();
-           if(transaction.payWhitGem)
+           if( transaction.payWhitGem)
             {
                 if (transaction.cost <= currentState.resourceData[ResourceType.Diamond].currentAmount)
                 {
@@ -206,15 +206,29 @@ public class TradeTransactionCard : MonoBehaviour
                     {
                         if (currentState.resourceData[ResourceType.Gold].currentAmount >= spending)
                         {
-                            float deliveryTime = GameManager.nonNeigbordTradeTime;
-                            if (Neighbor.Instance.AreNeighbors(currentState.name, transaction.tradeState.name))
+                            float deliveryTime;
+                            if (/*Neighbor.Instance != null && currentState != null && currentState.name != null && */transaction.tradeState != null )
                             {
-                                deliveryTime = GameManager.neigbordTradeTime;
-                            }
-                            currentState.BuyyResource(type, quantity, spending, deliveryTime);
+                                if (Neighbor.Instance.AreNeighbors(currentState.name, transaction.tradeState.name))
+                                {
+                                    deliveryTime = GameManager.neigbordTradeTime;
+                                }
+                                else
+                                {
+                                    deliveryTime = GameManager.nonNeigbordTradeTime;
+                                }
+                                   
 
-                            newTransaction = new TradeHistory(TradeType.Import, GameDateManager.instance.CalculateDeliveryDateTime(deliveryTime), (int)type, quantity, spending, stateFlagIndex, transaction.tradeState);
-                            TradeManager.instance.AddTransaction(newTransaction);
+                                currentState.BuyyResource(type, quantity, spending, deliveryTime);
+
+                                newTransaction = new TradeHistory(TradeType.Import, GameDateManager.instance.CalculateDeliveryDateTime(deliveryTime), (int)type, quantity, spending, stateFlagIndex, transaction.tradeState);
+                                TradeManager.instance.AddTransaction(newTransaction);
+                            }else
+                            {
+                                Debug.LogWarning("neigbýrd is null");
+
+                            }
+                            
                         }
                         else
                         {

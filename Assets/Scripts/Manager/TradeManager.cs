@@ -31,7 +31,7 @@ public class TradeManager : MonoBehaviour
         }
         
         TradeHistoryQueue.Enqueue(tradeHistory);
-       // Debug.LogWarning("que count "+TradeHistoryQueue.Count);
+        Debug.LogWarning("que count "+TradeHistoryQueue.Count);
         onTradeHistoryQueueChanged?.Invoke();
     }
     public Queue<TradeHistory> GetTradeHistoryQueue() { return TradeHistoryQueue; }
@@ -49,7 +49,7 @@ public class TradeHistory
 
 
     // Constructor
-    public TradeHistory( TradeType tradeType, DateTime deliveryTime, int productSpriteIndex, float quantity, float cost, int tradeStateFlagIndex, State tradeStatebool,bool payWhitGem = false)
+    public TradeHistory( TradeType tradeType, DateTime deliveryTime, int productSpriteIndex, float quantity, float cost, int tradeStateFlagIndex, State tradeState, bool payWhitGem = false)
     {
         this.payWhitGem = payWhitGem;
         this.tradeType = tradeType;

@@ -17734,12 +17734,6 @@ RectTransform:
     type: 3}
   m_PrefabInstance: {fileID: 1883137403699734345}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &2051902201 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 951965578376222654, guid: c0f8b5b52cef3d048a71c16bfeeca875,
-    type: 3}
-  m_PrefabInstance: {fileID: 1837980890}
-  m_PrefabAsset: {fileID: 0}
 --- !u!224 &2051902204 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 7069513402252792473, guid: c0f8b5b52cef3d048a71c16bfeeca875,
@@ -20567,16 +20561,6 @@ PrefabInstance:
       propertyPath: goldText
       value: 
       objectReference: {fileID: 1144753180}
-    - target: {fileID: 1325065071893689322, guid: ef1f142448157684286af1776069a9a7,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2598750721410004453, guid: ef1f142448157684286af1776069a9a7,
-        type: 3}
-      propertyPath: IsRegionPanelOpen
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 2598750721410004453, guid: ef1f142448157684286af1776069a9a7,
         type: 3}
       propertyPath: allStates.Array.data[0]
@@ -20884,11 +20868,6 @@ PrefabInstance:
       objectReference: {fileID: 1587067920}
     - target: {fileID: 6738753310914292567, guid: ef1f142448157684286af1776069a9a7,
         type: 3}
-      propertyPath: a_StateIcon
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 6738753310914292567, guid: ef1f142448157684286af1776069a9a7,
-        type: 3}
       propertyPath: e_StateIcon
       value: 
       objectReference: {fileID: 927544338}
@@ -20897,16 +20876,6 @@ PrefabInstance:
       propertyPath: n_StateIcon
       value: 
       objectReference: {fileID: 1257097773}
-    - target: {fileID: 6738753310914292567, guid: ef1f142448157684286af1776069a9a7,
-        type: 3}
-      propertyPath: a_foodStockText
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 6738753310914292567, guid: ef1f142448157684286af1776069a9a7,
-        type: 3}
-      propertyPath: a_happinessText
-      value: 
-      objectReference: {fileID: 0}
     - target: {fileID: 6738753310914292567, guid: ef1f142448157684286af1776069a9a7,
         type: 3}
       propertyPath: e_foodStockText
@@ -20927,16 +20896,6 @@ PrefabInstance:
       propertyPath: n_happinessText
       value: 
       objectReference: {fileID: 1462199241}
-    - target: {fileID: 6738753310914292567, guid: ef1f142448157684286af1776069a9a7,
-        type: 3}
-      propertyPath: a_populationText
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 6738753310914292567, guid: ef1f142448157684286af1776069a9a7,
-        type: 3}
-      propertyPath: a_regionNameText
-      value: 
-      objectReference: {fileID: 0}
     - target: {fileID: 6738753310914292567, guid: ef1f142448157684286af1776069a9a7,
         type: 3}
       propertyPath: e_populationText
@@ -20977,26 +20936,6 @@ PrefabInstance:
       propertyPath: playerDiceTarget
       value: 
       objectReference: {fileID: 379969113}
-    - target: {fileID: 9169612523563885193, guid: ef1f142448157684286af1776069a9a7,
-        type: 3}
-      propertyPath: allyPanel
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 9169612523563885193, guid: ef1f142448157684286af1776069a9a7,
-        type: 3}
-      propertyPath: enemyPanel
-      value: 
-      objectReference: {fileID: 7651275858017959542}
-    - target: {fileID: 9169612523563885193, guid: ef1f142448157684286af1776069a9a7,
-        type: 3}
-      propertyPath: attackCanvas
-      value: 
-      objectReference: {fileID: 1840682334}
-    - target: {fileID: 9169612523563885193, guid: ef1f142448157684286af1776069a9a7,
-        type: 3}
-      propertyPath: neutralPanel
-      value: 
-      objectReference: {fileID: 2051902201}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -24682,12 +24621,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   panelID: 19
   behavior: 0
---- !u!1 &7651275858017959542 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 951965578376222654, guid: c0f8b5b52cef3d048a71c16bfeeca875,
-    type: 3}
-  m_PrefabInstance: {fileID: 5367793496214463314}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &7710966393962410520
 GameObject:
   m_ObjectHideFlags: 0
@@ -25547,39 +25480,9 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1606330452720624517, guid: 957e98d162b46874d909fc3fe7c43ea2,
         type: 3}
-      propertyPath: PrefabsForPool.Array.data[0]
+      propertyPath: PrefabsForPool.Array.data[16]
       value: 
-      objectReference: {fileID: 9179467921866946534, guid: e46c9eb403f08bb4a82a498c6d5f427b,
-        type: 3}
-    - target: {fileID: 1606330452720624517, guid: 957e98d162b46874d909fc3fe7c43ea2,
-        type: 3}
-      propertyPath: PrefabsForPool.Array.data[1]
-      value: 
-      objectReference: {fileID: 1491014808123608599, guid: 134b6d270934a8a41a0476afedf3b37f,
-        type: 3}
-    - target: {fileID: 1606330452720624517, guid: 957e98d162b46874d909fc3fe7c43ea2,
-        type: 3}
-      propertyPath: PrefabsForPool.Array.data[6]
-      value: 
-      objectReference: {fileID: 4669592505743636984, guid: 84a46bcae2a19964dad14ced9de502e6,
-        type: 3}
-    - target: {fileID: 1606330452720624517, guid: 957e98d162b46874d909fc3fe7c43ea2,
-        type: 3}
-      propertyPath: PrefabsForPool.Array.data[10]
-      value: 
-      objectReference: {fileID: 8271225882698678403, guid: 8c6929f948df9d04ca3a0970c7daa39a,
-        type: 3}
-    - target: {fileID: 1606330452720624517, guid: 957e98d162b46874d909fc3fe7c43ea2,
-        type: 3}
-      propertyPath: PrefabsForPool.Array.data[13]
-      value: 
-      objectReference: {fileID: 6161843633428035598, guid: c030ac09b45fef84db5e499a9d3a836f,
-        type: 3}
-    - target: {fileID: 1606330452720624517, guid: 957e98d162b46874d909fc3fe7c43ea2,
-        type: 3}
-      propertyPath: PrefabsForPool.Array.data[15]
-      value: 
-      objectReference: {fileID: 5872387895177784120, guid: 32cae4d3bbafd8b4e86702260aa4ce15,
+      objectReference: {fileID: 1657761207013444431, guid: 032287a9cca5ca9418fb3527353597aa,
         type: 3}
     - target: {fileID: 6713504186535248905, guid: 957e98d162b46874d909fc3fe7c43ea2,
         type: 3}

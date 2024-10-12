@@ -149,7 +149,6 @@ GameObject:
   - component: {fileID: 1035080524121725902}
   - component: {fileID: 1671521463937912811}
   - component: {fileID: 3785083742973051001}
-  - component: {fileID: 7745789018099146052}
   m_Layer: 5
   m_Name: ResourceCard
   m_TagString: Untagged
@@ -231,19 +230,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1671521463937912811}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 7745789018099146052}
-        m_TargetAssemblyTypeName: HideLastPanelButton, Assembly-CSharp
-        m_MethodName: DoHidePanel
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
 --- !u!114 &1035080524121725902
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -310,18 +297,6 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 9886a0bac9eaf0a45b60517fda26deef, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &7745789018099146052
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3364107973157682754}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 420e87c256947e244b9215ad2ff7805c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &4420342036125351574

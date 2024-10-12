@@ -49,6 +49,7 @@ public class ResourceManager : MonoBehaviour
         curentResource = resourceType;
         OnResourceChanged?.Invoke(resourceType);
     }
+    
     public void SetCurrentTradeState(string selectedTradeStateName)
     {
         curentTradeStateName= selectedTradeStateName;
