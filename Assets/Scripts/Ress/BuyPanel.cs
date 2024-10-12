@@ -259,7 +259,7 @@ public class BuyPanel : MonoBehaviour
         float spending;
         if (float.TryParse(contrackPriceValueText.text, out spending))
         {
-            if (spending > 0)
+            if (quantity > 0)
             {
                 State currentState = RegionClickHandler.Instance.currentState.GetComponent<State>();
                if (currentState.resourceData[ResourceType.Gold].currentAmount >= spending)
@@ -305,7 +305,7 @@ public class BuyPanel : MonoBehaviour
             
             float Dimond = GameEconomy.Instance.GetGemValue(spending);
             spending = Dimond;
-            if (spending > 0 && quantity >0)
+            if ( quantity >0)
             {
                 if (ResourceManager.CurrentTradeState.resourceData[ResourceType.Diamond].currentAmount > spending)
                 {

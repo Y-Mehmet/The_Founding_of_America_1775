@@ -22,15 +22,15 @@ public class ResCard : MonoBehaviour
         State curentState = RegionClickHandler.Instance.currentState.GetComponent<State>();
         if (curentState != null)
         {
-            int counter = -1;
+            int counter = 0;
             foreach (Transform chid in transform)
             {
 
                 
                    
-                    if (counter == -1)
+                    if (counter == 0)
                     {
-                        counter = 0;
+                        counter ++;
                         continue;
                     }
                     foreach (Transform item in chid)

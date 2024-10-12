@@ -181,7 +181,7 @@ public class SellPanel : MonoBehaviour
         float earing;
         if (float.TryParse(contrackPriceValueText.text, out earing))
         {
-            if (earing > 0 && quantity>0)
+            if (quantity>0)
             {
 
                 if (quantity<= currentState.resourceData[type].currentAmount)
