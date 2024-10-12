@@ -39,7 +39,7 @@ public class ObjectPool : Singleton<ObjectPool>
             // Yeni örneði varsayýlan pozisyona ayarla ve adýný belirle
             newInstace.transform.localPosition = Vector3.zero;
             newInstace.name = objectName;
-
+           // Debug.LogWarning($"{objectName} adýnda bir prefab oluþturuldu");
             return newInstace; // Yeni oluþturulan nesneyi döndür
         }
 
