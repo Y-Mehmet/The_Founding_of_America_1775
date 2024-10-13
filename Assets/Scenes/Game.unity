@@ -25478,12 +25478,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1587067924}
     m_Modifications:
-    - target: {fileID: 1606330452720624517, guid: 957e98d162b46874d909fc3fe7c43ea2,
-        type: 3}
-      propertyPath: PrefabsForPool.Array.data[12]
-      value: 
-      objectReference: {fileID: 3751963503660333766, guid: 07fcd25198eea2040be271c554449f31,
-        type: 3}
     - target: {fileID: 6713504186535248905, guid: 957e98d162b46874d909fc3fe7c43ea2,
         type: 3}
       propertyPath: m_Name

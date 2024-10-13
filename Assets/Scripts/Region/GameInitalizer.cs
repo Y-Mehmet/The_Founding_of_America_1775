@@ -544,7 +544,7 @@ public class GameInitalizer : MonoBehaviour
                  
                    
                     s.StateName = region.Name;
-                    s.ArmySize = (int)(region.Population * 0.25); // Nüfusun %25'i
+                    s.ArmySize = (int)(region.Population * GameManager.ArrmyRatio); // Nüfusun %25'i
                     s.Morele = region.Morale;
                     s.Resources = region.Resources;
                     s.Population = region.Population;

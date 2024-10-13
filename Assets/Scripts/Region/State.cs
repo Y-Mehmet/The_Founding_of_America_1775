@@ -19,6 +19,7 @@ public class State : MonoBehaviour
     public int HierarchicalIndex;
     public string StateName = "";
     public float ArmySize ;
+    public int ArmyBarrackSize;
     public float UnitArmyPower ;
     public float TotalArmyPower;
     public StateType stateType;
@@ -51,7 +52,7 @@ public class State : MonoBehaviour
     private void Start()
     {
         TotalArmyPower = ArmySize * UnitArmyPower;
-        
+        ArmyBarrackSize = (int)(Population * GameManager.ArmyBarrackRatio);
         FindISelectibleComponentAndDisable();
         switch (stateType)
         {
@@ -421,7 +422,7 @@ public class State : MonoBehaviour
     {
         if (resourceData.ContainsKey(resource.Key))
         {
-                if(resource.Key== ResourceType.Gold)
+                if(resource.Key== ResourceType.Gold && resource.Value>0)
                 {
                     foreach (var item1 in Taxes)
                     {

@@ -17,7 +17,8 @@ public class PlunderBtn : MonoBehaviour
     {
         PlunderManager.Instance.PlunderState();
         GameManager.Instance.ChangeAttackFinisValueFalse();
-        UIManager.Instance.GetComponent<ShowPanelButton>().DoShowPanelWhitId(PanelID.PlunderPanel);
         UIManager.Instance.GetComponent<HideLastPanelButton>().DoHidePanel();
+        UIManager.Instance.GetComponent<ShowPanelButton>().DoShowPanelWhitId(PanelID.PlunderPanel);
+        
     }
 }

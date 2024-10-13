@@ -6,11 +6,11 @@ using UnityEngine.UI;
 
 public class MineUpgradePanel : MonoBehaviour
 {
-    public TMP_Text MineNameText, BuyCoinValueText, InstatnlyDimondValueText, productionPerDayText, buyButtonText, instantlyButtonText;
+    public TMP_Text MineNameText, productionPerDayText, buyButtonText, instantlyButtonText, MineCountText;
     public List<TMP_Text> reqResValueTextList; //  mine iþsaasý için gerekli madenlerin harcanacak miktarý
     public List<TMP_Text> reqResCurrentAmountValueTextList;
     public List<Image> reqResIconList;
-    public Image MineIcon;
+    public Image MineIcon, resIcon;
     public Button BuyButton, InstantlyButton;
     public TMP_InputField inputField;
     public Button macButton, plusButton;
@@ -62,6 +62,8 @@ public class MineUpgradePanel : MonoBehaviour
     }
     void ShowPanelInfo()
     {
+        MineCountText.text= currentState.resourceData[currentResType].mineCount.ToString();
+        resIcon.sprite = ResSpriteSO.Instance.resIcon[(int)currentResType];
         MineNameText.text= MineManager.instance.GetMineName();
         RequiredResValueList = MineManager.instance.GetReqResValue();
         RequiredResTypeValueList = MineManager.instance.GetReqResType();
@@ -150,7 +152,7 @@ public class MineUpgradePanel : MonoBehaviour
                         Debug.LogWarning("game oeconomy yok");
                         reqResValueTextList[i].text = "- " + (RequiredResValueList[i] * quantity);
                     float productPerDayValue = (currentState.resourceData[currentResType].productionRate * quantity);
-                    productionPerDayText.text ="+ "+ productPerDayValue.ToString();
+                    productionPerDayText.text = (currentState.resourceData[currentResType].productionRate * currentState.resourceData[currentResType].mineCount)+" + ( " + productPerDayValue.ToString()+" )";
                     float productPerDayToGoldValue = GameEconomy.Instance.GetGoldValue(currentResType, productPerDayValue);
                     buyButtonCoinValue = productPerDayToGoldValue * GameEconomy.Instance.PayBackValue;
 
@@ -242,7 +244,7 @@ public class MineUpgradePanel : MonoBehaviour
             if (int.TryParse(inputField.text, out quantity))
             {
                 // Debug.LogWarning($"cuantati {quantity} maxxxxx" + maxProduction);
-                if (quantity <= maxProduction)
+                if (quantity <= maxProduction && quantity>0)
                 {
                     Dictionary<ResourceType, float> spendRes = new Dictionary<ResourceType, float>();
                     for (int i = 0; i < RequiredResTypeValueList.Count; i++)
@@ -257,8 +259,10 @@ public class MineUpgradePanel : MonoBehaviour
                     }
                     spendRes.Add(ResourceType.Gold, -buyButtonCoinValue);
                     currentState.AddResource(spendRes);
-
+                    
                     currentState.resourceData[currentResType].mineCount += quantity;
+                    MineCountText.text = currentState.resourceData[currentResType].mineCount.ToString();
+                    inputField.text = "0";
 
                 }
             }
@@ -279,6 +283,8 @@ public class MineUpgradePanel : MonoBehaviour
                 spendRes.Add(ResourceType.Diamond, -instatnlyButtonGemValue);
                 currentState.AddResource(spendRes);
                 currentState.resourceData[currentResType].mineCount += quantity;
+                MineCountText.text = currentState.resourceData[currentResType].mineCount.ToString();
+                inputField.text = "0";
             }
             else
             {

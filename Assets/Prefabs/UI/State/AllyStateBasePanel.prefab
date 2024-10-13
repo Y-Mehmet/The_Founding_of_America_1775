@@ -86,7 +86,6 @@ GameObject:
   - component: {fileID: 1978145738565671625}
   - component: {fileID: 1203838597883706980}
   - component: {fileID: 2052892717813872856}
-  - component: {fileID: 4253050124448276023}
   m_Layer: 5
   m_Name: AllyStateBasePanel
   m_TagString: Untagged
@@ -155,23 +154,6 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!114 &4253050124448276023
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1491014808123608599}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b29383d2f304708458a977c0844451b8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  happinesText: {fileID: 0}
-  totalArmyPowerText: {fileID: 0}
-  mainResTypeText: {fileID: 0}
-  stateNameText: {fileID: 5800058848870870605}
-  flagImage: {fileID: 0}
 --- !u!1001 &84368429707398687
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -414,18 +396,6 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 5e48ac7613bc0be41bafb89853405ab4, type: 3}
---- !u!114 &5800058848870870605 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 7051968546636255575, guid: 5e48ac7613bc0be41bafb89853405ab4,
-    type: 3}
-  m_PrefabInstance: {fileID: 3575949143450091290}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!224 &7687387643501942002 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 6561538609036225512, guid: 5e48ac7613bc0be41bafb89853405ab4,
