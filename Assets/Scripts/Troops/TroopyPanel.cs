@@ -18,6 +18,7 @@ public class TroopyPanel : MonoBehaviour
         if(currentState != null )
         {
             ArmyBarrackSizeText.text = currentState.ArmyBarrackSize.ToString();
+           // NavalSizeText.text= currentState.
 
         }
         else

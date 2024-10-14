@@ -24,7 +24,14 @@ public enum PanelID
     PruductMinePanel,
     MineUpgradePanel,
     TaxPanel,
-    AttackPanel
+    AttackPanel,
+    CapitalStatePanel,
+    CapitalCityPanel,
+    CommandCenterPanel,
+    GeneralPanel,
+    GeneralInfoPanel,
+    StateAssingForGeneralPanel,
+
 
 
 

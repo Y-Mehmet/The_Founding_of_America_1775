@@ -576,6 +576,7 @@ public enum TaxType
     StampTax
 }
 
+
 [Serializable]
 public class TaxData
 {
@@ -584,4 +585,17 @@ public class TaxData
     public float toleranceLimit; // Tolerans eþiði
     public float taxIncome; // Bu verginin getirdiði gelir
     public float unitTaxIncome;
+}
+public class ArmyData
+{
+    public int BarrrackSize;
+    public int NavalArmySize;
+    public int LandArmySize;
+   // public General general;
+    public float unitNavalArmyPower;
+    public float unitLandArmyPower;
+    public int armyMorale;
+    public int totalArmyPower;
+
+    
 }
