@@ -4,6 +4,7 @@ using UnityEngine;
 
 public enum PanelID 
 {
+    
     AllyStatePanel,
     EnemyStatePanel,
     NaturalStatePanel,

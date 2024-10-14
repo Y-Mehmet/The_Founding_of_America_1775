@@ -329,6 +329,10 @@ public class GameInitalizer : MonoBehaviour
             if (state.GetComponent<State>() != null)
             {
                 State s = state.GetComponent<State>();
+                if(s.name== "Massachusetts")
+                {
+                    s.IsCapitalCity= true;
+                }
                 if (regions.ContainsKey(state.name))
                 {
                     Region region = regions[state.name];

@@ -8,7 +8,7 @@ using UnityEngine;
 
 public class State : MonoBehaviour
 {
-  
+    public bool IsCapitalCity = false;
     private Coroutine increaseArmySizeCoroutine;
     private Coroutine resourceProductionCoroutine;
     private Coroutine moreleCoroutine;

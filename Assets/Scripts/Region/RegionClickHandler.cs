@@ -7,17 +7,13 @@ using System.Linq;
 public class RegionClickHandler : MonoBehaviour
 {
     public static RegionClickHandler Instance {  get; private set; }
-
     public Camera mainCamera;
-
     public List<GameObject> neighborStates = new List<GameObject>();
-
     // Eski renkleri saklamak için bir dictionary (hashmap) oluþturun
     public  Dictionary<GameObject, Color> originalColors = new Dictionary<GameObject, Color>();
     // Tween nesnelerini saklamak için bir Dictionary oluþturun
     public  Dictionary<GameObject, Tween> moveTweens = new Dictionary<GameObject, Tween>();
     public  GameObject currentState;
-
     private void Awake()
     {
         if(Instance == null)
@@ -27,7 +23,6 @@ public class RegionClickHandler : MonoBehaviour
             Destroy(gameObject);
         }
     }
-
     void Update()
     {
         if (Input.GetMouseButtonDown(0)) // Sol fare tuþuna basýldýðýnda

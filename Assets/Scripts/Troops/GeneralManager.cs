@@ -8,7 +8,22 @@ public class GeneralManager:MonoBehaviour
     public static GeneralManager Instance { get; private set; }
     public static List<General> generals = new List<General>();
     // Her state'in hangi general'e atandýðýný tutan dictionary
-    private Dictionary<State, General> stateGenerals = new Dictionary<State, General>();
+    public static  Dictionary<State, General> stateGenerals = new Dictionary<State, General>();
+    public static int GeneralIndex 
+    { get; private set; }
+    public static void SetGeneralIndex(int index)
+    {
+        if(index>generals.Count)
+        {
+            Debug.LogError(" index general den büyük olmaz");
+        }
+        else
+        {
+            GeneralIndex = index;
+        }
+        
+        
+    }
 
 
     private void Awake()

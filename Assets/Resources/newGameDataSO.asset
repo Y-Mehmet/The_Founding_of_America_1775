@@ -12,3 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c0766b2f24ad43846a04d14e0e9d7083, type: 3}
   m_Name: newGameDataSO
   m_EditorClassIdentifier: 
+  GeneralSprite:
+  - {fileID: 21300000, guid: f55de643e2ccbe04aad610b6858bf2bf, type: 3}
+  - {fileID: 21300000, guid: f55de643e2ccbe04aad610b6858bf2bf, type: 3}
+  - {fileID: 21300000, guid: f55de643e2ccbe04aad610b6858bf2bf, type: 3}
+  GeneralTypeIconSprite:
+  - {fileID: 21300000, guid: a300c32aee082034aa48b8e05129d5e9, type: 3}
+  - {fileID: 21300000, guid: 36655ea076ff6aa4bbc0e82f25645d11, type: 3}
+  - {fileID: 21300000, guid: 6707f5cbf9bfdc04ab276603d4a006dd, type: 3}

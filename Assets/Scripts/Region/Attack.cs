@@ -18,6 +18,9 @@ public class Attack : MonoBehaviour
     float moveForWarDuration = 3.0f;
     public string lastAttackingState ,  lastDefendingState;
     float oneAttackDuration = 0.5f;
+    public float numberOfDiceWonByThePlayer;
+    public float numberOfDiceWonByTheRival;
+    public float numberOfDrew;
 
 
 
@@ -34,8 +37,14 @@ public class Attack : MonoBehaviour
             Destroy(gameObject); 
         }
     }
+    private void OnEnable()
+    {
+     numberOfDiceWonByThePlayer = 0;
+     numberOfDiceWonByTheRival = 0;
+     numberOfDrew = 0;
 
-    public IEnumerator AttackingCoroutine(string defendingState)
+}
+public IEnumerator AttackingCoroutine(string defendingState)
     {
         if (RegionClickHandler.Instance.currentState != null)
             attackingStateText = RegionClickHandler.Instance.currentState.name.ToString(); // RegionManager.instance.a_regionNameText;
@@ -100,9 +109,9 @@ public class Attack : MonoBehaviour
     IEnumerator WarCalculator( GameObject defendingStateGameObject,GameObject attackingStateGameObject )
     {
         DiceManager2.Instance.DiceActiveted(diceCount);
-        float numberOfDiceWonByThePlayer = 0;
-        float numberOfDiceWonByTheRival = 0;
-        float numberOfDrew = 0;
+        numberOfDiceWonByThePlayer = 0;
+        numberOfDiceWonByTheRival = 0;
+        numberOfDrew = 0;
 
         for (int i = 0; i < DiceManager2.Instance.activePlayerDiceLists.Count; i++)
         {

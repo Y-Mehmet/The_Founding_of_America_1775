@@ -6,7 +6,7 @@ using UnityEngine;
 public class AllyState : MonoBehaviour, ISelectable
 {
 
-  
+    
 
     public void SellectState()
     {
@@ -63,7 +63,14 @@ public class AllyState : MonoBehaviour, ISelectable
 
         //RegionManager.instance.ShowAllyRegionInfo(gameObject.name);
         GameManager.Instance.ChanngeIsRegionPanelOpenValueTrue();
-        UIManager.Instance.GetComponent<ShowPanelButton>().DoShowPanelWhitId(PanelID.AllyStatePanel);
+        if(GetComponent<State>().IsCapitalCity)
+        {
+            UIManager.Instance.GetComponent<ShowPanelButton>().DoShowPanelWhitId(PanelID.CapitalStatePanel);
+        }else
+        {
+            UIManager.Instance.GetComponent<ShowPanelButton>().DoShowPanelWhitId(PanelID.AllyStatePanel);
+        }
+        
     }
     
 

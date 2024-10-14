@@ -114,7 +114,6 @@ GameObject:
   - component: {fileID: 6300928995752263507}
   - component: {fileID: 107569678199774478}
   - component: {fileID: 3833162087946923598}
-  - component: {fileID: 6542682783312263721}
   m_Layer: 5
   m_Name: GeneralPanel
   m_TagString: Untagged
@@ -183,40 +182,6 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!114 &6542682783312263721
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3499405819457712750}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 17b9179d91302a446ba0b0aebdf23b7d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  ArmyBarrackSizeText: {fileID: 0}
-  NavalSizeText: {fileID: 0}
-  LandSizeText: {fileID: 0}
-  LeaderText: {fileID: 0}
-  UnityArmyPowerText: {fileID: 0}
-  ArmySizeText: {fileID: 0}
-  ArmyMoraleText: {fileID: 0}
-  TotalArmyPowerText: {fileID: 0}
-  instatlyBtnValueText: {fileID: 0}
-  BuyBtnValueText: {fileID: 0}
-  BarrackInstalyBtn: {fileID: 0}
-  BarrackBuyBtn: {fileID: 0}
-  BarrackMacBtn: {fileID: 0}
-  NavalInstalyBtn: {fileID: 0}
-  NavalBuyBtn: {fileID: 0}
-  NavalMacBtn: {fileID: 0}
-  LandInstalyBtn: {fileID: 0}
-  LandBuyBtn: {fileID: 0}
-  LandMacBtn: {fileID: 0}
-  BarrackInputField: {fileID: 0}
-  NavalInputField: {fileID: 0}
-  LandInputField: {fileID: 0}
 --- !u!1 &8613952683947444722
 GameObject:
   m_ObjectHideFlags: 0
@@ -825,6 +790,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_AnchoredPosition.y
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3167665945120204700, guid: 39afc93f1e1fd7e43a52de907407ff86,
+        type: 3}
+      propertyPath: panelID
+      value: 25
       objectReference: {fileID: 0}
     - target: {fileID: 3512155883802775409, guid: 39afc93f1e1fd7e43a52de907407ff86,
         type: 3}
