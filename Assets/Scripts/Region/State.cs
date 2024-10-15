@@ -5,6 +5,7 @@ using System.Linq;
 using System.Linq.Expressions;
 using Unity.VisualScripting;
 using UnityEngine;
+using static GeneralManager;
 
 public class State : MonoBehaviour
 {
@@ -20,6 +21,10 @@ public class State : MonoBehaviour
     public string StateName = "";
     public float ArmySize ;
     public int ArmyBarrackSize;
+    public float LandArmySize;
+    public float NavalArmySize;
+    public float UnitLandArmyPower;
+    public float UnitNavalArmyPower;
     public float UnitArmyPower ;
     public float TotalArmyPower;
     public StateType stateType;
@@ -51,7 +56,7 @@ public class State : MonoBehaviour
     
     private void Start()
     {
-        TotalArmyPower = ArmySize * UnitArmyPower;
+        TotalArmyPower = GetTotalArmyPower();
         ArmyBarrackSize = (int)(Population * GameManager.ArmyBarrackRatio);
         FindISelectibleComponentAndDisable();
         switch (stateType)
@@ -71,6 +76,55 @@ public class State : MonoBehaviour
         HandleAttackStopped();
         
 
+    }
+    public int GetNavalArmySize()
+    {
+        return (int)NavalArmySize;
+    }
+    public int GetLandArmySize()
+    {
+        return (int) LandArmySize;
+    }
+    public int GetTotalArmyPower()
+    {
+        General general;
+        float generalLandHelpRate = 0;
+        float generalNavalHelpRate = 0;
+        if (stateGenerals.TryGetValue(this, out general))
+        {
+            generalLandHelpRate = general.LandHelpRate;
+            generalNavalHelpRate = general.NavalHelpRate;
+
+        }
+        
+
+        TotalArmyPower = (LandArmySize * (UnitLandArmyPower+generalLandHelpRate))+(NavalArmySize*(UnitNavalArmyPower+generalNavalHelpRate));
+        return TotalArmyPower<0?0:(int) TotalArmyPower;
+    }
+    public int GetArmySize()
+    {
+        ArmySize = (LandArmySize ) + (NavalArmySize);
+        return ArmySize<0? 0:(int)ArmySize;
+    }
+    public float  GetUnitLandRate()
+    {
+        General general;
+        float generalLandHelpRate = 0;
+      if (stateGenerals.TryGetValue(this, out general))
+        {
+            generalLandHelpRate = general.LandHelpRate;
+        }
+        return UnitLandArmyPower + generalLandHelpRate;
+    }
+    public float GetUnitNavalRate()
+    {
+        General general;
+        float generalNavalRate = 0;
+        if (stateGenerals.TryGetValue(this, out general))
+        {
+            generalNavalRate = general.NavalHelpRate;
+        }
+        return UnitLandArmyPower + generalNavalRate;
     }
     public void SetTotalMoraleImpact(float impact)
     {
@@ -176,8 +230,9 @@ public class State : MonoBehaviour
         while (!GameManager.Instance.ÝsGameOver && !GameManager.Instance.isGamePause && GameManager.Instance.IsAttackFinish)
         {
             float armyIncreasePerSecond = Morele * MoraleMultiplier * Population * PopulationMultiplier;
-            ArmySize += armyIncreasePerSecond;
-            TotalArmyPower = ArmySize * UnitArmyPower;
+            LandArmySize += armyIncreasePerSecond;
+            NavalArmySize+= armyIncreasePerSecond;
+            //TotalArmyPower = ArmySize * UnitArmyPower;
             yield return new WaitForSeconds(GameManager.gameDayTime);
         }
     }
@@ -256,14 +311,22 @@ public class State : MonoBehaviour
     }
     public float TotalArmyCalculator()
     {
-        TotalArmyPower = ArmySize * UnitArmyPower;
-        return TotalArmyPower;
+       
+        return GetTotalArmyPower();
     }
     public void  ReduceArmySize(float loss)
     {
-        ArmySize-= (int)loss;
-        ArmySize = Mathf.Clamp(ArmySize, 0, 9999999999999);
-        if(ArmySize <= 20)
+        int armySize = GetArmySize();
+        float landArmyRatio = (float)LandArmySize / armySize;
+        
+
+        // Her bir orduya daðýtýlacak kayýp sayýsýný hesapla
+        int landArmyCasualties = (int)(loss * landArmyRatio);
+        int navalArmyCasualties = (int)loss - landArmyCasualties;
+        LandArmySize -= landArmyCasualties;
+        NavalArmySize -= navalArmyCasualties;
+        armySize =(int)  Mathf.Clamp(GetArmySize(), 0, 9999999999999);
+        if(armySize <= 20)
         {
             
             switch (stateType)
@@ -294,12 +357,12 @@ public class State : MonoBehaviour
 
         }
 
-        TotalArmyPower = ArmySize * UnitArmyPower;
+       
 
     }
     public void LostWar(float lossRate)
     {
-        loss = lossRate * ArmySize ;
+        loss = lossRate * GetArmySize();
        // Debug.LogWarning($"loss: {loss} armysize {ArmySize}  name {gameObject.name} loss rate {lossRate}");
         ReduceArmySize(loss);
         

@@ -62,22 +62,25 @@ public class AllyState : MonoBehaviour, ISelectable
         }
 
         //RegionManager.instance.ShowAllyRegionInfo(gameObject.name);
-        GameManager.Instance.ChanngeIsRegionPanelOpenValueTrue();
+       
         if(GetComponent<State>().IsCapitalCity)
         {
+            Debug.LogWarning("capital city gösterildi ");
             UIManager.Instance.GetComponent<ShowPanelButton>().DoShowPanelWhitId(PanelID.CapitalStatePanel);
         }else
         {
+            Debug.LogWarning("ally stete gösterildi");
             UIManager.Instance.GetComponent<ShowPanelButton>().DoShowPanelWhitId(PanelID.AllyStatePanel);
         }
-        
+        GameManager.Instance.ChanngeIsRegionPanelOpenValueTrue();
+
     }
     
 
     public void FinishAttack()
     {
         GameManager.Instance.ChangeIsAttackValueFalse();
-        GameManager.Instance.ChanngeIsRegionPanelOpenValueFalse();
+        //GameManager.Instance.ChanngeIsRegionPanelOpenValueFalse();
         RestoreOriginalColors();
         StopAnimations();
     }

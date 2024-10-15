@@ -22,9 +22,9 @@ public class SaveGameData : MonoBehaviour
                 StateData stateData = new StateData
                 {
                     StateName = stateComponent.StateName,
-                    ArmySize = stateComponent.ArmySize,
+                    ArmySize = stateComponent.GetArmySize(),
                     UnitArmyPower = stateComponent.UnitArmyPower,
-                    TotalArmyPower = stateComponent.TotalArmyPower,
+                    TotalArmyPower = stateComponent.GetTotalArmyPower(),
                     stateType = stateComponent.stateType,
                     Morele = stateComponent.Morele,
                     Population = stateComponent.Population,

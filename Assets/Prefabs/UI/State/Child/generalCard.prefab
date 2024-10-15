@@ -12,7 +12,6 @@ GameObject:
   - component: {fileID: 324633787790306797}
   - component: {fileID: 2219577918668240308}
   - component: {fileID: 9164723870160273920}
-  - component: {fileID: 4439367150748713890}
   m_Layer: 5
   m_Name: addingGeneralBtn
   m_TagString: Untagged
@@ -121,33 +120,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 2219577918668240308}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 4439367150748713890}
-        m_TargetAssemblyTypeName: ShowPanelButton, Assembly-CSharp
-        m_MethodName: DoShowPanel
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
---- !u!114 &4439367150748713890
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2505658035667461043}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ade6d0f39e9b68b438f325120ad7706b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  panelID: 26
-  behavior: 0
+      m_Calls: []
 --- !u!1 &6055342793313607566
 GameObject:
   m_ObjectHideFlags: 0

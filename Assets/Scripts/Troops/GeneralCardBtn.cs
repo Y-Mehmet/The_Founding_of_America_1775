@@ -9,28 +9,24 @@ public class GeneralCardBtn : MonoBehaviour
     public Button generalBtn, assingBtn;
     private void OnEnable()
     {
-        if(UIManager.Instance.TryGetComponent<ShowPanelButton>(out  showPanelButton))
-        {
+       
+        
             generalBtn.onClick.AddListener(()=> OnButtonClicKed(PanelID.GeneralInfoPanel));
-            assingBtn.onClick.AddListener(() => OnButtonClicKed(PanelID.GeneralInfoPanel));
-        }
-        else
-        {
-            Debug.LogWarning("show panel is null");
-        }
+            assingBtn.onClick.AddListener(() => OnButtonClicKed(PanelID.StateAssingForGeneralPanel));
+        
        
     }
     private void OnDisable()
     {
-        generalBtn.onClick.RemoveListener(() => OnButtonClicKed(PanelID.GeneralInfoPanel));
-        assingBtn.onClick.RemoveListener(() => OnButtonClicKed(PanelID.StateAssingForGeneralPanel));
+        generalBtn.onClick.RemoveAllListeners();
+        assingBtn.onClick.RemoveAllListeners();
     }
 
     void OnButtonClicKed(PanelID panelID)
     {
-       
+       Debug.LogWarning(" butona týklandý "+panelID.ToString());
         GeneralManager.SetGeneralIndex(transform.GetSiblingIndex());
         Debug.LogWarning(GeneralManager.GeneralIndex);
-        showPanelButton.DoShowPanelWhitId(panelID);
+        UIManager.Instance.GetComponent<ShowPanelButton>().DoShowPanelWhitId(panelID);
     }
 }

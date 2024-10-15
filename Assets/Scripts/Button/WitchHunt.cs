@@ -146,13 +146,13 @@ public class WitchHunt : MonoBehaviour
     }
     public void SendWitch()
     {
-        float enemyArmySize = enemyState.GetComponent<State>().ArmySize;
+        float enemyArmySize = enemyState.GetComponent<State>().GetArmySize();
         int newLoss =(int)(enemyArmySize / 100 * spread);
         newLoss= (int) (newLoss/100*belive);
        
         Debug.LogWarning($" {enemyState.name}'inde orduda baþlatýlan cadý avýnda  {newLoss} tane cadý elegeçirildi  avdan önceki asker sayýsý {enemyArmySize}");
         enemyState.GetComponent<State>().ReduceArmySize(newLoss);
-        Debug.LogWarning($"avdan sonra asker sayýsý {enemyState.GetComponent<State>().ArmySize}");
+        Debug.LogWarning($"avdan sonra asker sayýsý {enemyState.GetComponent<State>().GetArmySize()}");
 
     }
 

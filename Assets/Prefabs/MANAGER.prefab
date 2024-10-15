@@ -54,7 +54,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1478237264350064606}
   - component: {fileID: 4030755794802182204}
-  - component: {fileID: 8101895713063663072}
   m_Layer: 0
   m_Name: ClickManager
   m_TagString: Untagged
@@ -92,20 +91,6 @@ MonoBehaviour:
   mainCamera: {fileID: 0}
   neighborStates: []
   currentState: {fileID: 0}
---- !u!114 &8101895713063663072
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 293023359309847435}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ade6d0f39e9b68b438f325120ad7706b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  panelID: 0
-  behavior: 0
 --- !u!1 &1064789098393445404
 GameObject:
   m_ObjectHideFlags: 0

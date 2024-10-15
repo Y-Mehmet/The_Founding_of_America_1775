@@ -11,7 +11,8 @@ using static GeneralManager;
 public class AttackBtnPanelManager : MonoBehaviour
 {
     public GameObject attacBtn, plunderBtn, retreatBtn;
-    public TMP_Text enemyRegionNameText, enemyRegionDamageText, enemyTotalArmyPowerText, playerRegionNameText, playerRegionDamageText, playerTotalArmyPowerText, playerGeneralText,enemyGeneralText,playerWonCountText,enemyWonCountText;
+    public TMP_Text enemyRegionNameText, enemyRegionDamageText, enemyTotalArmyPowerText, playerRegionNameText,
+        playerRegionDamageText, playerTotalArmyPowerText, playerGeneralText, enemyGeneralText, playerWonCountText, enemyWonCountText;
     public Image EnemyFlagSprite, playerFlagSprite, playerGeneralSprite, enemyGeneralSprite;
     string generalIndex ;
     string warDate;
@@ -35,6 +36,7 @@ public class AttackBtnPanelManager : MonoBehaviour
             if (!stateAndGeneral.Equals(default(KeyValuePair<State, General>)))
             {
                 generalIndex = generals[(int)stateAndGeneral.Value.Specialty].Name;
+                
             }
             else
             {
@@ -44,12 +46,20 @@ public class AttackBtnPanelManager : MonoBehaviour
             if( Attack.Instance.numberOfDiceWonByThePlayer>Attack.Instance.numberOfDiceWonByTheRival)
             {
                 warResultType = WarResultType.Victory;
-            }else if (Attack.Instance.numberOfDiceWonByThePlayer < Attack.Instance.numberOfDiceWonByTheRival)
+                if(generalIndex!="-")
+                generals[(int)stateAndGeneral.Value.Specialty].WinBattle((int)defendingState.loss);
+            }
+            else if (Attack.Instance.numberOfDiceWonByThePlayer < Attack.Instance.numberOfDiceWonByTheRival)
             {
                 warResultType = WarResultType.Defeat;
-            }else
+                if (generalIndex != "-")
+                    generals[(int)stateAndGeneral.Value.Specialty].LoseBattle((int)defendingState.loss);
+            }
+            else
             {
                 warResultType = WarResultType.Draw;
+                if (generalIndex != "-")
+                    generals[(int)stateAndGeneral.Value.Specialty].LoseBattle((int)defendingState.loss);
             }
             War war=new(generalIndex ,attackingState,defendingState,warResultType,warDate);
 

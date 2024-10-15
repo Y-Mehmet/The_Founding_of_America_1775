@@ -35,7 +35,7 @@ public class EnemyState : MonoBehaviour, ISelectable
     public void FinishAttack()
     {
         GameManager.Instance.ChangeIsAttackValueFalse();
-        GameManager.Instance.ChanngeIsRegionPanelOpenValueFalse();
+        //GameManager.Instance.ChanngeIsRegionPanelOpenValueFalse();
         RestoreOriginalColors();
         StopAnimations();
 

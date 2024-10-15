@@ -101,7 +101,7 @@ public class EnemyStateInfoPanel : MonoBehaviour
         
         
             happinesText.text = "Happines: " + ((int)currnetState.Morele).ToString();
-        totalArmyPowerText.text = "Army: " + ((int)currnetState.TotalArmyPower).ToString();
+        totalArmyPowerText.text = "Army: " + ((int)currnetState.GetTotalArmyPower()).ToString();
         mainResTypeText.text = "Main Resoruce: " + ((MainResourceType)currnetState.Resources).ToString();
        
 

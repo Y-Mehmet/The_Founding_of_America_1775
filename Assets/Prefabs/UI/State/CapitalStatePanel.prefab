@@ -123,7 +123,7 @@ GameObject:
   - component: {fileID: 1506065127930693476}
   - component: {fileID: 8516043704878102215}
   - component: {fileID: 1171342785815582149}
-  - component: {fileID: 5541045081432734641}
+  - component: {fileID: 2226954712670538846}
   m_Layer: 5
   m_Name: CapitalStatePanel
   m_TagString: Untagged
@@ -194,7 +194,7 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!114 &5541045081432734641
+--- !u!114 &2226954712670538846
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -203,7 +203,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 3853861519729024071}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b29383d2f304708458a977c0844451b8, type: 3}
+  m_Script: {fileID: 11500000, guid: 93ca6aeee41a88045b8e291bcc102f62, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   happinesText: {fileID: 4605979674193490677}

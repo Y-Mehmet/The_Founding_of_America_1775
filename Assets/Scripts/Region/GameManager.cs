@@ -6,7 +6,7 @@ using UnityEngine;
 public class GameManager : MonoBehaviour
 {
    public static GameManager Instance;
-   public static List<State> AllyStateList;
+    public static List<State> AllyStateList = new List<State>();
     public bool ÝsAttack= false;
     public bool IsRegionPanelOpen = false;
     public bool IsAttackFinish  = true;

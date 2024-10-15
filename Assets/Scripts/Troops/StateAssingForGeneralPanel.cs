@@ -16,11 +16,11 @@ public class StateAssingForGeneralPanel : MonoBehaviour
        
              
         int count = GameManager.AllyStateList.Count;
-        
-        GetComponent<GridLayoutGroup>().constraintCount =count;
+        int minCount = 9;
+        GetComponent<GridLayoutGroup>().constraintCount =minCount>count?minCount:count;
         foreach (Transform child in transform)
         {
-            if (child.GetSiblingIndex() < count)
+            if (child.GetSiblingIndex() <= count)
             {
                 child.gameObject.SetActive(true);
             }else

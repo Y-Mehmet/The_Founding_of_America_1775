@@ -338,7 +338,9 @@ public class GameInitalizer : MonoBehaviour
                     Region region = regions[state.name];
                     if (largeStates.Contains(state.name))
                     {// large region
-                        s.UnitArmyPower = (float)(0.75 + rand.NextDouble() * 0.25); //ort 0.875
+                       
+                        s.UnitLandArmyPower = (float)(0.75 + rand.NextDouble() * 0.25); //ort 0.875
+                        s.UnitNavalArmyPower = (float)(0.75 + rand.NextDouble() * 0.25); //ort 0.875
                         s.resourceData = new Dictionary<ResourceType, ResourceData>
                         {   { ResourceType.Gold, new ResourceData { currentAmount = 1500, mineCount = 5, productionRate = goldRate }},
                             { ResourceType.Water, new ResourceData { currentAmount = 4000, mineCount = 4, productionRate = waterRate }},
@@ -409,7 +411,9 @@ public class GameInitalizer : MonoBehaviour
                    
                     else if (smallStates.Contains(region.Name))
                     {
-                        s.UnitArmyPower = (float)(0.35 + rand.NextDouble() * 0.05);
+                        
+                        s.UnitLandArmyPower = (float)(0.35 + rand.NextDouble() * 0.05);
+                        s.UnitNavalArmyPower = (float)(0.35 + rand.NextDouble() * 0.05);
                         s.resourceData = new Dictionary<ResourceType, ResourceData>
                      {
                             { ResourceType.Gold, new ResourceData { currentAmount = 1000, mineCount = 3, productionRate = goldRate }},
@@ -478,7 +482,8 @@ public class GameInitalizer : MonoBehaviour
                     }
                     else
                     {// midle rigion
-                        s.UnitArmyPower = (float)(0.75 + rand.NextDouble() * 0.15);
+                        s.UnitLandArmyPower = (float)(0.75 + rand.NextDouble() * 0.15);
+                        s.UnitNavalArmyPower=(float)(0.75 + rand.NextDouble() * 0.15);
                         s.resourceData = new Dictionary<ResourceType, ResourceData>
                         {
                             { ResourceType.Gold, new ResourceData { currentAmount = 1200, mineCount = 4, productionRate = goldRate }},
@@ -548,7 +553,8 @@ public class GameInitalizer : MonoBehaviour
                  
                    
                     s.StateName = region.Name;
-                    s.ArmySize = (int)(region.Population * GameManager.ArrmyRatio); // Nüfusun %25'i
+                    s.LandArmySize = (int)(region.Population * GameManager.ArrmyRatio); // Nüfusun %25'i
+                    s.NavalArmySize = (int)(region.Population * GameManager.ArrmyRatio); // Nüfusun %25'i
                     s.Morele = region.Morale;
                     s.Resources = region.Resources;
                     s.Population = region.Population;

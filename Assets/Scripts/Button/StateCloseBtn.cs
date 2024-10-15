@@ -16,6 +16,7 @@ public class StateCloseBtn : MonoBehaviour
     void OnButtonCliced()
     {
         RegionClickHandler.Instance.CloseBtn_CloseAll();
+        GameManager.Instance.ChanngeIsRegionPanelOpenValueFalse();
         UIManager.Instance.HideAllPanel();
     }
 }

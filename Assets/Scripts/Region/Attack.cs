@@ -90,9 +90,9 @@ public IEnumerator AttackingCoroutine(string defendingState)
         {
             // Calculate random loss between 5% and 25%
             float loss = UnityEngine.Random.Range(5f, 25f);
-            Debug.Log("Kayýp miktarý  % " + loss+ " kayýpdan önce total amry: "+ attackingStateGameObject.GetComponent<State>().ArmySize);
+            Debug.Log("Kayýp miktarý  % " + loss+ " kayýpdan önce total amry: "+ attackingStateGameObject.GetComponent<State>().GetArmySize());
             attackingStateGameObject.GetComponent<State>().ReduceArmySize(loss);
-            Debug.Log("kayýptan sonra "+ attackingStateGameObject.GetComponent<State>().ArmySize);
+            Debug.Log("kayýptan sonra "+ attackingStateGameObject.GetComponent<State>().GetArmySize());
             if (attackingStateGameObject != null && defendingStateGameObject != null)
             {
                 attackingStateTotalArmyPower = attackingStateGameObject.GetComponent<State>().TotalArmyCalculator();
@@ -178,7 +178,7 @@ public IEnumerator AttackingCoroutine(string defendingState)
         GameManager.Instance.IsAttackFinish = false;
         
         GameManager.Instance.ChangeIsAttackValueFalse();
-        GameManager.Instance.ChanngeIsRegionPanelOpenValueFalse();
+        //GameManager.Instance.ChanngeIsRegionPanelOpenValueFalse();
         Attacking(lastDefendingState);
     }
     public void  AttackFinished()
