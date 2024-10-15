@@ -272,6 +272,7 @@ public class State : MonoBehaviour
 
                      LostState();
                     attackCanvasButtonPanelIndex = 3;
+                    GameManager.AllyStateList.Remove(this);
                     break;
                 case (StateType.Enemy):
                     

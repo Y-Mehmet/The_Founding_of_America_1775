@@ -31,6 +31,9 @@ public class StateProductPanelScript : MonoBehaviour
             if(child.GetSiblingIndex()< count)
             {
                 child.gameObject.SetActive(true);
+            }else
+            {
+                child.gameObject.SetActive(false);
             }
         }
     }

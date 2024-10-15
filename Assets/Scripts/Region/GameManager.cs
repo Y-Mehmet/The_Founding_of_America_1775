@@ -6,7 +6,7 @@ using UnityEngine;
 public class GameManager : MonoBehaviour
 {
    public static GameManager Instance;
-    
+   public static List<State> AllyStateList;
     public bool ÝsAttack= false;
     public bool IsRegionPanelOpen = false;
     public bool IsAttackFinish  = true;
@@ -49,6 +49,8 @@ public class GameManager : MonoBehaviour
         else
         {
             Instance = this;
+            AllyStateList.Clear();
+            AllyStateList = GetStatesByType(StateType.Ally);
         }
     }
     
@@ -65,11 +67,21 @@ public class GameManager : MonoBehaviour
         }
         return states;
     }
+    // kullanýlmýyor
+    public void OnAllyStateChanged()
+    {
+        AllyStateList.Clear();
+        foreach (State state in allStates)
+        {
+            if (state.stateType == StateType.Ally)
+            {
+                allStates.Add(state);
+            }
+        }
+        
+    }
 
-    //public void UpdateStatePanel(State state)
-    //{
-    //    UIManager.Instance.ShowPanel(state);
-    //}
+
 
     public void ChangeIsAttackValueTrue()
     {

@@ -1,13 +1,22 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class WarHistory : MonoBehaviour
 {
     public static Stack<War> generalIndexAndWarList = new Stack< War>(); // general index
     public static int  maxWarHistoryCount=6;
-
+    public static int GetWarCountByGeneral(string generalIndex)
+    {
+        return generalIndexAndWarList.Count(war => war.generalIndex == generalIndex);
+    }
+    public static int GetResultCountByGeneral(string generalIndex, WarResultType warResult)
+    {
+        return generalIndexAndWarList.Count(war => war.generalIndex == generalIndex && war.warReslut==warResult );
+    }
+    
 }
 public class War
 {
@@ -26,6 +35,7 @@ public class War
         this.warDate = wardate;
         
     }
+   
 }
 public enum WarResultType
 {

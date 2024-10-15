@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 4003019959994011289}
   - component: {fileID: 7731274170645280611}
   - component: {fileID: 2512977714866679383}
-  - component: {fileID: 4193128698958672913}
+  - component: {fileID: 6749939046874775003}
   m_Layer: 5
   m_Name: Panel
   m_TagString: Untagged
@@ -168,7 +168,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls: []
---- !u!114 &4193128698958672913
+--- !u!114 &6749939046874775003
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -177,10 +177,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 30468601238549316}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 88795b165b9364e40b946d3b120c5489, type: 3}
+  m_Script: {fileID: 11500000, guid: 791ecffc6a939d5499c920736bbc8677, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  tradeType: 1
 --- !u!1 &1337998576419012446
 GameObject:
   m_ObjectHideFlags: 0

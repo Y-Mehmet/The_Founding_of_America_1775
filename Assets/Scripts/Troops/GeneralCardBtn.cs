@@ -23,7 +23,7 @@ public class GeneralCardBtn : MonoBehaviour
     private void OnDisable()
     {
         generalBtn.onClick.RemoveListener(() => OnButtonClicKed(PanelID.GeneralInfoPanel));
-        assingBtn.onClick.RemoveListener(() => OnButtonClicKed(PanelID.GeneralInfoPanel));
+        assingBtn.onClick.RemoveListener(() => OnButtonClicKed(PanelID.StateAssingForGeneralPanel));
     }
 
     void OnButtonClicKed(PanelID panelID)
