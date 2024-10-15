@@ -33,7 +33,7 @@ public class GeneralInfoPanel : MonoBehaviour
         generalExperiensSlider.minValue = 0;
         generalExperiensSlider.maxValue = GeneralManager.generals[index].ExperienceLimit;
         generalExperiensSlider.value = GeneralManager.generals[index].Experience;
-        sliderTextExp.text = GeneralManager.generals[index].Experience + " / " + GeneralManager.generals[index].ExperienceLimit;
+        sliderTextExp.text =  GeneralManager.generals[index].Experience + " / " + GeneralManager.generals[index].ExperienceLimit;
         var stateAndGeneral = GeneralManager.stateGenerals.FirstOrDefault(x => (int)x.Value.Specialty == index);
 
         // stateAndGeneral anahtarýnýn varsayýlan deðer olup olmadýðýný kontrol et

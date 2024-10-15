@@ -49,7 +49,7 @@ public IEnumerator AttackingCoroutine(string defendingState)
         if (RegionClickHandler.Instance.currentState != null)
             attackingStateText = RegionClickHandler.Instance.currentState.name.ToString(); // RegionManager.instance.a_regionNameText;
         else
-            Debug.LogError(" curernt res is null");
+            Debug.LogError(" curernt state is null");
         lastDefendingState = defendingState;
         lastAttackingState = attackingStateText;
         yield return null;

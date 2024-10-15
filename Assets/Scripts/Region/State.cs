@@ -77,6 +77,19 @@ public class State : MonoBehaviour
         
 
     }
+    public int GetMorale()
+    {
+        return (int)Morele;
+    }
+    public int GetArmyBarrackSize()
+    {
+        return (int)ArmyBarrackSize;
+    }
+    public int GetSoliderQuota()
+    {
+        return GetArmyBarrackSize() - GetArmySize();
+    }
+    
     public int GetNavalArmySize()
     {
         return (int)NavalArmySize;
@@ -98,7 +111,7 @@ public class State : MonoBehaviour
         }
         
 
-        TotalArmyPower = (LandArmySize * (UnitLandArmyPower+generalLandHelpRate))+(NavalArmySize*(UnitNavalArmyPower+generalNavalHelpRate));
+        TotalArmyPower = (LandArmySize * (UnitLandArmyPower+generalLandHelpRate))+(NavalArmySize*(UnitNavalArmyPower+generalNavalHelpRate))/100*(Morele<50?50:Morele);
         return TotalArmyPower<0?0:(int) TotalArmyPower;
     }
     public int GetArmySize()
@@ -114,7 +127,8 @@ public class State : MonoBehaviour
         {
             generalLandHelpRate = general.LandHelpRate;
         }
-        return UnitLandArmyPower + generalLandHelpRate;
+        float totalRate = UnitLandArmyPower + generalLandHelpRate;
+        return float.Parse(String.Format("{0:0.00}", totalRate)); ;
     }
     public float GetUnitNavalRate()
     {
@@ -124,7 +138,8 @@ public class State : MonoBehaviour
         {
             generalNavalRate = general.NavalHelpRate;
         }
-        return UnitLandArmyPower + generalNavalRate;
+        float totalRate= UnitLandArmyPower + generalNavalRate; 
+        return float.Parse(String.Format("{0:0.00}", totalRate)); 
     }
     public void SetTotalMoraleImpact(float impact)
     {
@@ -151,6 +166,26 @@ public class State : MonoBehaviour
             }
         }
         return taxSatisfactionRate * 0.01f;
+    }
+    public int GetGoldResValue()
+    {
+        return (int)resourceData[ResourceType.Gold].currentAmount<=0? 0: (int)resourceData[ResourceType.Gold].currentAmount;
+    }
+    public int GetGemResValue()
+    {
+        return (int)resourceData[ResourceType.Diamond].currentAmount <= 0 ? 0 : (int)resourceData[ResourceType.Diamond].currentAmount;
+    }
+    public void IncreaseArmyBarrackSize(int barrackValue)
+    {
+        ArmyBarrackSize += barrackValue;
+    }
+    public void IncreaseNavalArmySize( int navalArmyValue)
+    {
+        NavalArmySize+= navalArmyValue;
+    }
+    public void IncreaseLandArmySize(int landArmyValue)
+    {
+        LandArmySize += landArmyValue;
     }
 
     private void HandleAttackStarted()
@@ -183,7 +218,7 @@ public class State : MonoBehaviour
 
     private void HandleAttackStopped()
     {
-        if (increaseArmySizeCoroutine == null)
+        if (increaseArmySizeCoroutine == null && stateType!=StateType.Ally)
             increaseArmySizeCoroutine = StartCoroutine(IncreaseArmySizeOverTime());
 
         if (resourceProductionCoroutine == null)
@@ -477,7 +512,15 @@ public class State : MonoBehaviour
         return plunderedResources;
     }
 
+public void GoldSpend(int value)
+    {
+        resourceData[ResourceType.Gold].currentAmount -= value;
 
+    }
+public void GemSpend(int value)
+    {
+        resourceData[ResourceType.Diamond].currentAmount -= value;
+    }
     
     public void AddResource(Dictionary<ResourceType, float> plunderedResources)
 {

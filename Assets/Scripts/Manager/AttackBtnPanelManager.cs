@@ -10,7 +10,7 @@ using static GeneralManager;
 
 public class AttackBtnPanelManager : MonoBehaviour
 {
-    public GameObject attacBtn, plunderBtn, retreatBtn;
+    public GameObject attacBtn, plunderBtn, retreatBtn,annexBtn;
     public TMP_Text enemyRegionNameText, enemyRegionDamageText, enemyTotalArmyPowerText, playerRegionNameText,
         playerRegionDamageText, playerTotalArmyPowerText, playerGeneralText, enemyGeneralText, playerWonCountText, enemyWonCountText;
     public Image EnemyFlagSprite, playerFlagSprite, playerGeneralSprite, enemyGeneralSprite;
@@ -98,7 +98,7 @@ public class AttackBtnPanelManager : MonoBehaviour
             }
             else
             {
-                attacBtn.SetActive(true);
+                annexBtn.SetActive(true);
                 plunderBtn.SetActive(true);
             }
         }else
@@ -112,6 +112,7 @@ public class AttackBtnPanelManager : MonoBehaviour
         attacBtn.SetActive(false);
         retreatBtn.SetActive(false);
         plunderBtn.SetActive(false);
+        annexBtn.SetActive(false);
     }
 
 }

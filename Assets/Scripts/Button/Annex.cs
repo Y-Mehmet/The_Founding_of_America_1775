@@ -18,13 +18,16 @@ public class Annex : MonoBehaviour
             GameManager.AllyStateList.Add(defState);
             GameManager.Instance.IsAttackFinish = true;
             GameManager.Instance.ChangeIsAttackValueFalse();
-            UIManager.Instance.GetComponent<HideLastPanelButton>().DoHidePanel();
+            UIManager.Instance.GetComponent<HideAllPanelButton>().DoHidePanel();
+            GameManager.Instance.ChanngeIsRegionPanelOpenValueFalse();
         }
         else
             Debug.LogWarning("def state is null");
     }
     private void OnDisable()
     {
+        
+
         gameObject.GetComponent<Button>().onClick.RemoveListener(AnnexState);
     }
 }

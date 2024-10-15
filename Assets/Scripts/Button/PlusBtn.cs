@@ -41,6 +41,7 @@ public class PlusBtn : MonoBehaviour
         else
         {
             Debug.LogError("Input field does not contain a valid integer.");
+            InputField.text= AddedValue.ToString();
         }
     }
 }

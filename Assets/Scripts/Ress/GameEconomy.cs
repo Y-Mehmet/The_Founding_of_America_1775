@@ -53,10 +53,10 @@ public class GameEconomy : MonoBehaviour
                 return 0f;
             }
         }
-    public float GetGemValue(float goldAmount)
+    public int GetGemValue(float goldAmount)
     {
         float gemValue = goldAmount / ResourceManager.DimondRate;
-        return Mathf.Ceil( gemValue);
+        return (int)Mathf.Ceil( gemValue);
     }
 
     
