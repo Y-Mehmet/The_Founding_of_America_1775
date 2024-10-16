@@ -53,8 +53,13 @@ public class GameEconomy : MonoBehaviour
                 return 0f;
             }
         }
-    public int GetGemValue(float goldAmount)
+    public int GetGemValue(float goldAmount, int time=0)
     {
+        State currnetState = RegionClickHandler.Instance.currentState.GetComponent<State>();
+        int goldMineCount = currnetState.resourceData[ResourceType.Gold].mineCount;
+        float prodictionRate = currnetState.resourceData[ResourceType.Gold].productionRate;
+        float timeValue = goldMineCount * prodictionRate;
+        goldAmount += time * timeValue;
         float gemValue = goldAmount / ResourceManager.DimondRate;
         return (int)Mathf.Ceil( gemValue);
     }

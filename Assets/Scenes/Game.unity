@@ -9654,6 +9654,24 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1081887123}
   m_CullTransparentMesh: 1
+--- !u!1 &1091697846 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7084531262897934301, guid: ef1f142448157684286af1776069a9a7,
+    type: 3}
+  m_PrefabInstance: {fileID: 4654579961514047142}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1091697849
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1091697846}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa1cd237bcf93254e905ee3aa157b702, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &1133658975 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 1178094533204216282, guid: 8af6d74b7dc7c8a40ab3f0aca53a8f29,
@@ -20794,7 +20812,11 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 7084531262897934301, guid: ef1f142448157684286af1776069a9a7,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1091697849}
   m_SourcePrefab: {fileID: 100100000, guid: ef1f142448157684286af1776069a9a7, type: 3}
 --- !u!1001 &4707892543012967961
 PrefabInstance:
@@ -25333,6 +25355,35 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1587067924}
     m_Modifications:
+    - target: {fileID: 1606330452720624517, guid: 957e98d162b46874d909fc3fe7c43ea2,
+        type: 3}
+      propertyPath: PrefabsForPool.Array.size
+      value: 26
+      objectReference: {fileID: 0}
+    - target: {fileID: 1606330452720624517, guid: 957e98d162b46874d909fc3fe7c43ea2,
+        type: 3}
+      propertyPath: PrefabsForPool.Array.data[23]
+      value: 
+      objectReference: {fileID: 2062057383979114387, guid: a7baf0322d4a29f41882a152bbac2f6a,
+        type: 3}
+    - target: {fileID: 1606330452720624517, guid: 957e98d162b46874d909fc3fe7c43ea2,
+        type: 3}
+      propertyPath: PrefabsForPool.Array.data[24]
+      value: 
+      objectReference: {fileID: 2982454320539333726, guid: 4318447dc84099c41b4b837af1898f39,
+        type: 3}
+    - target: {fileID: 1606330452720624517, guid: 957e98d162b46874d909fc3fe7c43ea2,
+        type: 3}
+      propertyPath: PrefabsForPool.Array.data[25]
+      value: 
+      objectReference: {fileID: 2982454320539333726, guid: e1b5bea72bb6d5a41a9ced6445eae456,
+        type: 3}
+    - target: {fileID: 1606330452720624517, guid: 957e98d162b46874d909fc3fe7c43ea2,
+        type: 3}
+      propertyPath: PrefabsForPool.Array.data[26]
+      value: 
+      objectReference: {fileID: 2982454320539333726, guid: f6ad3d6866da8ef4fafed609802839f4,
+        type: 3}
     - target: {fileID: 6713504186535248905, guid: 957e98d162b46874d909fc3fe7c43ea2,
         type: 3}
       propertyPath: m_Name

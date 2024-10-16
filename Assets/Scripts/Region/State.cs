@@ -11,6 +11,7 @@ public class State : MonoBehaviour
 {
     public bool IsCapitalCity = false;
     private Coroutine increaseArmySizeCoroutine;
+    private Coroutine decreaseArmySizeCoroutine;
     private Coroutine resourceProductionCoroutine;
     private Coroutine moreleCoroutine;
     private Coroutine incrasePopulationCoroutine;
@@ -32,7 +33,7 @@ public class State : MonoBehaviour
     
     public float TotalMoraleImpact=0; // kullanýlmýyor
     
-    public Sprite StateIcon;
+    public Sprite StateIcon;// falg
     public int Population;
     public int Resources; // fav resources 
     public float loss;
@@ -141,6 +142,21 @@ public class State : MonoBehaviour
         float totalRate= UnitLandArmyPower + generalNavalRate; 
         return float.Parse(String.Format("{0:0.00}", totalRate)); 
     }
+    public void DeployTroops( int land, int naval)
+    {
+        Debug.Log(" deploy troop ");
+        LandArmySize -= land;
+        NavalArmySize -= naval;
+        
+       
+    }
+    public void ReinForceTroops(int land, int naval)
+    {
+        Debug.Log(" reinforce troop ");
+        LandArmySize += land;
+        NavalArmySize += naval;
+
+    }
     public void SetTotalMoraleImpact(float impact)
     {
         TotalMoraleImpact += impact;
@@ -195,8 +211,13 @@ public class State : MonoBehaviour
             StopCoroutine(increaseArmySizeCoroutine);
             increaseArmySizeCoroutine = null;
         }
+        if (decreaseArmySizeCoroutine != null)
+        {
+            StopCoroutine(decreaseArmySizeCoroutine);
+            decreaseArmySizeCoroutine = null;
+        }
 
-        if (resourceProductionCoroutine != null)
+            if (resourceProductionCoroutine != null)
         {
             StopCoroutine(resourceProductionCoroutine);
             resourceProductionCoroutine = null;
@@ -220,6 +241,11 @@ public class State : MonoBehaviour
     {
         if (increaseArmySizeCoroutine == null && stateType!=StateType.Ally)
             increaseArmySizeCoroutine = StartCoroutine(IncreaseArmySizeOverTime());
+
+        //if(decreaseArmySizeCoroutine== null)
+        //{
+        //    decreaseArmySizeCoroutine = StartCoroutine(ReduceArmySizeOverTime());
+        //}
 
         if (resourceProductionCoroutine == null)
             resourceProductionCoroutine = StartCoroutine(ResourceProduction());
@@ -267,6 +293,17 @@ public class State : MonoBehaviour
             float armyIncreasePerSecond = Morele * MoraleMultiplier * Population * PopulationMultiplier;
             LandArmySize += armyIncreasePerSecond;
             NavalArmySize+= armyIncreasePerSecond;
+            //TotalArmyPower = ArmySize * UnitArmyPower;
+            yield return new WaitForSeconds(GameManager.gameDayTime);
+        }
+    }
+    private IEnumerator ReduceArmySizeOverTime()
+    {
+        while (!GameManager.Instance.ÝsGameOver && !GameManager.Instance.isGamePause && GameManager.Instance.IsAttackFinish&& GetArmyBarrackSize() < GetArmySize())
+        {
+            float armyIncreasePerSecond = (100-Morele) * MoraleMultiplier * Population * PopulationMultiplier;
+            LandArmySize -= armyIncreasePerSecond;
+            NavalArmySize -= armyIncreasePerSecond;
             //TotalArmyPower = ArmySize * UnitArmyPower;
             yield return new WaitForSeconds(GameManager.gameDayTime);
         }

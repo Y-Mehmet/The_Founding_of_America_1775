@@ -32,6 +32,10 @@ public enum PanelID
     GeneralPanel,
     GeneralInfoPanel,
     StateAssingForGeneralPanel,
+    TroopDeploymentPanel,
+    DesStateAssingForTroopDeployment,
+    OriginStateAssingForTroopDeployment,
+
 
 
 

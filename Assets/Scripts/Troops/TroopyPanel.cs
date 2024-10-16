@@ -215,7 +215,7 @@ public class TroopyPanel : MonoBehaviour
             int gemMax = (int)((GameEconomy.Instance.GetGoldValue(ResourceType.Diamond, currentGem)) / LandSoliderCost - 1);
             maxSolider = gemMax < maxSolider ? maxSolider : gemMax;
         }
-        LandInputField.text =""+ (soliderQuota > maxSolider ? soliderQuota : maxSolider);
+        LandInputField.text =""+ (soliderQuota > maxSolider ? maxSolider:soliderQuota  );
 
     }
     void OnNavalMacClicked()
@@ -229,7 +229,7 @@ public class TroopyPanel : MonoBehaviour
             int gemMax = (int)((GameEconomy.Instance.GetGoldValue(ResourceType.Diamond, currentGem)) / NavalSoliderCost - 1);
             maxSolider = gemMax < maxSolider ? maxSolider : gemMax;
         }
-        NavalInputField.text = "" + (quata > maxSolider ? quata : maxSolider);
+        NavalInputField.text = "" + (quata > maxSolider ?  maxSolider: quata);
     }
 
     // Barrack input deðeri deðiþtiðinde çaðrýlýr
