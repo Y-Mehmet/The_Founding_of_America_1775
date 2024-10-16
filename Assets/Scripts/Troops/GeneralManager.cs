@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class GeneralManager:MonoBehaviour
@@ -32,6 +33,7 @@ public class GeneralManager:MonoBehaviour
         {
             Instance = this;
             InýtGeneral();
+            
         }
             
         else
@@ -44,8 +46,7 @@ public class GeneralManager:MonoBehaviour
         generals.Add(new General("John Paul Jones", 0, Specialty.Naval, GeneralRank.SecondLieutenant, 0.05f, 0.1f,0.1f));
         generals.Add(new General("Nathaniel Greene", 0, Specialty.Land, GeneralRank.SecondLieutenant, 0.1f, 0.05f, 0.1f));
         generals.Add(new General("Henry Knox", 0, Specialty.Artillery, GeneralRank.SecondLieutenant, 0.05f, 0.05f,0.15f));
-        
-        
+
     }
 
     // Bir State'e General atama iþlemi
