@@ -172,7 +172,7 @@ public class TradeTransactionCard : MonoBehaviour
                         {                           
                             currentState.InstantlyResource(type, quantity, spending);
                         float goldValue =Mathf.Ceil( GameEconomy.Instance.GetGoldValue(type, spending));
-                        ResourceManager.CurrentTradeState.SellResource(type, quantity, goldValue);
+                        ResourceManager.Instance.CurrentTradeState.SellResource(type, quantity, goldValue);
                             DateTime currentDate = GameDateManager.instance.GetCurrentDate();
                         bool payWhitGem = true;
                             newTransaction = new TradeHistory(TradeType.Import, currentDate, (int)type, quantity, spending, stateFlagIndex, transaction.tradeState, payWhitGem);

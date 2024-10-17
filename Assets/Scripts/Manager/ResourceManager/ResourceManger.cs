@@ -13,7 +13,7 @@ public class ResourceManager : MonoBehaviour
     private Dictionary<ResourceType, float> resources = new Dictionary<ResourceType, float>();
     public static  ResourceType curentResource { get;  set; }
     public string curentTradeStateName {  get; set; }
-    public static State CurrentTradeState;
+    public  State CurrentTradeState;
 
     public Action<ResourceType> OnResourceChanged;
     public Action<string> OnStateToTradeChanged;

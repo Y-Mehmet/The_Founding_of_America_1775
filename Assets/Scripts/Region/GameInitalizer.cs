@@ -175,16 +175,16 @@ public class GameInitalizer : MonoBehaviour
         // İthalat ve ihracat limitlerini 10 olarak ayarla
         statesImporTradeLimitList = new Dictionary<string, List<float>>
     {
-        { "smallStates",  new List<float> { 6500, 540, 456, 863, 577, 75, 87, 783, 78, 750 ,0} },
-        { "mediumStates", new List<float> { 10000, 855, 558, 447, 34, 453, 543, 73, 4057, 524,10} },
-        { "largeStates", new List<float> { 15000, 4336, 737, 730, 973, 390, 300, 300, 4057, 1024,150} },
+        { "smallStates",  new List<float> { 65000, 5400, 0, 0, 0, 0, 870, 7830, 780, 750 ,10} },
+        { "mediumStates", new List<float> { 100000, 8550, 5580, 4470, 340, 4530, 5430, 7300, 4057, 5240,20} },
+        { "largeStates", new List<float> { 150000, 43360, 7370, 7300, 9730, 3900, 3000, 0, 0, 0,0} },
     };
 
         statesExportTradLimitList = new Dictionary<string, List<float>>
     {
-        { "smallStates", new List<float> { 1000, 200, 200, 200, 200, 200, 0, 0, 0, 0 ,0} },
-        { "mediumStates", new List<float> { 1500, 250, 250, 250, 250, 500, 150, 350, 100, 400 ,0} },
-        { "largeStates", new List<float>{ 5000, 500, 500, 500, 750, 450, 440, 570, 650, 2000 ,20} },
+        { "smallStates", new List<float> { 0, 0, 0, 2000, 2000, 2000, 0, 0, 0, 0 ,0} },
+        { "mediumStates", new List<float> { 15000, 2500, 2050, 2500, 2050, 5000, 1500, 3500, 10000, 4000 ,0} },
+        { "largeStates", new List<float>{ 0, 0, 0, 0, 0, 0, 0, 25000, 6500, 20000 ,10} },
     };
     }
 
@@ -394,20 +394,21 @@ public class GameInitalizer : MonoBehaviour
                             { ResourceType.Diamond, new ResourceData { currentAmount = 10, mineCount = 1, productionRate = diamondRate }} // Diamond'a tüketim eklenmedi
                         };
                         // Import Trade - largeStates için
+                        // Örneğin, importTrade ve exportTrade nesnelerini her state için kopyalayarak oluştur:
                         s.importTrade = new Trade(
                             TradeType.Import,
-                            statesImportTradeResTypeList["largeStates"],                // İthalat için 'largeStates' kaynakları
-                            statesImportTradeContratPriceList["largeStates"],           // İthalat fiyatları
-                            statesImporTradeLimitList["largeStates"]                    // İthalat limitleri
+                            new List<ResourceType>(statesImportTradeResTypeList["largeStates"]),
+                            new List<float>(statesImportTradeContratPriceList["largeStates"]),
+                            new List<float>(statesImporTradeLimitList["largeStates"])
                         );
 
-                        // Export Trade - largeStates için
                         s.exportTrade = new Trade(
                             TradeType.Export,
-                            statesExportTradeResTypeList["largeStates"],                // İhracat için 'largeStates' kaynakları
-                            statesExportTradeContratPriceList["largeStates"],           // İhracat fiyatları
-                            statesExportTradLimitList["largeStates"]                    // İhracat limitleri
+                            new List<ResourceType>(statesExportTradeResTypeList["largeStates"]),
+                            new List<float>(statesExportTradeContratPriceList["largeStates"]),
+                            new List<float>(statesExportTradLimitList["largeStates"])
                         );
+
 
                         TaxData StampTax = new TaxData
                         {
@@ -470,17 +471,18 @@ public class GameInitalizer : MonoBehaviour
                         // Import Trade - smallStates için
                         s.importTrade = new Trade(
                             TradeType.Import,
-                            statesImportTradeResTypeList["smallStates"],                // İthalat için 'smallStates' kaynakları
-                            statesImportTradeContratPriceList["smallStates"],           // İthalat fiyatları
-                            statesImporTradeLimitList["smallStates"]                    // İthalat limitleri
+                            new List<ResourceType>(statesImportTradeResTypeList["smallStates"]),
+                            new List<float>(statesImportTradeContratPriceList["smallStates"]),
+                            new List<float>(statesImporTradeLimitList["smallStates"])                   // İthalat limitleri
                         );
 
                         // Export Trade - smallStates için
                         s.exportTrade = new Trade(
                             TradeType.Export,
-                            statesExportTradeResTypeList["smallStates"],                // İhracat için 'smallStates' kaynakları
-                            statesExportTradeContratPriceList["smallStates"],           // İhracat fiyatları
-                            statesExportTradLimitList["smallStates"]                    // İhracat limitleri
+                            new List<ResourceType>(statesExportTradeResTypeList["smallStates"]),
+                            new List<float>(statesExportTradeContratPriceList["smallStates"]),
+                            new List<float>(statesExportTradLimitList["smallStates"])
+                                               // İhracat limitleri
                         );
                         TaxData StampTax = new TaxData
                         {
@@ -540,17 +542,17 @@ public class GameInitalizer : MonoBehaviour
                         // Import Trade - mediumStates için
                         s.importTrade = new Trade(
                             TradeType.Import,
-                            statesImportTradeResTypeList["mediumStates"],               // İthalat için 'mediumStates' kaynakları
-                            statesImportTradeContratPriceList["mediumStates"],          // İthalat fiyatları
-                            statesImporTradeLimitList["mediumStates"]                   // İthalat limitleri
+                            new List<ResourceType>(statesImportTradeResTypeList["mediumStates"]),
+                            new List<float>(statesImportTradeContratPriceList["mediumStates"]),
+                            new List<float>(statesImporTradeLimitList["mediumStates"])                 // İthalat limitleri
                         );
 
                         // Export Trade - mediumStates için
                         s.exportTrade = new Trade(
                             TradeType.Export,
-                            statesExportTradeResTypeList["mediumStates"],               // İhracat için 'mediumStates' kaynakları
-                            statesExportTradeContratPriceList["mediumStates"],          // İhracat fiyatları
-                            statesExportTradLimitList["mediumStates"]                   // İhracat limitleri
+                             new List<ResourceType>(statesExportTradeResTypeList["mediumStates"]),
+                            new List<float>(statesExportTradeContratPriceList["mediumStates"]),
+                            new List<float>(statesExportTradLimitList["mediumStates"])                 // İhracat limitleri
                         );
                         TaxData StampTax = new TaxData
                         {

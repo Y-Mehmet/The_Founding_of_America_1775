@@ -37,8 +37,8 @@ public class SellPanel : MonoBehaviour
         sellButton.onClick.AddListener(SellButtonClicked);
         Restart();
         SetNewTradeState();
-        tradeState = ResourceManager.CurrentTradeState;
-        resLimit = (int)tradeState.importTrade.limit[(int)ResourceManager.curentResource - 1];
+        tradeState = ResourceManager.Instance.CurrentTradeState;
+        resLimit = (int)tradeState.importTrade.limit[(int)curentResource - 1];
     }
     private void OnDisable()
     {
@@ -73,7 +73,7 @@ public class SellPanel : MonoBehaviour
         {
             if (rightBox.gameObject.activeSelf)
             {
-                ResourceType resourceType = ResourceManager.curentResource;
+                ResourceType resourceType = curentResource;
 
                 resIconImage.sprite = ResSpriteSO.Instance.resIcon[(int)resourceType];
 
@@ -90,8 +90,8 @@ public class SellPanel : MonoBehaviour
 
                     if (contrackPrice > 0)
                     {
-                        Debug.LogWarning("contrat price " + contrackPrice + "curent rade state name " + (ResourceManager.CurrentTradeState.name));
-                        contrackPriceValueText.text = contrackPrice.ToString();
+                        Debug.LogWarning("contrat price " + contrackPrice + "curent rade state name " + (ResourceManager.Instance.CurrentTradeState.name));
+                        contrackPriceValueText.text = contrackPrice.ToString("F2");
 
                     }
                     else
@@ -122,15 +122,15 @@ public class SellPanel : MonoBehaviour
 
 
             if (resLimit >= quantity )
-                {
-                contrackPriceValueText.text = (quantity * contrackPrice).ToString();
-                }
-                else
-                {
+            {
+                contrackPriceValueText.text = (quantity * contrackPrice).ToString("F2");
+            }
+            else
+            {       
                 inputField.text = resLimit.ToString();
-                contrackPriceValueText.text = (resLimit * contrackPrice).ToString();
-               }
-          //  Debug.LogWarning("reslimit " + resLimit);
+                contrackPriceValueText.text = (resLimit * contrackPrice).ToString("F2");
+            }
+          //  Debug.LogWarning("reslimit " + resLimit);             
         }
         else
             Debug.LogWarning(" input floata dönüþtürülemedi input: "+input);
@@ -140,7 +140,7 @@ public class SellPanel : MonoBehaviour
         while (rightBox.gameObject.activeSelf)
         {
             
-            amoutAvableValueText.text = currentState.GetCurrentResValue(resType).ToString();
+            amoutAvableValueText.text = currentState.GetCurrentResValue(resType).ToString("F2");
             yield return new WaitForSeconds(1.0f);
         }
 
@@ -156,7 +156,7 @@ public class SellPanel : MonoBehaviour
         
             if(int.TryParse( amoutAvableValueText.text, out amountAvailable))
             {
-                contrackPriceValueText.text = (quantity * contrackPrice).ToString();
+                contrackPriceValueText.text = (quantity * contrackPrice).ToString("F2");
             }
             else
             {
@@ -165,7 +165,7 @@ public class SellPanel : MonoBehaviour
     }
     public void SellButtonClicked()
     {
-        ResourceType type = ResourceManager.curentResource;
+        ResourceType type = curentResource;
         
         float earing;
         if (float.TryParse(contrackPriceValueText.text, out earing))
@@ -175,12 +175,13 @@ public class SellPanel : MonoBehaviour
 
                 if (quantity<= currentState.resourceData[type].currentAmount)
                 {
-                    this.currentState.SellResource(type, quantity, earing);
-                    ResourceManager.CurrentTradeState.BuyyResource(type, quantity, earing);
-                    amoutAvableValueText.text = this.currentState.GetCurrentResValue(type).ToString();
+                    currentState.SellResource(type, quantity, earing);
+                    ResourceManager.Instance.CurrentTradeState.BuyyResource(type, quantity, earing);
+                    
+                    amoutAvableValueText.text = currentState.GetCurrentResValue(type).ToString("F2");
                     int stateFlagIndex = currentState.gameObject.transform.GetSiblingIndex();
                     DateTime deliverTime = GameDateManager.instance.GetCurrentDate();                 
-                    TradeHistory transaction = new TradeHistory(TradeType.Export, deliverTime, (int)type, quantity, earing, stateFlagIndex, ResourceManager.CurrentTradeState);
+                    TradeHistory transaction = new TradeHistory(TradeType.Export, deliverTime, (int)type, quantity, earing, stateFlagIndex, ResourceManager.Instance.CurrentTradeState);
                     TradeManager.instance.AddTransaction(transaction);
                     OnInputValueChanged("0");
                     UIManager.Instance.GetComponent<HideLastPanelButton>().DoHidePanel();
@@ -193,19 +194,8 @@ public class SellPanel : MonoBehaviour
         else
             Debug.LogWarning("earing value can not parse float");
 
-        //OnInputValueChanged("0");
-        amoutAvableValueText.text = currentState.GetCurrentResValue(type).ToString();
-        //State tradeState = Usa.Instance.FindStateByName(ResourceManager.Instance.curentTradeStateName);
-        //if (tradeState!= null)
-        //{
-        //    foreach (var resType in tradeState.importTrade.resourceTypes)
-        //    {
-        //        if(resType==type)
-        //        {
-
-        //        }
-        //    }
-        //}
+        amoutAvableValueText.text = currentState.GetCurrentResValue(type).ToString("F2");
+       
 
     }   
     public void SetNewTradeState( )
@@ -215,7 +205,7 @@ public class SellPanel : MonoBehaviour
         bool shouldTradeStateChange = true;
         ResourceType curretResType =    ResourceManager.curentResource;
         string newTradeStatename = "";
-        tradeState = ResourceManager.CurrentTradeState;
+        tradeState = ResourceManager.Instance.CurrentTradeState;
 
         foreach (Transform stateTransform in Usa.Instance.transform)
         {

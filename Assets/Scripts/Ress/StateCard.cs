@@ -6,6 +6,7 @@ using UnityEngine;
 using UnityEngine.Rendering;
 using UnityEngine.UI;
 using static TradeManager;
+using static ResourceManager;
 using static UnityEditor.Experimental.GraphView.GraphView;
 public class StateCard : MonoBehaviour
 {
@@ -56,9 +57,9 @@ public class StateCard : MonoBehaviour
                 int ResIconIndex = (int)(curretResType);
                 resIconImage.sprite = ResSpriteSO.Instance.resIcon[ResIconIndex];
             int tradeResIndex= (int) (curretResType)-1;
-            float limit= exportTrade.limit[tradeResIndex];
+            float limit= tradeState.GetComponent<State>().exportTrade.limit[tradeResIndex];
             CurentLimitValueText.text = ((int)limit).ToString();
-            CoinValueText.text = (exportTrade.contractPrices[(int)curretResType - 1] * thousand).ToString();
+            CoinValueText.text = (exportTrade.contractPrices[(int)curretResType - 1] * thousand).ToString("F2");
 
 
 
@@ -98,11 +99,14 @@ public class StateCard : MonoBehaviour
                 if (resType == curretResType)
                 {
                     Debug.LogWarning($" curent res index {((int)resType - 1)}  ");
-                    CoinValueText.text = (importTrade.contractPrices[(int)resType-1] * thousand).ToString();
+                    CoinValueText.text = (importTrade.contractPrices[(int)resType-1] * thousand).ToString("F2");
                     float limit = importTrade.limit[(int)resType - 1];
-                  
+                    float spendLimit = ResourceManager.Instance.CurrentTradeState.GetGoldResValue() / importTrade.contractPrices[(int)resType - 1];
+                    limit= limit>spendLimit? spendLimit : limit;
 
-                  
+
+
+
                     if (limit > 0)
                     {
                         CurentLimitValueText.text = ((int)limit).ToString();

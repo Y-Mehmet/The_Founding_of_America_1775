@@ -615,12 +615,16 @@ public void GemSpend(int value)
             {
                 Debug.LogWarning("u try new resoruce type  ");
             }
-        
+        exportTrade.limit[(int)resType - 1] -= quantity;
+
+
     }
     public void BuyyResource(ResourceType resType, float quantity, float spending, float deliveryTime = 0)
     {
+        Debug.LogWarning("buy " + gameObject.name);
         if (resourceData.ContainsKey(resType))
         {
+            importTrade.limit[(int)resType - 1] -= quantity;
             resourceData[ResourceType.Gold].currentAmount -= spending;
            // Debug.Log($"Coroutine baþlatýlýyor: {resType}, Miktar: {quantity}, Teslimat Süresi: {deliveryTime}");
             StartCoroutine(BuyResource(resType, quantity, deliveryTime));
@@ -687,6 +691,7 @@ public void GemSpend(int value)
        // Debug.Log("wxport ya da import type eþleþmesi olmadý ******************"+ index);
         return null;
     }
+    
 }
 public enum StateType
 {
