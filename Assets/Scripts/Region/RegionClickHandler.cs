@@ -14,6 +14,7 @@ public class RegionClickHandler : MonoBehaviour
     // Tween nesnelerini saklamak için bir Dictionary oluþturun
     public  Dictionary<GameObject, Tween> moveTweens = new Dictionary<GameObject, Tween>();
     public  GameObject currentState;
+    public static State staticState;
     private void Awake()
     {
         if(Instance == null)
@@ -48,6 +49,7 @@ public class RegionClickHandler : MonoBehaviour
                         if (selectable != null)
                         {
                             currentState = hitObject;
+                            staticState= hitObject.GetComponent<State>();
                         // Debug.Log("Bölge paneli açýldý: " + hitObject.name);
                         selectable.SellectState();
                         }

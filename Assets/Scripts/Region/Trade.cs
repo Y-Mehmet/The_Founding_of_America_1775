@@ -17,7 +17,7 @@ public class Trade
     public Trade(TradeType tradeType, List<ResourceType> resourceTypes, List<float> contractPrices, List<float> limit)
     {
         this.tradeType = tradeType;
-        this.resourceTypes = resourceTypes;
+        this.resourceTypes = new List<ResourceType> { ResourceType.Water, ResourceType.Salt, ResourceType.Meat, ResourceType.Fruits, ResourceType.Vegetables, ResourceType.Wheat, ResourceType.Wood, ResourceType.Coal, ResourceType.Iron, ResourceType.Stone, ResourceType.Diamond } ;
         this.contractPrices = contractPrices;
         this.limit = limit;
     }

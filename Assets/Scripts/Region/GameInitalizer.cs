@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
-
+using static StateResourceSO;
 public class GameInitalizer : MonoBehaviour
 {
     public Dictionary<string, Region> regions = new Dictionary<string, Region>();
@@ -61,14 +61,14 @@ public class GameInitalizer : MonoBehaviour
     {
         { "smallStates", new List<ResourceType> { ResourceType.Wood, ResourceType.Coal, ResourceType.Iron } },
         { "mediumStates", new List<ResourceType> { ResourceType.Wood, ResourceType.Coal, ResourceType.Iron, ResourceType.Stone } },
-        { "largeStates", new List<ResourceType> { ResourceType.Coal, ResourceType.Iron, ResourceType.Stone, ResourceType.Meat, ResourceType.Water, ResourceType.Diamond, ResourceType.Fruits, ResourceType.Salt, ResourceType.Vegetables, ResourceType.Wheat } }
+        { "largeStates", new List<ResourceType> { ResourceType.Coal, ResourceType.Iron, ResourceType.Stone, ResourceType.Meat, ResourceType.Water, ResourceType.Diamond, ResourceType.Fruits, ResourceType.Salt, ResourceType.Vegetables, ResourceType.Wheat ,ResourceType.Wheat} }
     };
 
         statesExportTradeResTypeList = new Dictionary<string, List<ResourceType>>
     {
         { "smallStates", new List<ResourceType> { ResourceType.Fruits, ResourceType.Vegetables, ResourceType.Water } },
         { "mediumStates", new List<ResourceType> { ResourceType.Fruits, ResourceType.Vegetables, ResourceType.Meat, ResourceType.Wheat, ResourceType.Salt } },
-        { "largeStates", new List<ResourceType> { ResourceType.Diamond, ResourceType.Wheat, ResourceType.Meat, ResourceType.Water, ResourceType.Iron, ResourceType.Stone, ResourceType.Coal, ResourceType.Wood } }
+        { "largeStates", new List<ResourceType> { ResourceType.Diamond, ResourceType.Wheat, ResourceType.Meat, ResourceType.Water, ResourceType.Iron, ResourceType.Stone, ResourceType.Coal, ResourceType.Wood, ResourceType.Fruits} }
     };
 
         // İthalat kontrat fiyatlarını dinamik çarpanlarla hesapla
@@ -76,31 +76,46 @@ public class GameInitalizer : MonoBehaviour
     {
         { "smallStates", new List<float>
             {
-                GameEconomy.Instance.GetGoldValue(ResourceType.Wood) * smallStateImportMultiplier,
-                GameEconomy.Instance.GetGoldValue(ResourceType.Coal) * smallStateImportMultiplier,
-                GameEconomy.Instance.GetGoldValue(ResourceType.Iron) * smallStateImportMultiplier
+                GameEconomy.Instance.GetGoldValue((ResourceType)1) * smallStateImportMultiplier,
+                GameEconomy.Instance.GetGoldValue((ResourceType)2) * smallStateImportMultiplier,
+                GameEconomy.Instance.GetGoldValue((ResourceType)3) * smallStateImportMultiplier,
+                GameEconomy.Instance.GetGoldValue((ResourceType)4) * smallStateImportMultiplier,
+                GameEconomy.Instance.GetGoldValue((ResourceType)5) * smallStateImportMultiplier,
+                GameEconomy.Instance.GetGoldValue((ResourceType)6) * smallStateImportMultiplier,
+                GameEconomy.Instance.GetGoldValue((ResourceType)7) * smallStateImportMultiplier,
+                GameEconomy.Instance.GetGoldValue((ResourceType)8) * smallStateImportMultiplier,
+                GameEconomy.Instance.GetGoldValue((ResourceType)9) * smallStateImportMultiplier,
+                GameEconomy.Instance.GetGoldValue((ResourceType)10) *smallStateImportMultiplier,
+                GameEconomy.Instance.GetGoldValue((ResourceType)11) *smallStateImportMultiplier
             }
         },
         { "mediumStates", new List<float>
-            {
-                GameEconomy.Instance.GetGoldValue(ResourceType.Wood) * mediumStateImportMultiplier,
-                GameEconomy.Instance.GetGoldValue(ResourceType.Coal) * mediumStateImportMultiplier,
-                GameEconomy.Instance.GetGoldValue(ResourceType.Iron) * mediumStateImportMultiplier,
-                GameEconomy.Instance.GetGoldValue(ResourceType.Stone) * mediumStateImportMultiplier
-            }
+        {       GameEconomy.Instance.GetGoldValue((ResourceType)1) * mediumStateImportMultiplier,
+                GameEconomy.Instance.GetGoldValue((ResourceType)2) * mediumStateImportMultiplier,
+                GameEconomy.Instance.GetGoldValue((ResourceType)3) * mediumStateImportMultiplier,
+                GameEconomy.Instance.GetGoldValue((ResourceType)4) * mediumStateImportMultiplier,
+                GameEconomy.Instance.GetGoldValue((ResourceType)5) * mediumStateImportMultiplier,
+                GameEconomy.Instance.GetGoldValue((ResourceType)6) * mediumStateImportMultiplier,
+                GameEconomy.Instance.GetGoldValue((ResourceType)7) * mediumStateImportMultiplier,
+                GameEconomy.Instance.GetGoldValue((ResourceType)8) * mediumStateImportMultiplier,
+                GameEconomy.Instance.GetGoldValue((ResourceType)9) * mediumStateImportMultiplier,
+                GameEconomy.Instance.GetGoldValue((ResourceType)10) *mediumStateImportMultiplier,
+                GameEconomy.Instance.GetGoldValue((ResourceType)11) *mediumStateImportMultiplier, 
+        }
         },
         { "largeStates", new List<float>
             {
-                GameEconomy.Instance.GetGoldValue(ResourceType.Coal) * largeStateImportMultiplier,
-                GameEconomy.Instance.GetGoldValue(ResourceType.Iron) * largeStateImportMultiplier,
-                GameEconomy.Instance.GetGoldValue(ResourceType.Stone) * largeStateImportMultiplier,
-                GameEconomy.Instance.GetGoldValue(ResourceType.Meat) * largeStateImportMultiplier,
-                GameEconomy.Instance.GetGoldValue(ResourceType.Water) * largeStateImportMultiplier,
-                GameEconomy.Instance.GetGoldValue(ResourceType.Diamond) * largeStateImportMultiplier,
-                GameEconomy.Instance.GetGoldValue(ResourceType.Fruits) * largeStateImportMultiplier,
-                GameEconomy.Instance.GetGoldValue(ResourceType.Salt) * largeStateImportMultiplier,
-                GameEconomy.Instance.GetGoldValue(ResourceType.Vegetables) * largeStateImportMultiplier,
-                GameEconomy.Instance.GetGoldValue(ResourceType.Wheat) * largeStateImportMultiplier
+                GameEconomy.Instance.GetGoldValue((ResourceType)1) * largeStateImportMultiplier,
+                GameEconomy.Instance.GetGoldValue((ResourceType)2) * largeStateImportMultiplier,
+                GameEconomy.Instance.GetGoldValue((ResourceType)3) * largeStateImportMultiplier,
+                GameEconomy.Instance.GetGoldValue((ResourceType)4) * largeStateImportMultiplier,
+                GameEconomy.Instance.GetGoldValue((ResourceType)5) * largeStateImportMultiplier,
+                GameEconomy.Instance.GetGoldValue((ResourceType)6) * largeStateImportMultiplier,
+                GameEconomy.Instance.GetGoldValue((ResourceType)7) * largeStateImportMultiplier,
+                GameEconomy.Instance.GetGoldValue((ResourceType)8) * largeStateImportMultiplier,
+                GameEconomy.Instance.GetGoldValue((ResourceType)9) * largeStateImportMultiplier,
+                GameEconomy.Instance.GetGoldValue((ResourceType)10) *largeStateImportMultiplier,
+                GameEconomy.Instance.GetGoldValue((ResourceType)11) *largeStateImportMultiplier,
             }
         }
     };
@@ -110,46 +125,66 @@ public class GameInitalizer : MonoBehaviour
     {
         { "smallStates", new List<float>
             {
-                GameEconomy.Instance.GetGoldValue(ResourceType.Fruits) * smallStateExportMultiplier,
-                GameEconomy.Instance.GetGoldValue(ResourceType.Vegetables) * smallStateExportMultiplier,
-                GameEconomy.Instance.GetGoldValue(ResourceType.Water) * smallStateExportMultiplier
+               
+                  GameEconomy.Instance.GetGoldValue((ResourceType)1) * smallStateExportMultiplier,
+                GameEconomy.Instance.GetGoldValue((ResourceType)2) * smallStateExportMultiplier,
+                GameEconomy.Instance.GetGoldValue((ResourceType)3) * smallStateExportMultiplier,
+                GameEconomy.Instance.GetGoldValue((ResourceType)4) * smallStateExportMultiplier,
+                GameEconomy.Instance.GetGoldValue((ResourceType)5) * smallStateExportMultiplier,
+                GameEconomy.Instance.GetGoldValue((ResourceType)6) * smallStateExportMultiplier,
+                GameEconomy.Instance.GetGoldValue((ResourceType)7) * smallStateExportMultiplier,
+                GameEconomy.Instance.GetGoldValue((ResourceType)8) * smallStateExportMultiplier,
+                GameEconomy.Instance.GetGoldValue((ResourceType)9) * smallStateExportMultiplier,
+                GameEconomy.Instance.GetGoldValue((ResourceType)10) * smallStateExportMultiplier,
+                GameEconomy.Instance.GetGoldValue((ResourceType)11) * smallStateExportMultiplier,
             }
         },
         { "mediumStates", new List<float>
             {
-                GameEconomy.Instance.GetGoldValue(ResourceType.Fruits) * mediumStateExportMultiplier,
-                GameEconomy.Instance.GetGoldValue(ResourceType.Vegetables) * mediumStateExportMultiplier,
-                GameEconomy.Instance.GetGoldValue(ResourceType.Meat) * mediumStateExportMultiplier,
-                GameEconomy.Instance.GetGoldValue(ResourceType.Wheat) * mediumStateExportMultiplier,
-                GameEconomy.Instance.GetGoldValue(ResourceType.Salt) * mediumStateExportMultiplier
+                
+                 GameEconomy.Instance.GetGoldValue((ResourceType)1) * mediumStateExportMultiplier,
+                GameEconomy.Instance.GetGoldValue((ResourceType)2) * mediumStateExportMultiplier,
+                GameEconomy.Instance.GetGoldValue((ResourceType)3) * mediumStateExportMultiplier,
+                GameEconomy.Instance.GetGoldValue((ResourceType)4) * mediumStateExportMultiplier,
+                GameEconomy.Instance.GetGoldValue((ResourceType)5) * mediumStateExportMultiplier,
+                GameEconomy.Instance.GetGoldValue((ResourceType)6) * mediumStateExportMultiplier,
+                GameEconomy.Instance.GetGoldValue((ResourceType)7) * mediumStateExportMultiplier,
+                GameEconomy.Instance.GetGoldValue((ResourceType)8) * mediumStateExportMultiplier,
+                GameEconomy.Instance.GetGoldValue((ResourceType)9) * mediumStateExportMultiplier,
+                GameEconomy.Instance.GetGoldValue((ResourceType)10) * mediumStateExportMultiplier,
+                GameEconomy.Instance.GetGoldValue((ResourceType)11) * mediumStateExportMultiplier,
             }
         },
         { "largeStates", new List<float>
             {
-                GameEconomy.Instance.GetGoldValue(ResourceType.Diamond) * largeStateExportMultiplier,
-                GameEconomy.Instance.GetGoldValue(ResourceType.Wheat) * largeStateExportMultiplier,
-                GameEconomy.Instance.GetGoldValue(ResourceType.Meat) * largeStateExportMultiplier,
-                GameEconomy.Instance.GetGoldValue(ResourceType.Water) * largeStateExportMultiplier,
-                GameEconomy.Instance.GetGoldValue(ResourceType.Iron) * largeStateExportMultiplier,
-                GameEconomy.Instance.GetGoldValue(ResourceType.Stone) * largeStateExportMultiplier,
-                GameEconomy.Instance.GetGoldValue(ResourceType.Coal) * largeStateExportMultiplier,
-                GameEconomy.Instance.GetGoldValue(ResourceType.Wood) * largeStateExportMultiplier
+                GameEconomy.Instance.GetGoldValue((ResourceType)1) * largeStateExportMultiplier,
+                GameEconomy.Instance.GetGoldValue((ResourceType)2) * largeStateExportMultiplier,
+                GameEconomy.Instance.GetGoldValue((ResourceType)3) * largeStateExportMultiplier,
+                GameEconomy.Instance.GetGoldValue((ResourceType)4) * largeStateExportMultiplier,
+                GameEconomy.Instance.GetGoldValue((ResourceType)5) * largeStateExportMultiplier,
+                GameEconomy.Instance.GetGoldValue((ResourceType)6) * largeStateExportMultiplier,
+                GameEconomy.Instance.GetGoldValue((ResourceType)7) * largeStateExportMultiplier,
+                GameEconomy.Instance.GetGoldValue((ResourceType)8) * largeStateExportMultiplier,
+                GameEconomy.Instance.GetGoldValue((ResourceType)9) * largeStateExportMultiplier,
+                GameEconomy.Instance.GetGoldValue((ResourceType)10) * largeStateExportMultiplier,
+                GameEconomy.Instance.GetGoldValue((ResourceType)11) * largeStateExportMultiplier,
+               
             }
         }
     };
         // İthalat ve ihracat limitlerini 10 olarak ayarla
         statesImporTradeLimitList = new Dictionary<string, List<float>>
     {
-        { "smallStates", new List<float> { 10, 10, 10 } },
-        { "mediumStates", new List<float> { 10, 10, 10, 10 } },
-        { "largeStates", new List<float> { 100, 100, 10, 100, 100, 100, 100, 100, 100, 100 } }
+        { "smallStates",  new List<float> { 6500, 540, 456, 863, 577, 75, 87, 783, 78, 750 ,0} },
+        { "mediumStates", new List<float> { 10000, 855, 558, 447, 34, 453, 543, 73, 4057, 524,10} },
+        { "largeStates", new List<float> { 15000, 4336, 737, 730, 973, 390, 300, 300, 4057, 1024,150} },
     };
 
         statesExportTradLimitList = new Dictionary<string, List<float>>
     {
-        { "smallStates", new List<float> { 10, 10, 10 } },
-        { "mediumStates", new List<float> { 10, 10, 10, 10, 10 } },
-        { "largeStates", new List<float> { 100, 100, 100, 100, 100, 100, 100, 100 } }
+        { "smallStates", new List<float> { 1000, 200, 200, 200, 200, 200, 0, 0, 0, 0 ,0} },
+        { "mediumStates", new List<float> { 1500, 250, 250, 250, 250, 500, 150, 350, 100, 400 ,0} },
+        { "largeStates", new List<float>{ 5000, 500, 500, 500, 750, 450, 440, 570, 650, 2000 ,20} },
     };
     }
 
@@ -234,52 +269,54 @@ public class GameInitalizer : MonoBehaviour
     }
     private void StateSize()
     {
-       
+
         var largeStateTemplate = new Region("LargeState", 100.0f, 20000, 1, new Dictionary<ResourceType, ResourceData> {
-    { ResourceType.Gold, new ResourceData { currentAmount = 1500, mineCount = 5, productionRate = goldRate }},
-    { ResourceType.Water, new ResourceData { currentAmount = 4000, mineCount = 4, productionRate = waterRate }},
-    { ResourceType.Salt, new ResourceData { currentAmount = 2000, mineCount = 4, productionRate = saltRate }},
-    { ResourceType.Meat, new ResourceData { currentAmount = 3000, mineCount = 4, productionRate = meatRate }},
-    { ResourceType.Fruits, new ResourceData { currentAmount = 2500, mineCount = 4, productionRate = fruitsRate }},
-    { ResourceType.Vegetables, new ResourceData { currentAmount = 2400, mineCount = 4, productionRate = vegetablesRate }},
-    { ResourceType.Wheat, new ResourceData { currentAmount = 2500, mineCount = 5, productionRate = wheatRate }},
-    { ResourceType.Wood, new ResourceData { currentAmount = 2600, mineCount = 5, productionRate = woodRate }},
-    { ResourceType.Coal, new ResourceData { currentAmount = 2800, mineCount = 4, productionRate = coalRate }},
-    { ResourceType.Iron, new ResourceData { currentAmount = 3000, mineCount = 5, productionRate = ironRate }},
-    { ResourceType.Stone, new ResourceData { currentAmount = 2500, mineCount = 4, productionRate = stoneRate }},
-    { ResourceType.Diamond, new ResourceData { currentAmount = 10, mineCount = 1, productionRate = diamondRate }}
-});
-        var mediumStateTemplate = new Region("MediumState", 90.0f, 15000, 2, new Dictionary<ResourceType, ResourceData> {
-    { ResourceType.Gold, new ResourceData { currentAmount = 1200, mineCount = 4, productionRate = goldRate }},
-    { ResourceType.Water, new ResourceData { currentAmount = 3500, mineCount = 3, productionRate = waterRate }},
-    { ResourceType.Salt, new ResourceData { currentAmount = 1800, mineCount = 3, productionRate = saltRate }},
-    { ResourceType.Meat, new ResourceData { currentAmount = 2500, mineCount = 3, productionRate = meatRate }},
-    { ResourceType.Fruits, new ResourceData { currentAmount = 2200, mineCount = 3, productionRate = fruitsRate }},
-    { ResourceType.Vegetables, new ResourceData { currentAmount = 2100, mineCount = 3, productionRate = vegetablesRate }},
-    { ResourceType.Wheat, new ResourceData { currentAmount = 2300, mineCount = 4, productionRate = wheatRate }},
-    { ResourceType.Wood, new ResourceData { currentAmount = 2400, mineCount = 4, productionRate = woodRate }},
-    { ResourceType.Coal, new ResourceData { currentAmount = 2600, mineCount = 3, productionRate = coalRate }},
-    { ResourceType.Iron, new ResourceData { currentAmount = 2800, mineCount = 4, productionRate = ironRate }},
-    { ResourceType.Stone, new ResourceData { currentAmount = 2000, mineCount = 3, productionRate = stoneRate }},
-    { ResourceType.Diamond, new ResourceData { currentAmount = 2, mineCount = 0, productionRate = diamondRate }}
-});
-        var smallStateTemplate = new Region("SmallState", 80.0f, 10000, 3, new Dictionary<ResourceType, ResourceData> {
-    { ResourceType.Gold, new ResourceData { currentAmount = 1000, mineCount = 3, productionRate = goldRate }},
-    { ResourceType.Water, new ResourceData { currentAmount = 3000, mineCount = 2, productionRate = waterRate }},
-    { ResourceType.Salt, new ResourceData { currentAmount = 1600, mineCount = 2, productionRate = saltRate }},
-    { ResourceType.Meat, new ResourceData { currentAmount = 2000, mineCount = 2, productionRate = meatRate }},
-    { ResourceType.Fruits, new ResourceData { currentAmount = 2000, mineCount = 2, productionRate = fruitsRate }},
-    { ResourceType.Vegetables, new ResourceData { currentAmount = 1900, mineCount = 2, productionRate = vegetablesRate }},
-    { ResourceType.Wheat, new ResourceData { currentAmount = 2000, mineCount = 3, productionRate = wheatRate }},
-    { ResourceType.Wood, new ResourceData { currentAmount = 2100, mineCount = 3, productionRate = woodRate }},
-    { ResourceType.Coal, new ResourceData { currentAmount = 2200, mineCount = 2, productionRate = coalRate }},
-    { ResourceType.Iron, new ResourceData { currentAmount = 2400, mineCount = 3, productionRate = ironRate }},
-    { ResourceType.Stone, new ResourceData { currentAmount = 1900, mineCount = 2, productionRate = stoneRate }},
-    { ResourceType.Diamond, new ResourceData { currentAmount = 0, mineCount = 0, productionRate = diamondRate }}
+    { ResourceType.Gold, new ResourceData { currentAmount = 1500, mineCount = 5, productionRate = goldRate }}, // Gold'a tüketim eklenmedi
+    { ResourceType.Water, new ResourceData { currentAmount = 4000, mineCount = 4, productionRate = waterRate, consumptionAmount = WaterConsumptionRate }},
+    { ResourceType.Salt, new ResourceData { currentAmount = 2000, mineCount = 4, productionRate = saltRate, consumptionAmount = SaltConsumptionRate }},
+    { ResourceType.Meat, new ResourceData { currentAmount = 3000, mineCount = 4, productionRate = meatRate, consumptionAmount = MeatConsumptionRate }},
+    { ResourceType.Fruits, new ResourceData { currentAmount = 2500, mineCount = 4, productionRate = fruitsRate, consumptionAmount = FruitConsumptionRate }},
+    { ResourceType.Vegetables, new ResourceData { currentAmount = 2400, mineCount = 4, productionRate = vegetablesRate, consumptionAmount = VegetablesConsumptionRate }},
+    { ResourceType.Wheat, new ResourceData { currentAmount = 2500, mineCount = 5, productionRate = wheatRate, consumptionAmount = WheatConsumptionRate }},
+    { ResourceType.Wood, new ResourceData { currentAmount = 2600, mineCount = 5, productionRate = woodRate }}, // Wood'a tüketim eklenmedi
+    { ResourceType.Coal, new ResourceData { currentAmount = 2800, mineCount = 4, productionRate = coalRate }}, // Coal'a tüketim eklenmedi
+    { ResourceType.Iron, new ResourceData { currentAmount = 3000, mineCount = 5, productionRate = ironRate }}, // Iron'a tüketim eklenmedi
+    { ResourceType.Stone, new ResourceData { currentAmount = 2500, mineCount = 4, productionRate = stoneRate }}, // Stone'a tüketim eklenmedi
+    { ResourceType.Diamond, new ResourceData { currentAmount = 10, mineCount = 1, productionRate = diamondRate }} // Diamond'a tüketim eklenmedi
 });
 
-      
-       
+        var mediumStateTemplate = new Region("MediumState", 90.0f, 15000, 2, new Dictionary<ResourceType, ResourceData> {
+    { ResourceType.Gold, new ResourceData { currentAmount = 1200, mineCount = 4, productionRate = goldRate }}, // Gold'a tüketim eklenmedi
+    { ResourceType.Water, new ResourceData { currentAmount = 3500, mineCount = 3, productionRate = waterRate, consumptionAmount = WaterConsumptionRate }},
+    { ResourceType.Salt, new ResourceData { currentAmount = 1800, mineCount = 3, productionRate = saltRate, consumptionAmount = SaltConsumptionRate }},
+    { ResourceType.Meat, new ResourceData { currentAmount = 2500, mineCount = 3, productionRate = meatRate, consumptionAmount = MeatConsumptionRate }},
+    { ResourceType.Fruits, new ResourceData { currentAmount = 2200, mineCount = 3, productionRate = fruitsRate, consumptionAmount = FruitConsumptionRate }},
+    { ResourceType.Vegetables, new ResourceData { currentAmount = 2100, mineCount = 3, productionRate = vegetablesRate, consumptionAmount = VegetablesConsumptionRate }},
+    { ResourceType.Wheat, new ResourceData { currentAmount = 2300, mineCount = 4, productionRate = wheatRate, consumptionAmount = WheatConsumptionRate }},
+    { ResourceType.Wood, new ResourceData { currentAmount = 2400, mineCount = 4, productionRate = woodRate }}, // Wood'a tüketim eklenmedi
+    { ResourceType.Coal, new ResourceData { currentAmount = 2600, mineCount = 3, productionRate = coalRate }}, // Coal'a tüketim eklenmedi
+    { ResourceType.Iron, new ResourceData { currentAmount = 2800, mineCount = 4, productionRate = ironRate }}, // Iron'a tüketim eklenmedi
+    { ResourceType.Stone, new ResourceData { currentAmount = 2000, mineCount = 3, productionRate = stoneRate }}, // Stone'a tüketim eklenmedi
+    { ResourceType.Diamond, new ResourceData { currentAmount = 2, mineCount = 0, productionRate = diamondRate }} // Diamond'a tüketim eklenmedi
+});
+
+        var smallStateTemplate = new Region("SmallState", 80.0f, 10000, 3, new Dictionary<ResourceType, ResourceData> {
+    { ResourceType.Gold, new ResourceData { currentAmount = 1000, mineCount = 3, productionRate = goldRate }}, // Gold'a tüketim eklenmedi
+    { ResourceType.Water, new ResourceData { currentAmount = 3000, mineCount = 2, productionRate = waterRate, consumptionAmount = WaterConsumptionRate }},
+    { ResourceType.Salt, new ResourceData { currentAmount = 1600, mineCount = 2, productionRate = saltRate, consumptionAmount = SaltConsumptionRate }},
+    { ResourceType.Meat, new ResourceData { currentAmount = 2000, mineCount = 2, productionRate = meatRate, consumptionAmount = MeatConsumptionRate }},
+    { ResourceType.Fruits, new ResourceData { currentAmount = 2000, mineCount = 2, productionRate = fruitsRate, consumptionAmount = FruitConsumptionRate }},
+    { ResourceType.Vegetables, new ResourceData { currentAmount = 1900, mineCount = 2, productionRate = vegetablesRate, consumptionAmount = VegetablesConsumptionRate }},
+    { ResourceType.Wheat, new ResourceData { currentAmount = 2000, mineCount = 3, productionRate = wheatRate, consumptionAmount = WheatConsumptionRate }},
+    { ResourceType.Wood, new ResourceData { currentAmount = 2100, mineCount = 3, productionRate = woodRate }}, // Wood'a tüketim eklenmedi
+    { ResourceType.Coal, new ResourceData { currentAmount = 2200, mineCount = 2, productionRate = coalRate }}, // Coal'a tüketim eklenmedi
+    { ResourceType.Iron, new ResourceData { currentAmount = 2400, mineCount = 3, productionRate = ironRate }}, // Iron'a tüketim eklenmedi
+    { ResourceType.Stone, new ResourceData { currentAmount = 1900, mineCount = 2, productionRate = stoneRate }}, // Stone'a tüketim eklenmedi
+    { ResourceType.Diamond, new ResourceData { currentAmount = 0, mineCount = 0, productionRate = diamondRate }} // Diamond'a tüketim eklenmedi
+});
+
+
+
 
         largeStates = new[] { "California", "Texas", "New York", "Florida", "Washington", "Georgia" };
          mediumStates = new[] { 
@@ -342,18 +379,20 @@ public class GameInitalizer : MonoBehaviour
                         s.UnitLandArmyPower = (float)(0.75 + rand.NextDouble() * 0.25); //ort 0.875
                         s.UnitNavalArmyPower = (float)(0.75 + rand.NextDouble() * 0.25); //ort 0.875
                         s.resourceData = new Dictionary<ResourceType, ResourceData>
-                        {   { ResourceType.Gold, new ResourceData { currentAmount = 1500, mineCount = 5, productionRate = goldRate }},
-                            { ResourceType.Water, new ResourceData { currentAmount = 4000, mineCount = 4, productionRate = waterRate }},
-                            { ResourceType.Salt, new ResourceData { currentAmount = 2000, mineCount = 4, productionRate = saltRate }},
-                            { ResourceType.Meat, new ResourceData { currentAmount = 3000, mineCount = 4, productionRate = meatRate }},
-                            { ResourceType.Fruits, new ResourceData { currentAmount = 2500, mineCount = 4, productionRate = fruitsRate }},
-                            { ResourceType.Vegetables, new ResourceData { currentAmount = 2400, mineCount = 4, productionRate = vegetablesRate }},
-                            { ResourceType.Wheat, new ResourceData { currentAmount = 2500, mineCount = 5, productionRate = wheatRate }},
-                            { ResourceType.Wood, new ResourceData { currentAmount = 2600, mineCount = 5, productionRate = woodRate }},
-                            { ResourceType.Coal, new ResourceData { currentAmount = 2800, mineCount = 4, productionRate = coalRate }},
-                            { ResourceType.Iron, new ResourceData { currentAmount = 3000, mineCount = 5, productionRate = ironRate }},
-                            { ResourceType.Stone, new ResourceData { currentAmount = 2500, mineCount = 4, productionRate = stoneRate }},
-                            { ResourceType.Diamond, new ResourceData { currentAmount = 10, mineCount = 1, productionRate = diamondRate }}};
+                        {
+                            { ResourceType.Gold, new ResourceData { currentAmount = 1500, mineCount = 5, productionRate = goldRate }}, // Gold'a tüketim eklenmedi
+                            { ResourceType.Water, new ResourceData { currentAmount = 4000, mineCount = 4, productionRate = waterRate, consumptionAmount = WaterConsumptionRate }},
+                            { ResourceType.Salt, new ResourceData { currentAmount = 2000, mineCount = 4, productionRate = saltRate, consumptionAmount = SaltConsumptionRate }},
+                            { ResourceType.Meat, new ResourceData { currentAmount = 3000, mineCount = 4, productionRate = meatRate, consumptionAmount = MeatConsumptionRate }},
+                            { ResourceType.Fruits, new ResourceData { currentAmount = 2500, mineCount = 4, productionRate = fruitsRate, consumptionAmount = FruitConsumptionRate }},
+                            { ResourceType.Vegetables, new ResourceData { currentAmount = 2400, mineCount = 4, productionRate = vegetablesRate, consumptionAmount = VegetablesConsumptionRate }},
+                            { ResourceType.Wheat, new ResourceData { currentAmount = 2500, mineCount = 5, productionRate = wheatRate, consumptionAmount = WheatConsumptionRate }},
+                            { ResourceType.Wood, new ResourceData { currentAmount = 2600, mineCount = 5, productionRate = woodRate }}, // Wood'a tüketim eklenmedi
+                            { ResourceType.Coal, new ResourceData { currentAmount = 2800, mineCount = 4, productionRate = coalRate }}, // Coal'a tüketim eklenmedi
+                            { ResourceType.Iron, new ResourceData { currentAmount = 3000, mineCount = 5, productionRate = ironRate }}, // Iron'a tüketim eklenmedi
+                            { ResourceType.Stone, new ResourceData { currentAmount = 2500, mineCount = 4, productionRate = stoneRate }}, // Stone'a tüketim eklenmedi
+                            { ResourceType.Diamond, new ResourceData { currentAmount = 10, mineCount = 1, productionRate = diamondRate }} // Diamond'a tüketim eklenmedi
+                        };
                         // Import Trade - largeStates için
                         s.importTrade = new Trade(
                             TradeType.Import,
@@ -414,20 +453,20 @@ public class GameInitalizer : MonoBehaviour
                         
                         s.UnitLandArmyPower = (float)(0.35 + rand.NextDouble() * 0.05);
                         s.UnitNavalArmyPower = (float)(0.35 + rand.NextDouble() * 0.05);
-                        s.resourceData = new Dictionary<ResourceType, ResourceData>
-                     {
-                            { ResourceType.Gold, new ResourceData { currentAmount = 1000, mineCount = 3, productionRate = goldRate }},
-                            { ResourceType.Water, new ResourceData { currentAmount = 3000, mineCount = 2, productionRate = waterRate }},
-                            { ResourceType.Salt, new ResourceData { currentAmount = 1600, mineCount = 2, productionRate = saltRate }},
-                            { ResourceType.Meat, new ResourceData { currentAmount = 2000, mineCount = 2, productionRate = meatRate }},
-                            { ResourceType.Fruits, new ResourceData { currentAmount = 2000, mineCount = 2, productionRate = fruitsRate }},
-                            { ResourceType.Vegetables, new ResourceData { currentAmount = 1900, mineCount = 2, productionRate = vegetablesRate }},
-                            { ResourceType.Wheat, new ResourceData { currentAmount = 2000, mineCount = 3, productionRate = wheatRate }},
-                            { ResourceType.Wood, new ResourceData { currentAmount = 2100, mineCount = 3, productionRate = woodRate }},
-                            { ResourceType.Coal, new ResourceData { currentAmount = 2200, mineCount = 2, productionRate = coalRate }},
-                            { ResourceType.Iron, new ResourceData { currentAmount = 2400, mineCount = 3, productionRate = ironRate }},
-                            { ResourceType.Stone, new ResourceData { currentAmount = 1900, mineCount = 2, productionRate = stoneRate }},
-                            { ResourceType.Diamond, new ResourceData { currentAmount = 0, mineCount = 0, productionRate = diamondRate }} };
+                        s.resourceData = new Dictionary<ResourceType, ResourceData> {
+                            { ResourceType.Gold, new ResourceData { currentAmount = 1200, mineCount = 4, productionRate = goldRate }}, // Gold'a tüketim eklenmedi
+                            { ResourceType.Water, new ResourceData { currentAmount = 3500, mineCount = 3, productionRate = waterRate, consumptionAmount = WaterConsumptionRate }},
+                            { ResourceType.Salt, new ResourceData { currentAmount = 1800, mineCount = 3, productionRate = saltRate, consumptionAmount = SaltConsumptionRate }},
+                            { ResourceType.Meat, new ResourceData { currentAmount = 2500, mineCount = 3, productionRate = meatRate, consumptionAmount = MeatConsumptionRate }},
+                            { ResourceType.Fruits, new ResourceData { currentAmount = 2200, mineCount = 3, productionRate = fruitsRate, consumptionAmount = FruitConsumptionRate }},
+                            { ResourceType.Vegetables, new ResourceData { currentAmount = 2100, mineCount = 3, productionRate = vegetablesRate, consumptionAmount = VegetablesConsumptionRate }},
+                            { ResourceType.Wheat, new ResourceData { currentAmount = 2300, mineCount = 4, productionRate = wheatRate, consumptionAmount = WheatConsumptionRate }},
+                            { ResourceType.Wood, new ResourceData { currentAmount = 2400, mineCount = 4, productionRate = woodRate }}, // Wood'a tüketim eklenmedi
+                            { ResourceType.Coal, new ResourceData { currentAmount = 2600, mineCount = 3, productionRate = coalRate }}, // Coal'a tüketim eklenmedi
+                            { ResourceType.Iron, new ResourceData { currentAmount = 2800, mineCount = 4, productionRate = ironRate }}, // Iron'a tüketim eklenmedi
+                            { ResourceType.Stone, new ResourceData { currentAmount = 2000, mineCount = 3, productionRate = stoneRate }}, // Stone'a tüketim eklenmedi
+                            { ResourceType.Diamond, new ResourceData { currentAmount = 2, mineCount = 0, productionRate = diamondRate }} // Diamond'a tüketim eklenmedi
+                        };
                         // Import Trade - smallStates için
                         s.importTrade = new Trade(
                             TradeType.Import,
@@ -484,20 +523,20 @@ public class GameInitalizer : MonoBehaviour
                     {// midle rigion
                         s.UnitLandArmyPower = (float)(0.75 + rand.NextDouble() * 0.15);
                         s.UnitNavalArmyPower=(float)(0.75 + rand.NextDouble() * 0.15);
-                        s.resourceData = new Dictionary<ResourceType, ResourceData>
-                        {
-                            { ResourceType.Gold, new ResourceData { currentAmount = 1200, mineCount = 4, productionRate = goldRate }},
-                            { ResourceType.Water, new ResourceData { currentAmount = 3500, mineCount = 3, productionRate = waterRate }},
-                            { ResourceType.Salt, new ResourceData { currentAmount = 1800, mineCount = 3, productionRate = saltRate }},
-                            { ResourceType.Meat, new ResourceData { currentAmount = 2500, mineCount = 3, productionRate = meatRate }},
-                            { ResourceType.Fruits, new ResourceData { currentAmount = 2200, mineCount = 3, productionRate = fruitsRate }},
-                            { ResourceType.Vegetables, new ResourceData { currentAmount = 2100, mineCount = 3, productionRate = vegetablesRate }},
-                            { ResourceType.Wheat, new ResourceData { currentAmount = 2300, mineCount = 4, productionRate = wheatRate }},
-                            { ResourceType.Wood, new ResourceData { currentAmount = 2400, mineCount = 4, productionRate = woodRate }},
-                            { ResourceType.Coal, new ResourceData { currentAmount = 2600, mineCount = 3, productionRate = coalRate }},
-                            { ResourceType.Iron, new ResourceData { currentAmount = 2800, mineCount = 4, productionRate = ironRate }},
-                            { ResourceType.Stone, new ResourceData { currentAmount = 2000, mineCount = 3, productionRate = stoneRate }},
-                            { ResourceType.Diamond, new ResourceData { currentAmount = 2, mineCount = 0, productionRate = diamondRate }}};
+                        s.resourceData = new Dictionary<ResourceType, ResourceData> {
+                                { ResourceType.Gold, new ResourceData { currentAmount = 1000, mineCount = 3, productionRate = goldRate }}, // Gold'a tüketim eklenmedi
+                                { ResourceType.Water, new ResourceData { currentAmount = 3000, mineCount = 2, productionRate = waterRate, consumptionAmount = WaterConsumptionRate }},
+                                { ResourceType.Salt, new ResourceData { currentAmount = 1600, mineCount = 2, productionRate = saltRate, consumptionAmount = SaltConsumptionRate }},
+                                { ResourceType.Meat, new ResourceData { currentAmount = 2000, mineCount = 2, productionRate = meatRate, consumptionAmount = MeatConsumptionRate }},
+                                { ResourceType.Fruits, new ResourceData { currentAmount = 2000, mineCount = 2, productionRate = fruitsRate, consumptionAmount = FruitConsumptionRate }},
+                                { ResourceType.Vegetables, new ResourceData { currentAmount = 1900, mineCount = 2, productionRate = vegetablesRate, consumptionAmount = VegetablesConsumptionRate }},
+                                { ResourceType.Wheat, new ResourceData { currentAmount = 2000, mineCount = 3, productionRate = wheatRate, consumptionAmount = WheatConsumptionRate }},
+                                { ResourceType.Wood, new ResourceData { currentAmount = 2100, mineCount = 3, productionRate = woodRate }}, // Wood'a tüketim eklenmedi
+                                { ResourceType.Coal, new ResourceData { currentAmount = 2200, mineCount = 2, productionRate = coalRate }}, // Coal'a tüketim eklenmedi
+                                { ResourceType.Iron, new ResourceData { currentAmount = 2400, mineCount = 3, productionRate = ironRate }}, // Iron'a tüketim eklenmedi
+                                { ResourceType.Stone, new ResourceData { currentAmount = 1900, mineCount = 2, productionRate = stoneRate }}, // Stone'a tüketim eklenmedi
+                                { ResourceType.Diamond, new ResourceData { currentAmount = 0, mineCount = 0, productionRate = diamondRate }} // Diamond'a tüketim eklenmedi
+                            };
                         // Import Trade - mediumStates için
                         s.importTrade = new Trade(
                             TradeType.Import,

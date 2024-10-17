@@ -19,7 +19,7 @@ public class ResourceManager : MonoBehaviour
     public Action<string> OnStateToTradeChanged;
 
     public static  float DimondRate = 100;
-    public int InputFieldCaharcterLimit = 6;
+    public int InputFieldCaharcterLimit = 11;
     
     
 

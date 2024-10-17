@@ -3,7 +3,8 @@ using System.Collections;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
-
+using static ResourceManager;
+using static RegionClickHandler;
 public class SellPanel : MonoBehaviour
 {
     public GameObject rightBox, emtyStateBox;
@@ -17,7 +18,10 @@ public class SellPanel : MonoBehaviour
     float quantity;
     Color originalTextColor;
     State currentState;
-    
+    State tradeState;
+    public int resLimit = 0;
+
+
     private void Start()
     {
         inputField.characterLimit = ResourceManager.Instance.InputFieldCaharcterLimit;
@@ -33,6 +37,8 @@ public class SellPanel : MonoBehaviour
         sellButton.onClick.AddListener(SellButtonClicked);
         Restart();
         SetNewTradeState();
+        tradeState = ResourceManager.CurrentTradeState;
+        resLimit = (int)tradeState.importTrade.limit[(int)ResourceManager.curentResource - 1];
     }
     private void OnDisable()
     {
@@ -63,7 +69,7 @@ public class SellPanel : MonoBehaviour
     void ShowPanelInfo()
     {
     
-        if(ResourceManager.CurrentTradeState != null)
+        if(tradeState != null)
         {
             if (rightBox.gameObject.activeSelf)
             {
@@ -71,30 +77,16 @@ public class SellPanel : MonoBehaviour
 
                 resIconImage.sprite = ResSpriteSO.Instance.resIcon[(int)resourceType];
 
-                bool test = false; // test biti eðer trade export ya da import listimizde current rres varsa true döncek 
-                foreach (var resType in (ResourceManager.CurrentTradeState.importTrade.resourceTypes))
-                {
-                    if (resType == resourceType)
-                    {
-                        if ((ResourceManager.CurrentTradeState.importTrade.resourceTypes.IndexOf(resType) != -1))
-                        {
-                            indexOfLimit = (ResourceManager.CurrentTradeState.importTrade.resourceTypes.IndexOf(resType));
-                            test = true;
-                            break;
-                        }
-                        else
-                        {
-                            Debug.LogWarning("Hatalý index eriþimi -1 olmamalý");
-                        }
-                    }
-                }
-               if(!test)
+                
+                if(tradeState.importTrade.limit[(int)resourceType-1]<=0)
                 {
                     SetNewTradeState();
-
-                }else
+                }
+               else
                 {
-                    float.TryParse(ResourceManager.CurrentTradeState.importTrade.contractPrices[indexOfLimit].ToString(), out contrackPrice);
+                   
+                    contrackPrice = tradeState.importTrade.contractPrices[(int)resourceType - 1];
+
 
                     if (contrackPrice > 0)
                     {
@@ -122,19 +114,11 @@ public class SellPanel : MonoBehaviour
     void OnInputValueChanged(string input)
     {
 
-        float resLimit=0;
+       
         if (float.TryParse(input, out quantity))
         {
            // Debug.LogWarning("input" + quantity);
-            State tradeState = Usa.Instance.FindStateByName(ResourceManager.Instance.curentTradeStateName);
-            for (int i = 0; i < tradeState.importTrade.resourceTypes.Count; i++)
-            {
-                if (ResourceManager.curentResource == tradeState.importTrade.resourceTypes[i])
-                {
-                    resLimit = tradeState.importTrade.limit[i];
-                    //  Debug.LogWarning($" current trade state name {tradeState.name} res type {ResourceManager.Instance.curentResource} res limit {resLimit}");
-                }
-            }
+          
 
 
             if (resLimit >= quantity )
@@ -162,12 +146,17 @@ public class SellPanel : MonoBehaviour
 
     }
     public void MacButtonClicked()
-    {    
-            inputField.text = amountAvailable.ToString();    
+    {
+        resLimit =(int) tradeState.importTrade.limit[((int)curentResource) - 1];
+        amountAvailable = (int)staticState.resourceData[curentResource].currentAmount;
+        quantity = (resLimit > amountAvailable ? amountAvailable : resLimit);
+        float spendLimit = tradeState.GetGoldResValue() / tradeState.importTrade.contractPrices[((int)curentResource)-1];
+        quantity= quantity>spendLimit? spendLimit : quantity;
+            inputField.text = quantity.ToString();    
         
             if(int.TryParse( amoutAvableValueText.text, out amountAvailable))
             {
-                contrackPriceValueText.text = (amountAvailable * contrackPrice).ToString();
+                contrackPriceValueText.text = (quantity * contrackPrice).ToString();
             }
             else
             {
@@ -226,37 +215,38 @@ public class SellPanel : MonoBehaviour
         bool shouldTradeStateChange = true;
         ResourceType curretResType =    ResourceManager.curentResource;
         string newTradeStatename = "";
-       
-            foreach (Transform stateTransform in Usa.Instance.transform)
-            {
+        tradeState = ResourceManager.CurrentTradeState;
+
+        foreach (Transform stateTransform in Usa.Instance.transform)
+        {
             // index 0 = import index 1 = export
-                State newTradeState=stateTransform.GetComponent<State>();
-                Trade trade = newTradeState.GetTrade(0, curretResType);
-                if (trade != null)
+            State newTradeState = stateTransform.GetComponent<State>();
+            Trade trade = newTradeState.GetTrade(0, curretResType);
+            if (trade != null)
+            {
+                if (tradeState != null)
                 {
-                        if(newTradeState== ResourceManager.CurrentTradeState)
-                            {
-                                    haveAnyTradeState = true;
-                                    shouldTradeStateChange = false;           
-                                break;
-                            }
-                        if( haveAnyTradeState==false)
-                            {
-                                //Debug.LogWarning("state deðiþti: selde  " + stateTransform.name);
-                           
-                                newTradeStatename = newTradeState.name;
-                                haveAnyTradeState = true;
-                            
-                            }
-              
+                    if (newTradeState == tradeState)
+                    {
+                        haveAnyTradeState = true;
+                        shouldTradeStateChange = false;
+                        break;
+                    }
+                    if (haveAnyTradeState == false)
+                    {
+                        //Debug.LogWarning("state deðiþti: selde  " + stateTransform.name);
+                        newTradeStatename = newTradeState.name;
+                        haveAnyTradeState = true;
+                    }
                 }
                 else
                 {
-                   // Debug.LogError("currnet trade is null");
+                    //Debug.LogWarning("ResourceManager.CurrentTradeState is null");
                 }
             }
-            
-            if( haveAnyTradeState==false)
+        }
+
+        if ( haveAnyTradeState==false)
         {
             rightBox.SetActive(false);
             emtyStateBox.SetActive(true);

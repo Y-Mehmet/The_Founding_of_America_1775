@@ -364,7 +364,7 @@ public class State : MonoBehaviour
                 }
                
                 item.Value.currentAmount += productionAmount;
-                item.Value.currentAmount -= (item.Value.consumptionAmount);
+                item.Value.currentAmount -= (item.Value.consumptionAmount*Population/10);
 
             }
 
@@ -660,33 +660,27 @@ public void GemSpend(int value)
     public Trade GetTrade( int  index, ResourceType currentResType)
     {
        // Debug.LogWarning($"state name {gameObject.name} exporttrade value {exportTrade.resourceTypes[0]} {exportTrade.resourceTypes[1]} ");
-        if (index == 0)
+        if (index == 0 )
         {
-            foreach (var resType in importTrade.resourceTypes)
-            {
-                if (resType == currentResType)
+            
+                if (importTrade.limit[(int)currentResType - 1] > 0)
                 {
                     return importTrade;
                 }
-                //else
-               // { Debug.LogWarning($"state res type {resType}  curent res type {currentResType}"); }
-            }
+             
         }
         else
         {
             if (index == 1)
             {
-                foreach (var resType in exportTrade.resourceTypes)
-                {
-                    if (resType == currentResType)
+                
+                    if (exportTrade.limit[(int)currentResType-1] > 0)
                     {
-                       // Debug.LogWarning($"eþleþme  tamam  {resType}  curent res type {currentResType}");
+                       Debug.LogWarning($"eþleþme  tamam  {currentResType}  limit {exportTrade.limit[(int)currentResType - 1]}");
 
                         return exportTrade;
                     }
-                    //else
-                   // { Debug.LogWarning($"state res type {resType}  curent res type {currentResType}"); }
-                }
+                
             }
 
         }

@@ -6,21 +6,26 @@ using UnityEngine;
 public class StateResourceSO : SingletonScriptableObject<StateResourceSO>
 {
     // bir madenin üretim hýzý 
-    public int GoldproductionRate = 5;
-    public int WaterproductionRate = 340;
-    public int SaltproductionRate = 4;
-    public int MeatproductionRate = 30;
-    public int FruitsproductionRate = 25;
-    public int VegetablesproductionRate =45 ;
-    public int WheatproductionRate = 25;
-    public int WoodproductionRate = 20;
-    public int CoalproductionRate = 5;
-    public int IronproductionRate = 5;
-    public int StoneproductionRate = 5;
+    public int GoldproductionRate = 50;
+    public int WaterproductionRate = 3400;//6500 7200
+    public int SaltproductionRate = 40;//70
+    public int MeatproductionRate = 300;//500
+    public int FruitsproductionRate = 250;//450
+    public int VegetablesproductionRate =450 ;//800
+    public int WheatproductionRate = 250;//700
+    public int WoodproductionRate = 200;
+    public int CoalproductionRate = 50;
+    public int IronproductionRate = 50;
+    public int StoneproductionRate = 50;
     public int DimondproductionRate = 1;  
 
     // 1K insanýn günlük kaynak tüketim miktarý
-    public float WaterConsumptionRate = 65;
+    public static float WaterConsumptionRate = 0.0650f;
+    public static float SaltConsumptionRate = 0.007f;
+    public static float MeatConsumptionRate = 0.0050f;
+    public static float FruitConsumptionRate = 0.0045f;
+    public static float VegetablesConsumptionRate =0.0080f;
+    public static float WheatConsumptionRate = 0.0070f;
 
     // 1k için günlük doüum oraný 
     public float BaseBirthRate = 1;

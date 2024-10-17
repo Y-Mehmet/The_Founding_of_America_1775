@@ -3,10 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
+using static TradeManager;
 
 public class StateProductPanelScript : MonoBehaviour
 {
-    public Dictionary<Transform, Trade> stateTransformAndTradeList = new Dictionary<Transform, Trade>();
+   
     public TradeType tradeType; // eðer sell yapacaksak bize import trade lazým çünkü biz o ürünü import edecek ülkelerin listesini istiyoruz 
 
 
@@ -66,10 +67,10 @@ public class StateProductPanelScript : MonoBehaviour
                   //  Debug.LogWarning("buraya export kaynaklarý eklendi");
                     stateTransformAndTradeList.Add(stateTransform, trade);
                 }
-               // else
-                //    Debug.LogWarning(" trade is  *************************null");
+               
 
             }
+            Debug.LogWarning(" trade count " + stateTransformAndTradeList.Count);
             return stateTransformAndTradeList;
         }
         else

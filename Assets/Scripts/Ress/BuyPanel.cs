@@ -17,6 +17,8 @@ public class BuyPanel : MonoBehaviour
     float quantity;
     float deliveryTime;
     Color originalTextColor;
+    State currentState, tradeState;
+
     
     
 
@@ -41,6 +43,7 @@ public class BuyPanel : MonoBehaviour
         Restart();
        
         SetNewTradeState();
+
     }
 
 
@@ -236,22 +239,17 @@ public class BuyPanel : MonoBehaviour
     public void MacButtonClicked()
     {
 
-        inputField.text = ResourceManager.CurrentTradeState.resourceData[ResourceManager.curentResource].currentAmount.ToString();
-        int amountAvailable;
+      
+        int amountAvailable= (int) tradeState.resourceData[ResourceManager.curentResource].currentAmount;
+        int limit =(int) tradeState.exportTrade.limit[(int)ResourceManager.curentResource - 1];
 
-        if (int.TryParse(inputField.text, out amountAvailable))
-        {
-            contrackPriceValueText.text = (amountAvailable * contrackPrice).ToString();
-        }
-        else
-        {
-            Debug.LogWarning(" amaoutny avaible inte dönüþtüürlemedi");
-        }
+        int maxQuanty = amountAvailable >limit? limit:amountAvailable;
+        int currentSpendLimit = (int)( currentState.GetGoldResValue() / contrackPrice);
+        maxQuanty= maxQuanty>currentSpendLimit? currentSpendLimit:maxQuanty;
 
-
-
-
-
+        inputField.text = maxQuanty.ToString();
+        contrackPriceValueText.text = (maxQuanty * contrackPrice).ToString();
+        
     }
     public void BuyButtonClicked()
     {
@@ -261,13 +259,13 @@ public class BuyPanel : MonoBehaviour
         {
             if (quantity > 0)
             {
-                State currentState = RegionClickHandler.Instance.currentState.GetComponent<State>();
+               
                if (currentState.resourceData[ResourceType.Gold].currentAmount >= spending)
                 {
                     if(deliveryTime>0)
                     {
                         currentState.BuyyResource(type, quantity, spending,deliveryTime);
-                        ResourceManager.CurrentTradeState.SellResource(type, quantity, spending);
+                        tradeState.SellResource(type, quantity, spending);
 
                         int stateFlagIndex = currentState.gameObject.transform.GetSiblingIndex();
 
@@ -311,7 +309,7 @@ public class BuyPanel : MonoBehaviour
                 {
                     
                     int stateFlagIndex = RegionClickHandler.Instance.currentState.gameObject.transform.GetSiblingIndex();
-                    RegionClickHandler.Instance.currentState.GetComponent<State>().InstantlyResource(type, quantity, spending);
+                currentState.InstantlyResource(type, quantity, spending);
                     DateTime deliverTime = GameDateManager.instance.GetCurrentDate();
                     bool payWhitGem = true;
                     TradeHistory transaction = new TradeHistory(TradeType.Import, deliverTime, (int)type, quantity, spending, stateFlagIndex, ResourceManager.CurrentTradeState, payWhitGem);
@@ -338,6 +336,7 @@ public class BuyPanel : MonoBehaviour
         bool shouldTradeStateChange = true;
         ResourceType curretResType = ResourceManager.curentResource;       
         string newTradeStatename = "";
+        tradeState= ResourceManager.CurrentTradeState;
         foreach (Transform stateTransform in Usa.Instance.transform)
         {
             // index 0 = import index 1 = export
@@ -345,9 +344,9 @@ public class BuyPanel : MonoBehaviour
             Trade trade = newTradeState.GetTrade(1, curretResType);
             if (trade != null)
             {
-                if(ResourceManager.CurrentTradeState!= null)
+                if(tradeState!= null)
                 {
-                    if (newTradeState == ResourceManager.CurrentTradeState)
+                    if (newTradeState == tradeState)
                     {
                         haveAnyTradeState = true;
                         shouldTradeStateChange = false;                      
@@ -362,13 +361,13 @@ public class BuyPanel : MonoBehaviour
                 }
                 else
                 {
-                    Debug.LogWarning("ResourceManager.CurrentTradeState is null");
+                    //Debug.LogWarning("ResourceManager.CurrentTradeState is null");
                 }
             }
         }
         if (haveAnyTradeState == false)
         {
-            Debug.LogWarning("hiçbir trade yapýlacak state bulunamadý res: " + ResourceManager.curentResource +" "+ curretResType);
+          //  Debug.LogWarning("hiçbir trade yapýlacak state bulunamadý res: " + ResourceManager.curentResource +" "+ curretResType);
             rightBox.SetActive(false);
             emtyStateBox.SetActive(true);
         }
@@ -386,5 +385,9 @@ public class BuyPanel : MonoBehaviour
             emtyStateBox.SetActive(false);
             ShowPanelInfo();
         }
+        currentState = RegionClickHandler.Instance.currentState.GetComponent<State>();
+        tradeState = ResourceManager.CurrentTradeState;
+
     }
+  
 }
