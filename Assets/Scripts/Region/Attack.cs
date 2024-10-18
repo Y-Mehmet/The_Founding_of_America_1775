@@ -57,7 +57,7 @@ public IEnumerator AttackingCoroutine(string defendingState)
 
         DiceManager2.Instance.StartDiceDisActivated(GameManager.Instance.attackFinishDurtion);
         // Print attacking and defending state
-        Debug.Log("Saldýran: " + attackingStateText + " Savunan: " + defendingState);
+      //  Debug.Log("Saldýran: " + attackingStateText + " Savunan: " + defendingState);
 
         // Trim strings and convert to a common case (e.g., lower case) before comparison
          string attackingState = attackingStateText;
@@ -73,7 +73,7 @@ public IEnumerator AttackingCoroutine(string defendingState)
         if (Neighbor.Instance.AreNeighbors(attackingState, defendingState))
         {
             // No loss attack
-            Debug.Log("Kayýpsýz saldýrý gerçekleþti.");
+           // Debug.Log("Kayýpsýz saldýrý gerçekleþti.");
             if (attackingStateGameObject != null && defendingStateGameObject != null)
             {
                 attackingStateTotalArmyPower = attackingStateGameObject.GetComponent<State>().TotalArmyCalculator();
@@ -169,7 +169,7 @@ public IEnumerator AttackingCoroutine(string defendingState)
     public void Attacking(string defendingState)
     {
         GameManager.Instance.IsAttackFinish = false;
-        Debug.LogWarning(defendingState);
+     //   Debug.LogWarning(defendingState);
         StartCoroutine(AttackingCoroutine(defendingState));
     }
 
@@ -209,7 +209,7 @@ public IEnumerator AttackingCoroutine(string defendingState)
 
         if((attackingStateTotalArmyPower*diceLowerLimit)>defendingStateTotalArmyPower)
         {
-            Debug.LogWarning($" attack state army {attackingStateTotalArmyPower} def army {defendingStateTotalArmyPower}");
+           // Debug.LogWarning($" attack state army {attackingStateTotalArmyPower} def army {defendingStateTotalArmyPower}");
             return 1;
         }
         else if ((attackingStateTotalArmyPower * diceMidLimit) > defendingStateTotalArmyPower)

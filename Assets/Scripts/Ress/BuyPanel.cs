@@ -16,7 +16,7 @@ public class BuyPanel : MonoBehaviour
     float contrackPrice;
     float quantity;
     float deliveryTime;
-    Color originalTextColor;
+    Color originalTextColor, ColorRed=Color.red, inputFieldTextColor=Color.black;
     State currentState, tradeState;
 
     
@@ -62,7 +62,17 @@ public class BuyPanel : MonoBehaviour
 
         StopAllCoroutines();
 
+        ColorReset();
 
+
+    }
+    void ColorReset()
+    {
+        contrackPriceValueText.color = originalTextColor;
+        InstantlyValueText.color = originalTextColor;
+        secondValueText.color = originalTextColor;
+        buyValueTax.color = originalTextColor;
+        inputField.textComponent.color = inputFieldTextColor;
     }
     void Restart()
     {
@@ -78,7 +88,7 @@ public class BuyPanel : MonoBehaviour
 
     private void OnStateToTradeChanged(string stateName)
     {
-        Debug.LogWarning($"State deðiþti {stateName} res  {ResourceManager.curentResource} ");
+       // Debug.LogWarning($"State deðiþti {stateName} res  {ResourceManager.curentResource} ");
 
        // SetNewTradeState();
 
@@ -179,8 +189,17 @@ public class BuyPanel : MonoBehaviour
             float buyPrice = quantity * contrackPrice;
             float goldResAmount = RegionClickHandler.Instance.currentState.GetComponent<State>().GetCurrentResValue(ResourceType.Gold);
             float dimondResAmount= RegionClickHandler.Instance.currentState.GetComponent<State>().GetCurrentResValue(ResourceType.Diamond);
+            int limit = (int)tradeState.exportTrade.limit[(int)ResourceManager.curentResource - 1];
+            if (tradeState.resourceData[ResourceManager.curentResource].currentAmount >= quantity && limit>=quantity )
+            {
+                inputField.textComponent.color = inputFieldTextColor;
+            }else
+            {
+                inputField.textComponent.color = ColorRed;
 
-            if (amountAvaible >= quantity && goldResAmount>=buyPrice )
+            }
+
+                if (amountAvaible >= quantity && goldResAmount>=buyPrice )
             {
                 contrackPriceValueText.color = originalTextColor;
                 contrackPriceValueText.text = buyPrice.ToString("F2");
@@ -257,28 +276,36 @@ public class BuyPanel : MonoBehaviour
         float spending;
         if (float.TryParse(contrackPriceValueText.text, out spending))
         {
-            if (quantity > 0)
+            int limit = (int)tradeState.exportTrade.limit[(int)ResourceManager.curentResource - 1];
+            if (quantity > 0 && quantity<=limit)
             {
                
-               if (currentState.resourceData[ResourceType.Gold].currentAmount >= spending)
+               if (currentState.GetGoldResValue() >= spending )
                 {
-                    if(deliveryTime>0)
+                    if(tradeState.resourceData[ResourceManager.curentResource].currentAmount >= quantity)
                     {
-                        currentState.BuyyResource(type, quantity, spending,deliveryTime);
-                        tradeState.SellResource(type, quantity, spending);
-                       // DecraseTradeLimit((int)quantity);
+                        if (deliveryTime > 0)
+                        {
+                            currentState.BuyyResource(type, quantity, spending, deliveryTime);
+                            bool isAllyState = GameManager.AllyStateList.Contains(ResourceManager.Instance.CurrentTradeState);
+                            tradeState.SellResource(type, quantity, spending, isAllyState);
+                            // DecraseTradeLimit((int)quantity);
 
-                        int stateFlagIndex = currentState.gameObject.transform.GetSiblingIndex();
+                            int stateFlagIndex = currentState.gameObject.transform.GetSiblingIndex();
 
-                        DateTime deliverTime = GameDateManager.instance.CalculateDeliveryDateTime(deliveryTime);
-                       
-                        TradeHistory transaction = new TradeHistory(TradeType.Import, deliverTime, (int)type, quantity, spending, stateFlagIndex, ResourceManager.Instance.CurrentTradeState);
-                        //Debug.LogWarning(" tanaction sate name " + transaction.tradeState.name);
-                        TradeManager.instance.AddTransaction(transaction);
-                        UIManager.Instance.GetComponent<HideLastPanelButton>().DoHidePanel();
-                       // Debug.LogWarning($"res satýn alýndý quantaty {quantity} harcanan altýn {spending}");
-                    }else
-                    { Debug.LogError("delivery time is null"); }
+                            DateTime deliverTime = GameDateManager.instance.CalculateDeliveryDateTime(deliveryTime);
+
+                            TradeHistory transaction = new TradeHistory(TradeType.Import, deliverTime, (int)type, quantity, spending, stateFlagIndex, ResourceManager.Instance.CurrentTradeState,(int) (limit-quantity));
+                            //Debug.LogWarning(" tanaction sate name " + transaction.tradeState.name);
+                            TradeManager.instance.AddTransaction(transaction);
+                            UIManager.Instance.GetComponent<HideLastPanelButton>().DoHidePanel();
+                            // Debug.LogWarning($"res satýn alýndý quantaty {quantity} harcanan altýn {spending}");
+                        }
+                        else
+                        { Debug.LogError("delivery time is null"); }
+                   
+                    }
+                    
                     
                 }
                else
@@ -304,20 +331,31 @@ public class BuyPanel : MonoBehaviour
             
             float Dimond = GameEconomy.Instance.GetGemValue(spending);
             spending = Dimond;
-            if ( quantity >0)
+            int limit = (int)tradeState.exportTrade.limit[(int)type - 1];
+            if ( quantity >0 && quantity<=limit)
             {
-                if (ResourceManager.Instance.CurrentTradeState.resourceData[ResourceType.Diamond].currentAmount > spending)
+                if (currentState.GetGemResValue() >= spending)
                 {
+                    if(ResourceManager.Instance.CurrentTradeState.resourceData[type].currentAmount>=quantity)
+                    {
+                        int stateFlagIndex = RegionClickHandler.Instance.currentState.gameObject.transform.GetSiblingIndex();
+                        bool isAllyState = GameManager.AllyStateList.Contains(ResourceManager.Instance.CurrentTradeState);
+                        currentState.InstantlyResource(type, quantity, spending);
+                        ResourceManager.Instance.CurrentTradeState.SellResource(type, quantity, spending, isAllyState);
+                        //DecraseTradeLimit((int)quantity);
+                        DateTime deliverTime = GameDateManager.instance.GetCurrentDate();
+                        bool payWhitGem = true;
+                        TradeHistory transaction = new TradeHistory(TradeType.Import, deliverTime, (int)type, quantity, spending, stateFlagIndex, ResourceManager.Instance.CurrentTradeState, (int)(limit - quantity), payWhitGem);
+                        TradeManager.instance.AddTransaction(transaction);
+                        UIManager.Instance.GetComponent<HideLastPanelButton>().DoHidePanel();
+                        inputField.textComponent.color = inputFieldTextColor;
+                    }
+                    else
+                    {
+                        inputField.textComponent.color = Color.red;
+                    }
                     
-                    int stateFlagIndex = RegionClickHandler.Instance.currentState.gameObject.transform.GetSiblingIndex();
-                    currentState.InstantlyResource(type, quantity, spending);
-                    ResourceManager.Instance.CurrentTradeState.SellResource(type, quantity, spending);
-                    //DecraseTradeLimit((int)quantity);
-                    DateTime deliverTime = GameDateManager.instance.GetCurrentDate();
-                    bool payWhitGem = true;
-                    TradeHistory transaction = new TradeHistory(TradeType.Import, deliverTime, (int)type, quantity, spending, stateFlagIndex, ResourceManager.Instance.CurrentTradeState, payWhitGem);
-                    TradeManager.instance.AddTransaction(transaction);
-                    UIManager.Instance.GetComponent<HideLastPanelButton>().DoHidePanel();
+                   
                 }
                 else
                 {

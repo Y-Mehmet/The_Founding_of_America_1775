@@ -241,12 +241,7 @@ public class State : MonoBehaviour
     {
         if (increaseArmySizeCoroutine == null && stateType!=StateType.Ally)
             increaseArmySizeCoroutine = StartCoroutine(IncreaseArmySizeOverTime());
-
-        //if(decreaseArmySizeCoroutine== null)
-        //{
-        //    decreaseArmySizeCoroutine = StartCoroutine(ReduceArmySizeOverTime());
-        //}
-
+        
         if (resourceProductionCoroutine == null)
             resourceProductionCoroutine = StartCoroutine(ResourceProduction());
         if (moreleCoroutine == null)
@@ -443,7 +438,7 @@ public class State : MonoBehaviour
     {
         if (stateType == StateType.Enemy)
         {
-            Debug.LogWarning("state iþgal edildi");
+            //Debug.LogWarning("state iþgal edildi");
             ArmySize = firstArmySize;
             stateType = StateType.Ally;
             ChangeCollor.Instance.ChangeGameobjectColor(gameObject, stateType);
@@ -452,12 +447,12 @@ public class State : MonoBehaviour
             AllyState allyState = gameObject.GetComponent<AllyState>();
             if (allyState != null)
             {
-                Debug.LogWarning($"ally stete {allyState.name} bulundu ve eneblesi actif edildi");
+            //    Debug.LogWarning($"ally stete {allyState.name} bulundu ve eneblesi actif edildi");
                 allyState.enabled = true;
             }
             else
             {
-                Debug.LogWarning("ally state bulunamadý ");
+             //   Debug.LogWarning("ally state bulunamadý ");
                 gameObject.AddComponent<AllyState>();
             }
         }
@@ -467,7 +462,7 @@ public class State : MonoBehaviour
     }
     void LostState()
     {
-        Debug.LogWarning("state kayýbedildi");
+       // Debug.LogWarning("state kayýbedildi");
         ArmySize = firstArmySize;
         stateType = StateType.Enemy;
         ChangeCollor.Instance.ChangeGameobjectColor(gameObject, stateType);
@@ -487,7 +482,7 @@ public class State : MonoBehaviour
     }
   void RelaseState()
     {
-        Debug.LogWarning("state özgürleitirildi edildi");
+      //  Debug.LogWarning("state özgürleitirildi edildi");
         ArmySize = firstArmySize;
         stateType = StateType.Neutral;
         ChangeCollor.Instance.ChangeGameobjectColor(gameObject, stateType);
@@ -591,18 +586,21 @@ public void GemSpend(int value)
             }
     }
 }
-    public void SellResource(ResourceType resType, float quantity, float earing)
+    public void SellResource(ResourceType resType, float quantity, float earing, bool isAllyState=false)
     {
         
             if (resourceData.ContainsKey(resType))
             {
-           // Debug.LogWarning($"{gameObject.name} statesinde {resType} kaynaðý {quantity} miktarý kadar eksildi eksilmeden önceki miktar {resourceData[resType].currentAmount}");
-                // Eðer kaynak zaten mevcutsa, miktarý güncelleyebilirsiniz
-                resourceData[resType].currentAmount -= quantity;
-           // Debug.LogWarning($"{gameObject.name} statesinde {resType} kaynaðý {quantity} miktarý kadar eksildi eksilmeden sonraki  miktar {resourceData[resType].currentAmount}");
+            exportTrade.limit[(int)resType - 1] -= quantity;
+
+          //  Debug.LogWarning(" limit: " + exportTrade.limit[(int)resType - 1]);
+           // Debug.Log($"{gameObject.name} {resType} kaynaðý {quantity} önceki miktar {resourceData[resType].currentAmount}");
+            // Eðer kaynak zaten mevcutsa, miktarý güncelleyebilirsiniz
+            resourceData[resType].currentAmount -= quantity;
+          //  Debug.Log($"{gameObject.name} {resType} kaynaðý {quantity} sonraki  miktar {resourceData[resType].currentAmount}");
             foreach (var item in Taxes)
             {
-                if(item.taxType== TaxType.ValueAddedTax)
+                if(item.taxType== TaxType.ValueAddedTax && !isAllyState)
                 {
                     float tax = (earing / 100) * item.currentRate;
                     ResourceManager.Instance.ChargeTax(ResourceType.Gold, tax);
@@ -615,20 +613,22 @@ public void GemSpend(int value)
             {
                 Debug.LogWarning("u try new resoruce type  ");
             }
-        exportTrade.limit[(int)resType - 1] -= quantity;
+       
 
 
     }
     public void BuyyResource(ResourceType resType, float quantity, float spending, float deliveryTime = 0)
     {
-        Debug.LogWarning("buy " + gameObject.name);
+       // Debug.LogWarning("buy " + gameObject.name);
         if (resourceData.ContainsKey(resType))
         {
-            importTrade.limit[(int)resType - 1] -= quantity;
-            resourceData[ResourceType.Gold].currentAmount -= spending;
-           // Debug.Log($"Coroutine baþlatýlýyor: {resType}, Miktar: {quantity}, Teslimat Süresi: {deliveryTime}");
-            StartCoroutine(BuyResource(resType, quantity, deliveryTime));
-            
+                importTrade.limit[(int)resType - 1] -= quantity;
+
+                resourceData[ResourceType.Gold].currentAmount -= spending;
+             //   Debug.Log($"Coroutine baþlatýlýyor: {resType}, Miktar: {quantity}, Teslimat Süresi: {deliveryTime}");
+                StartCoroutine(BuyResource(resType, quantity, deliveryTime));
+             //   Debug.Log($"Coroutine baþlatýlýyor: {resType}, Miktar: {quantity}, Teslimat Süresi: {deliveryTime}");
+
         }
         else
         {
@@ -680,7 +680,7 @@ public void GemSpend(int value)
                 
                     if (exportTrade.limit[(int)currentResType-1] > 0)
                     {
-                       Debug.LogWarning($"eþleþme  tamam  {currentResType}  limit {exportTrade.limit[(int)currentResType - 1]}");
+                      // Debug.LogWarning($"eþleþme  tamam  {currentResType}  limit {exportTrade.limit[(int)currentResType - 1]}");
 
                         return exportTrade;
                     }

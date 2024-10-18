@@ -23,7 +23,7 @@ public class TradeManager : MonoBehaviour
     {
         if(TradeHistoryQueue == null)
         {
-            Debug.LogWarning("yeni TradeHistoryQueue olustutuldu");
+         //   Debug.LogWarning("yeni TradeHistoryQueue olustutuldu");
 
         }
         if (TradeHistoryQueue.Count >= maxTransactionCount)
@@ -32,7 +32,7 @@ public class TradeManager : MonoBehaviour
         }
         
         TradeHistoryQueue.Enqueue(tradeHistory);
-        Debug.LogWarning("que count "+TradeHistoryQueue.Count);
+     //   Debug.LogWarning("que count "+TradeHistoryQueue.Count);
         onTradeHistoryQueueChanged?.Invoke();
     }
     public Queue<TradeHistory> GetTradeHistoryQueue() { return TradeHistoryQueue; }
@@ -47,10 +47,11 @@ public class TradeHistory
     public float cost;
     public int tradeStateFlagIndex;
     public State tradeState;
+    public int tradeLimit;
 
 
     // Constructor
-    public TradeHistory( TradeType tradeType, DateTime deliveryTime, int productSpriteIndex, float quantity, float cost, int tradeStateFlagIndex, State tradeState, bool payWhitGem = false)
+    public TradeHistory( TradeType tradeType, DateTime deliveryTime, int productSpriteIndex, float quantity, float cost, int tradeStateFlagIndex, State tradeState,int tradeLimit, bool payWhitGem = false)
     {
         this.payWhitGem = payWhitGem;
         this.tradeType = tradeType;
@@ -60,5 +61,6 @@ public class TradeHistory
         this.cost = cost;
         this.tradeStateFlagIndex = tradeStateFlagIndex;
         this.tradeState = tradeState;
+        this.tradeLimit = tradeLimit;
     }
 }

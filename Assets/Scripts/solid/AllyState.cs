@@ -65,11 +65,11 @@ public class AllyState : MonoBehaviour, ISelectable
        
         if(GetComponent<State>().IsCapitalCity)
         {
-            Debug.LogWarning("capital city gösterildi ");
+           // Debug.LogWarning("capital city gösterildi ");
             UIManager.Instance.GetComponent<ShowPanelButton>().DoShowPanelWhitId(PanelID.CapitalStatePanel);
         }else
         {
-            Debug.LogWarning("ally stete gösterildi");
+           // Debug.LogWarning("ally stete gösterildi");
             UIManager.Instance.GetComponent<ShowPanelButton>().DoShowPanelWhitId(PanelID.AllyStatePanel);
         }
         GameManager.Instance.ChanngeIsRegionPanelOpenValueTrue();

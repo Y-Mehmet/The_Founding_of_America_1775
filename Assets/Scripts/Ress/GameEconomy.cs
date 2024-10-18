@@ -27,16 +27,16 @@ public class GameEconomy : MonoBehaviour
             resourceToGoldValue = new Dictionary<ResourceType, float>
         {
             { ResourceType.Gold, 1f },
-            { ResourceType.Water, 0.005f },    
-            { ResourceType.Salt, 0.008f },     
-            { ResourceType.Meat, 0.006f },     
-            { ResourceType.Fruits, 0.004f },   
-            { ResourceType.Vegetables, 0.004f }, 
-            { ResourceType.Wheat, 0.005f },    
-            { ResourceType.Wood, 0.003f },
-            { ResourceType.Coal, 0.007f },    
-            { ResourceType.Iron, 0.009f },     
-            { ResourceType.Stone, 0.005f },    
+            { ResourceType.Water, 0.05f },    
+            { ResourceType.Salt, 0.08f },     
+            { ResourceType.Meat, 0.06f },     
+            { ResourceType.Fruits, 0.04f },   
+            { ResourceType.Vegetables, 0.04f }, 
+            { ResourceType.Wheat, 0.05f },    
+            { ResourceType.Wood, 0.03f },
+            { ResourceType.Coal, 0.07f },    
+            { ResourceType.Iron, 0.09f },     
+            { ResourceType.Stone, 0.05f },    
             { ResourceType.Diamond, ResourceManager.DimondRate }   //100  
         };
         }

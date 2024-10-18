@@ -170,18 +170,20 @@ public class SellPanel : MonoBehaviour
         float earing;
         if (float.TryParse(contrackPriceValueText.text, out earing))
         {
+            int limit =(int) ResourceManager.Instance.CurrentTradeState.importTrade.limit[(int)type - 1];
             if (quantity>0)
             {
 
                 if (quantity<= currentState.resourceData[type].currentAmount)
                 {
-                    currentState.SellResource(type, quantity, earing);
+                    bool isAllyState = GameManager.AllyStateList.Contains(ResourceManager.Instance.CurrentTradeState);
+                    currentState.SellResource(type, quantity, earing,isAllyState);
                     ResourceManager.Instance.CurrentTradeState.BuyyResource(type, quantity, earing);
                     
                     amoutAvableValueText.text = currentState.GetCurrentResValue(type).ToString("F2");
                     int stateFlagIndex = currentState.gameObject.transform.GetSiblingIndex();
                     DateTime deliverTime = GameDateManager.instance.GetCurrentDate();                 
-                    TradeHistory transaction = new TradeHistory(TradeType.Export, deliverTime, (int)type, quantity, earing, stateFlagIndex, ResourceManager.Instance.CurrentTradeState);
+                    TradeHistory transaction = new TradeHistory(TradeType.Export, deliverTime, (int)type, quantity, earing, stateFlagIndex, ResourceManager.Instance.CurrentTradeState, (int)(limit - quantity));
                     TradeManager.instance.AddTransaction(transaction);
                     OnInputValueChanged("0");
                     UIManager.Instance.GetComponent<HideLastPanelButton>().DoHidePanel();

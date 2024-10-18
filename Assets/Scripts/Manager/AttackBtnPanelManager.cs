@@ -44,7 +44,7 @@ public class AttackBtnPanelManager : MonoBehaviour
             }
             else
             {
-                Debug.LogWarning("Bu state için atanmýþ bir general bulunamadý.");
+             //   Debug.LogWarning("Bu state için atanmýþ bir general bulunamadý.");
             }
             playerWonCountText.text = Attack.Instance.numberOfDiceWonByThePlayer.ToString();
             enemyWonCountText.text= Attack.Instance.numberOfDiceWonByTheRival.ToString();
@@ -151,8 +151,8 @@ public class AttackBtnPanelManager : MonoBehaviour
         enemyGeneralText.text = enemyQuote;
 
         // Log ile kontrol
-        Debug.Log("Player Quote: " + playerQuote);
-        Debug.Log("Enemy Quote: " + enemyQuote);
+       //Debug.Log("Player Quote: " + playerQuote);
+       // Debug.Log("Enemy Quote: " + enemyQuote);
     }
 
 }

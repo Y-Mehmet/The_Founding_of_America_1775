@@ -70,7 +70,7 @@ public class StateProductPanelScript : MonoBehaviour
                
 
             }
-            Debug.LogWarning(" trade count " + stateTransformAndTradeList.Count);
+           // Debug.LogWarning(" trade count " + stateTransformAndTradeList.Count);
             return stateTransformAndTradeList;
         }
         else
