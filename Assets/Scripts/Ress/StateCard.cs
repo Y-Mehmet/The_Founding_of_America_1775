@@ -7,7 +7,7 @@ using UnityEngine.Rendering;
 using UnityEngine.UI;
 using static TradeManager;
 using static ResourceManager;
-using static UnityEditor.Experimental.GraphView.GraphView;
+
 public class StateCard : MonoBehaviour
 {
     public TextMeshProUGUI StateNameText, CoinValueText, CurentLimitValueText;// tradelimit olmalý
