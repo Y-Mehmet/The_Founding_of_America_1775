@@ -90,7 +90,7 @@ public class SellPanel : MonoBehaviour
 
                     if (contrackPrice > 0)
                     {
-                        Debug.LogWarning("contrat price " + contrackPrice + "curent rade state name " + (ResourceManager.Instance.CurrentTradeState.name));
+                       // Debug.LogWarning("contrat price " + contrackPrice + "curent rade state name " + (ResourceManager.Instance.CurrentTradeState.name));
                         contrackPriceValueText.text = contrackPrice.ToString("F2");
 
                     }

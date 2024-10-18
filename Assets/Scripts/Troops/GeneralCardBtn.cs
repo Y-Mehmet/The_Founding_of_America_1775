@@ -24,9 +24,9 @@ public class GeneralCardBtn : MonoBehaviour
 
     void OnButtonClicKed(PanelID panelID)
     {
-       Debug.LogWarning(" butona týklandý "+panelID.ToString());
+     //  Debug.LogWarning(" butona týklandý "+panelID.ToString());
         GeneralManager.SetGeneralIndex(transform.GetSiblingIndex());
-        Debug.LogWarning(GeneralManager.GeneralIndex);
+      //  Debug.LogWarning(GeneralManager.GeneralIndex);
         UIManager.Instance.GetComponent<ShowPanelButton>().DoShowPanelWhitId(panelID);
     }
 }

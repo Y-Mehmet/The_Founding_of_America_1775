@@ -57,7 +57,7 @@ public class GeneralManager:MonoBehaviour
         if (previousState != null)
         {
             stateGenerals.Remove(previousState);
-            Debug.Log($"General {general.Name} removed from {previousState.StateName}");
+        //    Debug.Log($"General {general.Name} removed from {previousState.StateName}");
         }
 
         // Eðer state'e zaten bir general atanmýþsa, önce o general kaldýrýlýr
@@ -65,12 +65,12 @@ public class GeneralManager:MonoBehaviour
         {
             var previousGeneral = stateGenerals[state];
             stateGenerals.Remove(state);
-            Debug.Log($"General {previousGeneral.Name} removed from {state.StateName}");
+         //   Debug.Log($"General {previousGeneral.Name} removed from {state.StateName}");
         }
 
         // Yeni general state'e atanýr
         stateGenerals[state] = general;
-        Debug.Log($"General {general.Name} successfully assigned to {state.StateName}");
+      //  Debug.Log($"General {general.Name} successfully assigned to {state.StateName}");
     }
 
     // Belirli bir state'in generalini geri alma iþlemi

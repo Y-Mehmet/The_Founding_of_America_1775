@@ -624,6 +624,7 @@ MonoBehaviour:
   resIconImage: {fileID: 3562047068358316490}
   amoutAvableValueText: {fileID: 7308266982068294246}
   contrackPriceValueText: {fileID: 83109604206085225}
+  resLimit: 0
 --- !u!1 &2252985119974150715
 GameObject:
   m_ObjectHideFlags: 0
@@ -1597,6 +1598,21 @@ PrefabInstance:
       propertyPath: m_Name
       value: toglepanel (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 4414934381466607027, guid: 903f307218275b64eb71084d6f2e9d6f,
+        type: 3}
+      propertyPath: m_Color.b
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4414934381466607027, guid: 903f307218275b64eb71084d6f2e9d6f,
+        type: 3}
+      propertyPath: m_Color.g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4414934381466607027, guid: 903f307218275b64eb71084d6f2e9d6f,
+        type: 3}
+      propertyPath: m_Color.r
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 6442711873250643640, guid: 903f307218275b64eb71084d6f2e9d6f,
         type: 3}
       propertyPath: m_Pivot.x
@@ -2557,7 +2573,7 @@ PrefabInstance:
     - target: {fileID: 520047656906868381, guid: 406824a9f05edf04b914a7a6913dcb25,
         type: 3}
       propertyPath: m_AnchorMax.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 520047656906868381, guid: 406824a9f05edf04b914a7a6913dcb25,
         type: 3}
@@ -2567,7 +2583,7 @@ PrefabInstance:
     - target: {fileID: 520047656906868381, guid: 406824a9f05edf04b914a7a6913dcb25,
         type: 3}
       propertyPath: m_AnchorMin.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 520047656906868381, guid: 406824a9f05edf04b914a7a6913dcb25,
         type: 3}
@@ -2577,12 +2593,12 @@ PrefabInstance:
     - target: {fileID: 520047656906868381, guid: 406824a9f05edf04b914a7a6913dcb25,
         type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 0
+      value: 53.337616
       objectReference: {fileID: 0}
     - target: {fileID: 520047656906868381, guid: 406824a9f05edf04b914a7a6913dcb25,
         type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 0
+      value: -37.5
       objectReference: {fileID: 0}
     - target: {fileID: 1164554789852446575, guid: 406824a9f05edf04b914a7a6913dcb25,
         type: 3}

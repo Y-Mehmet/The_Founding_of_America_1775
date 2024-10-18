@@ -528,10 +528,9 @@ public class State : MonoBehaviour
         //Debug.LogWarning($"güncel altýn ilk  durmu plunderliste uzunluðu {plunderedResources.Count} {resourceData[ResourceType.Gold].currentAmount} " + name);
 
         plunderedResources.Add(ResourceType.Gold, resourceData[ResourceType.Gold].currentAmount);
-            resourceData[ResourceType.Gold].currentAmount = 0;
+           
             plunderedResources.Add(resourceType, resourceData[resourceType].currentAmount);
-            resourceData[resourceType].currentAmount = 0;
-
+          
         //   Debug.LogWarning($"güncel altýn durmu {resourceData[ResourceType.Gold].currentAmount} "+ name);
        
 
@@ -586,6 +585,24 @@ public void GemSpend(int value)
             }
     }
 }
+
+    public void RemoveResource(Dictionary<ResourceType, float> plunderedResources)
+    {
+
+        foreach (var resource in plunderedResources)
+        {
+            if (resourceData.ContainsKey(resource.Key))
+            {
+               
+
+                resourceData[resource.Key].currentAmount -= resource.Value;
+            }
+            else
+            {
+                Debug.LogWarning("u try new resoruce type  ");
+            }
+        }
+    }
     public void SellResource(ResourceType resType, float quantity, float earing, bool isAllyState=false)
     {
         

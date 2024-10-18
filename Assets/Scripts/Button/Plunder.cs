@@ -9,35 +9,43 @@ public class Plunder : MonoBehaviour
 {
     public List<Image> resIconImages = new List<Image>();
     public List<TextMeshProUGUI> resTexts = new List<TextMeshProUGUI>();
-    public Button plunderBtn;
+    public Button plunderBtn, addPlunderBtn;
 
     private void OnEnable()
     {
-        plunderBtn.onClick.AddListener(ChangeAttackFinisValueTrue);
+        plunderBtn.onClick.AddListener(() => PlunderBtnCliecked());
+
+        addPlunderBtn.onClick.AddListener(() => PlunderBtnCliecked(true));
         ShowPlunderPanel();
     }
-    void ChangeAttackFinisValueTrue()
+    void PlunderBtnCliecked(bool isAddTrue=false)
     {
         GameManager.Instance.ChangeAttackFinisValueTrue();
         GameManager.Instance.ChangeIsAttackValueFalse();
+        GameManager.Instance.ChanngeIsRegionPanelOpenValueFalse();
+        PlunderManager.Instance.PlunderState(isAddTrue);
+        UIManager.Instance.GetComponent<HideAllPanelButton>().DoHidePanel();
     }
+   
     public void ShowPlunderPanel()
     {
         ItemSetActifFalse();
 
-        State defState = Attack.Instance.FindChildByName(Usa.Instance.transform, Attack.Instance.lastDefendingState).GetComponent<State>();
+        State defState = Usa.Instance.FindStateByName(Attack.Instance.lastDefendingState);
+   
 
      //   Debug.LogWarning("lunder panel bilgileri gösterilecek plunder count= " + defState.plunderedResources.Count);
 
         if ( defState!= null)
         {
+            defState.PlunderResource();
             for (int i = 0; i < defState.GetPlundData().Count; i++)
             {
                 Debug.Log($" res type ýndex {defState.GetPlundData().ElementAt(i).Key} res value {defState.GetPlundData().ElementAt(i).Value} ");
                 resIconImages[i].gameObject.SetActive(true);
                 resIconImages[i].sprite = Resources.Load<Sprite>("ResourcesIcon/" + (int) defState.GetPlundData().ElementAt(i).Key);
                 resTexts[i].gameObject.SetActive(true);
-                resTexts[i].text = defState.GetPlundData().ElementAt(i).Value.ToString();
+                resTexts[i].text = "+"+((int)defState.GetPlundData().ElementAt(i).Value).ToString();
                 if(i>=resTexts.Count)
                 {
                     Debug.LogWarning(" yeterince text yok");
@@ -66,7 +74,8 @@ public class Plunder : MonoBehaviour
     }
     private void OnDisable()
     {
-        plunderBtn.onClick.RemoveListener(ChangeAttackFinisValueTrue);
+        plunderBtn.onClick.RemoveAllListeners();
+        addPlunderBtn.onClick.RemoveAllListeners();
     }
 
 }
