@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
-
+using static Utility;
 public class AllyStateInfoPanel : MonoBehaviour
 {
     public static AllyStateInfoPanel Instance { get; private set; } 
@@ -58,7 +58,7 @@ public class AllyStateInfoPanel : MonoBehaviour
 
         {
             happinesText.text = "Happines: " + ((int)currnetState.Morele).ToString();
-            totalArmyPowerText.text = "Army: " +((int) currnetState.GetTotalArmyPower()).ToString();
+            totalArmyPowerText.text = "Army: " +FormatNumber(currnetState.GetTotalArmyPower());
             mainResTypeText.text = "Main Resoruce" + ((MainResourceType)currnetState.Resources).ToString();
 
         }

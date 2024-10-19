@@ -8,7 +8,7 @@ public class GameEconomy : MonoBehaviour
     private Dictionary<ResourceType, float> resourceToGoldValue;
     
      public float PayBackValue;
-    public  float payBackTime = 100;
+    public  float payBackTime = 10;
     private void Awake()
     {
         if(Instance == null)
@@ -27,17 +27,17 @@ public class GameEconomy : MonoBehaviour
             resourceToGoldValue = new Dictionary<ResourceType, float>
         {
             { ResourceType.Gold, 1f },
-            { ResourceType.Water, 0.05f },    
-            { ResourceType.Salt, 0.08f },     
-            { ResourceType.Meat, 0.06f },     
-            { ResourceType.Fruits, 0.04f },   
-            { ResourceType.Vegetables, 0.04f }, 
-            { ResourceType.Wheat, 0.05f },    
-            { ResourceType.Wood, 0.03f },
-            { ResourceType.Coal, 0.07f },    
-            { ResourceType.Iron, 0.09f },     
-            { ResourceType.Stone, 0.05f },    
-            { ResourceType.Diamond, ResourceManager.DimondRate }   //100  
+            { ResourceType.Water, 0.015f },    
+            { ResourceType.Salt, 0.12f },     
+            { ResourceType.Meat, 0.15f },     
+            { ResourceType.Fruits, 0.20f },   
+            { ResourceType.Vegetables, 0.12f }, 
+            { ResourceType.Wheat, 0.2f },    
+            { ResourceType.Wood, 0.2f },
+            { ResourceType.Coal, 0.09f },    
+            { ResourceType.Iron, 0.08f },     
+            { ResourceType.Stone, 0.09f },    
+            { ResourceType.Diamond, ResourceManager.DimondRate }   
         };
         }
 

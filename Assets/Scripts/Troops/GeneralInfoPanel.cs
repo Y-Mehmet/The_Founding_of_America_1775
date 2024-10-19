@@ -5,7 +5,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 using static GeneralManager;
-
+using static Utility;
 
 public class GeneralInfoPanel : MonoBehaviour
 {

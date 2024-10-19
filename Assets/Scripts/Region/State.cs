@@ -113,6 +113,7 @@ public class State : MonoBehaviour
         
 
         TotalArmyPower = (LandArmySize * (UnitLandArmyPower+generalLandHelpRate))+(NavalArmySize*(UnitNavalArmyPower+generalNavalHelpRate))/100*(Morele<50?50:Morele);
+       // Debug.LogWarning($"{LandArmySize} ");
         return TotalArmyPower<0?0:(int) TotalArmyPower;
     }
     public int GetArmySize()
@@ -332,7 +333,10 @@ public class State : MonoBehaviour
         {
             foreach (var item in resourceData)
             {
-                float productionAmount = (item.Value.mineCount * item.Value.productionRate) / 100 * Morele;
+                float productionAmount = item.Value.mineCount * item.Value.productionRate;
+                float moraleEffect = (101 - Morele) / 100;
+                productionAmount *= (1 - moraleEffect * 0.1f);
+
                 if (item.Key== ResourceType.Gold)
                 {
                     foreach (var item1 in Taxes)
@@ -357,13 +361,16 @@ public class State : MonoBehaviour
                     }
                     
                 }
-               
+                if(item.Key== ResourceType.Water && IsCapitalCity)
+             //   Debug.LogWarning($"{item.Key}  üretim  {productionAmount} tüketim {(item.Value.consumptionAmount * Population) } ");
                 item.Value.currentAmount += productionAmount;
-                item.Value.currentAmount -= (item.Value.consumptionAmount*Population/10);
+                item.Value.currentAmount -= (item.Value.consumptionAmount*Population);
 
             }
 
-            
+
+
+
             yield return new WaitForSeconds(GameManager.gameDayTime);
         }
     }

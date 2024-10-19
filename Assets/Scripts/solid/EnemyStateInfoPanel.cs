@@ -1,7 +1,7 @@
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
-
+using static Utility;
 public class EnemyStateInfoPanel : MonoBehaviour
 {
     public static EnemyStateInfoPanel Instance { get; private set; }
@@ -101,7 +101,7 @@ public class EnemyStateInfoPanel : MonoBehaviour
         
         
             happinesText.text = "Happines: " + ((int)currnetState.Morele).ToString();
-        totalArmyPowerText.text = "Army: " + ((int)currnetState.GetTotalArmyPower()).ToString();
+        totalArmyPowerText.text = "Army: " + FormatNumber(currnetState.GetTotalArmyPower());
         mainResTypeText.text = "Main Resoruce: " + ((MainResourceType)currnetState.Resources).ToString();
        
 

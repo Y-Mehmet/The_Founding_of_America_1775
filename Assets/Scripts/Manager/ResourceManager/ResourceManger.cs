@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
-
+using static Utility;
 public class ResourceManager : MonoBehaviour
 {
     // USA CENTER BANK
@@ -86,8 +86,7 @@ public class ResourceManager : MonoBehaviour
     }
     public void ChargeTax(ResourceType resourceType, float reduceAmount)
     {
-        goldText.text = ((int)resources[ResourceType.Gold]).ToString();
-        
+        goldText.text = FormatNumber(resources[ResourceType.Gold]);
         if (resources.ContainsKey(resourceType))
         {
             resources[resourceType] +=  reduceAmount;

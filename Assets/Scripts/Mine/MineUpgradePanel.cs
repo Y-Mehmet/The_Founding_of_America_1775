@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
-
+using static Utility;
 public class MineUpgradePanel : MonoBehaviour
 {
     public TMP_Text MineNameText, productionPerDayText, buyButtonText, instantlyButtonText, MineCountText;
@@ -32,11 +32,11 @@ public class MineUpgradePanel : MonoBehaviour
     }
     private void OnEnable()
     {
-        ResetUI();
+      
         currentState = RegionClickHandler.Instance.currentState.GetComponent<State>();
         currentResType = MineManager.instance.curentResource;
-        
-        
+
+        ResetUI();
         MineManager.instance.OnResourceChanged += OnResourceTypeChanged;
         inputField.onValueChanged.AddListener(OnInputValueChanged);
         macButton.onClick.AddListener(MacButtonClicked);
@@ -45,6 +45,7 @@ public class MineUpgradePanel : MonoBehaviour
 
 
         ShowPanelInfo();
+        
     }
     private void OnDisable()
     {
@@ -62,7 +63,7 @@ public class MineUpgradePanel : MonoBehaviour
     }
     void ShowPanelInfo()
     {
-        MineCountText.text= currentState.resourceData[currentResType].mineCount.ToString();
+        MineCountText.text = FormatNumber(currentState.resourceData[currentResType].mineCount);
         resIcon.sprite = ResSpriteSO.Instance.resIcon[(int)currentResType];
         MineNameText.text= MineManager.instance.GetMineName();
         RequiredResValueList = MineManager.instance.GetReqResValue();
@@ -72,19 +73,19 @@ public class MineUpgradePanel : MonoBehaviour
         for (int i=0;i<RequiredResTypeValueList.Count;i++)
         {
             // spend value 
-            reqResValueTextList[i].text ="- "+ RequiredResValueList[i].ToString();
+            reqResValueTextList[i].text = "- " + FormatNumber(RequiredResValueList[i]);
 
-            // curretn amount
+                // curretn amount
             ResourceType resType = RequiredResTypeValueList[i];
              float resCurrentAmountValue = currentState.resourceData[resType].currentAmount;
-            reqResCurrentAmountValueTextList[i].text= resCurrentAmountValue.ToString();
+            reqResCurrentAmountValueTextList[i].text= FormatNumber(resCurrentAmountValue);
 
             // res icon
             reqResIconList[i].sprite = ResSpriteSO.Instance.resIcon[(int)resType];
 
-
+            MineIcon.sprite = ResSpriteSO.Instance.resIcon[(int)currentResType];
         }
-        MineIcon.sprite = MineIConSO.Instance.mineIconSpriteList[(int)currentResType];
+// MineIConSO.Instance.mineIconSpriteList[(int)currentResType];
         StartCoroutine(CurrentAmountTextUpdate());  
 
     }
@@ -92,7 +93,7 @@ public class MineUpgradePanel : MonoBehaviour
     {
         inputField.text = "0";
         OnInputValueChanged("0");
-        productionPerDayText.text = "0";
+        productionPerDayText.text = FormatNumber((currentState.resourceData[currentResType].productionRate * currentState.resourceData[currentResType].mineCount));
         instantlyButtonText.text = "0";
         buyButtonText.text= "0";
         buyButtonCoinValue = 0;
@@ -114,7 +115,7 @@ public class MineUpgradePanel : MonoBehaviour
                 // curretn amount
                 ResourceType resType = RequiredResTypeValueList[i];
                 float resCurrentAmountValue = currentState.resourceData[resType].currentAmount;
-                reqResCurrentAmountValueTextList[i].text = resCurrentAmountValue.ToString();
+                reqResCurrentAmountValueTextList[i].text = FormatNumber(resCurrentAmountValue);
 
 
 
@@ -139,26 +140,28 @@ public class MineUpgradePanel : MonoBehaviour
                 
 
                
-                if( quantity* RequiredResValueList[i]> resCurrentAmountValue)
+                if( quantity* RequiredResValueList[i]> resCurrentAmountValue )
                 {
-                    
 
-                    reqResValueTextList[i].text = "- " + (RequiredResValueList[i] * quantity);
+                   
+                    reqResValueTextList[i].text = "- " + FormatNumber((RequiredResValueList[i] * quantity));
                     reqResValueTextList[i].color = Color.red;
                 }
                 else
                 {
                     if (GameEconomy.Instance == null)
                         Debug.LogWarning("game oeconomy yok");
-                        reqResValueTextList[i].text = "- " + (RequiredResValueList[i] * quantity);
+                    int tempQuantity = quantity > 0 ? quantity : 1;
+                    reqResValueTextList[i].text = "- " + FormatNumber((RequiredResValueList[i] * tempQuantity)) ;
                     float productPerDayValue = (currentState.resourceData[currentResType].productionRate * quantity);
-                    productionPerDayText.text = (currentState.resourceData[currentResType].productionRate * currentState.resourceData[currentResType].mineCount)+" + ( " + productPerDayValue.ToString()+" )";
+                    if(quantity>0)
+                    productionPerDayText.text = FormatNumber((currentState.resourceData[currentResType].productionRate * currentState.resourceData[currentResType].mineCount)) +" + ( " + FormatNumber(productPerDayValue) +" )";
                     float productPerDayToGoldValue = GameEconomy.Instance.GetGoldValue(currentResType, productPerDayValue);
                     buyButtonCoinValue = productPerDayToGoldValue * GameEconomy.Instance.PayBackValue;
 
-                    buyButtonText.text = buyButtonCoinValue.ToString();
+                    buyButtonText.text = FormatNumber(buyButtonCoinValue);
                     instatnlyButtonGemValue = GameEconomy.Instance.GetGemValue(buyButtonCoinValue);
-                    instantlyButtonText.text = instatnlyButtonGemValue.ToString();
+                    instantlyButtonText.text = FormatNumber(instatnlyButtonGemValue);
                     if (currentState.resourceData[ResourceType.Diamond].currentAmount> instatnlyButtonGemValue)
                     {
                         
@@ -202,7 +205,7 @@ public class MineUpgradePanel : MonoBehaviour
         for (int i = 0; i < reqResValueTextList.Count; i++)
         {
 
-            reqResValueTextList[i].text = (maxProduction * RequiredResValueList[i]).ToString();
+            reqResValueTextList[i].text = FormatNumber((maxProduction * RequiredResValueList[i]));
         }
         inputField.text=maxProduction.ToString();
 
@@ -261,7 +264,7 @@ public class MineUpgradePanel : MonoBehaviour
                     currentState.AddResource(spendRes);
                     
                     currentState.resourceData[currentResType].mineCount += quantity;
-                    MineCountText.text = currentState.resourceData[currentResType].mineCount.ToString();
+                    MineCountText.text = FormatNumber(currentState.resourceData[currentResType].mineCount);
                     inputField.text = "0";
 
                 }
@@ -283,7 +286,7 @@ public class MineUpgradePanel : MonoBehaviour
                 spendRes.Add(ResourceType.Diamond, -instatnlyButtonGemValue);
                 currentState.AddResource(spendRes);
                 currentState.resourceData[currentResType].mineCount += quantity;
-                MineCountText.text = currentState.resourceData[currentResType].mineCount.ToString();
+                MineCountText.text = FormatNumber(currentState.resourceData[currentResType].mineCount);
                 inputField.text = "0";
             }
             else

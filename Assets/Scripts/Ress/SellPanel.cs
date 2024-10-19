@@ -5,6 +5,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using static ResourceManager;
 using static RegionClickHandler;
+using static Utility;
 public class SellPanel : MonoBehaviour
 {
     public GameObject rightBox, emtyStateBox;
@@ -90,8 +91,8 @@ public class SellPanel : MonoBehaviour
 
                     if (contrackPrice > 0)
                     {
-                       // Debug.LogWarning("contrat price " + contrackPrice + "curent rade state name " + (ResourceManager.Instance.CurrentTradeState.name));
-                        contrackPriceValueText.text = contrackPrice.ToString("F2");
+                        // Debug.LogWarning("contrat price " + contrackPrice + "curent rade state name " + (ResourceManager.Instance.CurrentTradeState.name));
+                        contrackPriceValueText.text = FormatNumber(contrackPrice); 
 
                     }
                     else
@@ -123,12 +124,12 @@ public class SellPanel : MonoBehaviour
 
             if (resLimit >= quantity )
             {
-                contrackPriceValueText.text = (quantity * contrackPrice).ToString("F2");
+                contrackPriceValueText.text = FormatNumber((quantity * contrackPrice));
             }
             else
             {       
                 inputField.text = resLimit.ToString();
-                contrackPriceValueText.text = (resLimit * contrackPrice).ToString("F2");
+                contrackPriceValueText.text = FormatNumber((resLimit * contrackPrice));
             }
           //  Debug.LogWarning("reslimit " + resLimit);             
         }
@@ -139,9 +140,9 @@ public class SellPanel : MonoBehaviour
     {
         while (rightBox.gameObject.activeSelf)
         {
-            
-            amoutAvableValueText.text = currentState.GetCurrentResValue(resType).ToString("F2");
-            yield return new WaitForSeconds(1.0f);
+
+            amoutAvableValueText.text = FormatNumber(currentState.GetCurrentResValue(resType));
+                yield return new WaitForSeconds(1.0f);
         }
 
     }
@@ -152,7 +153,7 @@ public class SellPanel : MonoBehaviour
         quantity = (resLimit > amountAvailable ? amountAvailable : resLimit);
         float spendLimit = tradeState.GetGoldResValue() / tradeState.importTrade.contractPrices[((int)curentResource)-1];
         quantity= quantity>spendLimit? spendLimit : quantity;
-            inputField.text = quantity.ToString();    
+            inputField.text = FormatNumber(quantity);    
         
             if(int.TryParse( amoutAvableValueText.text, out amountAvailable))
             {
@@ -180,7 +181,7 @@ public class SellPanel : MonoBehaviour
                     currentState.SellResource(type, quantity, earing,isAllyState);
                     ResourceManager.Instance.CurrentTradeState.BuyyResource(type, quantity, earing);
                     
-                    amoutAvableValueText.text = currentState.GetCurrentResValue(type).ToString("F2");
+                    amoutAvableValueText.text = FormatNumber(currentState.GetCurrentResValue(type)  );
                     int stateFlagIndex = currentState.gameObject.transform.GetSiblingIndex();
                     DateTime deliverTime = GameDateManager.instance.GetCurrentDate();                 
                     TradeHistory transaction = new TradeHistory(TradeType.Export, deliverTime, (int)type, quantity, earing, stateFlagIndex, ResourceManager.Instance.CurrentTradeState, (int)(limit - quantity));

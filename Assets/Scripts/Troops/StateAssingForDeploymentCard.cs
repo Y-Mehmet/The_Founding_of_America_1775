@@ -5,6 +5,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using static GameManager;
 using static TroopyManager;
+using static Utility;
 public class StateAssingForDeploymentCard : MonoBehaviour
 {
     public Image stateFlagIcon;
@@ -32,8 +33,8 @@ public class StateAssingForDeploymentCard : MonoBehaviour
         else
         {            
             stateFlagIcon.sprite = AllyStateList[index].StateIcon;
-            navalForceText.text = AllyStateList[index].GetNavalArmySize().ToString();
-            landForceText.text = AllyStateList[index].GetLandArmySize().ToString();
+            navalForceText.text = FormatNumber(AllyStateList[index].GetNavalArmySize());
+            landForceText.text = FormatNumber(AllyStateList[index].GetLandArmySize());
         }
         
 

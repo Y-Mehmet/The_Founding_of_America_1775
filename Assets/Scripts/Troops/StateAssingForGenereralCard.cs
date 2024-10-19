@@ -5,7 +5,7 @@ using System.Linq;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
-
+using static Utility;
 public class StateAssingForGenereralCard : MonoBehaviour
 {
     public Image stateFlagIcon;
@@ -27,8 +27,8 @@ public class StateAssingForGenereralCard : MonoBehaviour
        
         
         stateFlagIcon.sprite= GameManager.AllyStateList[index].StateIcon;
-        navalForceText.text=GameManager.AllyStateList[index].GetNavalArmySize().ToString();
-        landForceText.text= GameManager.AllyStateList[index].GetLandArmySize().ToString() ;
+        navalForceText.text = FormatNumber(GameManager.AllyStateList[index].GetNavalArmySize());
+        landForceText.text = FormatNumber(GameManager.AllyStateList[index].GetLandArmySize());
 
     }
     void OnButtonClicked()

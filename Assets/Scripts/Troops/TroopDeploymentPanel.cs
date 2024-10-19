@@ -6,7 +6,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using static TroopyManager;
 using static GameManager;
-
+using static Utility;
 public class TroopDeploymentPanel : MonoBehaviour
 {
     public TMP_InputField navalInputField, landInputField;
@@ -83,9 +83,9 @@ public class TroopDeploymentPanel : MonoBehaviour
         totalSecond = CalculateSecondValue();
         totalGemCost = CalculateInstanlyValue();
 
-        secondValueText.text = totalSecond.ToString();
-        InstantlyValueText.text = totalGemCost.ToString();
-        supplyCostText.text = totalCost.ToString();
+        secondValueText.text = FormatNumber(totalSecond);
+        InstantlyValueText.text = FormatNumber(totalGemCost);
+        supplyCostText.text = FormatNumber(totalCost);
 
         // UI renkleri ayarlama
         InstantlyValueText.color = (totalGemCost > currnetState.GetGemResValue()) ? red : originalTextColor;

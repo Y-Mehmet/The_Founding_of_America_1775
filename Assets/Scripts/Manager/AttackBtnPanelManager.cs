@@ -32,12 +32,14 @@ public class AttackBtnPanelManager : MonoBehaviour
         State defendingState = Attack.Instance.FindChildByName(Usa.Instance.transform, Attack.Instance.lastDefendingState).GetComponent<State>();
         if( attackingState != null && defendingState != null )
         {
+            bool isGeneralAssing = false;
             var stateAndGeneral = stateGenerals.FirstOrDefault(x => x.Key == attackingState);
 
             // FirstOrDefault kullanýldýðýnda, eðer eþleþme yoksa KeyValuePair'in varsayýlan deðeri döner,
             // bu nedenle .Key'yi kontrol etmek gerekir
             if (!stateAndGeneral.Equals(default(KeyValuePair<State, General>)))
             {
+                isGeneralAssing = true;
                 generalIndex = generals[(int)stateAndGeneral.Value.Specialty].Name;
                 playerGeneralSprite.sprite = GameDataSo.Instance.GeneralSprite[(int)stateAndGeneral.Value.Specialty];
                 
@@ -52,31 +54,32 @@ public class AttackBtnPanelManager : MonoBehaviour
             if( Attack.Instance.numberOfDiceWonByThePlayer>Attack.Instance.numberOfDiceWonByTheRival)
             {
                 warResultType = WarResultType.Victory;
-                SetRandomQuotes("victory");
+                
                 if (generalIndex != "-")
                 {
-                    SetRandomQuotes("victory");
+                    
                     generals[(int)stateAndGeneral.Value.Specialty].WinBattle((int)defendingState.loss);
                 }
-               
+                SetRandomQuotes("victory",isGeneralAssing);
+
             }
             else if (Attack.Instance.numberOfDiceWonByThePlayer < Attack.Instance.numberOfDiceWonByTheRival)
             {
                 warResultType = WarResultType.Defeat;
-             
+                SetRandomQuotes("defeat", isGeneralAssing);
                 if (generalIndex != "-")
                 {
-                    SetRandomQuotes("defeat");
+                  
                     generals[(int)stateAndGeneral.Value.Specialty].LoseBattle((int)defendingState.loss);
                 }
             }
             else
             {
                 warResultType = WarResultType.Draw;
-                SetRandomQuotes("draw");
+                SetRandomQuotes("draw", isGeneralAssing);
                 if (generalIndex != "-")
                 {
-                    SetRandomQuotes("draw");
+                  
                     generals[(int)stateAndGeneral.Value.Specialty].LoseBattle((int)defendingState.loss);
                 }
                
@@ -134,7 +137,7 @@ public class AttackBtnPanelManager : MonoBehaviour
         plunderBtn.SetActive(false);
         annexBtn.SetActive(false);
     }
-    void SetRandomQuotes(string resultType)
+    void SetRandomQuotes(string resultType , bool isGeneralAssingned=false)
     {
         // Zafer için sözler dizisi
         List<List<string>> victoryQuotes = quotesDictionary[resultType];
@@ -145,6 +148,11 @@ public class AttackBtnPanelManager : MonoBehaviour
         // Seçilen indexten sözleri al
         string playerQuote = victoryQuotes[randomIndex][0]; // Oyuncu generalinin sözü
         string enemyQuote = victoryQuotes[randomIndex][1]; // Düþman generalinin sözü
+        if (!isGeneralAssingned)
+        {
+            playerQuote = "";
+        }
+     
 
         // Metin bileþenlerine atama
         playerGeneralText.text = playerQuote;

@@ -4,7 +4,7 @@ using System.Linq;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
-
+using static Utility;
 public class ResCard : MonoBehaviour
 {
     private void Start()
@@ -41,14 +41,14 @@ public class ResCard : MonoBehaviour
                         {
                             case 0:
                                 item.gameObject.GetComponent<Image>().sprite = ResSpriteSO.Instance.resIcon[counter];
-                              
+                            
 
                                 break;
                             case 1:
                                 item.gameObject.GetComponent<TextMeshProUGUI>().text = curentState.resourceData.Keys.ElementAt(counter).ToString();
                                 break;
                             case 3:
-                                item.gameObject.GetComponent<TextMeshProUGUI>().text =((int) curentState.resourceData.ElementAt(counter).Value.currentAmount).ToString();
+                            item.gameObject.GetComponent<TextMeshProUGUI>().text = FormatNumber(((int)curentState.resourceData.ElementAt(counter).Value.currentAmount));
                                 break;
                             default:
                                 break;

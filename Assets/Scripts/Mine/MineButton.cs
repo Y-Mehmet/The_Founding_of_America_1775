@@ -4,7 +4,7 @@ using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
-
+using static Utility;
 public class MineButton : MonoBehaviour
 {
     public TMP_Text mineCountText, resValueText;
@@ -33,7 +33,7 @@ public class MineButton : MonoBehaviour
         
        while(true)
         {
-            resValueText.text = ((int)currentState.resourceData[resourceType].currentAmount).ToString();
+            resValueText.text = FormatNumber(((int)currentState.resourceData[resourceType].currentAmount));
             mineCountText.text = ((int)currentState.resourceData[resourceType].mineCount).ToString();
             yield return new WaitForSeconds(duration);
            

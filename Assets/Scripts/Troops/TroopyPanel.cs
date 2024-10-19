@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
-
+using static Utility;
 public class TroopyPanel : MonoBehaviour
 {
     public TMP_Text ArmyBarrackSizeText, NavalSizeText, LandSizeText, LeaderText, UnitLandPowerText,
@@ -80,9 +80,9 @@ public class TroopyPanel : MonoBehaviour
     // UI'yi güncelleyen metod
     private void UpdateUI()
     {
-        ArmyBarrackSizeText.text = currentState.GetArmyBarrackSize().ToString();
-        NavalSizeText.text = currentState.GetNavalArmySize().ToString();
-        LandSizeText.text = currentState.GetLandArmySize().ToString();
+        ArmyBarrackSizeText.text = FormatNumber(currentState.GetArmyBarrackSize());
+        NavalSizeText.text = FormatNumber(currentState.GetNavalArmySize());
+        LandSizeText.text = FormatNumber(currentState.GetLandArmySize());
         if (GeneralManager.stateGenerals.ContainsKey(currentState))
             LeaderText.text = GeneralManager.stateGenerals[currentState].Name.ToString();
         else
@@ -90,7 +90,7 @@ public class TroopyPanel : MonoBehaviour
         UnitLandPowerText.text = currentState.GetUnitLandRate().ToString();
         UnitNavalPowerText.text = currentState.GetUnitNavalRate().ToString();
         ArmyMoraleText.text = currentState.GetMorale().ToString();
-        TotalArmyPowerText.text = currentState.GetTotalArmyPower().ToString();
+        TotalArmyPowerText.text = FormatNumber(currentState.GetTotalArmyPower());
         
     }
     void BarrackColorManager()
@@ -202,7 +202,7 @@ public class TroopyPanel : MonoBehaviour
             int gemMax = (int)((GameEconomy.Instance.GetGoldValue(ResourceType.Diamond, currentGem))/BarrackCost-1);
             maxBarrack= gemMax<maxBarrack?maxBarrack:gemMax;
         }
-        BarrackInputField.text = maxBarrack.ToString();
+        BarrackInputField.text = FormatNumber(maxBarrack);
     }
     void OnLandMacClicked()
     {
@@ -239,8 +239,8 @@ public class TroopyPanel : MonoBehaviour
         {
             int cost = value * BarrackCost;
             int gemCost = GameEconomy.Instance.GetGemValue(cost);
-            BarrakBuyBtnValueText.text= cost.ToString();
-            BarrackInstatlyBtnValueText.text = gemCost.ToString();
+            BarrakBuyBtnValueText.text= FormatNumber(cost);
+            BarrackInstatlyBtnValueText.text = FormatNumber(gemCost );
             
 
         }
@@ -256,8 +256,8 @@ public class TroopyPanel : MonoBehaviour
         {
             int cost = value * NavalSoliderCost;
             int gemCost = GameEconomy.Instance.GetGemValue(cost);
-            NavalBuyBtnValueText.text = cost.ToString();
-            NavalInstatlyBtnValueText.text = gemCost.ToString();
+            NavalBuyBtnValueText.text = FormatNumber(cost);
+            NavalInstatlyBtnValueText.text = FormatNumber(gemCost);
             
         }
         BarrackColorManager();
@@ -272,8 +272,8 @@ public class TroopyPanel : MonoBehaviour
         {
             int cost = value * LandSoliderCost;
             int gemCost = GameEconomy.Instance.GetGemValue(cost);
-            LandBuyBtnValueText.text = cost.ToString();
-            LandInstatlyBtnValueText.text = gemCost.ToString();
+            LandBuyBtnValueText.text = FormatNumber(cost);
+            LandInstatlyBtnValueText.text = FormatNumber(gemCost);
            
            
         }

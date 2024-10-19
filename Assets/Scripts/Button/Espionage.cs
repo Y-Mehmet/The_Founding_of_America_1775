@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
+using static Utility;
 
 public class Espionage : MonoBehaviour
 {
@@ -106,8 +107,9 @@ public class Espionage : MonoBehaviour
         {
             goldBtnText.color = Color.red;
         }
-        goldBtnText.text = spyCost.ToString();
-        gemBtnText.text= GameEconomy.Instance.GetGemValue(spyCost).ToString();
+        goldBtnText.text = FormatNumber(spyCost);
+        gemBtnText.text = FormatNumber(GameEconomy.Instance.GetGemValue(spyCost));
+
 
         // Debug.LogWarning(spyCost + " spy cost deðeri deðiþti");
 

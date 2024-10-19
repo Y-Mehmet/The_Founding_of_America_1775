@@ -5,7 +5,7 @@ using System.Security.Cryptography.X509Certificates;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
-
+using static Utility;
 
 public class WitchHunt : MonoBehaviour
 {
@@ -113,8 +113,8 @@ public class WitchHunt : MonoBehaviour
             goldBtnText.color = Color.red;
         }
 
-        goldBtnText.text = witchCost.ToString();
-        gemBtnText.text = GameEconomy.Instance.GetGemValue(witchCost).ToString();
+        goldBtnText.text = FormatNumber(witchCost);
+        gemBtnText.text = FormatNumber(GameEconomy.Instance.GetGemValue(witchCost));
 
         CalculateValue(value);
         beliveText.text = Mathf.Ceil(belive).ToString() + "%";

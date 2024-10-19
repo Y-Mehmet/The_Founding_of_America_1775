@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEditor.Rendering;
 using UnityEngine;
-
+using static Utility;
 public class Witch : MonoBehaviour
 {
     
@@ -43,7 +43,7 @@ public class Witch : MonoBehaviour
                 witchCostTxt.color = Color.red;
                
             }
-            witchCostTxt.text = witchCost.ToString();
+            witchCostTxt.text = FormatNumber(witchCost);
         }
         else
         {

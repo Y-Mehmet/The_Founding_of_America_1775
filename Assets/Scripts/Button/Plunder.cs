@@ -4,7 +4,7 @@ using System.Linq;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
-
+using static Utility;
 public class Plunder : MonoBehaviour
 {
     public List<Image> resIconImages = new List<Image>();
@@ -45,7 +45,7 @@ public class Plunder : MonoBehaviour
                 resIconImages[i].gameObject.SetActive(true);
                 resIconImages[i].sprite = Resources.Load<Sprite>("ResourcesIcon/" + (int) defState.GetPlundData().ElementAt(i).Key);
                 resTexts[i].gameObject.SetActive(true);
-                resTexts[i].text = "+"+((int)defState.GetPlundData().ElementAt(i).Value).ToString();
+                resTexts[i].text = "+" + FormatNumber(defState.GetPlundData().ElementAt(i).Value);
                 if(i>=resTexts.Count)
                 {
                     Debug.LogWarning(" yeterince text yok");

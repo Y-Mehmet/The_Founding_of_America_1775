@@ -4,7 +4,7 @@ using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
-
+using static Utility;
 public class BuyPanel : MonoBehaviour
 {
     public GameObject rightBox, emtyStateBox;
@@ -103,12 +103,12 @@ public class BuyPanel : MonoBehaviour
             if (Neighbor.Instance.AreNeighbors(currentStateName, currentTradeStateName))
             {
                 deliveryTime = GameManager.neigbordTradeTime;
-                secondValueText.text = deliveryTime.ToString();
+                secondValueText.text = FormatNumber(deliveryTime);
             }
             else
             {
                 deliveryTime = GameManager.nonNeigbordTradeTime;
-                secondValueText.text = deliveryTime.ToString();
+                secondValueText.text = FormatNumber(deliveryTime);
             }
         }
         else
@@ -153,7 +153,7 @@ public class BuyPanel : MonoBehaviour
                     {
                         contrackPrice = price;
                        // Debug.LogWarning("contrat price " + contrackPrice + "curent rade state name " + ResourceManager.CurrentTradeState.name + " currnet res" + ResourceManager.curentResource);
-                        contrackPriceValueText.text = contrackPrice.ToString("F2");
+                        contrackPriceValueText.text = FormatNumber(contrackPrice);
 
                     }
                     else
@@ -202,12 +202,12 @@ public class BuyPanel : MonoBehaviour
                 if (amountAvaible >= quantity && goldResAmount>=buyPrice )
             {
                 contrackPriceValueText.color = originalTextColor;
-                contrackPriceValueText.text = buyPrice.ToString("F2");
+                contrackPriceValueText.text = FormatNumber(buyPrice);
             }
             else
             {
                 contrackPriceValueText.color = Color.red;
-                contrackPriceValueText.text = buyPrice.ToString("F2");
+                contrackPriceValueText.text = FormatNumber(buyPrice);
 
             }
             
@@ -226,7 +226,7 @@ public class BuyPanel : MonoBehaviour
                     {
                         InstantlyValueText.color = Color.red;
                     }
-                        InstantlyValueText.text = Dimond.ToString();
+                    InstantlyValueText.text = FormatNumber(Dimond);
                 }
                     
                 else
@@ -267,7 +267,7 @@ public class BuyPanel : MonoBehaviour
         maxQuanty= maxQuanty>currentSpendLimit? currentSpendLimit:maxQuanty;
 
         inputField.text = maxQuanty.ToString();
-        contrackPriceValueText.text = (maxQuanty * contrackPrice).ToString("F2");
+        contrackPriceValueText.text = FormatNumber((maxQuanty * contrackPrice));
         
     }
     public void BuyButtonClicked()
