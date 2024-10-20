@@ -1,6 +1,5 @@
 using BaseAssets;
-using System.Collections;
-using System.Collections.Generic;
+
 using UnityEngine;
 [CreateAssetMenu(menuName = "StateResourceSO", fileName ="newStateResourceSO")]
 public class StateResourceSO : SingletonScriptableObject<StateResourceSO>

@@ -68,7 +68,7 @@ public class Witch : MonoBehaviour
             if (int.TryParse(inputField.text, out witchCount))
             {
                 float loss = witchCount * witchPower;
-                float newLoss = Random.RandomRange(random_min_range, random_max_range) * loss;
+                float newLoss = Random.Range(random_min_range, random_max_range) * loss;
                 Debug.LogWarning($" {state}'inde orduda baþlatýlan cadý avýnda  {newLoss} tane cadý elegeçirildi  avdan önceki asker sayýsý {enemyState.GetComponent<State>().GetArmySize()}");
                 enemyState.GetComponent<State>().ReduceArmySize(newLoss);
                 Debug.LogWarning($"avdan sonra asker sayýsý {enemyState.GetComponent<State>().GetArmySize()}");

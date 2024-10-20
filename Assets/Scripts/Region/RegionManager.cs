@@ -146,7 +146,7 @@ public class RegionManager : MonoBehaviour
     public void GetEnemyIntel(float cost)
     {
 
-        float thresoldEspinoge = Random.RandomRange(0, cost);
+        float thresoldEspinoge = Random.Range(0, cost);
         if((thresoldEspinoge % GameManager.Instance.spyCostModPurchases )>GameManager.Instance.thresholdForSuccesfulEspionage)
         {
             SuccessfulEspionage();

@@ -361,8 +361,8 @@ public class State : MonoBehaviour
                     }
                     
                 }
-                if(item.Key== ResourceType.Water && IsCapitalCity)
-             //   Debug.LogWarning($"{item.Key}  üretim  {productionAmount} tüketim {(item.Value.consumptionAmount * Population) } ");
+                //if(item.Key== ResourceType.Gold && IsCapitalCity)
+               // Debug.LogWarning($"{item.Key}  üretim  {productionAmount} rate {item.Value.productionRate } ");
                 item.Value.currentAmount += productionAmount;
                 item.Value.currentAmount -= (item.Value.consumptionAmount*Population);
 
