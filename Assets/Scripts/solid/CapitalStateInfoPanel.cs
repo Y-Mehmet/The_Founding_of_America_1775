@@ -25,6 +25,10 @@ public class CapitalStateInfoPanel : MonoBehaviour
     {
         ShowInfo();
     }
+    private void OnDisable()
+    {
+        CancelInvoke("GetIntel");
+    }
 
     public void ShowInfo()
     {

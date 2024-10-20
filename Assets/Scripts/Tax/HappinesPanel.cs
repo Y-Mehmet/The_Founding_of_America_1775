@@ -2,7 +2,7 @@ using System;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
-
+using static Utility;
 
 
 public class HappinesPanel : MonoBehaviour
@@ -69,12 +69,12 @@ public class HappinesPanel : MonoBehaviour
 
 
         UpdateHappinessSprite(index);
-        happinessPercentageText.text = "%" + percentage;
+        happinessPercentageText.text = "%" + percentage.ToString("0");
     }
   
     public void CahangeHappinesPersengeText(float value)
     {
-        happinessPercentageText.text = value.ToString();
+        happinessPercentageText.text = value.ToString("0");
     }
     
 

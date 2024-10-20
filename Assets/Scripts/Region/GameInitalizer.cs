@@ -304,6 +304,7 @@ public class GameInitalizer : MonoBehaviour
                     if(s.name== "Massachusetts")
                     {
                         s.IsCapitalCity= true;
+                    GameManager.TotalPopulationManager(10000);
                     }
                 
 

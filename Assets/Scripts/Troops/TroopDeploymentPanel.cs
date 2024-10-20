@@ -7,6 +7,7 @@ using UnityEngine.UI;
 using static TroopyManager;
 using static GameManager;
 using static Utility;
+using static ResourceManager;
 public class TroopDeploymentPanel : MonoBehaviour
 {
     public TMP_InputField navalInputField, landInputField;
@@ -24,7 +25,7 @@ public class TroopDeploymentPanel : MonoBehaviour
 
     private void Start()
     {
-        int charLimit = ResourceManager.Instance.InputFieldCaharcterLimit;
+        int charLimit = InputFieldCaharcterLimit;
         navalInputField.characterLimit = charLimit;
         landInputField.characterLimit = charLimit;
        

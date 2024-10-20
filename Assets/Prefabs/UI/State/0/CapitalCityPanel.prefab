@@ -1168,6 +1168,11 @@ PrefabInstance:
       propertyPath: m_text
       value: State Statistics
       objectReference: {fileID: 0}
+    - target: {fileID: 8403289824349643682, guid: 104791ec0e53c4f4c8747a4ed2196c33,
+        type: 3}
+      propertyPath: panelID
+      value: 30
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

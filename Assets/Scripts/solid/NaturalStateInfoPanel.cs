@@ -24,7 +24,10 @@ public class NaturalStateInfoPanel : MonoBehaviour
     {
         ShowInfo();
     }
-
+    private void OnDisable()
+    {
+        CancelInvoke("GetIntel");
+    }
     public void ShowInfo()
     {
         currnetState = RegionClickHandler.Instance.currentState.GetComponent<State>();

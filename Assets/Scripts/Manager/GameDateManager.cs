@@ -17,8 +17,11 @@ public class GameDateManager : MonoBehaviour
     private float timeScale ;   // Zaman akýþýný kontrol eden faktör
     private bool isPaused = false;   // Zamanýn durdurulup durdurulmadýðýný kontrol eden deðiþken
 
-    
 
+    private void OnDisable()
+    {
+        CancelInvoke("AdvanceOneDay");
+    }
     void Start()
     {
         if (GameManager.Instance != null)

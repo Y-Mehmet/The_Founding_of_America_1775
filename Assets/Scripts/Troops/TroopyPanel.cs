@@ -73,7 +73,7 @@ public class TroopyPanel : MonoBehaviour
         LandMacBtn.onClick.RemoveListener(OnLandMacClicked);
         NavalMacBtn.onClick.RemoveListener(OnNavalMacClicked);
         BarrackInstatlyBtnValueText.color = originalTextColor;
-
+        CancelInvoke("UpdateUI");
     }
 
 

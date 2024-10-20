@@ -7,7 +7,7 @@ public class GameEconomy : MonoBehaviour
     public static GameEconomy Instance { get; private set; }
     private Dictionary<ResourceType, float> resourceToGoldValue;
     
-     public float PayBackValue;
+
     public  float payBackTime = 10;
     private void Awake()
     {
@@ -16,10 +16,8 @@ public class GameEconomy : MonoBehaviour
         else
             Destroy(this);
     }
-    private void Start()
-    {
-        PayBackValue = GameManager.gameDayTime * payBackTime;
-    }
+    
+   
 
     public GameEconomy()
         {

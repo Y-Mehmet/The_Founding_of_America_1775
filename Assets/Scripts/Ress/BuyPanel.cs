@@ -5,6 +5,7 @@ using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 using static Utility;
+using static ResourceManager;
 public class BuyPanel : MonoBehaviour
 {
     public GameObject rightBox, emtyStateBox;
@@ -24,7 +25,7 @@ public class BuyPanel : MonoBehaviour
 
     private void Start()
     {
-        inputField.characterLimit = ResourceManager.Instance.InputFieldCaharcterLimit;
+        inputField.characterLimit = InputFieldCaharcterLimit;
         originalTextColor = contrackPriceValueText.color;
 
     }

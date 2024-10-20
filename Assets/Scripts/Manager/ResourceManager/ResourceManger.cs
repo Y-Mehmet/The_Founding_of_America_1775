@@ -6,7 +6,7 @@ using static Utility;
 public class ResourceManager : MonoBehaviour
 {
     // USA CENTER BANK
-    public TMP_Text goldText;
+   
     public static ResourceManager Instance { get; private set; }
 
     //merkez bankasýnýn  Kaynaklarý saklayacaðýmýz bir Dictionary
@@ -19,9 +19,10 @@ public class ResourceManager : MonoBehaviour
     public Action<string> OnStateToTradeChanged;
 
     public static  float DimondRate = 100;
-    public int InputFieldCaharcterLimit = 11;
-    
-    
+    public static int InputFieldCaharcterLimit = 6;
+    public static float PayBackValue = 100;
+
+
 
     private void Awake()
     {
@@ -32,6 +33,7 @@ public class ResourceManager : MonoBehaviour
 
         // Baþlangýç kaynaklarýný tanýmlama
         resources[ResourceType.Gold] = 1000;
+        resources[ResourceType.Diamond] = 10;
        
         // Diðer kaynaklar eklenecekse buraya eklenebilir
     }
@@ -86,7 +88,7 @@ public class ResourceManager : MonoBehaviour
     }
     public void ChargeTax(ResourceType resourceType, float reduceAmount)
     {
-        goldText.text = FormatNumber(resources[ResourceType.Gold]);
+       
         if (resources.ContainsKey(resourceType))
         {
             resources[resourceType] +=  reduceAmount;
@@ -168,4 +170,5 @@ public class ResourceData
     public int mineCount;        // maden sayýsý
     public float productionRate; // üretim hýzý
     public float consumptionAmount;// tüketim miktarý
+    public float surplus=0;
 }

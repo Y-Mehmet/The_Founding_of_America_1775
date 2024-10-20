@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
-using static UnityEngine.Rendering.DebugUI;
+using static Utility;
 
 public class TaxTypePanel : MonoBehaviour
 {
@@ -12,13 +12,7 @@ public class TaxTypePanel : MonoBehaviour
     public Slider slider;
     public TMP_Text taxCoinValueText;
     State currentState;
-    private void Awake()
-    {
-        
        
-    }
-
-    
     private void OnEnable()
     {
 
@@ -34,8 +28,8 @@ public class TaxTypePanel : MonoBehaviour
                 {
                     if (item.taxType == taxType)
                     {
-                        slider.value = item.currentRate;
-                        Debug.LogWarning(item.currentRate);
+                        slider.value = ((int)item.currentRate);
+                        //Debug.LogWarning(item.currentRate);
                         slider.onValueChanged.AddListener(OnSliderValueChanged);
 
                         if (taxType == TaxType.StampTax)
@@ -48,7 +42,7 @@ public class TaxTypePanel : MonoBehaviour
                         }
 
                         HappinesPanel.GetComponent<HappinesPanel>().SetHappiness(slider.value, item.toleranceLimit);
-                        taxCoinValueText.text = item.taxIncome.ToString();
+                        taxCoinValueText.text = item.taxIncome.ToString("0");
                         item.currentRate = slider.value;
                     }
                 }
@@ -81,7 +75,7 @@ public class TaxTypePanel : MonoBehaviour
                         if (taxType == TaxType.StampTax || taxType == TaxType.DirectTax)
                             item.taxIncome = value * item.unitTaxIncome;
                         HappinesPanel.GetComponent<HappinesPanel>().OnHappinessChanged?.Invoke(value, item.toleranceLimit);
-                        taxCoinValueText.text = item.taxIncome.ToString();
+                        taxCoinValueText.text = item.taxIncome.ToString("0");
                         item.currentRate = value;
                         
                     }

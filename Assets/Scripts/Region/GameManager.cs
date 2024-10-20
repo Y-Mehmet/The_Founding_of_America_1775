@@ -7,6 +7,7 @@ public class GameManager : MonoBehaviour
 {
    public static GameManager Instance;
     public static List<State> AllyStateList = new List<State>();
+    public static int tottalPopulation = 0;
     public bool ÝsAttack= false;
     public bool IsRegionPanelOpen = false;
     public bool IsAttackFinish  = true;
@@ -53,7 +54,11 @@ public class GameManager : MonoBehaviour
             AllyStateList = GetStatesByType(StateType.Ally);
         }
     }
-    
+   public static void TotalPopulationManager( int addedValue)
+    {
+        tottalPopulation += addedValue;
+    }
+
 
     public List<State> GetStatesByType(StateType stateType)
     {

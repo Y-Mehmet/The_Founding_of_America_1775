@@ -17,8 +17,8 @@ public class WitchHunt : MonoBehaviour
     int activeStarIndex = -1;
     int oneWitchCost = 100;
     int witchCost = 0;
-    int witchPower = 30; // Her bir cadý kaç asker öldürecek
-    int sliderValue = 0;
+    //int witchPower = 30; // Her bir cadý kaç asker öldürecek
+    //int sliderValue = 0;
     float spread = 0, belive = 0;
     Color originalWitchCostTextColor;
     Action<int> onStarLimitChange;

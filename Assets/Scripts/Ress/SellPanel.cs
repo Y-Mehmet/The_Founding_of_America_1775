@@ -25,7 +25,7 @@ public class SellPanel : MonoBehaviour
 
     private void Start()
     {
-        inputField.characterLimit = ResourceManager.Instance.InputFieldCaharcterLimit;
+        inputField.characterLimit = InputFieldCaharcterLimit;
         originalTextColor = Color.black;
     }
     private void OnEnable()

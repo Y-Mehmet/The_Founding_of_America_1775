@@ -4,6 +4,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 using static Utility;
+using static ResourceManager;
 public class MineUpgradePanel : MonoBehaviour
 {
     public TMP_Text MineNameText, productionPerDayText, buyButtonText, instantlyButtonText, MineCountText;
@@ -14,7 +15,7 @@ public class MineUpgradePanel : MonoBehaviour
     public Button BuyButton, InstantlyButton;
     public TMP_InputField inputField;
     public Button macButton, plusButton;
-    float goldSpending = 0;
+   
 
     List<int> RequiredResValueList = new List<int>();
     List<ResourceType> RequiredResTypeValueList = new List<ResourceType>();
@@ -22,177 +23,138 @@ public class MineUpgradePanel : MonoBehaviour
     ResourceType currentResType;
     int quantity=0;
     float buyButtonCoinValue=0, instatnlyButtonGemValue = 0;
-    Color originalTextColor;
-    
+    Color originalTextColor= Color.white;
+    Color colorRed = Color.red;
+    float duration = 1;
     private void Start()
     {
-        inputField.characterLimit = ResourceManager.Instance.InputFieldCaharcterLimit;
-        originalTextColor= reqResValueTextList[0].color;
-        
+        inputField.characterLimit = InputFieldCaharcterLimit;
+        duration = GameManager.gameDayTime;
     }
     private void OnEnable()
-    {
+    {      
       
-        currentState = RegionClickHandler.Instance.currentState.GetComponent<State>();
-        currentResType = MineManager.instance.curentResource;
+            currentState = RegionClickHandler.Instance.currentState.GetComponent<State>();
+            currentResType = MineManager.instance.curentResource;
 
-        ResetUI();
-        MineManager.instance.OnResourceChanged += OnResourceTypeChanged;
-        inputField.onValueChanged.AddListener(OnInputValueChanged);
-        macButton.onClick.AddListener(MacButtonClicked);
-        BuyButton.onClick.AddListener(BuyButtonClicked);
-        InstantlyButton.onClick.AddListener(InstantlyButtonClicked);
+            inputField.onValueChanged.AddListener(OnInputValueChanged);
+            macButton.onClick.AddListener(MacButtonClicked);
+            BuyButton.onClick.AddListener(BuyButtonClicked);
+            InstantlyButton.onClick.AddListener(InstantlyButtonClicked);
+        resIcon.sprite = ResSpriteSO.Instance.resIcon[(int)currentResType];
+        MineNameText.text = MineManager.instance.GetMineName();
+        RequiredResValueList = MineManager.instance.GetReqResValue();
+        RequiredResTypeValueList = MineManager.instance.GetReqResType();
+        SetImageSprite();
+            ResetUI();
+        StartCoroutine(CurrentAmountTextUpdate());
 
-
-        ShowPanelInfo();
-        
     }
     private void OnDisable()
     {
-        MineManager.instance.OnResourceChanged -= OnResourceTypeChanged;
+      
         macButton.onClick.RemoveListener(MacButtonClicked);
         BuyButton.onClick.RemoveListener(BuyButtonClicked);
         InstantlyButton.onClick.RemoveListener(InstantlyButtonClicked);
 
 
     }
-    void OnResourceTypeChanged(ResourceType resType)
-    {
-        currentResType = resType;
-        ShowPanelInfo();
-    }
-    void ShowPanelInfo()
+   
+    void SetImageSprite()
     {
         MineCountText.text = FormatNumber(currentState.resourceData[currentResType].mineCount);
-        resIcon.sprite = ResSpriteSO.Instance.resIcon[(int)currentResType];
-        MineNameText.text= MineManager.instance.GetMineName();
-        RequiredResValueList = MineManager.instance.GetReqResValue();
-        RequiredResTypeValueList = MineManager.instance.GetReqResType();
-        
-
+        MineIcon.sprite = ResSpriteSO.Instance.resIcon[(int)currentResType];
         for (int i=0;i<RequiredResTypeValueList.Count;i++)
-        {
-            // spend value 
-            reqResValueTextList[i].text = "- " + FormatNumber(RequiredResValueList[i]);
-
-                // curretn amount
+        {           
             ResourceType resType = RequiredResTypeValueList[i];
-             float resCurrentAmountValue = currentState.resourceData[resType].currentAmount;
-            reqResCurrentAmountValueTextList[i].text= FormatNumber(resCurrentAmountValue);
-
-            // res icon
             reqResIconList[i].sprite = ResSpriteSO.Instance.resIcon[(int)resType];
-
-            MineIcon.sprite = ResSpriteSO.Instance.resIcon[(int)currentResType];
+           
         }
-// MineIConSO.Instance.mineIconSpriteList[(int)currentResType];
-        StartCoroutine(CurrentAmountTextUpdate());  
-
     }
     void ResetUI()
     {
-        inputField.text = "0";
-        OnInputValueChanged("0");
-        productionPerDayText.text = FormatNumber((currentState.resourceData[currentResType].productionRate * currentState.resourceData[currentResType].mineCount));
         instantlyButtonText.text = "0";
-        buyButtonText.text= "0";
+        buyButtonText.text = "0";
         buyButtonCoinValue = 0;
         instatnlyButtonGemValue = 0;
+        inputField.text = "1";
+        OnInputValueChanged("1");
+        productionPerDayText.text = FormatNumber((currentState.resourceData[currentResType].productionRate * currentState.resourceData[currentResType].mineCount));
+        
     }
     IEnumerator CurrentAmountTextUpdate()
     {
        while(true)
         {
-            float duration = GameManager.gameDayTime;
-            yield return new WaitForSeconds(duration);
-
-
-
-            for (int i = 0; i < RequiredResTypeValueList.Count; i++)
+           for (int i = 0; i < RequiredResTypeValueList.Count; i++)
             {
-
-
-                // curretn amount
+               // curretn amount
                 ResourceType resType = RequiredResTypeValueList[i];
                 float resCurrentAmountValue = currentState.resourceData[resType].currentAmount;
                 reqResCurrentAmountValueTextList[i].text = FormatNumber(resCurrentAmountValue);
-
-
-
+                if (RequiredResValueList[i]>quantity* resCurrentAmountValue)
+                {
+                    reqResCurrentAmountValueTextList[i].color = colorRed;
+                }else
+                {
+                    reqResCurrentAmountValueTextList[i].color = originalTextColor;
+                }
 
             }
+            buyButtonText.color = originalTextColor;
+            buyButtonText.color = originalTextColor;
+            if (currentState.GetGoldResValue()< buyButtonCoinValue)
+            {
+                buyButtonText.color = colorRed;
+            }
+           if(  currentState.GetGemResValue()< instatnlyButtonGemValue)
+            {
+                instantlyButtonText.color = colorRed;
+            }
+            yield return new WaitForSeconds(duration);
         }
     }
     void OnInputValueChanged(string input)
     {
 
-
-
-
         if (int.TryParse(input, out quantity))
         {
-
-            for (int i = 0; i < RequiredResTypeValueList.Count; i++)
+            if(quantity > 0)
             {
-              
-                ResourceType resType = RequiredResTypeValueList[i];
-                float resCurrentAmountValue = currentState.resourceData[resType].currentAmount;
-                
-
-               
-                if( quantity* RequiredResValueList[i]> resCurrentAmountValue )
+                float  reqResGoldValue = 0;
+                for (int i = 0; i < RequiredResTypeValueList.Count; i++)
                 {
-
-                   
-                    reqResValueTextList[i].text = "- " + FormatNumber((RequiredResValueList[i] * quantity));
-                    reqResValueTextList[i].color = Color.red;
+                    ResourceType resType = RequiredResTypeValueList[i];
+                    int reqResCount = RequiredResValueList[i] * quantity;
+                    reqResValueTextList[i].text = "- " + FormatNumber(reqResCount);
+                    reqResGoldValue += GameEconomy.Instance.GetGoldValue(resType, reqResCount);                  
+                                    
                 }
-                else
-                {
-                    if (GameEconomy.Instance == null)
-                        Debug.LogWarning("game oeconomy yok");
-                    int tempQuantity = quantity > 0 ? quantity : 1;
-                    reqResValueTextList[i].text = "- " + FormatNumber((RequiredResValueList[i] * tempQuantity)) ;
-                    float productPerDayValue = (currentState.resourceData[currentResType].productionRate * quantity);
-                    if(quantity>0)
-                    productionPerDayText.text = FormatNumber((currentState.resourceData[currentResType].productionRate * currentState.resourceData[currentResType].mineCount)) +" + ( " + FormatNumber(productPerDayValue) +" )";
-                    float productPerDayToGoldValue = GameEconomy.Instance.GetGoldValue(currentResType, productPerDayValue);
-                    buyButtonCoinValue = productPerDayToGoldValue * GameEconomy.Instance.PayBackValue;
+                float productionRate = currentState.resourceData[currentResType].productionRate;
+                float productPerDayValue = productionRate * quantity;
+                float mineCount = currentState.resourceData[currentResType].mineCount;
+                float totalProduction = productionRate * mineCount;
 
-                    buyButtonText.text = FormatNumber(buyButtonCoinValue);
-                    instatnlyButtonGemValue = GameEconomy.Instance.GetGemValue(buyButtonCoinValue);
-                    instantlyButtonText.text = FormatNumber(instatnlyButtonGemValue);
-                    if (currentState.resourceData[ResourceType.Diamond].currentAmount> instatnlyButtonGemValue)
-                    {
-                        
-                        instantlyButtonText.color = originalTextColor;
-                    }
-                    else
-                    {
-                        
-                        instantlyButtonText.color = Color.red;
+                productionPerDayText.text = FormatNumber(totalProduction) + " + ( " + FormatNumber(productPerDayValue) + " )";
+                float productPerDayToGoldValue = GameEconomy.Instance.GetGoldValue(currentResType, productPerDayValue);
+                buyButtonCoinValue = productPerDayToGoldValue * PayBackValue;
 
-                    }
-                    if (currentState.resourceData[ResourceType.Gold].currentAmount > buyButtonCoinValue)
-                    {
-
-                        buyButtonText.color = originalTextColor;
-                    }
-                    else
-                    {
-
-                        buyButtonText.color = Color.red;
-
-                    }
-
-                    reqResValueTextList[i].color = originalTextColor;
-                }
-
+                buyButtonText.text = FormatNumber(buyButtonCoinValue);
+                float instatnlyBtnGoldValue = reqResGoldValue + buyButtonCoinValue;
+                instatnlyButtonGemValue = GameEconomy.Instance.GetGemValue(instatnlyBtnGoldValue);
+                instantlyButtonText.text = FormatNumber(instatnlyButtonGemValue);
             }
+            else
+            {
+                // cuantity 0
+                inputField.text = "1";
+                OnInputValueChanged("1");
+            }
+           
           
         }
-        else
-            Debug.LogWarning(" deðer yalýþ "+ input);
+        
+           
 
 
     }

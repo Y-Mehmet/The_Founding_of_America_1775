@@ -25,6 +25,10 @@ public class AllyStateInfoPanel : MonoBehaviour
     {
         ShowInfo();
     }
+    private void OnDisable()
+    {
+        CancelInvoke("GetIntel"); // Tekrar eden çaðrýyý durdurur.
+    }
 
     public void ShowInfo()
     {

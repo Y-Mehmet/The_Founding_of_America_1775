@@ -45,6 +45,7 @@ public class TradeTransactionCard : MonoBehaviour
         }
         buyAgainButton.onClick.RemoveListener(OnBuyAgainButtonListenner);
         tradeTypeBtnText.color = originalTextColor;
+        CancelInvoke("ButtonTextCollorUpdate");
     }
     void ButtonTextCollorUpdate()
     {

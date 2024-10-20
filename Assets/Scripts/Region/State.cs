@@ -1,11 +1,9 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
-using System.Linq.Expressions;
-using Unity.VisualScripting;
 using UnityEngine;
 using static GeneralManager;
+using static GameManager;
 
 public class State : MonoBehaviour
 {
@@ -15,7 +13,7 @@ public class State : MonoBehaviour
     private Coroutine resourceProductionCoroutine;
     private Coroutine moreleCoroutine;
     private Coroutine incrasePopulationCoroutine;
-    private Coroutine decreasePopulationCoroutine;
+ 
     public Action<float, State> OnMoreleChanged;
 
     public int HierarchicalIndex;
@@ -35,6 +33,7 @@ public class State : MonoBehaviour
     
     public Sprite StateIcon;// falg
     public int Population;
+    public int populationAddedValue;
     public int Resources; // fav resources 
     public float loss;
     public int attackCanvasButtonPanelIndex = 1;
@@ -231,9 +230,9 @@ public class State : MonoBehaviour
         if(incrasePopulationCoroutine != null)
         {
             StopCoroutine(incrasePopulationCoroutine);
-            StopCoroutine(decreasePopulationCoroutine);
+           
             incrasePopulationCoroutine = null;
-            decreasePopulationCoroutine = null;
+         
         }
            
     }
@@ -251,7 +250,7 @@ public class State : MonoBehaviour
         {
             incrasePopulationCoroutine = StartCoroutine(IncrasePopulationOverTime());
 
-            decreasePopulationCoroutine = StartCoroutine(ReducePopulationOverTime());
+           
         }
        
     }
@@ -306,26 +305,24 @@ public class State : MonoBehaviour
     }
     private IEnumerator IncrasePopulationOverTime()
     {
+       
+        int populationIncreasePerSecond = 0;
+        int populationDecrasePerSecond = 0;
 
         while (!GameManager.Instance.ÝsGameOver && !GameManager.Instance.isGamePause && GameManager.Instance.IsAttackFinish)
         {
-            int populationIncreasePerSecond =(int)( Morele * Population * populationGrowthRateMultiplier);
-            Population += populationIncreasePerSecond;
+            populationIncreasePerSecond = (int)( Morele * Population * populationGrowthRateMultiplier);
             
+             populationDecrasePerSecond = (int)((100 - Morele) * Population * populationGrowthRateMultiplier);
+             populationAddedValue= populationIncreasePerSecond-populationDecrasePerSecond;
+
+            Population += populationAddedValue;
+            if(stateType==StateType.Ally)
+            TotalPopulationManager(populationAddedValue);
             yield return new WaitForSeconds(GameManager.gameDayTime);
         }
     }
-    private IEnumerator ReducePopulationOverTime()
-    {
-
-        while (!GameManager.Instance.ÝsGameOver && !GameManager.Instance.isGamePause && GameManager.Instance.IsAttackFinish)
-        {
-            int populationIncreasePerSecond = (int)((100-Morele) * Population * populationGrowthRateMultiplier);
-            Population -= populationIncreasePerSecond;
-
-            yield return new WaitForSeconds(GameManager.gameDayTime);
-        }
-    }
+   
 
     private IEnumerator ResourceProduction()
     {
@@ -363,6 +360,7 @@ public class State : MonoBehaviour
                 }
                 //if(item.Key== ResourceType.Gold && IsCapitalCity)
                // Debug.LogWarning($"{item.Key}  üretim  {productionAmount} rate {item.Value.productionRate } ");
+                item.Value.surplus= productionAmount- (item.Value.consumptionAmount * Population);
                 item.Value.currentAmount += productionAmount;
                 item.Value.currentAmount -= (item.Value.consumptionAmount*Population);
 
@@ -409,7 +407,7 @@ public class State : MonoBehaviour
 
                      LostState();
                     attackCanvasButtonPanelIndex = 3;
-                    GameManager.AllyStateList.Remove(this);
+                    
                     break;
                 case (StateType.Enemy):
                     
@@ -445,6 +443,7 @@ public class State : MonoBehaviour
     {
         if (stateType == StateType.Enemy)
         {
+            
             //Debug.LogWarning("state iþgal edildi");
             ArmySize = firstArmySize;
             stateType = StateType.Ally;
@@ -456,6 +455,7 @@ public class State : MonoBehaviour
             {
             //    Debug.LogWarning($"ally stete {allyState.name} bulundu ve eneblesi actif edildi");
                 allyState.enabled = true;
+                TotalPopulationManager(Population);
             }
             else
             {
@@ -469,7 +469,8 @@ public class State : MonoBehaviour
     }
     void LostState()
     {
-       // Debug.LogWarning("state kayýbedildi");
+        // Debug.LogWarning("state kayýbedildi");
+        AllyStateList.Remove(this);
         ArmySize = firstArmySize;
         stateType = StateType.Enemy;
         ChangeCollor.Instance.ChangeGameobjectColor(gameObject, stateType);
@@ -479,6 +480,7 @@ public class State : MonoBehaviour
        EnemyState enemyState= gameObject.GetComponent<EnemyState>();
         if(enemyState != null)
         {
+            TotalPopulationManager(-1 * Population);
             enemyState.enabled = true;
         }
         else
