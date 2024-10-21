@@ -57,6 +57,7 @@ public class SaveSystem : MonoBehaviour
         var fullPath = Path.Combine(Application.persistentDataPath, name);
         try
         {
+            Debug.LogWarning(fullPath);
             content = File.ReadAllText(fullPath);
             return true;
         }

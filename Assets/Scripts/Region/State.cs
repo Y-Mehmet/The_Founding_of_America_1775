@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using static GeneralManager;
 using static GameManager;
+using System.Linq;
 
 public class State : MonoBehaviour
 {
@@ -185,12 +186,29 @@ public class State : MonoBehaviour
     }
     public int GetGoldResValue()
     {
-        return (int)resourceData[ResourceType.Gold].currentAmount<=0? 0: (int)resourceData[ResourceType.Gold].currentAmount;
+       
+        if (resourceData.ContainsKey(ResourceType.Gold))
+        {
+           
+            return (int)resourceData[ResourceType.Gold].currentAmount <= 0 ? 0 : (int)resourceData[ResourceType.Gold].currentAmount;
+        }
+        else
+        {
+            return 0; // Eðer 'Diamond' anahtarý yoksa, 0 döndür.
+        }
     }
     public int GetGemResValue()
     {
-        return (int)resourceData[ResourceType.Diamond].currentAmount <= 0 ? 0 : (int)resourceData[ResourceType.Diamond].currentAmount;
+        if (resourceData.ContainsKey(ResourceType.Diamond))
+        {
+            return (int)resourceData[ResourceType.Diamond].currentAmount <= 0 ? 0 : (int)resourceData[ResourceType.Diamond].currentAmount;
+        }
+        else
+        {
+            return 0; // Eðer 'Diamond' anahtarý yoksa, 0 döndür.
+        }
     }
+
     public void IncreaseArmyBarrackSize(int barrackValue)
     {
         ArmyBarrackSize += barrackValue;
@@ -729,13 +747,38 @@ public enum StateType
 public class StateData
 {
     public string StateName;
-    public float ArmySize;
-    public float UnitArmyPower;
+    public int LandArmySize;
+    public int NavalArmySize;
+    public float UnitNavalArmyPower;
+    public float UnitLandArmyPower;
+    public int ArmyBarrackSize;
+    public int ArmySize;
+    
     public float TotalArmyPower;
     public StateType stateType;
     public float Morele;
     public int Population;
     public int Resources;
+    
+    
+   
+
+
+    // Ticaret verileri
+    public Trade importTrade;
+    public Trade exportTrade;
+
+    // Vergi verileri
+    public List<TaxData> Taxes;
+    public List< ResourceData> resourceDataList;
+
+   
+    public StateData()
+    {
+        Taxes = new List<TaxData>();
+        resourceDataList = new List<ResourceData>();
+      
+    }
 }
 public enum TaxType
 {

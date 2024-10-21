@@ -166,6 +166,7 @@ public enum MainResourceType
 [System.Serializable]
 public class ResourceData
 {
+    public ResourceType resourceType;
     public float currentAmount;    // mevcut miktar
     public int mineCount;        // maden sayýsý
     public float productionRate; // üretim hýzý
