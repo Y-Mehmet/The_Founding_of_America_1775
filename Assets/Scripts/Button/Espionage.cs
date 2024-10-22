@@ -17,14 +17,14 @@ public class Espionage : MonoBehaviour
     int oneSpyCost = 10;
     int spyCost = 0;
     float sucs=0, esca=0;
-    Color originalSpyCostTextColor;
+    Color originalSpyCostTextColor= Color.white;
     Action<int> onStarLimitChange;
 
     void OnEnable()
     {
         // Slider'ýn deðer deðiþikliði olayýna bir dinleyici ekle
         slider.onValueChanged.AddListener(OnSliderValueChanged);
-        originalSpyCostTextColor = goldBtnText.color;
+     
 
         // Slider'ý sýfýrlamak için baþlangýç deðerini ayarlayabilirsiniz
         slider.value = 0; // Baþlangýçta 0 spy
@@ -38,6 +38,7 @@ public class Espionage : MonoBehaviour
     }
     private void OnDisable()
     {
+        slider.value = 0;
         slider.onValueChanged.RemoveListener(OnSliderValueChanged);
         goldButton.onClick.RemoveListener(GoldBtnClicked);
         gemButton.onClick.RemoveListener(GemBtnClicked);
@@ -97,16 +98,9 @@ public class Espionage : MonoBehaviour
         int spyCount = Mathf.FloorToInt(value); // Slider'dan tam sayý deðeri al
 
         spyCost = spyCount * oneSpyCost;
+        ColorManager(spyCost);
 
-        int gold = ResourceManager.Instance.GetResourceAmount(ResourceType.Gold);
-        if (gold >= spyCost)
-        {
-            goldBtnText.color = originalSpyCostTextColor;
-        }
-        else
-        {
-            goldBtnText.color = Color.red;
-        }
+
         goldBtnText.text = FormatNumber(spyCost);
         gemBtnText.text = FormatNumber(GameEconomy.Instance.GetGemValue(spyCost));
 
@@ -172,6 +166,28 @@ public class Espionage : MonoBehaviour
                 starImageList[i].SetActive(false);
             }
             
+        }
+    }
+    void ColorManager(int spyCost)
+    {
+        int gold = ResourceManager.Instance.GetResourceAmount(ResourceType.Gold);
+        if (gold >= spyCost)
+        {
+            goldBtnText.color = originalSpyCostTextColor;
+        }
+        else
+        {
+            goldBtnText.color = Color.red;
+        }
+        int gem = ResourceManager.Instance.GetResourceAmount(ResourceType.Diamond);
+        int gemValue = (int)GameEconomy.Instance.GetGemValue(spyCost);
+        if (gem >= gemValue)
+        {
+            gemBtnText.color = originalSpyCostTextColor;
+        }
+        else
+        {
+            gemBtnText.color = Color.red;
         }
     }
 }

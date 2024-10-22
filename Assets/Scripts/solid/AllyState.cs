@@ -112,6 +112,8 @@ public class AllyState : MonoBehaviour, ISelectable
     public void CloseAll()
     {
         FinishAttack();
+        RegionClickHandler.staticState = null;
+        
     }
 
 

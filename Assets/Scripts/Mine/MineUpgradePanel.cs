@@ -141,7 +141,7 @@ public class MineUpgradePanel : MonoBehaviour
 
                 buyButtonText.text = FormatNumber(buyButtonCoinValue);
                 float instatnlyBtnGoldValue = reqResGoldValue + buyButtonCoinValue;
-                instatnlyButtonGemValue = GameEconomy.Instance.GetGemValue(instatnlyBtnGoldValue);
+                instatnlyButtonGemValue = GameEconomy.Instance.GetGemValue(instatnlyBtnGoldValue*2);
                 instantlyButtonText.text = FormatNumber(instatnlyButtonGemValue);
             }
             else

@@ -72,7 +72,7 @@ public class TaxTypePanel : MonoBehaviour
                 {
                     if (item.taxType == taxType)
                     {
-                        if (taxType == TaxType.StampTax || taxType == TaxType.DirectTax)
+                        if (taxType == TaxType.StampTax )
                             item.taxIncome = value * item.unitTaxIncome;
                         HappinesPanel.GetComponent<HappinesPanel>().OnHappinessChanged?.Invoke(value, item.toleranceLimit);
                         taxCoinValueText.text = item.taxIncome.ToString("0");

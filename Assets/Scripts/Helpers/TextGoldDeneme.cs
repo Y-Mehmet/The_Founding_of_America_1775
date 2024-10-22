@@ -6,6 +6,7 @@ using UnityEngine;
 using static Utility;
 public class TextGoldDeneme : MonoBehaviour
 {
+    public GameObject centralBankIcon;
     private void Start()
     {
         
@@ -18,12 +19,15 @@ public class TextGoldDeneme : MonoBehaviour
         while (true)
         {
            
-            if (RegionClickHandler.Instance.currentState!= null && RegionClickHandler.Instance.currentState.TryGetComponent<State>(out State state) )
+            if (RegionClickHandler.staticState!= null && RegionClickHandler.staticState.stateType== StateType.Ally)
             {
                   gameObject.GetComponent<TMP_Text>().text = FormatNumber(RegionClickHandler.staticState.GetGoldResValue());
-            }else
+                centralBankIcon.SetActive(false);
+            }
+            else
             {
                 gameObject.GetComponent<TMP_Text>().text= FormatNumber(ResourceManager.Instance.GetResourceAmount(ResourceType.Gold));
+                centralBankIcon.SetActive(true);
             }
             yield return new WaitForSeconds(GameManager.gameDayTime);
 

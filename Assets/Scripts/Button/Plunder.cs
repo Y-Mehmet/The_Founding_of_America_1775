@@ -76,6 +76,7 @@ public class Plunder : MonoBehaviour
     {
         plunderBtn.onClick.RemoveAllListeners();
         addPlunderBtn.onClick.RemoveAllListeners();
+        RegionClickHandler.staticState = null;
     }
 
 }

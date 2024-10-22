@@ -18,6 +18,7 @@ public class Annex : MonoBehaviour
             GameManager.AllyStateList.Add(defState);
             GameManager.Instance.IsAttackFinish = true;
             GameManager.Instance.ChangeIsAttackValueFalse();
+            RegionClickHandler.staticState = null;
             UIManager.Instance.GetComponent<HideAllPanelButton>().DoHidePanel();
             GameManager.Instance.ChanngeIsRegionPanelOpenValueFalse();
         }

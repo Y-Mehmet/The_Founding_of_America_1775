@@ -3,6 +3,7 @@ using DG.Tweening;
 using Unity.VisualScripting;
 using System.Collections.Generic;
 using System.Linq;
+using System;
 
 public class RegionClickHandler : MonoBehaviour
 {
@@ -15,6 +16,10 @@ public class RegionClickHandler : MonoBehaviour
     public  Dictionary<GameObject, Tween> moveTweens = new Dictionary<GameObject, Tween>();
     public  GameObject currentState;
     public static State staticState;
+    public static State statsState;
+    public Action onStatsStateChanged;
+
+
     private void Awake()
     {
         if(Instance == null)
@@ -89,7 +94,9 @@ public class RegionClickHandler : MonoBehaviour
 
         if (activeSelectable != null)
         {
+           
             activeSelectable.CloseAll();
+          
         }
         else
         {

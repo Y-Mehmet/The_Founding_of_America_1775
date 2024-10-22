@@ -11,25 +11,64 @@ public class StatsPanel : MonoBehaviour
     public TMP_Text stateName, happinesRate, taxValue;
     public Slider slider;
     float totalTaxIncome = 0;
+    [Header("content")]
+    public GameObject parentGameObject;
+    int allyStataCount=1;
     private void OnEnable()
     {
-        falg.sprite = staticState.StateIcon;
-        stateName.text = staticState.StateName;
+        if(statsState== null)
+        {
+            statsState = staticState;
+        }
+        falg.sprite = statsState.StateIcon;
+        stateName.text = statsState.StateName;
+        allyStataCount = GameManager.AllyStateList.Count;
+        FlagActiveded();
         InvokeRepeating("UIUpdate", 0, GameManager.gameDayTime);
+        RegionClickHandler.Instance.onStatsStateChanged += StatsStateChange;
+
        
 
     }
     private void OnDisable()
     {
         CancelInvoke("UIUpdate"); // Tekrar eden çaðrýyý durdurur.
+        RegionClickHandler.Instance.onStatsStateChanged -= StatsStateChange;
     }
+    void FlagActiveded()
+    {
+        foreach (Transform child in parentGameObject.transform)
+        {
+            if(child.GetSiblingIndex()< allyStataCount)
+            {
+                child.gameObject.SetActive(true);
+            }else
+            { break; }
+        }
+    }
+      void  StatsStateChange()
+    {
+        falg.sprite = statsState.StateIcon;
+        stateName.text = statsState.StateName;
+        happinesRate.text = ((int)statsState.Morele).ToString() + "%";
+        slider.value = ((int)statsState.Morele);
+        totalTaxIncome = 0;
+        foreach (var item in statsState.Taxes)
+        {
+            totalTaxIncome += item.taxIncome;
+            Debug.Log($"tax name {item.taxType} " + totalTaxIncome);
+
+        }
+        taxValue.text = FormatNumber(totalTaxIncome);
+    }
+
 
     void UIUpdate()
     {
-        happinesRate.text = ((int)staticState.Morele).ToString() + "%";
-        slider.value = ((int)staticState.Morele);
+        happinesRate.text = ((int)statsState.Morele).ToString() + "%";
+        slider.value = ((int)statsState.Morele);
          totalTaxIncome = 0;
-        foreach (var item in staticState.Taxes)
+        foreach (var item in statsState.Taxes)
         {
             totalTaxIncome += item.taxIncome;
             Debug.Log($"tax name {item.taxType} " + totalTaxIncome);

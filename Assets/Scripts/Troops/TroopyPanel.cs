@@ -12,7 +12,7 @@ public class TroopyPanel : MonoBehaviour
         NavalInstalyBtn, NavalBuyBtn, NavalMacBtn, LandInstalyBtn, LandBuyBtn, LandMacBtn;
     public TMP_InputField BarrackInputField, NavalInputField, LandInputField;
     State currentState;
-    int BarrackCost = 100, NavalSoliderCost = 1, LandSoliderCost = 1;
+    int BarrackCost = 20, NavalSoliderCost = 1, LandSoliderCost = 1;
     Color originalTextColor;
     Color redColor = Color.red;
 

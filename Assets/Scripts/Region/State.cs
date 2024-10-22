@@ -29,20 +29,18 @@ public class State : MonoBehaviour
     public float TotalArmyPower;
     public StateType stateType;
     public float Morele ;
-    
-    public float TotalMoraleImpact=0; // kullanýlmýyor
-    
+  
     public Sprite StateIcon;// falg
     public int Population;
     public int populationAddedValue;
     public int Resources; // fav resources 
     public float loss;
     public int attackCanvasButtonPanelIndex = 1;
-
-  
+ 
     public List<TaxData> Taxes = new List<TaxData>();
 
     public Dictionary<ResourceType, ResourceData> resourceData = new Dictionary<ResourceType, ResourceData>();
+    public float resoruceAddedValue;
     public Trade importTrade;
     public Trade exportTrade;
     
@@ -158,10 +156,7 @@ public class State : MonoBehaviour
         NavalArmySize += naval;
 
     }
-    public void SetTotalMoraleImpact(float impact)
-    {
-        TotalMoraleImpact += impact;
-    }
+  
     public int GetCurrentResValue(ResourceType resourceType)
     {
         return (int) resourceData[resourceType].currentAmount;
@@ -176,13 +171,20 @@ public class State : MonoBehaviour
             if (result > 0)
             {
                 // Exponential etki: Farkýn karesi veya baþka bir üs
-                // Burada 2. dereceden bir etki uyguluyoruz, fark daha hýzlý artacak
-                taxSatisfactionRate -= Mathf.Pow(result, 1.5f); // Farkýn karesi (result^2)
-
-               
+           
+                taxSatisfactionRate -= Mathf.Pow(result, 1.15f); // Farkýn karesi (result^2)
+             
+            }else
+            {
+                taxSatisfactionRate += Mathf.Pow(-result, 0.5f); // 
             }
         }
-        return taxSatisfactionRate * 0.01f;
+        return taxSatisfactionRate * 0.005f;
+    }
+    private float GetResourceFactionRate()
+    {
+
+        return resoruceAddedValue * 0.01f;
     }
     public int GetGoldResValue()
     {
@@ -274,29 +276,19 @@ public class State : MonoBehaviour
     }
     private IEnumerator ChangeMorale()
     {
+        float addedValue = 0;
         while (!GameManager.Instance.ÝsGameOver && !GameManager.Instance.isGamePause && GameManager.Instance.IsAttackFinish)
         {
-            float addedTaxValue= GetTaxSatisfactionRate();
+           addedValue= GetTaxSatisfactionRate()+GetResourceFactionRate();
             
-            {
-                Morele += addedTaxValue;
+            
+                Morele += addedValue;
                 Morele = Mathf.Clamp(Morele, 0, 100);
                 State state = gameObject.GetComponent<State>();
-               
-               
-                {
-                   
-                    {
-                        OnMoreleChanged?.Invoke(Morele, state);
-                      //  Debug.LogWarning($" morale: " + Morele);
-                    }
-                }
 
+                OnMoreleChanged?.Invoke(Morele, state);
 
-            }
-
-
-            yield return new WaitForSeconds(GameManager.gameDayTime);
+            yield return new WaitForSeconds(gameDayTime);
         }
     }
     private IEnumerator IncreaseArmySizeOverTime()
@@ -346,11 +338,12 @@ public class State : MonoBehaviour
     {
         while (!GameManager.Instance.ÝsGameOver && !GameManager.Instance.isGamePause && GameManager.Instance.IsAttackFinish )
         {
+            resoruceAddedValue = 0;
             foreach (var item in resourceData)
             {
                 float productionAmount = item.Value.mineCount * item.Value.productionRate;
                 float moraleEffect = (101 - Morele) / 100;
-                productionAmount *= (1 - moraleEffect * 0.1f);
+                productionAmount *= (1 - moraleEffect * 0.3f);
 
                 if (item.Key== ResourceType.Gold)
                 {
@@ -377,10 +370,23 @@ public class State : MonoBehaviour
                     
                 }
                 //if(item.Key== ResourceType.Gold && IsCapitalCity)
-               // Debug.LogWarning($"{item.Key}  üretim  {productionAmount} rate {item.Value.productionRate } ");
+                // Debug.LogWarning($"{item.Key}  üretim  {productionAmount} rate {item.Value.productionRate } ");
+               
                 item.Value.surplus= productionAmount- (item.Value.consumptionAmount * Population);
+               
                 item.Value.currentAmount += productionAmount;
                 item.Value.currentAmount -= (item.Value.consumptionAmount*Population);
+                if(item.Key!= ResourceType.Gold)
+                {
+                    if(item.Value.currentAmount<0)
+                    {
+                        if ((int)item.Key > 0 && (int)item.Key < 7)
+                            resoruceAddedValue += (item.Value.surplus / item.Value.productionRate);
+                        int goldValue = Mathf.CeilToInt(GameEconomy.Instance.GetGoldValue(item.Value.resourceType, -1*item.Value.currentAmount))*2;
+                        GoldSpend(goldValue);
+                        item.Value.currentAmount = 0;
+                    }
+                }
 
             }
 
@@ -743,43 +749,7 @@ public enum StateType
     Enemy,
     Neutral
 }
-[Serializable]
-public class StateData
-{
-    public string StateName;
-    public int LandArmySize;
-    public int NavalArmySize;
-    public float UnitNavalArmyPower;
-    public float UnitLandArmyPower;
-    public int ArmyBarrackSize;
-    public int ArmySize;
-    
-    public float TotalArmyPower;
-    public StateType stateType;
-    public float Morele;
-    public int Population;
-    public int Resources;
-    
-    
-   
 
-
-    // Ticaret verileri
-    public Trade importTrade;
-    public Trade exportTrade;
-
-    // Vergi verileri
-    public List<TaxData> Taxes;
-    public List< ResourceData> resourceDataList;
-
-   
-    public StateData()
-    {
-        Taxes = new List<TaxData>();
-        resourceDataList = new List<ResourceData>();
-      
-    }
-}
 public enum TaxType
 {
     IncomeTax,

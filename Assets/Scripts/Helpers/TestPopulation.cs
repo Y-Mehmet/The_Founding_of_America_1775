@@ -4,6 +4,7 @@ using TMPro;
 using UnityEngine;
 using static Utility;
 using static GameManager;
+using static RegionClickHandler;
 public class TestPopulation : MonoBehaviour
 {
     private void Start()
@@ -19,7 +20,7 @@ public class TestPopulation : MonoBehaviour
         while (true)
         {
             
-            if (RegionClickHandler.Instance.currentState != null)
+            if (staticState != null && staticState.stateType==StateType.Ally)
             {
                 addedValue = RegionClickHandler.staticState.populationAddedValue;
                 if (addedValue<0)

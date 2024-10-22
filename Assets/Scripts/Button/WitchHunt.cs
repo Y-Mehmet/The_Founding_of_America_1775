@@ -17,10 +17,9 @@ public class WitchHunt : MonoBehaviour
     int activeStarIndex = -1;
     int oneWitchCost = 100;
     int witchCost = 0;
-    //int witchPower = 30; // Her bir cadý kaç asker öldürecek
-    //int sliderValue = 0;
+
     float spread = 0, belive = 0;
-    Color originalWitchCostTextColor;
+    Color originalWitchCostTextColor=Color.white;
     Action<int> onStarLimitChange;
 
     void OnEnable()
@@ -29,7 +28,7 @@ public class WitchHunt : MonoBehaviour
         if( enemyState!= null)
         {
             slider.onValueChanged.AddListener(OnSliderValueChanged);
-            originalWitchCostTextColor = goldBtnText.color;
+           
 
             slider.value = 0; // Baþlangýç deðeri
             OnSliderValueChanged(slider.value); // Ýlk deðer güncelleme
@@ -46,6 +45,7 @@ public class WitchHunt : MonoBehaviour
 
     private void OnDisable()
     {
+        slider.value = 0;
         slider.onValueChanged.RemoveListener(OnSliderValueChanged);
         goldButton.onClick.RemoveListener(GoldBtnClicked);
         gemButton.onClick.RemoveListener(GemBtnClicked);
@@ -102,16 +102,8 @@ public class WitchHunt : MonoBehaviour
         int witchCount = Mathf.FloorToInt(value);
 
         witchCost = witchCount * oneWitchCost;
-
-        int gold = ResourceManager.Instance.GetResourceAmount(ResourceType.Gold);
-        if (gold >= witchCost)
-        {
-            goldBtnText.color = originalWitchCostTextColor;
-        }
-        else
-        {
-            goldBtnText.color = Color.red;
-        }
+        ColorManager(witchCost);
+      
 
         goldBtnText.text = FormatNumber(witchCost);
         gemBtnText.text = FormatNumber(GameEconomy.Instance.GetGemValue(witchCost));
@@ -138,22 +130,17 @@ public class WitchHunt : MonoBehaviour
             ClearSlider();
             UIManager.Instance.HideLastPanel();
         }
-        else
-        {
-            goldBtnText.color = Color.red;
-            Debug.LogWarning("Yeterli altýn yok, cadý gönderilemiyor.");
-        }
+       
     }
     public void SendWitch()
     {
         float enemyArmySize = enemyState.GetComponent<State>().GetArmySize();
         int newLoss =(int)(enemyArmySize / 100 * spread);
-        newLoss= (int) (newLoss/100*belive);
-       
+        newLoss= (int) (newLoss/200*belive);
+        newLoss = newLoss > 5000 ? 5000 : newLoss;      
         Debug.LogWarning($" {enemyState.name}'inde orduda baþlatýlan cadý avýnda  {newLoss} tane cadý elegeçirildi  avdan önceki asker sayýsý {enemyArmySize}");
         enemyState.GetComponent<State>().ReduceArmySize(newLoss);
         Debug.LogWarning($"avdan sonra asker sayýsý {enemyState.GetComponent<State>().GetArmySize()}");
-
     }
 
     void GemBtnClicked()
@@ -167,11 +154,7 @@ public class WitchHunt : MonoBehaviour
             ClearSlider();
             UIManager.Instance.HideLastPanel();
         }
-        else
-        {
-            gemBtnText.color = Color.red;
-            Debug.LogWarning("Yeterli elmas yok, cadý gönderilemiyor.");
-        }
+        
     }
 
     void ChangeActiveStarGameObject(int index)
@@ -179,6 +162,29 @@ public class WitchHunt : MonoBehaviour
         for (int i = 0; i < 3; i++)
         {
             starImageList[i].SetActive(i < index + 1);
+        }
+    }
+    void ColorManager(int witchCost)
+    {
+        int gold = ResourceManager.Instance.GetResourceAmount(ResourceType.Gold);
+        if (gold >= witchCost)
+        {
+            goldBtnText.color = originalWitchCostTextColor;
+        }
+        else
+        {
+            goldBtnText.color = Color.red;
+        }
+        int gem = ResourceManager.Instance.GetResourceAmount(ResourceType.Diamond);
+        int gemValue = (int)GameEconomy.Instance.GetGemValue(witchCost);
+        if (gem >= gemValue)
+        {
+            gemBtnText.color = originalWitchCostTextColor;
+        }
+        else
+        {
+            gemBtnText.color = Color.red;
+           // Debug.LogWarning("Yeterli elmas yok, cadý gönderilemiyor.");
         }
     }
 }

@@ -24,7 +24,6 @@ public class SaveGameData : MonoBehaviour
                 {
                     StateName = stateComponent.StateName,
                     ArmySize = stateComponent.GetArmySize(),
-
                     TotalArmyPower = stateComponent.GetTotalArmyPower(),
                     stateType = stateComponent.stateType,
                     Morele = stateComponent.Morele,
@@ -90,8 +89,7 @@ public class SaveGameData : MonoBehaviour
                 if (stateComponent != null)
                 {
                     stateComponent.StateName = stateData.StateName;
-                    stateComponent.ArmySize= stateData.ArmySize;
-                  
+                    stateComponent.ArmySize= stateData.ArmySize;               
                     stateComponent.TotalArmyPower = stateData.TotalArmyPower;
                     stateComponent.stateType = stateData.stateType;
                     stateComponent.Morele = stateData.Morele;
@@ -102,10 +100,7 @@ public class SaveGameData : MonoBehaviour
                     stateComponent.UnitNavalArmyPower= stateData.UnitNavalArmyPower;
                     stateComponent.UnitLandArmyPower= stateData.UnitLandArmyPower;
                     stateComponent.ArmyBarrackSize = stateData.ArmyBarrackSize;
-
                     stateComponent.resourceData = new Dictionary<ResourceType, ResourceData>(); // Yeniden baþlatma
-
-                  
 
                     // Ticaret verilerini yükle
                     stateComponent.importTrade = stateData.importTrade;
@@ -143,5 +138,36 @@ public class SaveGameData : MonoBehaviour
             this.stateData.Add(stateData);
         }
     }
+    
 }
 
+[Serializable]
+public class StateData
+{
+    public string StateName;
+    public int LandArmySize;
+    public int NavalArmySize;
+    public float UnitNavalArmyPower;
+    public float UnitLandArmyPower;
+    public int ArmyBarrackSize;
+    public int ArmySize;
+    public float TotalArmyPower;
+    public StateType stateType;
+    public float Morele;
+    public int Population;
+    public int Resources;
+
+    // Ticaret verileri
+    public Trade importTrade;
+    public Trade exportTrade;
+
+    // Vergi verileri
+    public List<TaxData> Taxes;
+    public List<ResourceData> resourceDataList;
+    public StateData()
+    {
+        Taxes = new List<TaxData>();
+        resourceDataList = new List<ResourceData>();
+
+    }
+}

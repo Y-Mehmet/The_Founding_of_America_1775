@@ -445,27 +445,27 @@ PrefabInstance:
     - target: {fileID: 793964469224150067, guid: f3293c78e982941b09f36505f32ded5e,
         type: 3}
       propertyPath: m_SizeDelta.x
-      value: 1881.251
+      value: 750
       objectReference: {fileID: 0}
     - target: {fileID: 793964469224150067, guid: f3293c78e982941b09f36505f32ded5e,
         type: 3}
       propertyPath: m_SizeDelta.y
-      value: 1064.366
+      value: 750
       objectReference: {fileID: 0}
     - target: {fileID: 793964469224150067, guid: f3293c78e982941b09f36505f32ded5e,
         type: 3}
       propertyPath: m_LocalScale.x
-      value: 0.5
+      value: 0.75
       objectReference: {fileID: 0}
     - target: {fileID: 793964469224150067, guid: f3293c78e982941b09f36505f32ded5e,
         type: 3}
       propertyPath: m_LocalScale.y
-      value: 0.5
+      value: 0.75
       objectReference: {fileID: 0}
     - target: {fileID: 793964469224150067, guid: f3293c78e982941b09f36505f32ded5e,
         type: 3}
       propertyPath: m_LocalScale.z
-      value: 0.5
+      value: 0.75
       objectReference: {fileID: 0}
     - target: {fileID: 793964469224150067, guid: f3293c78e982941b09f36505f32ded5e,
         type: 3}
@@ -505,7 +505,7 @@ PrefabInstance:
     - target: {fileID: 793964469224150067, guid: f3293c78e982941b09f36505f32ded5e,
         type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 362
+      value: 480
       objectReference: {fileID: 0}
     - target: {fileID: 793964469224150067, guid: f3293c78e982941b09f36505f32ded5e,
         type: 3}
@@ -1158,6 +1158,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 165122835772179459, guid: 97f24d11ee3cd4ca4881af378ccaf890,
         type: 3}
+      propertyPath: m_text
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 165122835772179459, guid: 97f24d11ee3cd4ca4881af378ccaf890,
+        type: 3}
       propertyPath: m_textAlignment
       value: 65535
       objectReference: {fileID: 0}
@@ -1556,7 +1561,7 @@ PrefabInstance:
     - target: {fileID: 165122835772179459, guid: 97f24d11ee3cd4ca4881af378ccaf890,
         type: 3}
       propertyPath: m_text
-      value: 10
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 165122835772179459, guid: 97f24d11ee3cd4ca4881af378ccaf890,
         type: 3}
