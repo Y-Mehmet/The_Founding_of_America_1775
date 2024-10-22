@@ -7,6 +7,7 @@ public class GameManager : MonoBehaviour
 {
    public static GameManager Instance;
     public static List<State> AllyStateList = new List<State>();
+    public Action<State> onAllyStateChanged;
     public static int tottalPopulation = 0;
     public bool ÝsAttack= false;
     public bool IsRegionPanelOpen = false;
@@ -37,6 +38,7 @@ public class GameManager : MonoBehaviour
     public List<State> allStates = new List<State>();
     public event Action OnAttackStarted;
     public event Action OnAttackStopped;
+    public Action OnGameDataLoaded;
 
 
 
@@ -50,11 +52,21 @@ public class GameManager : MonoBehaviour
         else
         {
             Instance = this;
-            AllyStateList.Clear();
-            AllyStateList = GetStatesByType(StateType.Ally);
+         
         }
     }
-   public static void TotalPopulationManager( int addedValue)
+    private void Start()
+    {
+        OnGameDataLoaded += GameLoaded;
+      
+       
+    }
+    void GameLoaded()
+    {
+        AllyStateList.Clear();
+        AllyStateList = GetStatesByType(StateType.Ally);
+    }
+    public static void TotalPopulationManager( int addedValue)
     {
         tottalPopulation += addedValue;
     }
@@ -85,9 +97,6 @@ public class GameManager : MonoBehaviour
         }
         
     }
-
-
-
     public void ChangeIsAttackValueTrue()
     {
         ÝsAttack = true;

@@ -114,7 +114,7 @@ public class GeneralManager:MonoBehaviour
         General,           // Orgeneral
         GeneralOfTheArmy   // Mareþal (Savaþ zamaný 5 yýldýzlý General)
     }
-
+    [Serializable]
     public class General
     {
         public string Name { get; private set; }

@@ -4,6 +4,9 @@ using UnityEngine;
 public class GameDateManager : MonoBehaviour
 {
     public static GameDateManager instance{get; private set;}
+    public static DateTime currentDate;     // Þu anki oyun tarihi
+    private float timeScale;   // Zaman akýþýný kontrol eden faktör
+    private bool isPaused = false;   // Zamanýn durdurulup durdurulmadýðýný kontrol eden deðiþken
     private void Awake()
     {
 
@@ -13,9 +16,7 @@ public class GameDateManager : MonoBehaviour
             Destroy(gameObject);
     }
 
-    public static DateTime currentDate;     // Þu anki oyun tarihi
-    private float timeScale ;   // Zaman akýþýný kontrol eden faktör
-    private bool isPaused = false;   // Zamanýn durdurulup durdurulmadýðýný kontrol eden deðiþken
+   
 
 
     private void OnDisable()
@@ -24,17 +25,20 @@ public class GameDateManager : MonoBehaviour
     }
     void Start()
     {
+        currentDate = new DateTime(1775, 4, 19);
+
+        // Her saniyede bir kez gün artýþý yap
+        InvokeRepeating("AdvanceOneDay", 0, timeScale);
         if (GameManager.Instance != null)
         {
             timeScale = GameManager.gameDayTime;
+            GameManager.Instance.OnGameDataLoaded += GameDataLoaded;
         }
         else
             Debug.LogWarning("gameManager is null");
         // Oyun baþladýðýnda tarihi 19 Nisan 1775 olarak ayarla
-        currentDate = new DateTime(1775, 4, 19);
-
-        // Her saniyede bir kez gün artýþý yap
-        InvokeRepeating("AdvanceOneDay",  timeScale,  timeScale);
+       
+      
     }
 
     // Bir gün ekleme fonksiyonu
@@ -45,6 +49,12 @@ public class GameDateManager : MonoBehaviour
             currentDate = currentDate.AddDays(1);
           //  Debug.Log("Current Game Date: " + currentDate.ToString("MM/dd/yyyy")); // Amerikan tarih formatý
         }
+    }
+    public void GameDataLoaded()
+    {
+        //Debug.LogWarning("game data loadded date timede managerde çalýsþtý");
+        CancelInvoke("AdvanceOneDay");
+        InvokeRepeating("AdvanceOneDay", 0, timeScale);
     }
 
     // Zamaný durdurma fonksiyonu (Savaþ baþladýðýnda çaðrýlabilir)
@@ -66,6 +76,11 @@ public class GameDateManager : MonoBehaviour
     {
         return date.ToString("MM/dd/yyyy");
     }
+    public static DateTime ConvertStringToDate(string dateString)
+    {
+        return DateTime.ParseExact(dateString, "MM/dd/yyyy", null);
+    }
+
     public DateTime GetCurrentDate()
     {
         return currentDate;

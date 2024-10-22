@@ -71,7 +71,7 @@ public class StatsPanel : MonoBehaviour
         foreach (var item in statsState.Taxes)
         {
             totalTaxIncome += item.taxIncome;
-            Debug.Log($"tax name {item.taxType} " + totalTaxIncome);
+            //Debug.Log($"tax name {item.taxType} " + totalTaxIncome);
 
         }
         taxValue.text = FormatNumber(totalTaxIncome);

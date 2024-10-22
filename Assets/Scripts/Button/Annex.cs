@@ -16,6 +16,7 @@ public class Annex : MonoBehaviour
         {
             defState.OccupyState();
             GameManager.AllyStateList.Add(defState);
+            GameManager.Instance.onAllyStateChanged?.Invoke(defState);
             GameManager.Instance.IsAttackFinish = true;
             GameManager.Instance.ChangeIsAttackValueFalse();
             RegionClickHandler.staticState = null;

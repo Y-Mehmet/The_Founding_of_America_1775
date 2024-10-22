@@ -15,7 +15,7 @@ public class GeneralInfoPanel : MonoBehaviour
     public Slider generalExperiensSlider;
     private void OnEnable()
     {
-        Debug.LogWarning(GeneralManager.generals.Count + " general count"+ GeneralManager.GeneralIndex);
+        //Debug.LogWarning(GeneralManager.generals.Count + " general count"+ GeneralManager.GeneralIndex);
         int index = GeneralManager.GeneralIndex;
         string generalName = GeneralManager.generals[index].Name;
         generalCharacterIcon.sprite = GameDataSo.Instance.GeneralSprite[index];

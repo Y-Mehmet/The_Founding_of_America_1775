@@ -300,8 +300,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fe712c27235085942be43aa348269c24, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  goldText: {fileID: 0}
-  InputFieldCaharcterLimit: 6
+  CurrentTradeState: {fileID: 0}
 --- !u!1 &1849995187969613885
 GameObject:
   m_ObjectHideFlags: 0
@@ -802,7 +801,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aa9350adec8dae54ab0819c274d78015, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  PayBackValue: 0
   payBackTime: 100
 --- !u!1 &6742798097656719256
 GameObject:
@@ -864,6 +862,8 @@ GameObject:
   m_Component:
   - component: {fileID: 1710235533476673688}
   - component: {fileID: 7450346585607309608}
+  - component: {fileID: 8243340835856951194}
+  - component: {fileID: 8277818009194423323}
   m_Layer: 0
   m_Name: GeneralManager
   m_TagString: Untagged
@@ -896,6 +896,30 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 7901af34aeaac6845b7565c0217dc50b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &8243340835856951194
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7084531262897934301}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa1cd237bcf93254e905ee3aa157b702, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &8277818009194423323
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7084531262897934301}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cbd172effef884d4081405d8a059e422, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &7202052424872887281
@@ -954,6 +978,7 @@ GameObject:
   - component: {fileID: 7853046244676920090}
   - component: {fileID: 2598750721410004453}
   - component: {fileID: 1827040040632546622}
+  - component: {fileID: 354585316502633339}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -1073,6 +1098,18 @@ MonoBehaviour:
   largeStates: []
   mediumStates: []
   smallStates: []
+--- !u!114 &354585316502633339
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8211175344201325688}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a0443b3a81d46ea4b8ca8b7c924a0cb3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &8579783740619642357
 PrefabInstance:
   m_ObjectHideFlags: 0

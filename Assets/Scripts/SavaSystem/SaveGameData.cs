@@ -3,18 +3,41 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Security.Cryptography.X509Certificates;
 using UnityEngine;
+using static GeneralManager;
 
 public class SaveGameData : MonoBehaviour
 {
+    public static SaveGameData Instance { get;private set; }
 
-
-
+    private void Awake()
+    {
+        if(Instance == null)
+            Instance = this;
+        else
+        {
+            Destroy(gameObject);
+        }
+    }
+   
+    private void OnApplicationQuit()
+    {
+        SaveGame();
+    }
+    
 
 
 
     public void SaveGame()
     {
         SaveData data = new SaveData();
+        GameData gameData = new GameData();
+
+        gameData.currentTime = GameDateManager.instance.GetCurrentDataString();
+        foreach (var keyValuePair in GeneralManager.stateGenerals)
+        {
+            gameData.generalStatesList.Add(keyValuePair.Key);
+            gameData.assignedGeneralList.Add(keyValuePair.Value);
+        }data.gameData = gameData;
         foreach (Transform item in Usa.Instance.transform)
         {
             State stateComponent = item.gameObject.GetComponent<State>();
@@ -34,6 +57,7 @@ public class SaveGameData : MonoBehaviour
                     UnitNavalArmyPower = stateComponent.UnitNavalArmyPower,
                     UnitLandArmyPower = stateComponent.UnitLandArmyPower,
                     ArmyBarrackSize = stateComponent.GetArmyBarrackSize(),
+                    
 
                 // Ticaret bilgilerini ekle
                 importTrade = stateComponent.importTrade,
@@ -49,10 +73,10 @@ public class SaveGameData : MonoBehaviour
                 {
                     stateData.resourceDataList.Add(resource.Value);
 
-                    if (resource.Key == ResourceType.Water)
-                    {
-                        Debug.LogWarning("Water mine count: " + resource.Value.mineCount);
-                    }
+                    //if (resource.Key == ResourceType.Water)
+                    //{
+                    //    Debug.LogWarning("Water mine count: " + resource.Value.mineCount);
+                    //}
                 }
 
 
@@ -73,10 +97,15 @@ public class SaveGameData : MonoBehaviour
         if (!string.IsNullOrEmpty(dataToLoad))
         {
             SaveData data = JsonUtility.FromJson<SaveData>(dataToLoad);
+            GameDateManager.currentDate = GameDateManager.ConvertStringToDate(data.gameData.currentTime);
+            GeneralManager.stateGenerals = data.gameData.generalStatesList
+          .Select((state, index) => new { state, general = data.gameData.assignedGeneralList[index] })
+          .ToDictionary(x => x.state, x => x.general);
+            if (Usa.Instance == null)
+                Debug.LogError(" usa instance is null");
             foreach (var stateData in data.stateData)
             {
-                Transform stateObjectTransform = Usa.Instance.GetComponentsInChildren<Transform>()
-                    .FirstOrDefault(child => child.GetComponent<State>()?.StateName == stateData.StateName);
+                Transform stateObjectTransform = Usa.Instance.GetComponentsInChildren<Transform>(true).FirstOrDefault(child => child.GetComponent<State>()?.StateName == stateData.StateName);
                 if (stateObjectTransform == null)
                 {
                     Debug.LogWarning($"State '{stateData.StateName}' not found in the USA map.");
@@ -127,10 +156,13 @@ public class SaveGameData : MonoBehaviour
     public class SaveData
     {
         public List<StateData> stateData;
+        public GameData gameData;  // Oyun genelindeki veriler için yeni yapý
+
 
         public SaveData()
         {
             stateData = new List<StateData>();
+            gameData = new GameData();
         }
 
         public void Add(StateData stateData)
@@ -156,6 +188,8 @@ public class StateData
     public float Morele;
     public int Population;
     public int Resources;
+  
+
 
     // Ticaret verileri
     public Trade importTrade;
@@ -164,10 +198,24 @@ public class StateData
     // Vergi verileri
     public List<TaxData> Taxes;
     public List<ResourceData> resourceDataList;
+    
     public StateData()
     {
         Taxes = new List<TaxData>();
         resourceDataList = new List<ResourceData>();
 
     }
+}
+[Serializable]
+public class GameData
+{
+    public string currentTime;
+    public List<State> generalStatesList;
+    public List<General> assignedGeneralList;
+    public GameData()
+    {
+       generalStatesList= new List<State> ();
+        assignedGeneralList= new List<General>();
+    }
+ 
 }

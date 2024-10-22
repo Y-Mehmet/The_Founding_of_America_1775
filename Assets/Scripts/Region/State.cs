@@ -5,7 +5,7 @@ using UnityEngine;
 using static GeneralManager;
 using static GameManager;
 using System.Linq;
-
+[Serializable]
 public class State : MonoBehaviour
 {
     public bool IsCapitalCity = false;
@@ -51,9 +51,21 @@ public class State : MonoBehaviour
   
     public float PopulationMultiplier = 0.001f; // Nüfusun asker artýþýna etkisi
     private float populationGrowthRateMultiplier=0.00001f; // population growth rate multiplier
-
-    
     private void Start()
+    {
+        if(GameManager.Instance!= null)
+        {
+            GameManager.Instance.OnGameDataLoaded += GameDataLoaded;
+        }
+        else
+        {
+            Debug.LogError("gamanenager is null");
+        }
+      
+    }
+    
+
+    private void GameDataLoaded()
     {
         TotalArmyPower = GetTotalArmyPower();
         ArmyBarrackSize = (int)(Population * GameManager.ArmyBarrackRatio);
@@ -280,12 +292,10 @@ public class State : MonoBehaviour
         while (!GameManager.Instance.ÝsGameOver && !GameManager.Instance.isGamePause && GameManager.Instance.IsAttackFinish)
         {
            addedValue= GetTaxSatisfactionRate()+GetResourceFactionRate();
-            
-            
+                        
                 Morele += addedValue;
                 Morele = Mathf.Clamp(Morele, 0, 100);
                 State state = gameObject.GetComponent<State>();
-
                 OnMoreleChanged?.Invoke(Morele, state);
 
             yield return new WaitForSeconds(gameDayTime);
@@ -495,6 +505,7 @@ public class State : MonoBehaviour
     {
         // Debug.LogWarning("state kayýbedildi");
         AllyStateList.Remove(this);
+        GameManager.Instance.onAllyStateChanged?.Invoke(this);
         ArmySize = firstArmySize;
         stateType = StateType.Enemy;
         ChangeCollor.Instance.ChangeGameobjectColor(gameObject, stateType);
