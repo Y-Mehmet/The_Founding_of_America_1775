@@ -65,6 +65,7 @@ public class SaveSystem : MonoBehaviour
         {
             Debug.LogError("Error when loading the file " + e.Message);
             content = "";
+            
         }
         return false;
     }

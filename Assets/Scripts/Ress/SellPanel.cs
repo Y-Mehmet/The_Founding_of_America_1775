@@ -39,7 +39,7 @@ public class SellPanel : MonoBehaviour
         Restart();
         SetNewTradeState();
         tradeState = ResourceManager.Instance.CurrentTradeState;
-        resLimit = (int)tradeState.importTrade.limit[(int)curentResource - 1];
+        resLimit = (int)tradeState.tradeLists[0].limit[(int)curentResource - 1];
     }
     private void OnDisable()
     {
@@ -78,15 +78,15 @@ public class SellPanel : MonoBehaviour
 
                 resIconImage.sprite = ResSpriteSO.Instance.resIcon[(int)resourceType];
 
-                
-                if(tradeState.importTrade.limit[(int)resourceType-1]<=0)
+
+                if (tradeState.tradeLists[0].limit[(int)resourceType-1]<=0)
                 {
                     SetNewTradeState();
                 }
                else
                 {
                    
-                    contrackPrice = tradeState.importTrade.contractPrices[(int)resourceType - 1];
+                    contrackPrice = tradeState.tradeLists[0].contractPrices[(int)resourceType - 1];
 
 
                     if (contrackPrice > 0)
@@ -148,10 +148,10 @@ public class SellPanel : MonoBehaviour
     }
     public void MacButtonClicked()
     {
-        resLimit =(int) tradeState.importTrade.limit[((int)curentResource) - 1];
+        resLimit =(int)tradeState.tradeLists[0].limit[((int)curentResource) - 1];
         amountAvailable = (int)staticState.resourceData[curentResource].currentAmount;
         quantity = (resLimit > amountAvailable ? amountAvailable : resLimit);
-        float spendLimit = tradeState.GetGoldResValue() / tradeState.importTrade.contractPrices[((int)curentResource)-1];
+        float spendLimit = tradeState.GetGoldResValue() / tradeState.tradeLists[0].contractPrices[((int)curentResource)-1];
         quantity= quantity>spendLimit? spendLimit : quantity;
             inputField.text = FormatNumber(quantity);    
         
@@ -171,7 +171,7 @@ public class SellPanel : MonoBehaviour
         float earing;
         if (float.TryParse(contrackPriceValueText.text, out earing))
         {
-            int limit =(int) ResourceManager.Instance.CurrentTradeState.importTrade.limit[(int)type - 1];
+            int limit =(int)ResourceManager.Instance.CurrentTradeState.tradeLists[0].limit[(int)type - 1];
             if (quantity>0)
             {
 

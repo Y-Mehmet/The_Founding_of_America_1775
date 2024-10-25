@@ -43,6 +43,7 @@ public class State : MonoBehaviour
     public float resoruceAddedValue;
     public Trade importTrade;
     public Trade exportTrade;
+    public List<Trade> tradeLists = new List<Trade>();
     
     public  Dictionary<ResourceType, float> plunderedResources = new Dictionary<ResourceType, float>();
 
@@ -346,6 +347,7 @@ public class State : MonoBehaviour
 
     private IEnumerator ResourceProduction()
     {
+       
         while (!GameManager.Instance.ÝsGameOver && !GameManager.Instance.isGamePause && GameManager.Instance.IsAttackFinish )
         {
             resoruceAddedValue = 0;
@@ -652,7 +654,7 @@ public void GemSpend(int value)
         
             if (resourceData.ContainsKey(resType))
             {
-            exportTrade.limit[(int)resType - 1] -= quantity;
+            tradeLists[1].limit[(int)resType - 1] -= quantity;
 
           //  Debug.LogWarning(" limit: " + exportTrade.limit[(int)resType - 1]);
            // Debug.Log($"{gameObject.name} {resType} kaynaðý {quantity} önceki miktar {resourceData[resType].currentAmount}");
@@ -683,7 +685,7 @@ public void GemSpend(int value)
        // Debug.LogWarning("buy " + gameObject.name);
         if (resourceData.ContainsKey(resType))
         {
-                importTrade.limit[(int)resType - 1] -= quantity;
+            tradeLists[0].limit[(int)resType - 1] -= quantity;
 
                 resourceData[ResourceType.Gold].currentAmount -= spending;
              //   Debug.Log($"Coroutine baþlatýlýyor: {resType}, Miktar: {quantity}, Teslimat Süresi: {deliveryTime}");
@@ -728,9 +730,9 @@ public void GemSpend(int value)
         if (index == 0 )
         {
             
-                if (importTrade.limit[(int)currentResType - 1] > 0)
+                if (tradeLists[0].limit[(int)currentResType - 1] > 0)
                 {
-                    return importTrade;
+                    return tradeLists[0];
                 }
              
         }
@@ -739,11 +741,11 @@ public void GemSpend(int value)
             if (index == 1)
             {
                 
-                    if (exportTrade.limit[(int)currentResType-1] > 0)
+                    if (tradeLists[1].limit[(int)currentResType-1] > 0)
                     {
                       // Debug.LogWarning($"eþleþme  tamam  {currentResType}  limit {exportTrade.limit[(int)currentResType - 1]}");
 
-                        return exportTrade;
+                        return tradeLists[1];
                     }
                 
             }

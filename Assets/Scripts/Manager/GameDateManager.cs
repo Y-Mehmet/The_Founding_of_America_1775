@@ -21,14 +21,14 @@ public class GameDateManager : MonoBehaviour
 
     private void OnDisable()
     {
+       
         CancelInvoke("AdvanceOneDay");
     }
     void Start()
     {
         currentDate = new DateTime(1775, 4, 19);
 
-        // Her saniyede bir kez gün artýþý yap
-        InvokeRepeating("AdvanceOneDay", 0, timeScale);
+       
         if (GameManager.Instance != null)
         {
             timeScale = GameManager.gameDayTime;
@@ -37,8 +37,11 @@ public class GameDateManager : MonoBehaviour
         else
             Debug.LogWarning("gameManager is null");
         // Oyun baþladýðýnda tarihi 19 Nisan 1775 olarak ayarla
-       
-      
+
+        // Her saniyede bir kez gün artýþý yap
+        InvokeRepeating("AdvanceOneDay", 0, timeScale);
+
+
     }
 
     // Bir gün ekleme fonksiyonu
@@ -47,12 +50,15 @@ public class GameDateManager : MonoBehaviour
         if (!isPaused)
         {
             currentDate = currentDate.AddDays(1);
-          //  Debug.Log("Current Game Date: " + currentDate.ToString("MM/dd/yyyy")); // Amerikan tarih formatý
+          
+        }else
+        {
+            Debug.LogWarning("is poused");
         }
     }
     public void GameDataLoaded()
     {
-        //Debug.LogWarning("game data loadded date timede managerde çalýsþtý");
+        Debug.LogWarning("game data loadded date timede managerde çalýsþtý");
         CancelInvoke("AdvanceOneDay");
         InvokeRepeating("AdvanceOneDay", 0, timeScale);
     }

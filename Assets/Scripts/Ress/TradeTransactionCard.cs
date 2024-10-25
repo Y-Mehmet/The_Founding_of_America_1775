@@ -63,7 +63,7 @@ public class TradeTransactionCard : MonoBehaviour
             { 
                 if (transaction.payWhitGem)
                 {
-                    if (transaction.cost <= currentState.resourceData[ResourceType.Diamond].currentAmount && transaction.tradeState.exportTrade.limit[transaction.productSpriteIndex-1] >= transaction.quantity)
+                    if (transaction.cost <= currentState.resourceData[ResourceType.Diamond].currentAmount && transaction.tradeState.tradeLists[1].limit[transaction.productSpriteIndex-1] >= transaction.quantity)
                     {
 
                         tradeTypeBtnText.color = originalTextColor;
@@ -77,7 +77,7 @@ public class TradeTransactionCard : MonoBehaviour
                 {
                     if (transaction.tradeType == TradeType.Import)
                     {
-                        if (transaction.cost <= currentState.resourceData[ResourceType.Gold].currentAmount && transaction.tradeState.exportTrade.limit[transaction.productSpriteIndex - 1] >= transaction.quantity)
+                        if (transaction.cost <= currentState.resourceData[ResourceType.Gold].currentAmount && transaction.tradeState.tradeLists[1].limit[transaction.productSpriteIndex - 1] >= transaction.quantity)
                         {
                             tradeTypeBtnText.color = originalTextColor;
                         }
@@ -88,7 +88,7 @@ public class TradeTransactionCard : MonoBehaviour
                     }
                     else
                     {
-                        if (transaction.quantity <= currentState.resourceData[(ResourceType)transaction.productSpriteIndex].currentAmount && transaction.tradeState.importTrade.limit[transaction.productSpriteIndex - 1] >= transaction.quantity)
+                        if (transaction.quantity <= currentState.resourceData[(ResourceType)transaction.productSpriteIndex].currentAmount && transaction.tradeState.tradeLists[0].limit[transaction.productSpriteIndex - 1] >= transaction.quantity)
                         {
                             tradeTypeBtnText.color = originalTextColor;
                         }
@@ -189,7 +189,7 @@ public class TradeTransactionCard : MonoBehaviour
                         
                         DateTime currentDate = GameDateManager.instance.GetCurrentDate();
                         bool payWhitGem = true;
-                        int tradeLimit = (int)transaction.tradeState.importTrade.limit[transaction.productSpriteIndex - 1];
+                        int tradeLimit = (int)transaction.tradeState.tradeLists[0].limit[transaction.productSpriteIndex - 1];
                         newTransaction = new TradeHistory(TradeType.Import, currentDate, (int)type, quantity, spending, stateFlagIndex, transaction.tradeState,tradeLimit, payWhitGem);
                             TradeManager.instance.AddTransaction(newTransaction);
                         }
@@ -238,7 +238,7 @@ public class TradeTransactionCard : MonoBehaviour
                                 currentState.BuyyResource(type, quantity, spending, deliveryTime);
                                 bool isAllyState = GameManager.AllyStateList.Contains(currentState);
                                 transaction.tradeState.SellResource(type, quantity, spending, isAllyState);
-                                int tradeLimit =(int) transaction.tradeState.importTrade.limit[transaction.productSpriteIndex - 1];
+                                int tradeLimit =(int) transaction.tradeState.tradeLists[0].limit[transaction.productSpriteIndex - 1];
                                 newTransaction = new TradeHistory(TradeType.Import, GameDateManager.instance.CalculateDeliveryDateTime(deliveryTime), (int)type, quantity, spending, stateFlagIndex, transaction.tradeState, tradeLimit);
                                 TradeManager.instance.AddTransaction(newTransaction);
                             }else
@@ -261,7 +261,7 @@ public class TradeTransactionCard : MonoBehaviour
                             currentState.SellResource(type, quantity, spending, isAllyState);
                             transaction.tradeState.BuyyResource(type, quantity, spending);
 
-                            int tradeLimit = (int)transaction.tradeState.exportTrade.limit[transaction.productSpriteIndex - 1];
+                            int tradeLimit = (int)transaction.tradeState.tradeLists[1].limit[transaction.productSpriteIndex - 1];
                             newTransaction = new TradeHistory(TradeType.Export, GameDateManager.instance.GetCurrentDate(), (int)type, quantity, spending, stateFlagIndex, transaction.tradeState,tradeLimit);
                             TradeManager.instance.AddTransaction(newTransaction);
                         }

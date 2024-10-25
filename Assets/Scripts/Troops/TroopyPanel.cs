@@ -88,7 +88,7 @@ public class TroopyPanel : MonoBehaviour
             Debug.Log($"State: {kvp.Key}, General: {kvp.Value.Name}");
         }
         if (GeneralManager.stateGenerals.ContainsKey(currentState))
-            LeaderText.text = GeneralManager.stateGenerals[currentState].ToString();
+            LeaderText.text = GeneralManager.stateGenerals[currentState].Name.ToString();
         else
             LeaderText.text = "Leaderless";
         UnitLandPowerText.text = currentState.GetUnitLandRate().ToString();

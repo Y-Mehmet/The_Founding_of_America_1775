@@ -12,19 +12,7 @@ public class GeneralManager:MonoBehaviour
     public static  Dictionary<State, General> stateGenerals = new Dictionary<State, General>();
     public static int GeneralIndex 
     { get; private set; }
-    public static void SetGeneralIndex(int index)
-    {
-        if(index>generals.Count)
-        {
-            Debug.LogError(" index general den büyük olmaz");
-        }
-        else
-        {
-            GeneralIndex = index;
-        }
-        
-        
-    }
+  
 
 
     private void Awake()
@@ -39,15 +27,35 @@ public class GeneralManager:MonoBehaviour
         else
             Destroy(gameObject);
     }
+    private void Start()
+    {
+        GameManager.Instance.OnGameDataLoaded += GameLoaded;
+    }
+    void GameLoaded()
+    {
+        
+    }
+    public static void SetGeneralIndex(int index)
+    {
+        if (index > generals.Count)
+        {
+            Debug.LogError(" index general den büyük olmaz");
+        }
+        else
+        {
+            GeneralIndex = index;
+        }
+
+
+    }
 
     private void InýtGeneral()
     {
-        
-        generals.Add(new General("John Paul Jones", 0, Specialty.Naval, GeneralRank.SecondLieutenant, 0.05f, 0.1f,0.1f));
+        generals.Add(new General("John Paul Jones", 0, Specialty.Naval, GeneralRank.SecondLieutenant, 0.05f, 0.1f, 0.1f));
         generals.Add(new General("Nathaniel Greene", 0, Specialty.Land, GeneralRank.SecondLieutenant, 0.1f, 0.05f, 0.1f));
-        generals.Add(new General("Henry Knox", 0, Specialty.Artillery, GeneralRank.SecondLieutenant, 0.05f, 0.05f,0.15f));
-
+        generals.Add(new General("Henry Knox", 0, Specialty.Artillery, GeneralRank.SecondLieutenant, 0.05f, 0.05f, 0.15f));
     }
+
 
     // Bir State'e General atama iþlemi
     public static  void AssignGeneralToState(State state, General general)

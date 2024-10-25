@@ -131,7 +131,7 @@ public class ResourceManager : MonoBehaviour
             return false; }
     }
 }
-
+[Serializable]
 public enum ResourceType
 {
     Gold,

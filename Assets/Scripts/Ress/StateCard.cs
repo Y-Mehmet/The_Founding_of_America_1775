@@ -57,7 +57,10 @@ public class StateCard : MonoBehaviour
                 int ResIconIndex = (int)(curretResType);
                 resIconImage.sprite = ResSpriteSO.Instance.resIcon[ResIconIndex];
             int tradeResIndex= (int) (curretResType)-1;
-            float limit= tradeState.GetComponent<State>().exportTrade.limit[tradeResIndex];
+            int resCurrentAmount = ((int)tradeState.GetComponent<State>().resourceData[curretResType].currentAmount);
+
+            float limit= tradeState.GetComponent<State>().tradeLists[1].limit[tradeResIndex];
+            limit = limit > resCurrentAmount ? resCurrentAmount : limit;
             CurentLimitValueText.text = FormatNumber(((int)limit));
             CoinValueText.text = FormatNumber((exportTrade.contractPrices[(int)curretResType - 1] * thousand)       );
 

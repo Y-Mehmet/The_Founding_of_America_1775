@@ -127,13 +127,13 @@ public class BuyPanel : MonoBehaviour
             {
                
                 bool test = false; // test biti eðer trade export ya da import listimizde current rres varsa true döncek 
-                foreach (var resType in ResourceManager.Instance.CurrentTradeState.exportTrade.resourceTypes)
+                foreach (var resType in ResourceManager.Instance.CurrentTradeState.tradeLists[1].resourceTypes)
                 {
                     if (resType == ResourceManager.curentResource)
                     {
-                        if (ResourceManager.Instance.CurrentTradeState.exportTrade.resourceTypes.IndexOf(ResourceManager.curentResource) != -1)
+                        if (ResourceManager.Instance.CurrentTradeState.tradeLists[1].resourceTypes.IndexOf(ResourceManager.curentResource) != -1)
                         {
-                            indexOfLimit = ResourceManager.Instance.CurrentTradeState.exportTrade.resourceTypes.IndexOf(ResourceManager.curentResource);
+                            indexOfLimit = ResourceManager.Instance.CurrentTradeState.tradeLists[1].resourceTypes.IndexOf(ResourceManager.curentResource);
                             test = true;
                             break;
                         }
@@ -149,7 +149,7 @@ public class BuyPanel : MonoBehaviour
                 }
                 else
                 {
-                    float.TryParse(ResourceManager.Instance.CurrentTradeState.exportTrade.contractPrices[indexOfLimit].ToString(), out float price);
+                    float.TryParse(ResourceManager.Instance.CurrentTradeState.tradeLists[1].contractPrices[indexOfLimit].ToString(), out float price);
                     if (price >= 0)
                     {
                         contrackPrice = price;
@@ -161,6 +161,7 @@ public class BuyPanel : MonoBehaviour
                     {
                         Debug.LogWarning(" conrrat picie sýfýrdan küçük olamamlý ");
                         contrackPriceValueText.text = "0";
+                        contrackPrice = 0;
 
                     }
                     SetSecondValueText();
@@ -190,7 +191,7 @@ public class BuyPanel : MonoBehaviour
             float buyPrice = quantity * contrackPrice;
             float goldResAmount = RegionClickHandler.Instance.currentState.GetComponent<State>().GetCurrentResValue(ResourceType.Gold);
             float dimondResAmount= RegionClickHandler.Instance.currentState.GetComponent<State>().GetCurrentResValue(ResourceType.Diamond);
-            int limit = (int)tradeState.exportTrade.limit[(int)ResourceManager.curentResource - 1];
+            int limit = (int)tradeState.tradeLists[1].limit[(int)ResourceManager.curentResource - 1];
             if (tradeState.resourceData[ResourceManager.curentResource].currentAmount >= quantity && limit>=quantity )
             {
                 inputField.textComponent.color = inputFieldTextColor;
@@ -204,17 +205,21 @@ public class BuyPanel : MonoBehaviour
             {
                 contrackPriceValueText.color = originalTextColor;
                 contrackPriceValueText.text = FormatNumber(buyPrice);
+                contrackPrice = (buyPrice);
             }
             else
             {
                 contrackPriceValueText.color = Color.red;
                 contrackPriceValueText.text = FormatNumber(buyPrice);
+                contrackPrice = (buyPrice);
 
             }
             
             float spending;
-            if (float.TryParse(contrackPriceValueText.text, out spending))
+            if (true)
             {
+                spending = contrackPrice;
+
                 float Dimond = GameEconomy.Instance.GetGemValue(spending);
 
                 if (Dimond >0)
@@ -238,8 +243,7 @@ public class BuyPanel : MonoBehaviour
                 }
 
             }
-            else
-                Debug.LogWarning("dimond value can not parse float");
+            
 
 
 
@@ -250,6 +254,7 @@ public class BuyPanel : MonoBehaviour
         {
             InstantlyValueText.text = "0";
             contrackPriceValueText.text = "0";
+            contrackPrice = 0;
         }
             
 
@@ -261,7 +266,7 @@ public class BuyPanel : MonoBehaviour
 
       
         int amountAvailable= (int) tradeState.resourceData[ResourceManager.curentResource].currentAmount;
-        int limit =(int) tradeState.exportTrade.limit[(int)ResourceManager.curentResource - 1];
+        int limit =(int) tradeState.tradeLists[1].limit[(int)ResourceManager.curentResource - 1];
 
         int maxQuanty = amountAvailable >limit? limit:amountAvailable;
         int currentSpendLimit = (int)( currentState.GetGoldResValue() / contrackPrice);
@@ -275,9 +280,10 @@ public class BuyPanel : MonoBehaviour
     {
         ResourceType type = ResourceManager.curentResource;
         float spending;
-        if (float.TryParse(contrackPriceValueText.text, out spending))
+        if (true)
         {
-            int limit = (int)tradeState.exportTrade.limit[(int)ResourceManager.curentResource - 1];
+            spending = contrackPrice;
+            int limit = (int)tradeState.tradeLists[1].limit[(int)ResourceManager.curentResource - 1];
             if (quantity > 0 && quantity<=limit)
             {
                
@@ -327,12 +333,13 @@ public class BuyPanel : MonoBehaviour
     {
         ResourceType type = ResourceManager.curentResource;
         float spending;
-        if (float.TryParse(contrackPriceValueText.text, out spending))
+        if (true)
         {
+            spending = contrackPrice;
             
             float Dimond = GameEconomy.Instance.GetGemValue(spending);
             spending = Dimond;
-            int limit = (int)tradeState.exportTrade.limit[(int)type - 1];
+            int limit = (int)tradeState.tradeLists[1].limit[(int)type - 1];
             if ( quantity >0 && quantity<=limit)
             {
                 if (currentState.GetGemResValue() >= spending)

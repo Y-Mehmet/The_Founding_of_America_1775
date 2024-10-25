@@ -23,13 +23,10 @@ public class StateAssingForGenereralCard : MonoBehaviour
         GetComponent<Button>().onClick.RemoveListener(OnButtonClicked);
     }
     void ShowExportPanelInfo()
-    {
-       
-        
+    {             
         stateFlagIcon.sprite= GameManager.AllyStateList[index].StateIcon;
         navalForceText.text = FormatNumber(GameManager.AllyStateList[index].GetNavalArmySize());
         landForceText.text = FormatNumber(GameManager.AllyStateList[index].GetLandArmySize());
-
     }
     void OnButtonClicked()
     {

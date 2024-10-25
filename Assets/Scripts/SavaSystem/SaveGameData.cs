@@ -21,7 +21,7 @@ public class SaveGameData : MonoBehaviour
    
     private void OnApplicationQuit()
     {
-        SaveGame();
+       // SaveGame();
     }
     
 
@@ -36,6 +36,7 @@ public class SaveGameData : MonoBehaviour
         foreach (var keyValuePair in GeneralManager.stateGenerals)
         {
             gameData.generalStatesList.Add(keyValuePair.Key);
+            Debug.LogError($"save de {keyValuePair.Value.Name} won count {keyValuePair.Value.WonCount}");
             gameData.assignedGeneralList.Add(keyValuePair.Value);
         }data.gameData = gameData;
         foreach (Transform item in Usa.Instance.transform)
@@ -57,13 +58,18 @@ public class SaveGameData : MonoBehaviour
                     UnitNavalArmyPower = stateComponent.UnitNavalArmyPower,
                     UnitLandArmyPower = stateComponent.UnitLandArmyPower,
                     ArmyBarrackSize = stateComponent.GetArmyBarrackSize(),
-                    
-
                 // Ticaret bilgilerini ekle
-                importTrade = stateComponent.importTrade,
-                    exportTrade = stateComponent.exportTrade
+                   
                 };
-
+                Debug.LogWarning($"trade limit count data   {stateComponent.tradeLists[0].limit.Count}");
+                
+                //stateData.tradeList.Add(stateComponent.tradeLists[0]);
+                //stateData.tradeList.Add(stateComponent.tradeLists[1]);
+                foreach (Trade trade in stateComponent.tradeLists)
+                {
+                    stateData.tradeList.Add(trade);
+                }
+                Debug.LogWarning($"trade limit count state {stateData.tradeList[0].limit[0]}");
                 // Vergi bilgilerini ekle
                 foreach (var tax in stateComponent.Taxes)
                 {
@@ -101,6 +107,17 @@ public class SaveGameData : MonoBehaviour
             GeneralManager.stateGenerals = data.gameData.generalStatesList
           .Select((state, index) => new { state, general = data.gameData.assignedGeneralList[index] })
           .ToDictionary(x => x.state, x => x.general);
+            foreach (General general in data.gameData.assignedGeneralList)
+            {
+               for (int i = 0;i<generals.Count;i++)
+                {
+                    if (generals[i].Name== general.Name)
+                    {
+                        generals[i] = general;
+                        Debug.LogError($"loadda {generals[i].Name} won count {generals[i].WonCount}");
+                    }
+                }
+            }
             if (Usa.Instance == null)
                 Debug.LogError(" usa instance is null");
             foreach (var stateData in data.stateData)
@@ -130,10 +147,28 @@ public class SaveGameData : MonoBehaviour
                     stateComponent.UnitLandArmyPower= stateData.UnitLandArmyPower;
                     stateComponent.ArmyBarrackSize = stateData.ArmyBarrackSize;
                     stateComponent.resourceData = new Dictionary<ResourceType, ResourceData>(); // Yeniden baþlatma
-
+                    if(stateData!= null )
+                    {
+                        if(stateData.tradeList.Count > 0)
+                        {
+                            Debug.Log(" baþarýlý");
+                            if (stateData.tradeList[0].limit != null)
+                            {
+                                Debug.Log(" limit null degil");
+                            }
+                        }
+                        else
+                        {
+                            Debug.Log(" count 0");
+                        }
+                        
+                        
+                    }
+                    Debug.LogWarning($"trade limit data {stateData.tradeList[0].limit.Count}");
                     // Ticaret verilerini yükle
-                    stateComponent.importTrade = stateData.importTrade;
-                    stateComponent.exportTrade = stateData.exportTrade;
+                    stateComponent.tradeLists[0] = stateData.tradeList[0];
+                    stateComponent.tradeLists[1] = stateData.tradeList[1];
+                    Debug.LogWarning($"trade limit state {stateComponent.tradeLists[0].tradeType}");
 
                     // Vergi verilerini yükle
                     stateComponent.Taxes.Clear();
@@ -148,6 +183,11 @@ public class SaveGameData : MonoBehaviour
                     ChangeCollor.Instance.ChangeGameobjectColor(stateObject, stateData.stateType);
                 }
             }
+
+        }
+        if (GameManager.Instance != null)
+        {
+            GameManager.Instance.OnGameDataLoaded.Invoke();
         }
     }
 
@@ -191,16 +231,16 @@ public class StateData
   
 
 
-    // Ticaret verileri
-    public Trade importTrade;
-    public Trade exportTrade;
+   
 
     // Vergi verileri
     public List<TaxData> Taxes;
     public List<ResourceData> resourceDataList;
+    public List<Trade> tradeList;
     
     public StateData()
     {
+        tradeList = new List<Trade>();
         Taxes = new List<TaxData>();
         resourceDataList = new List<ResourceData>();
 
@@ -216,6 +256,7 @@ public class GameData
     {
        generalStatesList= new List<State> ();
         assignedGeneralList= new List<General>();
+        
     }
  
 }
