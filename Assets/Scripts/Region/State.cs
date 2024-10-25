@@ -481,7 +481,7 @@ public class State : MonoBehaviour
         {
             
             //Debug.LogWarning("state iþgal edildi");
-            ArmySize = firstArmySize;
+            LandArmySize = firstArmySize;
             stateType = StateType.Ally;
             ChangeCollor.Instance.ChangeGameobjectColor(gameObject, stateType);
             FindISelectibleComponentAndDisable();
@@ -505,10 +505,10 @@ public class State : MonoBehaviour
     }
     void LostState()
     {
-        // Debug.LogWarning("state kayýbedildi");
+        GeneralManager.Instance.RemoveGeneralFromState(this);
         AllyStateList.Remove(this);
         GameManager.Instance.onAllyStateChanged?.Invoke(this);
-        ArmySize = firstArmySize;
+        LandArmySize = firstArmySize;
         stateType = StateType.Enemy;
         ChangeCollor.Instance.ChangeGameobjectColor(gameObject, stateType);
 

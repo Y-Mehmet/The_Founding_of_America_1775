@@ -30,24 +30,13 @@ public class MineUpgradePanel : MonoBehaviour
     {
         inputField.characterLimit = InputFieldCaharcterLimit;
         duration = GameManager.gameDayTime;
+       
     }
     private void OnEnable()
     {      
       
-            currentState = RegionClickHandler.Instance.currentState.GetComponent<State>();
-            currentResType = MineManager.instance.curentResource;
-
-            inputField.onValueChanged.AddListener(OnInputValueChanged);
-            macButton.onClick.AddListener(MacButtonClicked);
-            BuyButton.onClick.AddListener(BuyButtonClicked);
-            InstantlyButton.onClick.AddListener(InstantlyButtonClicked);
-        resIcon.sprite = ResSpriteSO.Instance.resIcon[(int)currentResType];
-        MineNameText.text = MineManager.instance.GetMineName();
-        RequiredResValueList = MineManager.instance.GetReqResValue();
-        RequiredResTypeValueList = MineManager.instance.GetReqResType();
-        SetImageSprite();
-            ResetUI();
-        StartCoroutine(CurrentAmountTextUpdate());
+            ShowInfo(ResourceType.Gold);
+            MineManager.instance.OnResourceChanged += ShowInfo;
 
     }
     private void OnDisable()
@@ -56,8 +45,26 @@ public class MineUpgradePanel : MonoBehaviour
         macButton.onClick.RemoveListener(MacButtonClicked);
         BuyButton.onClick.RemoveListener(BuyButtonClicked);
         InstantlyButton.onClick.RemoveListener(InstantlyButtonClicked);
+        MineManager.instance.OnResourceChanged -= ShowInfo;
 
 
+    }
+    void ShowInfo(ResourceType resource)
+    {
+        currentState = RegionClickHandler.Instance.currentState.GetComponent<State>();
+        currentResType = MineManager.instance.curentResource;
+
+        inputField.onValueChanged.AddListener(OnInputValueChanged);
+        macButton.onClick.AddListener(MacButtonClicked);
+        BuyButton.onClick.AddListener(BuyButtonClicked);
+        InstantlyButton.onClick.AddListener(InstantlyButtonClicked);
+        resIcon.sprite = ResSpriteSO.Instance.resIcon[(int)currentResType];
+        MineNameText.text = MineManager.instance.GetMineName();
+        RequiredResValueList = MineManager.instance.GetReqResValue();
+        RequiredResTypeValueList = MineManager.instance.GetReqResType();
+        SetImageSprite();
+        ResetUI();
+        StartCoroutine(CurrentAmountTextUpdate());
     }
    
     void SetImageSprite()

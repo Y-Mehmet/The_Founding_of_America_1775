@@ -105,7 +105,7 @@ public class GeneralManager:MonoBehaviour
         }
         else
         {
-            Debug.LogWarning($"{state.StateName} had no general assigned.");
+            Debug.Log($"{state.StateName} had no general assigned.");
         }
     }
     public enum GeneralRank
@@ -125,17 +125,17 @@ public class GeneralManager:MonoBehaviour
     [Serializable]
     public class General
     {
-        public string Name { get; private set; }
-        public float Experience { get; private set; }
-        public int ExperienceLimit { get; private set; }
-        public int ExperineceIncraseValue { get; private set; }
-        public Specialty Specialty { get; private set; }
-        public GeneralRank Rank { get; private set; }
-        public float LandHelpRate { get; private set; }  // Kara yardým oraný
-        public float NavalHelpRate { get; private set; }  // Deniz yardým oraný
-        public float IncraseHeplRate { get; private set; }
-        public int WonCount { get; private set; }
-        public int LostCount { get; private set; }
+        public string Name;
+        public float Experience ;
+        public int ExperienceLimit;
+        public int ExperineceIncraseValue;
+        public Specialty Specialty ;
+        public GeneralRank Rank ;
+        public float LandHelpRate ;  // Kara yardým oraný
+        public float NavalHelpRate ;  // Deniz yardým oraný
+        public float IncraseHeplRate;
+        public int WonCount ;
+        public int LostCount ;
 
         public General(string name, float experience, Specialty specialty, GeneralRank rank, float landHelpRate, float navalHelpRate, float incraseHelpRate)
         {

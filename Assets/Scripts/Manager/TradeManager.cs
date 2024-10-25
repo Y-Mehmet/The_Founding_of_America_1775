@@ -9,7 +9,7 @@ public class TradeManager : MonoBehaviour
     public static Dictionary<Transform, Trade> stateTransformAndTradeList = new Dictionary<Transform, Trade>();
     public  int maxTransactionCount = 6; // uý gösterilecek max iþlem sayýsý
    public Action onTradeHistoryQueueChanged;
-    private Queue<TradeHistory> TradeHistoryQueue = new Queue<TradeHistory>();
+    public Queue<TradeHistory> TradeHistoryQueue = new Queue<TradeHistory>();
     private void Awake()
     {
         if(instance == null)
@@ -37,6 +37,7 @@ public class TradeManager : MonoBehaviour
     }
     public Queue<TradeHistory> GetTradeHistoryQueue() { return TradeHistoryQueue; }
 }
+[Serializable]
 public class TradeHistory
 {
     public bool payWhitGem;

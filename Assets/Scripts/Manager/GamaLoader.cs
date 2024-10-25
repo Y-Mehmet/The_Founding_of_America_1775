@@ -22,7 +22,7 @@ public class GamaLoader : MonoBehaviour
     }
     public void LoadGameData()
     {
-       // SaveGameData.Instance.LoadGame();
-       // GameManager.Instance.OnGameDataLoaded?.Invoke();
+        SaveGameData.Instance.LoadGame();
+        GameManager.Instance.OnGameDataLoaded?.Invoke();
     }
 }

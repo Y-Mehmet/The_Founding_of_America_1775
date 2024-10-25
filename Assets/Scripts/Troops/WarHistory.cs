@@ -18,6 +18,7 @@ public class WarHistory : MonoBehaviour
     }
     
 }
+[Serializable]
 public class War
 {
     
@@ -37,6 +38,7 @@ public class War
     }
    
 }
+[Serializable]
 public enum WarResultType
 {
     Victory,

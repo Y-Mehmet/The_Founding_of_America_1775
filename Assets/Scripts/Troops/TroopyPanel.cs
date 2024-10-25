@@ -83,10 +83,7 @@ public class TroopyPanel : MonoBehaviour
         ArmyBarrackSizeText.text = FormatNumber(currentState.GetArmyBarrackSize());
         NavalSizeText.text = FormatNumber(currentState.GetNavalArmySize());
         LandSizeText.text = FormatNumber(currentState.GetLandArmySize());
-        foreach (var kvp in GeneralManager.stateGenerals)
-        {
-            Debug.Log($"State: {kvp.Key}, General: {kvp.Value.Name}");
-        }
+      
         if (GeneralManager.stateGenerals.ContainsKey(currentState))
             LeaderText.text = GeneralManager.stateGenerals[currentState].Name.ToString();
         else

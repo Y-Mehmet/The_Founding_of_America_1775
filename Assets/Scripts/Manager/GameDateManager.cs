@@ -58,7 +58,7 @@ public class GameDateManager : MonoBehaviour
     }
     public void GameDataLoaded()
     {
-        Debug.LogWarning("game data loadded date timede managerde çalýsþtý");
+        
         CancelInvoke("AdvanceOneDay");
         InvokeRepeating("AdvanceOneDay", 0, timeScale);
     }

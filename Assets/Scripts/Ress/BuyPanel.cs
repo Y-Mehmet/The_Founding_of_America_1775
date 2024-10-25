@@ -14,9 +14,9 @@ public class BuyPanel : MonoBehaviour
     
     public TMP_Text contrackPriceValueText, InstantlyValueText, secondValueText,buyValueTax;
     int indexOfLimit;
-    float contrackPrice;
-    float quantity;
-    float deliveryTime;
+    public float contrackPrice;
+    public float quantity;
+    public float deliveryTime;
     Color originalTextColor, ColorRed=Color.red, inputFieldTextColor=Color.black;
     State currentState, tradeState;
 
@@ -204,21 +204,22 @@ public class BuyPanel : MonoBehaviour
                 if (amountAvaible >= quantity && goldResAmount>=buyPrice )
             {
                 contrackPriceValueText.color = originalTextColor;
+                
                 contrackPriceValueText.text = FormatNumber(buyPrice);
-                contrackPrice = (buyPrice);
+                
             }
             else
             {
                 contrackPriceValueText.color = Color.red;
                 contrackPriceValueText.text = FormatNumber(buyPrice);
-                contrackPrice = (buyPrice);
+              
 
             }
             
             float spending;
             if (true)
             {
-                spending = contrackPrice;
+                spending = ParseFormattedNumber(contrackPriceValueText.text);
 
                 float Dimond = GameEconomy.Instance.GetGemValue(spending);
 
@@ -254,7 +255,7 @@ public class BuyPanel : MonoBehaviour
         {
             InstantlyValueText.text = "0";
             contrackPriceValueText.text = "0";
-            contrackPrice = 0;
+           
         }
             
 
@@ -282,7 +283,7 @@ public class BuyPanel : MonoBehaviour
         float spending;
         if (true)
         {
-            spending = contrackPrice;
+            spending = ParseFormattedNumber(contrackPriceValueText.text);
             int limit = (int)tradeState.tradeLists[1].limit[(int)ResourceManager.curentResource - 1];
             if (quantity > 0 && quantity<=limit)
             {
@@ -335,7 +336,7 @@ public class BuyPanel : MonoBehaviour
         float spending;
         if (true)
         {
-            spending = contrackPrice;
+            spending = ParseFormattedNumber(contrackPriceValueText.text);
             
             float Dimond = GameEconomy.Instance.GetGemValue(spending);
             spending = Dimond;

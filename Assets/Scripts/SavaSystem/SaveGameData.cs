@@ -5,6 +5,7 @@ using System.Security.Cryptography.X509Certificates;
 using UnityEngine;
 using static GeneralManager;
 
+
 public class SaveGameData : MonoBehaviour
 {
     public static SaveGameData Instance { get;private set; }
@@ -21,7 +22,7 @@ public class SaveGameData : MonoBehaviour
    
     private void OnApplicationQuit()
     {
-       // SaveGame();
+       SaveGame();
     }
     
 
@@ -35,10 +36,16 @@ public class SaveGameData : MonoBehaviour
         gameData.currentTime = GameDateManager.instance.GetCurrentDataString();
         foreach (var keyValuePair in GeneralManager.stateGenerals)
         {
-            gameData.generalStatesList.Add(keyValuePair.Key);
-            Debug.LogError($"save de {keyValuePair.Value.Name} won count {keyValuePair.Value.WonCount}");
+            gameData.generalStatesList.Add(keyValuePair.Key.name);
+            //Debug.LogError($"save de {keyValuePair.Key} won count {keyValuePair.Value.WonCount}");
             gameData.assignedGeneralList.Add(keyValuePair.Value);
-        }data.gameData = gameData;
+        }
+        gameData.allGeneralsList = GeneralManager.generals;
+        List<War> warListToSave =WarHistory.generalIndexAndWarList.ToList();
+        gameData.generalIndexAndWarList= warListToSave;
+        gameData.tradeHistoryList= TradeManager.instance.TradeHistoryQueue.ToList();
+
+        data.gameData = gameData;
         foreach (Transform item in Usa.Instance.transform)
         {
             State stateComponent = item.gameObject.GetComponent<State>();
@@ -61,7 +68,7 @@ public class SaveGameData : MonoBehaviour
                 // Ticaret bilgilerini ekle
                    
                 };
-                Debug.LogWarning($"trade limit count data   {stateComponent.tradeLists[0].limit.Count}");
+                //Debug.LogWarning($"trade limit count data   {stateComponent.tradeLists[0].limit.Count}");
                 
                 //stateData.tradeList.Add(stateComponent.tradeLists[0]);
                 //stateData.tradeList.Add(stateComponent.tradeLists[1]);
@@ -69,7 +76,7 @@ public class SaveGameData : MonoBehaviour
                 {
                     stateData.tradeList.Add(trade);
                 }
-                Debug.LogWarning($"trade limit count state {stateData.tradeList[0].limit[0]}");
+               // Debug.LogWarning($"trade limit count state {stateData.tradeList[0].limit[0]}");
                 // Vergi bilgilerini ekle
                 foreach (var tax in stateComponent.Taxes)
                 {
@@ -104,8 +111,9 @@ public class SaveGameData : MonoBehaviour
         {
             SaveData data = JsonUtility.FromJson<SaveData>(dataToLoad);
             GameDateManager.currentDate = GameDateManager.ConvertStringToDate(data.gameData.currentTime);
+            generals = data.gameData.allGeneralsList;
             GeneralManager.stateGenerals = data.gameData.generalStatesList
-          .Select((state, index) => new { state, general = data.gameData.assignedGeneralList[index] })
+          .Select((state, index) => new { state= Usa.Instance.FindStateByName(state), general = data.gameData.assignedGeneralList[index] })
           .ToDictionary(x => x.state, x => x.general);
             foreach (General general in data.gameData.assignedGeneralList)
             {
@@ -114,10 +122,12 @@ public class SaveGameData : MonoBehaviour
                     if (generals[i].Name== general.Name)
                     {
                         generals[i] = general;
-                        Debug.LogError($"loadda {generals[i].Name} won count {generals[i].WonCount}");
+                       // Debug.LogError($"loadda {generals[i].Name} won count {generals[i].WonCount}");
                     }
                 }
             }
+            WarHistory.generalIndexAndWarList= new Stack<War>(data.gameData.generalIndexAndWarList);
+            TradeManager.instance.TradeHistoryQueue = new Queue<TradeHistory>(data.gameData.tradeHistoryList);
             if (Usa.Instance == null)
                 Debug.LogError(" usa instance is null");
             foreach (var stateData in data.stateData)
@@ -147,28 +157,12 @@ public class SaveGameData : MonoBehaviour
                     stateComponent.UnitLandArmyPower= stateData.UnitLandArmyPower;
                     stateComponent.ArmyBarrackSize = stateData.ArmyBarrackSize;
                     stateComponent.resourceData = new Dictionary<ResourceType, ResourceData>(); // Yeniden baþlatma
-                    if(stateData!= null )
-                    {
-                        if(stateData.tradeList.Count > 0)
-                        {
-                            Debug.Log(" baþarýlý");
-                            if (stateData.tradeList[0].limit != null)
-                            {
-                                Debug.Log(" limit null degil");
-                            }
-                        }
-                        else
-                        {
-                            Debug.Log(" count 0");
-                        }
-                        
-                        
-                    }
-                    Debug.LogWarning($"trade limit data {stateData.tradeList[0].limit.Count}");
+                   
+                   // Debug.LogWarning($"trade limit data {stateData.tradeList[0].limit.Count}");
                     // Ticaret verilerini yükle
                     stateComponent.tradeLists[0] = stateData.tradeList[0];
                     stateComponent.tradeLists[1] = stateData.tradeList[1];
-                    Debug.LogWarning($"trade limit state {stateComponent.tradeLists[0].tradeType}");
+                   // Debug.LogWarning($"trade limit state {stateComponent.tradeLists[0].tradeType}");
 
                     // Vergi verilerini yükle
                     stateComponent.Taxes.Clear();
@@ -250,12 +244,19 @@ public class StateData
 public class GameData
 {
     public string currentTime;
-    public List<State> generalStatesList;
+    public List<string> generalStatesList;
     public List<General> assignedGeneralList;
+    public List<General> allGeneralsList;
+    public List<War> generalIndexAndWarList;
+    public List<TradeHistory> tradeHistoryList;
     public GameData()
     {
-       generalStatesList= new List<State> ();
+       generalStatesList= new List<string> ();
         assignedGeneralList= new List<General>();
+        allGeneralsList= new List<General>();
+        generalIndexAndWarList= new List<War>();
+        tradeHistoryList= new List<TradeHistory>();
+
         
     }
  
