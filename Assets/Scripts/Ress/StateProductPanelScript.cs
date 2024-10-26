@@ -62,7 +62,7 @@ public class StateProductPanelScript : MonoBehaviour
             foreach (Transform stateTransform in Usa.Instance.transform)
             {
                 Trade trade = stateTransform.GetComponent<State>().GetTrade(enumIndexNum, curretResType);
-                if (trade != null)
+                if (trade != null && stateTransform.name!= RegionClickHandler.staticState.name)
                 {
                   //  Debug.LogWarning("buraya export kaynaklarý eklendi");
                     stateTransformAndTradeList.Add(stateTransform, trade);

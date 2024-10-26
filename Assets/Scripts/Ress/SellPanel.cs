@@ -64,7 +64,7 @@ public class SellPanel : MonoBehaviour
     }
     private void OnStateChanged(string stateName)
     {
-       // ShowPanelInfo();
+      ShowPanelInfo();
     }
 
     void ShowPanelInfo()
@@ -153,11 +153,11 @@ public class SellPanel : MonoBehaviour
         quantity = (resLimit > amountAvailable ? amountAvailable : resLimit);
         float spendLimit = tradeState.GetGoldResValue() / tradeState.tradeLists[0].contractPrices[((int)curentResource)-1];
         quantity= quantity>spendLimit? spendLimit : quantity;
-            inputField.text = FormatNumber(quantity);    
+            inputField.text =quantity.ToString();    
         
             if(int.TryParse( amoutAvableValueText.text, out amountAvailable))
             {
-                contrackPriceValueText.text = (quantity * contrackPrice).ToString("F2");
+            contrackPriceValueText.text = FormatNumber(quantity * contrackPrice);
             }
             else
             {
