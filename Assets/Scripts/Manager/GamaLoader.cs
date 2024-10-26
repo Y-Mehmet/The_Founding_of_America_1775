@@ -16,10 +16,17 @@ public class GamaLoader : MonoBehaviour
         else
             Destroy(gameObject);
     }
-    private void Start()
+    private IEnumerator LoadGameWithDelay()
     {
+        yield return new WaitForSeconds(0.5f); // Gerekli gecikme süresi
         LoadGameData();
     }
+
+    private void Start()
+    {
+        StartCoroutine(LoadGameWithDelay());
+    }
+
     public void LoadGameData()
     {
         SaveGameData.Instance.LoadGame();

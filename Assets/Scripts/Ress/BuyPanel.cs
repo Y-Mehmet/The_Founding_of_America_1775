@@ -294,18 +294,20 @@ public class BuyPanel : MonoBehaviour
                     {
                         if (deliveryTime > 0)
                         {
-                            currentState.BuyyResource(type, quantity, spending, deliveryTime);
+                           // currentState.BuyyResource(type, quantity, spending, deliveryTime);
                             bool isAllyState = GameManager.AllyStateList.Contains(ResourceManager.Instance.CurrentTradeState);
                             tradeState.SellResource(type, quantity, spending, isAllyState);
                             // DecraseTradeLimit((int)quantity);
 
-                            int stateFlagIndex = currentState.gameObject.transform.GetSiblingIndex();
+                             State stateFlagIndex = currentState;
 
                             DateTime deliverTime = GameDateManager.instance.CalculateDeliveryDateTime(deliveryTime);
 
                             TradeHistory transaction = new TradeHistory(TradeType.Import, deliverTime, (int)type, quantity, spending, stateFlagIndex, ResourceManager.Instance.CurrentTradeState,(int) (limit-quantity));
                             //Debug.LogWarning(" tanaction sate name " + transaction.tradeState.name);
                             TradeManager.instance.AddTransaction(transaction);
+                            TradeManager.TradeTransactionQueue.Add(transaction);
+                            TradeManager.SortTradeTransactionsByDeliveryTime();
                             UIManager.Instance.GetComponent<HideLastPanelButton>().DoHidePanel();
                             // Debug.LogWarning($"res satýn alýndý quantaty {quantity} harcanan altýn {spending}");
                         }
@@ -347,7 +349,7 @@ public class BuyPanel : MonoBehaviour
                 {
                     if(ResourceManager.Instance.CurrentTradeState.resourceData[type].currentAmount>=quantity)
                     {
-                        int stateFlagIndex = RegionClickHandler.Instance.currentState.gameObject.transform.GetSiblingIndex();
+                      State stateFlagIndex = currentState;
                         bool isAllyState = GameManager.AllyStateList.Contains(ResourceManager.Instance.CurrentTradeState);
                         currentState.InstantlyResource(type, quantity, spending);
                         ResourceManager.Instance.CurrentTradeState.SellResource(type, quantity, spending, isAllyState);

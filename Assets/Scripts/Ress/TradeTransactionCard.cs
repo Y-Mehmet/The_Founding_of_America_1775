@@ -137,7 +137,7 @@ public class TradeTransactionCard : MonoBehaviour
                 }
 
 
-                DateTime deliveryDate = transaction.deliveryTime;
+                DateTime deliveryDate = GameDateManager.ConvertStringToDate(transaction.deliveryTime);
 
 
                 if (deliveryDate> GameDateManager.currentDate)
@@ -179,7 +179,7 @@ public class TradeTransactionCard : MonoBehaviour
                     ResourceType type = (ResourceType)transaction.productSpriteIndex;
                     State currentState = RegionClickHandler.Instance.currentState.GetComponent<State>();
                     TradeHistory newTransaction;
-                    int stateFlagIndex = currentState.gameObject.transform.GetSiblingIndex();
+                    State stateFlagIndex = currentState;
                         if (currentState.resourceData[ResourceType.Diamond].currentAmount >= spending)
                         {
                         float goldValue = Mathf.Ceil(GameEconomy.Instance.GetGoldValue(type, spending));
@@ -192,6 +192,8 @@ public class TradeTransactionCard : MonoBehaviour
                         int tradeLimit = (int)transaction.tradeState.tradeLists[0].limit[transaction.productSpriteIndex - 1];
                         newTransaction = new TradeHistory(TradeType.Import, currentDate, (int)type, quantity, spending, stateFlagIndex, transaction.tradeState,tradeLimit, payWhitGem);
                             TradeManager.instance.AddTransaction(newTransaction);
+
+                            
                         }
                         else
                         {
@@ -216,7 +218,7 @@ public class TradeTransactionCard : MonoBehaviour
                     ResourceType type = (ResourceType)transaction.productSpriteIndex;
                     State currentState = RegionClickHandler.Instance.currentState.GetComponent<State>();
                     TradeHistory newTransaction;
-                    int stateFlagIndex = currentState.gameObject.transform.GetSiblingIndex();
+                    State stateFlagIndex = currentState;
 
                     if (transaction.tradeType == 0)
                     {
@@ -235,12 +237,14 @@ public class TradeTransactionCard : MonoBehaviour
                                 }
                                    
 
-                                currentState.BuyyResource(type, quantity, spending, deliveryTime);
+                               // currentState.BuyyResource(type, quantity, spending, deliveryTime);
                                 bool isAllyState = GameManager.AllyStateList.Contains(currentState);
                                 transaction.tradeState.SellResource(type, quantity, spending, isAllyState);
                                 int tradeLimit =(int) transaction.tradeState.tradeLists[0].limit[transaction.productSpriteIndex - 1];
                                 newTransaction = new TradeHistory(TradeType.Import, GameDateManager.instance.CalculateDeliveryDateTime(deliveryTime), (int)type, quantity, spending, stateFlagIndex, transaction.tradeState, tradeLimit);
                                 TradeManager.instance.AddTransaction(newTransaction);
+                                TradeManager.TradeTransactionQueue.Add(newTransaction);
+                                TradeManager.SortTradeTransactionsByDeliveryTime();
                             }else
                             {
                                 Debug.LogWarning("neigbýrd is null");

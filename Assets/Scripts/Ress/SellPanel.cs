@@ -182,7 +182,7 @@ public class SellPanel : MonoBehaviour
                     ResourceManager.Instance.CurrentTradeState.BuyyResource(type, quantity, earing);
                     
                     amoutAvableValueText.text = FormatNumber(currentState.GetCurrentResValue(type)  );
-                    int stateFlagIndex = currentState.gameObject.transform.GetSiblingIndex();
+                    State stateFlagIndex = currentState;
                     DateTime deliverTime = GameDateManager.instance.GetCurrentDate();                 
                     TradeHistory transaction = new TradeHistory(TradeType.Export, deliverTime, (int)type, quantity, earing, stateFlagIndex, ResourceManager.Instance.CurrentTradeState, (int)(limit - quantity));
                     TradeManager.instance.AddTransaction(transaction);

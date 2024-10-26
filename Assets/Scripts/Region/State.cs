@@ -688,8 +688,10 @@ public void GemSpend(int value)
             tradeLists[0].limit[(int)resType - 1] -= quantity;
 
                 resourceData[ResourceType.Gold].currentAmount -= spending;
-             //   Debug.Log($"Coroutine baþlatýlýyor: {resType}, Miktar: {quantity}, Teslimat Süresi: {deliveryTime}");
-                StartCoroutine(BuyResource(resType, quantity, deliveryTime));
+            resourceData[resType].currentAmount += quantity;
+            EventManager.Instance.ProductReceived();
+            //   Debug.Log($"Coroutine baþlatýlýyor: {resType}, Miktar: {quantity}, Teslimat Süresi: {deliveryTime}");
+            //StartCoroutine(BuyResource(resType, quantity, deliveryTime));
              //   Debug.Log($"Coroutine baþlatýlýyor: {resType}, Miktar: {quantity}, Teslimat Süresi: {deliveryTime}");
 
         }
@@ -708,6 +710,7 @@ public void GemSpend(int value)
         EventManager.Instance.ProductReceived();
         //Debug.Log($"Coroutine bitti: {resType}");
     }
+   
 
     public void InstantlyResource(ResourceType resType, float quantity, float spending)
     {

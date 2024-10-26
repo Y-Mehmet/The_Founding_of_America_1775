@@ -19,12 +19,16 @@ public class SaveGameData : MonoBehaviour
             Destroy(gameObject);
         }
     }
-   
-    private void OnApplicationQuit()
+
+    private void OnApplicationPause(bool pause)
     {
-       SaveGame();
+        if (pause)
+        {
+            SaveGame();
+        }
     }
-    
+
+
 
 
 
@@ -44,6 +48,7 @@ public class SaveGameData : MonoBehaviour
         List<War> warListToSave =WarHistory.generalIndexAndWarList.ToList();
         gameData.generalIndexAndWarList= warListToSave;
         gameData.tradeHistoryList= TradeManager.instance.TradeHistoryQueue.ToList();
+        gameData.tradeTransactionList = TradeManager.TradeTransactionQueue;
 
         data.gameData = gameData;
         foreach (Transform item in Usa.Instance.transform)
@@ -128,6 +133,7 @@ public class SaveGameData : MonoBehaviour
             }
             WarHistory.generalIndexAndWarList= new Stack<War>(data.gameData.generalIndexAndWarList);
             TradeManager.instance.TradeHistoryQueue = new Queue<TradeHistory>(data.gameData.tradeHistoryList);
+            TradeManager.TradeTransactionQueue = data.gameData.tradeTransactionList;
             if (Usa.Instance == null)
                 Debug.LogError(" usa instance is null");
             foreach (var stateData in data.stateData)
@@ -249,6 +255,7 @@ public class GameData
     public List<General> allGeneralsList;
     public List<War> generalIndexAndWarList;
     public List<TradeHistory> tradeHistoryList;
+    public List<TradeHistory> tradeTransactionList;
     public GameData()
     {
        generalStatesList= new List<string> ();
@@ -256,6 +263,7 @@ public class GameData
         allGeneralsList= new List<General>();
         generalIndexAndWarList= new List<War>();
         tradeHistoryList= new List<TradeHistory>();
+        tradeTransactionList= new List<TradeHistory> ();
 
         
     }
