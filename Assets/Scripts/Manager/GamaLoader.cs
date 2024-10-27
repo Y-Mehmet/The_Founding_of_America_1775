@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.IO;
 using UnityEngine;
 
 public class GamaLoader : MonoBehaviour
@@ -31,5 +32,12 @@ public class GamaLoader : MonoBehaviour
     {
         SaveGameData.Instance.LoadGame();
         GameManager.Instance.OnGameDataLoaded?.Invoke();
+        string fullPath = Path.Combine(Application.persistentDataPath, "SaveData_" + 0);
+        // Kayýt dosyasýnýn varlýðýný kontrol ediyoruz
+        if (!File.Exists(fullPath))
+        {
+            SaveGameData.Instance.SaveGame(true);
+        }
+       
     }
 }

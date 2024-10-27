@@ -19,10 +19,10 @@ public class StateResourceSO : SingletonScriptableObject<StateResourceSO>
     public static int DimondproductionRate = 1;  
 
     // 1 insanýn günlük kaynak tüketim miktarý
-    public static float WaterConsumptionRate = 0.65f;
+    public static float WaterConsumptionRate = 0.6f;
     public static float SaltConsumptionRate = 0.07f;
     public static float MeatConsumptionRate = 0.05f;
-    public static float FruitConsumptionRate = 0.045f;
+    public static float FruitConsumptionRate = 0.04f;
     public static float VegetablesConsumptionRate =0.08f;
     public static float WheatConsumptionRate = 0.07f;
 

@@ -741,7 +741,7 @@ PrefabInstance:
     - target: {fileID: 2628845926634552341, guid: b3d9864c681aa4be09905b0ffeeecee8,
         type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 539.5
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2628845926634552341, guid: b3d9864c681aa4be09905b0ffeeecee8,
         type: 3}
@@ -766,7 +766,7 @@ PrefabInstance:
     - target: {fileID: 2628845926878487699, guid: b3d9864c681aa4be09905b0ffeeecee8,
         type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 150.5
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2628845926878487699, guid: b3d9864c681aa4be09905b0ffeeecee8,
         type: 3}
@@ -951,7 +951,7 @@ PrefabInstance:
     - target: {fileID: 2628845927916455666, guid: b3d9864c681aa4be09905b0ffeeecee8,
         type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 936.5
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2628845927916455666, guid: b3d9864c681aa4be09905b0ffeeecee8,
         type: 3}
@@ -1026,7 +1026,7 @@ PrefabInstance:
     - target: {fileID: 8179260630756437707, guid: b3d9864c681aa4be09905b0ffeeecee8,
         type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 1334.5
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8179260630756437707, guid: b3d9864c681aa4be09905b0ffeeecee8,
         type: 3}
@@ -11152,6 +11152,11 @@ PrefabInstance:
       propertyPath: mainCamera
       value: 
       objectReference: {fileID: 330585545}
+    - target: {fileID: 4744563351516450484, guid: ef1f142448157684286af1776069a9a7,
+        type: 3}
+      propertyPath: saveDataIndex
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 4865898620939601050, guid: ef1f142448157684286af1776069a9a7,
         type: 3}
       propertyPath: rivalDicePoint
@@ -12267,8 +12272,20 @@ PrefabInstance:
     - target: {fileID: 1606330452720624517, guid: 957e98d162b46874d909fc3fe7c43ea2,
         type: 3}
       propertyPath: PrefabsForPool.Array.size
-      value: 27
+      value: 29
       objectReference: {fileID: 0}
+    - target: {fileID: 1606330452720624517, guid: 957e98d162b46874d909fc3fe7c43ea2,
+        type: 3}
+      propertyPath: PrefabsForPool.Array.data[2]
+      value: 
+      objectReference: {fileID: 8335221803995492033, guid: a9d425901d53b434ab7fa6b46f02ac67,
+        type: 3}
+    - target: {fileID: 1606330452720624517, guid: 957e98d162b46874d909fc3fe7c43ea2,
+        type: 3}
+      propertyPath: PrefabsForPool.Array.data[3]
+      value: 
+      objectReference: {fileID: 3340486160428997863, guid: 1ac8406fe5aa34c40b55fcdab1810230,
+        type: 3}
     - target: {fileID: 1606330452720624517, guid: 957e98d162b46874d909fc3fe7c43ea2,
         type: 3}
       propertyPath: PrefabsForPool.Array.data[23]
@@ -12292,6 +12309,18 @@ PrefabInstance:
       propertyPath: PrefabsForPool.Array.data[26]
       value: 
       objectReference: {fileID: 4363940751001787905, guid: 9eb06d0214efad04da7b3ab1129b3cf6,
+        type: 3}
+    - target: {fileID: 1606330452720624517, guid: 957e98d162b46874d909fc3fe7c43ea2,
+        type: 3}
+      propertyPath: PrefabsForPool.Array.data[27]
+      value: 
+      objectReference: {fileID: 7114411329757083798, guid: c16a1a887764c724aa365ee6fa2c1741,
+        type: 3}
+    - target: {fileID: 1606330452720624517, guid: 957e98d162b46874d909fc3fe7c43ea2,
+        type: 3}
+      propertyPath: PrefabsForPool.Array.data[28]
+      value: 
+      objectReference: {fileID: 3814907777474898950, guid: 1de7791f818b4134da381df823a3b74f,
         type: 3}
     - target: {fileID: 6713504186535248905, guid: 957e98d162b46874d909fc3fe7c43ea2,
         type: 3}

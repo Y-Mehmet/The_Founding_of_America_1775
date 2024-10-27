@@ -5,7 +5,7 @@ using static StateResourceSO;
 public class GameInitalizer : MonoBehaviour
 {
     
-    //public List<Trade> tradeLists = new List<Trade>();
+    public static GameInitalizer Instance;
 
     public int goldRate, waterRate, saltRate, meatRate, fruitsRate, vegetablesRate, wheatRate, woodRate, coalRate, ironRate, stoneRate, diamondRate;
     public string[] largeStates, mediumStates, smallStates;
@@ -15,10 +15,23 @@ public class GameInitalizer : MonoBehaviour
     Dictionary<string, List<float>> statesExportTradeContratPriceList = new Dictionary<string, List<float>>();
     Dictionary<string, List<float>> statesImporTradeLimitList = new Dictionary<string, List<float>>();
     Dictionary<string, List<float>> statesExportTradLimitList = new Dictionary<string, List<float>>();
+    private void Awake()
+    {
+        if (Instance == null)
+            Instance = this;
+        else
+            Destroy(gameObject);
+    }
 
     private void Start()
     {
 
+
+        InitGame();
+
+    }
+    public void InitGame()
+    {
         // Initialize the Neighbor class with city data
         goldRate = GoldproductionRate;
         waterRate = WaterproductionRate;
@@ -34,7 +47,7 @@ public class GameInitalizer : MonoBehaviour
         diamondRate = DimondproductionRate;
 
 
-        
+
 
         Neighbor game = Neighbor.Instance;
         InitializeCities();
@@ -43,8 +56,6 @@ public class GameInitalizer : MonoBehaviour
         InitializeNeighbors();
         SetMineRequaredValue();
         SetMineName();
-
-
     }
     void SetTradeData()
     {

@@ -14,9 +14,13 @@ public class Retreat : MonoBehaviour
        
             GameManager.Instance.IsAttackFinish = true;
             GameManager.Instance.ChangeIsAttackValueFalse();
-        RegionClickHandler.staticState = null;
-        UIManager.Instance.GetComponent<HideAllPanelButton>().DoHidePanel();
-        GameManager.Instance.ChanngeIsRegionPanelOpenValueFalse();
+            RegionClickHandler.staticState = null;
+            UIManager.Instance.GetComponent<HideAllPanelButton>().DoHidePanel();
+            GameManager.Instance.ChanngeIsRegionPanelOpenValueFalse();
+        if(GameManager.Instance.ÝsGameOver)
+        {
+            GameManager.Instance.GameOver();
+        }
 
 
     }

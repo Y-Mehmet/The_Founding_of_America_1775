@@ -25,7 +25,7 @@ public static class Utility
         if (value < 1000000)
             return (value / 1000.0).ToString("0.#") + "K"; // 1000-9999 arasý için '1.2k' formatý
 
-        return (value / 1000000.0).ToString("0.#") + "B"; // 10000'in üstü için '13.4b' formatý
+        return (value / 1000000.0).ToString("0.#") + "M"; // 10000'in üstü için '13.4m' formatý
     }
     public static float  ParseFormattedNumber(string formattedValue)
     {

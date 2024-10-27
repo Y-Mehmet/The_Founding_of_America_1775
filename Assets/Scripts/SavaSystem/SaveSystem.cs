@@ -16,11 +16,12 @@ public class SaveSystem : MonoBehaviour
     }
     public string saveName = "SaveData_";
     [Range(0, 10)]
-    public int saveDataIndex = 0;
+    public int saveDataIndex = 1;
 
-    public void SaveData(string dataToSave)
+    public void SaveData(string dataToSave, int saveDataIndex=1)
     {
-        if (WriteToFile(saveName + saveDataIndex, dataToSave))
+      
+            if (WriteToFile(saveName + saveDataIndex, dataToSave))
         {
             Debug.Log("Successfully saved data");
         }
@@ -30,6 +31,15 @@ public class SaveSystem : MonoBehaviour
     {
         string data = "";
         if (ReadFromFile(saveName + saveDataIndex, out data))
+        {
+            Debug.Log("Successfully loaded data");
+        }
+        return data;
+    }
+    public string LoadFirstData()
+    {
+        string data = "";
+        if (ReadFromFile(saveName + 0, out data))
         {
             Debug.Log("Successfully loaded data");
         }

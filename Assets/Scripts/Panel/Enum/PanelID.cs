@@ -36,6 +36,8 @@ public enum PanelID
     DesStateAssingForTroopDeployment,
     OriginStateAssingForTroopDeployment,
     StatsPanel,
+    GameOverPanel,
+    
 
 
 

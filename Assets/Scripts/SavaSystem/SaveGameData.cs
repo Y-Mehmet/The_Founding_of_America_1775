@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Security.Cryptography.X509Certificates;
 using UnityEngine;
@@ -32,8 +33,9 @@ public class SaveGameData : MonoBehaviour
 
 
 
-    public void SaveGame()
+    public void SaveGame(bool isFirstSave=false)
     {
+        
         SaveData data = new SaveData();
         GameData gameData = new GameData();
 
@@ -70,6 +72,7 @@ public class SaveGameData : MonoBehaviour
                     UnitNavalArmyPower = stateComponent.UnitNavalArmyPower,
                     UnitLandArmyPower = stateComponent.UnitLandArmyPower,
                     ArmyBarrackSize = stateComponent.GetArmyBarrackSize(),
+                    IsCapitalCity = stateComponent.IsCapitalCity,
                 // Ticaret bilgilerini ekle
                    
                 };
@@ -104,13 +107,24 @@ public class SaveGameData : MonoBehaviour
         }
 
         var dataToSave = JsonUtility.ToJson(data);
-        SaveSystem.instance.SaveData(dataToSave);
+        if(isFirstSave)
+        SaveSystem.instance.SaveData(dataToSave,0);
+        else
+            SaveSystem.instance.SaveData(dataToSave, 1);
     }
 
 
-    public void LoadGame()
+    public void LoadGame(bool loadFirstData= false)
     {
-        string dataToLoad = SaveSystem.instance.LoadData();
+        string dataToLoad = "";
+       if ( loadFirstData)
+        {
+            dataToLoad = SaveSystem.instance.LoadFirstData();
+        }else
+        {
+            dataToLoad = SaveSystem.instance.LoadData();
+        }
+         
 
         if (!string.IsNullOrEmpty(dataToLoad))
         {
@@ -163,9 +177,10 @@ public class SaveGameData : MonoBehaviour
                     stateComponent.UnitLandArmyPower= stateData.UnitLandArmyPower;
                     stateComponent.ArmyBarrackSize = stateData.ArmyBarrackSize;
                     stateComponent.resourceData = new Dictionary<ResourceType, ResourceData>(); // Yeniden baþlatma
-                   
+                    stateComponent.IsCapitalCity= stateData.IsCapitalCity;
+
                    // Debug.LogWarning($"trade limit data {stateData.tradeList[0].limit.Count}");
-                    // Ticaret verilerini yükle
+                   // Ticaret verilerini yükle
                     stateComponent.tradeLists[0] = stateData.tradeList[0];
                     stateComponent.tradeLists[1] = stateData.tradeList[1];
                    // Debug.LogWarning($"trade limit state {stateComponent.tradeLists[0].tradeType}");
@@ -228,6 +243,7 @@ public class StateData
     public float Morele;
     public int Population;
     public int Resources;
+    public bool IsCapitalCity;
   
 
 
@@ -258,7 +274,7 @@ public class GameData
     public List<TradeHistory> tradeTransactionList;
     public GameData()
     {
-       generalStatesList= new List<string> ();
+        generalStatesList= new List<string> ();
         assignedGeneralList= new List<General>();
         allGeneralsList= new List<General>();
         generalIndexAndWarList= new List<War>();

@@ -203,7 +203,7 @@ public class TroopyPanel : MonoBehaviour
             int gemMax = (int)((GameEconomy.Instance.GetGoldValue(ResourceType.Diamond, currentGem))/BarrackCost-1);
             maxBarrack= gemMax<maxBarrack?maxBarrack:gemMax;
         }
-        BarrackInputField.text = FormatNumber(maxBarrack);
+        BarrackInputField.text =((maxBarrack).ToString());
     }
     void OnLandMacClicked()
     {

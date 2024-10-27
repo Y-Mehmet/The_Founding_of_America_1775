@@ -4,7 +4,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using static GeneralManager;
 using static GameManager;
-using System.Linq;
+
+
 [Serializable]
 public class State : MonoBehaviour
 {
@@ -92,6 +93,11 @@ public class State : MonoBehaviour
     public int GetMorale()
     {
         return (int)Morele;
+    }
+    public   void SetMorale(int morale)
+    {
+        Morele += morale;
+        Morele = Morele > 100 ? 100 : Morele;
     }
     public int GetArmyBarrackSize()
     {
@@ -298,6 +304,15 @@ public class State : MonoBehaviour
                 Morele = Mathf.Clamp(Morele, 0, 100);
                 State state = gameObject.GetComponent<State>();
                 OnMoreleChanged?.Invoke(Morele, state);
+            if(Morele<=10 && !IsCapitalCity)
+            {
+                int rand = UnityEngine.Random.Range(0, 10);
+                if(rand==9)
+                {
+                    LostState();
+                }
+
+            }
 
             yield return new WaitForSeconds(gameDayTime);
         }
@@ -409,14 +424,15 @@ public class State : MonoBehaviour
         }
     }
 
-    public void IncraseMetod()
-    {
-        if (increaseArmySizeCoroutine == null)
-            increaseArmySizeCoroutine = StartCoroutine(IncreaseArmySizeOverTime());
+    //kullanýlmýyor 
+    //public void IncraseMetod()
+    //{
+    //    if (increaseArmySizeCoroutine == null)
+    //        increaseArmySizeCoroutine = StartCoroutine(IncreaseArmySizeOverTime());
 
-        if (resourceProductionCoroutine == null)
-            resourceProductionCoroutine = StartCoroutine(ResourceProduction());
-    }
+    //    if (resourceProductionCoroutine == null)
+    //        resourceProductionCoroutine = StartCoroutine(ResourceProduction());
+    //}
     public float TotalArmyCalculator()
     {
        
@@ -501,7 +517,7 @@ public class State : MonoBehaviour
         }
         else
             Debug.LogWarning("elegeçirmeye çalýþtýðýn satte enmey deðil ");
-
+        HandleAttackStopped();
     }
     void LostState()
     {
@@ -525,6 +541,20 @@ public class State : MonoBehaviour
             Debug.LogWarning("enmey state bulunamadý ");
             gameObject.AddComponent<EnemyState>();
         }
+        HandleAttackStopped();
+        if( IsCapitalCity)
+        {
+            if(AllyStateList.Count>0)
+            {
+                AllyStateList[0].IsCapitalCity = true;
+
+            }else
+            {
+                GameManager.Instance.ÝsGameOver=true;
+
+            }    
+        }
+        
     }
   void RelaseState()
     {
@@ -546,6 +576,7 @@ public class State : MonoBehaviour
             Debug.LogWarning("natural state bulunamadý ");
             gameObject.AddComponent<NaturalState>();
         }
+        HandleAttackStopped();
     }
     private void FindISelectibleComponentAndDisable()
     {

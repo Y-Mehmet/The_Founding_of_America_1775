@@ -132,7 +132,28 @@ public class GameManager : MonoBehaviour
     {
         IsAttackFinish = true;
     }
+    public void GameOver()
+    {
+        ÝsGameOver= true;
+        UIManager.Instance.GetComponent<ShowPanelButton>().DoShowPanelWhitId(PanelID.GameOverPanel);
+    }
+    IEnumerator OpenGameOverPanel()
+    {
+        yield return new WaitForSeconds(10);
+
+       
+    }
 
 
 
+}
+[Serializable]
+public enum CitizenType
+{
+    tax,
+    war,
+    bill,
+    church,
+    victory,
+    liberty
 }
