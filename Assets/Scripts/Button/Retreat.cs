@@ -20,6 +20,7 @@ public class Retreat : MonoBehaviour
         if(GameManager.Instance.ÝsGameOver)
         {
             GameManager.Instance.GameOver();
+            
         }
 
 

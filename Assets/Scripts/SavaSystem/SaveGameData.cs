@@ -41,6 +41,9 @@ public class SaveGameData : MonoBehaviour
 
         gameData.currentTime = GameDateManager.instance.GetCurrentDataString();
         gameData.isFirstSave = isFirstSave;
+        gameData.totalPopulation = GameManager.tottalPopulation;
+        gameData.CentralBankGem = ResourceManager.Instance.GetResourceAmount(ResourceType.Diamond);
+        gameData.CenrtalBankGold = ResourceManager.Instance.GetResourceAmount(ResourceType.Gold); 
         foreach (var keyValuePair in GeneralManager.stateGenerals)
         {
             gameData.generalStatesList.Add(keyValuePair.Key.name);
@@ -132,7 +135,11 @@ public class SaveGameData : MonoBehaviour
             SaveData data = JsonUtility.FromJson<SaveData>(dataToLoad);
             GameDateManager.currentDate = GameDateManager.ConvertStringToDate(data.gameData.currentTime);
             GameManager.Instance.IsFirstSave = data.gameData.isFirstSave;
+            ResourceManager.Instance.SetResoruceAmount(ResourceType.Gold, data.gameData.CenrtalBankGold);
+            ResourceManager.Instance.SetResoruceAmount(ResourceType.Diamond, data.gameData.CentralBankGem);
+            GameManager.tottalPopulation = data.gameData.totalPopulation;
             generals = data.gameData.allGeneralsList;
+            
             GeneralManager.stateGenerals = data.gameData.generalStatesList
           .Select((state, index) => new { state= Usa.Instance.FindStateByName(state), general = data.gameData.assignedGeneralList[index] })
           .ToDictionary(x => x.state, x => x.general);
@@ -198,6 +205,7 @@ public class SaveGameData : MonoBehaviour
 
                     // Renk deðiþimini yap
                     ChangeCollor.Instance.ChangeGameobjectColor(stateObject, stateData.stateType);
+
                 }
             }
 
@@ -273,6 +281,9 @@ public class GameData
 {
     public string currentTime;
     public bool isFirstSave;
+    public int totalPopulation;
+    public int CenrtalBankGold;
+    public int CentralBankGem;
     public List<string> generalStatesList;
     public List<General> assignedGeneralList;
     public List<General> allGeneralsList;

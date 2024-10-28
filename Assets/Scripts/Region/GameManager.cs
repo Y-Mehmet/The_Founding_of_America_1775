@@ -135,8 +135,9 @@ public class GameManager : MonoBehaviour
     }
     public void GameOver()
     {
-        ÝsGameOver= true;
+       
         UIManager.Instance.GetComponent<ShowPanelButton>().DoShowPanelWhitId(PanelID.GameOverPanel);
+        GameManager.Instance.IsRegionPanelOpen = true;
     }
     IEnumerator OpenGameOverPanel()
     {

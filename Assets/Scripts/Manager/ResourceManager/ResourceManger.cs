@@ -37,9 +37,14 @@ public class ResourceManager : MonoBehaviour
        
         // Diðer kaynaklar eklenecekse buraya eklenebilir
     }
+
     private void Start()
     {
         SetDefaultValue();
+    }
+    public  void SetResoruceAmount(ResourceType resourceType, float amount)
+    {
+        resources[resourceType] = amount;
     }
     public void SetDefaultValue()
     {
