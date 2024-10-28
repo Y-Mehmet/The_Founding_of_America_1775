@@ -37,6 +37,7 @@ public enum PanelID
     OriginStateAssingForTroopDeployment,
     StatsPanel,
     GameOverPanel,
+    USCongressPanel,
     
 
 

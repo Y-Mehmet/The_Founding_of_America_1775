@@ -63,7 +63,10 @@ public class State : MonoBehaviour
         {
             Debug.LogError("gamanenager is null");
         }
-      
+        USCongress.OnEnactActChange += OnEnactChanged;
+        USCongress.OnRepealActChange += OnRepealChanged;
+
+
     }
     
 
@@ -266,14 +269,57 @@ public class State : MonoBehaviour
             StopCoroutine(moreleCoroutine);
             moreleCoroutine = null;
         }
-        if(incrasePopulationCoroutine != null)
+        StopIncrasePopulation();
+
+
+    }
+
+    void StopIncrasePopulation()
+    {
+        if (incrasePopulationCoroutine != null)
         {
             StopCoroutine(incrasePopulationCoroutine);
-           
+
             incrasePopulationCoroutine = null;
-         
+
         }
-           
+    }
+    void StartIncrasePopulatoin()
+    {
+      
+        if (incrasePopulationCoroutine == null)
+        {
+           incrasePopulationCoroutine= StartCoroutine(IncrasePopulationOverTime());
+
+          
+
+        }
+    }
+    void OnEnactChanged(ActType actType)
+    {
+        switch(((int)actType))
+        {
+            case 0:
+                StopIncrasePopulation();
+                USCongress.PopulationStabilityAct = true;
+                populationAddedValue = 0;
+                break;
+            default:
+                break;
+        }
+
+    }
+    void OnRepealChanged(ActType actType)
+    {
+        switch (((int)actType))
+        {
+            case 0:
+                StartIncrasePopulatoin();
+                USCongress.PopulationStabilityAct = false;
+                break;
+            default:
+                break;
+        }
     }
 
     private void HandleAttackStopped()
@@ -285,14 +331,13 @@ public class State : MonoBehaviour
             resourceProductionCoroutine = StartCoroutine(ResourceProduction());
         if (moreleCoroutine == null)
             moreleCoroutine = StartCoroutine(ChangeMorale());
-        if (incrasePopulationCoroutine == null)
+        if (incrasePopulationCoroutine == null &&  !USCongress.PopulationStabilityAct)
         {
-            incrasePopulationCoroutine = StartCoroutine(IncrasePopulationOverTime());
-
-           
+            incrasePopulationCoroutine = StartCoroutine(IncrasePopulationOverTime());          
         }
        
     }
+
     private IEnumerator ChangeMorale()
     {
         float addedValue = 0;

@@ -150,12 +150,12 @@ public class GameManager : MonoBehaviour
 
 }
 [Serializable]
-public enum CitizenType
+public enum ActType
 {
-    tax,
-    war,
-    bill,
-    church,
-    victory,
-    liberty
+    Population,
+    Social,
+    National,
+    Emancipation,
+    Labor,
+
 }
