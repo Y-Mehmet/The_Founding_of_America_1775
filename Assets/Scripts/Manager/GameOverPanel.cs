@@ -5,7 +5,11 @@ using UnityEngine.UI;
 
 public class GameOverPanel : MonoBehaviour
 {
-    public Button restartBtn;
+    Button restartBtn;
+    private void Start()
+    {
+       restartBtn= GetComponent<Button>();
+    }
     private void OnEnable()
     {
         restartBtn.onClick.AddListener(OnButtonCliced);
@@ -16,9 +20,11 @@ public class GameOverPanel : MonoBehaviour
     }
     void OnButtonCliced()
     {
-        UIManager.Instance.GetComponent<HideAllPanelButton>().DoHidePanel();
+        Debug.LogWarning(" on button click çalýþtý");
         SaveGameData.Instance.LoadGame(true);
-        GameManager.Instance.OnGameDataLoaded?.Invoke();
+        UIManager.Instance.GetComponent<HideAllPanelButton>().DoHidePanel();
+       
+        //GameManager.Instance.OnGameDataLoaded?.Invoke();
 
     }
 }

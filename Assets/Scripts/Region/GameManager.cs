@@ -2,7 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+[Serializable]
 public class GameManager : MonoBehaviour
 {
    public static GameManager Instance;
@@ -31,6 +31,7 @@ public class GameManager : MonoBehaviour
     
     public bool isGamePause = false;
     public bool ÝsGameOver= false;
+    public bool IsFirstSave = true;
 
    
 

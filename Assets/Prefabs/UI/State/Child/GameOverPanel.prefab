@@ -5232,7 +5232,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1905057090563209501}
-  - component: {fileID: 2965382317996837567}
   m_Layer: 5
   m_Name: GameOverPanel
   m_TagString: Untagged
@@ -5267,19 +5266,6 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 1280, y: 720}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &2965382317996837567
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3814907777474898950}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1233b2d27fd6c684197535544e981f21, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  restartBtn: {fileID: 8638157446225314467}
 --- !u!1 &5078107155109170904
 GameObject:
   m_ObjectHideFlags: 0
@@ -10270,6 +10256,7 @@ GameObject:
   - component: {fileID: 6396660957159125659}
   - component: {fileID: 8031780521532474195}
   - component: {fileID: 8638157446225314467}
+  - component: {fileID: 117048847365969228}
   m_Layer: 5
   m_Name: Restart_btn
   m_TagString: Untagged
@@ -10380,6 +10367,18 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls: []
+--- !u!114 &117048847365969228
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5251995996052835769}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1233b2d27fd6c684197535544e981f21, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &5267205419598174878
 GameObject:
   m_ObjectHideFlags: 0

@@ -23,7 +23,7 @@ public class SaveSystem : MonoBehaviour
       
             if (WriteToFile(saveName + saveDataIndex, dataToSave))
         {
-            Debug.Log("Successfully saved data");
+            Debug.Log("Successfully saved data "+saveDataIndex);
         }
     }
 
@@ -38,10 +38,11 @@ public class SaveSystem : MonoBehaviour
     }
     public string LoadFirstData()
     {
+        Debug.LogWarning(" load firs çalýþtý");
         string data = "";
         if (ReadFromFile(saveName + 0, out data))
         {
-            Debug.Log("Successfully loaded data");
+            Debug.Log("Successfully loaded first  data");
         }
         return data;
     }

@@ -31,10 +31,10 @@ public class GamaLoader : MonoBehaviour
     public void LoadGameData()
     {
         SaveGameData.Instance.LoadGame();
-        GameManager.Instance.OnGameDataLoaded?.Invoke();
+       // GameManager.Instance.OnGameDataLoaded?.Invoke();
         string fullPath = Path.Combine(Application.persistentDataPath, "SaveData_" + 0);
         // Kayýt dosyasýnýn varlýðýný kontrol ediyoruz
-        if (!File.Exists(fullPath))
+        if (GameManager.Instance.IsFirstSave)
         {
             SaveGameData.Instance.SaveGame(true);
         }

@@ -40,6 +40,7 @@ public class SaveGameData : MonoBehaviour
         GameData gameData = new GameData();
 
         gameData.currentTime = GameDateManager.instance.GetCurrentDataString();
+        gameData.isFirstSave = isFirstSave;
         foreach (var keyValuePair in GeneralManager.stateGenerals)
         {
             gameData.generalStatesList.Add(keyValuePair.Key.name);
@@ -130,6 +131,7 @@ public class SaveGameData : MonoBehaviour
         {
             SaveData data = JsonUtility.FromJson<SaveData>(dataToLoad);
             GameDateManager.currentDate = GameDateManager.ConvertStringToDate(data.gameData.currentTime);
+            GameManager.Instance.IsFirstSave = data.gameData.isFirstSave;
             generals = data.gameData.allGeneralsList;
             GeneralManager.stateGenerals = data.gameData.generalStatesList
           .Select((state, index) => new { state= Usa.Instance.FindStateByName(state), general = data.gameData.assignedGeneralList[index] })
@@ -200,6 +202,10 @@ public class SaveGameData : MonoBehaviour
             }
 
         }
+        else
+        {
+            Debug.LogWarning("string is null");
+        }
         if (GameManager.Instance != null)
         {
             GameManager.Instance.OnGameDataLoaded.Invoke();
@@ -266,12 +272,14 @@ public class StateData
 public class GameData
 {
     public string currentTime;
+    public bool isFirstSave;
     public List<string> generalStatesList;
     public List<General> assignedGeneralList;
     public List<General> allGeneralsList;
     public List<War> generalIndexAndWarList;
     public List<TradeHistory> tradeHistoryList;
     public List<TradeHistory> tradeTransactionList;
+
     public GameData()
     {
         generalStatesList= new List<string> ();
