@@ -26,7 +26,7 @@ public class ResourceStatsCard : MonoBehaviour
     }
     void UIUpdate()
     {
-        int surplus = ((int)statsState.resourceData[(ResourceType)index].surplus);
+        int surplus = (int)(statsState.resourceData[(ResourceType)index].surplus);
         if (surplus>0)
         {
             valueText.text = FormatNumber(((int)statsState.resourceData[(ResourceType)index].currentAmount)) + " +" + FormatNumber(surplus);

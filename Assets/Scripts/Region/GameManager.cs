@@ -157,5 +157,6 @@ public enum ActType
     National,
     Emancipation,
     Labor,
+    None
 
 }

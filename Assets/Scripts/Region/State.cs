@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using static GeneralManager;
 using static GameManager;
+using static USCongress;
 
 
 [Serializable]
@@ -63,9 +64,9 @@ public class State : MonoBehaviour
         {
             Debug.LogError("gamanenager is null");
         }
-        USCongress.OnEnactActChange += OnEnactChanged;
+       
         USCongress.OnRepealActChange += OnRepealChanged;
-
+        USCongress.OnEnactActChange += OnEnactChanged;
 
     }
     
@@ -132,7 +133,7 @@ public class State : MonoBehaviour
         }
         
 
-        TotalArmyPower = (LandArmySize * (UnitLandArmyPower+generalLandHelpRate))+(NavalArmySize*(UnitNavalArmyPower+generalNavalHelpRate))/100*(Morele<50?50:Morele);
+        TotalArmyPower = (LandArmySize * GetUnitLandRate() +NavalArmySize*GetUnitNavalRate()) /100*(Morele<50?50:Morele);
        // Debug.LogWarning($"{LandArmySize} ");
         return TotalArmyPower<0?0:(int) TotalArmyPower;
     }
@@ -149,7 +150,7 @@ public class State : MonoBehaviour
         {
             generalLandHelpRate = general.LandHelpRate;
         }
-        float totalRate = UnitLandArmyPower + generalLandHelpRate;
+        float totalRate = UnitLandArmyPower + generalLandHelpRate+UnitArmyPowerAddedValue;
         return float.Parse(String.Format("{0:0.00}", totalRate)); ;
     }
     public float GetUnitNavalRate()
@@ -160,7 +161,7 @@ public class State : MonoBehaviour
         {
             generalNavalRate = general.NavalHelpRate;
         }
-        float totalRate= UnitLandArmyPower + generalNavalRate; 
+        float totalRate= UnitNavalArmyPower + generalNavalRate+ UnitArmyPowerAddedValue; 
         return float.Parse(String.Format("{0:0.00}", totalRate)); 
     }
     public void DeployTroops( int land, int naval)
@@ -208,6 +209,7 @@ public class State : MonoBehaviour
 
         return resoruceAddedValue * 0.01f;
     }
+  
     public int GetGoldResValue()
     {
        
@@ -303,7 +305,25 @@ public class State : MonoBehaviour
                 StopIncrasePopulation();
                 USCongress.PopulationStabilityAct = true;
                 populationAddedValue = 0;
+                MoralAddedValue = -1;
                 break;
+            case 1:
+                MoralAddedValue = 1;
+                ConsumptionAddedValue = 110;
+                break;
+            case 2:
+                UnitArmyPowerAddedValue = 0.5f;
+                ProductionAddedValue = 90;
+                break;
+            case 3:
+                MoralAddedValue = 1;
+                ProductionAddedValue = 90;
+                break;
+                case 4:
+                ProductionAddedValue =110;
+                PopulationAddedValue = 110;
+                break;
+
             default:
                 break;
         }
@@ -316,7 +336,25 @@ public class State : MonoBehaviour
             case 0:
                 StartIncrasePopulatoin();
                 USCongress.PopulationStabilityAct = false;
+                MoralAddedValue = 0;
                 break;
+            case 1:
+                MoralAddedValue = 0;
+                ConsumptionAddedValue = 100;
+                break;
+            case 2:
+                UnitArmyPowerAddedValue = 0;
+                ProductionAddedValue = 100;
+                break;
+            case 3:
+                MoralAddedValue = 0;
+                ProductionAddedValue = 100;
+                break;
+            case 4:
+                ProductionAddedValue = 100;
+                PopulationAddedValue = 100;
+                break;
+                
             default:
                 break;
         }
@@ -343,7 +381,7 @@ public class State : MonoBehaviour
         float addedValue = 0;
         while (!GameManager.Instance.ÝsGameOver && !GameManager.Instance.isGamePause && GameManager.Instance.IsAttackFinish)
         {
-           addedValue= GetTaxSatisfactionRate()+GetResourceFactionRate();
+           addedValue= GetTaxSatisfactionRate()+GetResourceFactionRate()+ MoralAddedValue;
                         
                 Morele += addedValue;
                 Morele = Mathf.Clamp(Morele, 0, 100);
@@ -392,7 +430,7 @@ public class State : MonoBehaviour
 
         while (!GameManager.Instance.ÝsGameOver && !GameManager.Instance.isGamePause && GameManager.Instance.IsAttackFinish)
         {
-            populationIncreasePerSecond = (int)( Morele * Population * populationGrowthRateMultiplier);
+            populationIncreasePerSecond = (int)( Morele * Population * populationGrowthRateMultiplier/100*PopulationAddedValue);
             
              populationDecrasePerSecond = (int)((100 - Morele) * Population * populationGrowthRateMultiplier);
              populationAddedValue= populationIncreasePerSecond-populationDecrasePerSecond;
@@ -413,7 +451,7 @@ public class State : MonoBehaviour
             resoruceAddedValue = 0;
             foreach (var item in resourceData)
             {
-                float productionAmount = item.Value.mineCount * item.Value.productionRate;
+                float productionAmount = item.Value.mineCount * item.Value.productionRate/100*ProductionAddedValue;
                 float moraleEffect = (101 - Morele) / 100;
                 productionAmount *= (1 - moraleEffect * 0.3f);
 
@@ -444,10 +482,11 @@ public class State : MonoBehaviour
                 //if(item.Key== ResourceType.Gold && IsCapitalCity)
                 // Debug.LogWarning($"{item.Key}  üretim  {productionAmount} rate {item.Value.productionRate } ");
                
-                item.Value.surplus= productionAmount- (item.Value.consumptionAmount * Population);
+                item.Value.surplus= productionAmount- (item.Value.consumptionAmount /100* ConsumptionAddedValue * Population);
                
                 item.Value.currentAmount += productionAmount;
-                item.Value.currentAmount -= (item.Value.consumptionAmount*Population);
+                item.Value.currentAmount -= (item.Value.consumptionAmount / 100 * ConsumptionAddedValue * Population);
+                
                 if(item.Key!= ResourceType.Gold)
                 {
                     if(item.Value.currentAmount<0)

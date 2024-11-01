@@ -5,8 +5,7 @@ using System.Linq;
 using System.Security.Cryptography.X509Certificates;
 using UnityEngine;
 using static GeneralManager;
-
-
+using static USCongress;
 public class SaveGameData : MonoBehaviour
 {
     public static SaveGameData Instance { get;private set; }
@@ -44,6 +43,14 @@ public class SaveGameData : MonoBehaviour
         gameData.totalPopulation = GameManager.tottalPopulation;
         gameData.CentralBankGem = ResourceManager.Instance.GetResourceAmount(ResourceType.Diamond);
         gameData.CenrtalBankGold = ResourceManager.Instance.GetResourceAmount(ResourceType.Gold); 
+        gameData.currentActIndex= ((int)currentAct);
+        gameData.PopulationAddedValue = PopulationAddedValue;
+        gameData.ProductionAddedValue = ProductionAddedValue;
+        gameData.UnitArmyPowerAddedValue= UnitArmyPowerAddedValue;
+        gameData.MoralAddedValue = MoralAddedValue;
+        gameData.PopulationStabilityAct = PopulationStabilityAct;
+        gameData.ConsumptionAddedValue= ConsumptionAddedValue;
+
         foreach (var keyValuePair in GeneralManager.stateGenerals)
         {
             gameData.generalStatesList.Add(keyValuePair.Key.name);
@@ -139,7 +146,14 @@ public class SaveGameData : MonoBehaviour
             ResourceManager.Instance.SetResoruceAmount(ResourceType.Diamond, data.gameData.CentralBankGem);
             GameManager.tottalPopulation = data.gameData.totalPopulation;
             generals = data.gameData.allGeneralsList;
-            
+            currentAct = (ActType) data.gameData.currentActIndex;
+            PopulationAddedValue=data.gameData.PopulationAddedValue   ;
+            ProductionAddedValue=data.gameData.ProductionAddedValue   ;
+            UnitArmyPowerAddedValue=data.gameData.UnitArmyPowerAddedValue ;
+            MoralAddedValue=data.gameData.MoralAddedValue         ;
+            PopulationStabilityAct= data.gameData.PopulationStabilityAct;
+            ConsumptionAddedValue = data.gameData.ConsumptionAddedValue;
+
             GeneralManager.stateGenerals = data.gameData.generalStatesList
           .Select((state, index) => new { state= Usa.Instance.FindStateByName(state), general = data.gameData.assignedGeneralList[index] })
           .ToDictionary(x => x.state, x => x.general);
@@ -290,7 +304,13 @@ public class GameData
     public List<War> generalIndexAndWarList;
     public List<TradeHistory> tradeHistoryList;
     public List<TradeHistory> tradeTransactionList;
-
+    public int currentActIndex;
+    public bool PopulationStabilityAct;
+    public float MoralAddedValue;
+    public int ConsumptionAddedValue;
+    public float UnitArmyPowerAddedValue;
+    public int ProductionAddedValue;
+    public float PopulationAddedValue;
     public GameData()
     {
         generalStatesList= new List<string> ();
