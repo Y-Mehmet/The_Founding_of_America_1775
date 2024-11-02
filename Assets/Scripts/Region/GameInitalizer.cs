@@ -2,10 +2,12 @@
 using System.Linq;
 using UnityEngine;
 using static StateResourceSO;
+using static Neighbor;
 public class GameInitalizer : MonoBehaviour
 {
     
     public static GameInitalizer Instance;
+
 
     public int goldRate, waterRate, saltRate, meatRate, fruitsRate, vegetablesRate, wheatRate, woodRate, coalRate, ironRate, stoneRate, diamondRate;
     public string[] largeStates, mediumStates, smallStates;
@@ -54,6 +56,7 @@ public class GameInitalizer : MonoBehaviour
         StateSize();
         InitializedStateDataValue();
         InitializeNeighbors();
+      
         SetMineRequaredValue();
         SetMineName();
     }
@@ -585,11 +588,14 @@ public class GameInitalizer : MonoBehaviour
         }
         
      }
+   
     private void InitializeNeighbors()
     {
         // Komşuluk ilişkilerini ekle
         Neighbor.Instance.AddNeighbor("Washington", "Oregon");
+       
         Neighbor.Instance.AddNeighbor("Washington", "Idaho");
+        
 
         Neighbor.Instance.AddNeighbor("Oregon", "Washington");
         Neighbor.Instance.AddNeighbor("Oregon", "Idaho");
@@ -839,4 +845,93 @@ public class GameInitalizer : MonoBehaviour
 
 
   
+}
+public class Node
+{
+    public string Name;
+    public List<Node> Neighbors = new List<Node>();
+    public Node(string name)
+    {
+        Name = name;
+    }
+}
+public class Pathfinding
+{
+    public List<Node> FindPath(Node start, Node target)
+    {
+        List<Node> openSet = new List<Node>(); // A*'da ziyaret edilecek düğümler
+        HashSet<Node> closedSet = new HashSet<Node>(); // Ziyaret edilen düğümler
+        Dictionary<Node, Node> cameFrom = new Dictionary<Node, Node>(); // Hangi düğümden geldiğini tutmak için
+        Dictionary<Node, float> gScore = new Dictionary<Node, float>(); // Başlangıçtan her düğüme olan en kısa mesafe
+        Dictionary<Node, float> fScore = new Dictionary<Node, float>(); // Başlangıçtan hedefe tahmin edilen mesafe
+
+        openSet.Add(start);
+        gScore[start] = 0;
+        fScore[start] = HeuristicCostEstimate(start, target); // Başlangıçtan hedefe tahmin edilen mesafe
+
+        while (openSet.Count > 0)
+        {
+            Node current = GetLowestFScoreNode(openSet, fScore);
+
+            // Hedef düğüme ulaşıldıysa, geri döner
+            if (current == target)
+                return ReconstructPath(cameFrom, current);
+
+            openSet.Remove(current);
+            closedSet.Add(current);
+
+            foreach (Node neighbor in current.Neighbors)
+            {
+                if (closedSet.Contains(neighbor))
+                    continue; // Ziyaret edildi, atla
+
+                float tentativeGScore = gScore[current] + 1; // Varsayılan mesafe her komşuya 1
+
+                if (!openSet.Contains(neighbor))
+                    openSet.Add(neighbor); // Komşu daha önce ziyaret edilmemişse ekle
+
+                if (!gScore.ContainsKey(neighbor) || tentativeGScore < gScore[neighbor])
+                {
+                    // GScore güncelle
+                    cameFrom[neighbor] = current;
+                    gScore[neighbor] = tentativeGScore;
+                    fScore[neighbor] = gScore[neighbor] + HeuristicCostEstimate(neighbor, target);
+                }
+            }
+        }
+
+        return null; // Yol bulunamadı
+    }
+
+    private float HeuristicCostEstimate(Node a, Node b)
+    {
+        // Basit bir tahmin, mesafeyi veya benzeri bir şey kullanabilirsin
+        return 1; // Tüm komşular için eşit mesafe
+    }
+
+    private Node GetLowestFScoreNode(List<Node> openSet, Dictionary<Node, float> fScore)
+    {
+        Node lowestNode = openSet[0];
+        foreach (Node node in openSet)
+        {
+            if (fScore.TryGetValue(node, out float score))
+            {
+                if (score < fScore[lowestNode])
+                    lowestNode = node;
+            }
+        }
+        return lowestNode;
+    }
+
+    private List<Node> ReconstructPath(Dictionary<Node, Node> cameFrom, Node current)
+    {
+        List<Node> totalPath = new List<Node> { current };
+        while (cameFrom.ContainsKey(current))
+        {
+            current = cameFrom[current];
+            totalPath.Add(current);
+        }
+        totalPath.Reverse(); // Başlangıçtan hedefe doğru
+        return totalPath;
+    }
 }

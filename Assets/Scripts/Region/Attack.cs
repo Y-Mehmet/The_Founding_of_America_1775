@@ -5,6 +5,7 @@ using UnityEngine;
 using System.Linq;
 using DG.Tweening;
 using System.Net;
+using UnityEditor.Experimental.GraphView;
 public class Attack : MonoBehaviour
 {
     public static Attack Instance;
@@ -47,15 +48,43 @@ public class Attack : MonoBehaviour
 }
 public IEnumerator AttackingCoroutine(string defendingState)
     {
-        if (RegionClickHandler.Instance.currentState == null)
+        if (RegionClickHandler.Instance.currentState == null  )
         {
-            attackingStateText = GameManager.AllyStateList.OrderBy(state => state.GetTotalArmyPower()).FirstOrDefault().name;
+            RegionClickHandler.staticState = GameManager.AllyStateList.OrderBy(state => state.GetTotalArmyPower()).FirstOrDefault();
+            RegionClickHandler.Instance.currentState = RegionClickHandler.staticState.gameObject;
+            
+            attackingStateText =RegionClickHandler.staticState.name;
+
+            List<Node> path=  PathFindDeneme.PathInstance.GetPath(defendingState, attackingStateText);
+            foreach (Node node in path)
+            {
+              
+                Usa.Instance.FindStateByName(node.Name).transform.GetComponentInChildren<Flag>().flagList[0].SetActive(true); 
+
+            }
+            Usa.Instance.FindStateByName(path[0].Name).transform.GetComponentInChildren<Flag>().flagList[1].SetActive(true);
+           
+            for(int i=1; i< path.Count;i++)
+            {
+                yield return new WaitForSeconds(1.0f);
+                Usa.Instance.FindStateByName(path[i-1].Name).transform.GetComponentInChildren<Flag>().flagList[2].SetActive(true);
+                Usa.Instance.FindStateByName(path[i].Name).transform.GetComponentInChildren<Flag>().flagList[1].SetActive(true);
+            }
+            yield return new WaitForSeconds(1.0f);
+            foreach (Node node in path)
+            {
+
+                Usa.Instance.FindStateByName(node.Name).transform.GetComponentInChildren<Flag>().flagList[0].SetActive(false);
+                Usa.Instance.FindStateByName(node.Name).transform.GetComponentInChildren<Flag>().flagList[1].SetActive(false);
+                Usa.Instance.FindStateByName(node.Name).transform.GetComponentInChildren<Flag>().flagList[2].SetActive(false);
+
+            }
         }
         else
         {
             attackingStateText = RegionClickHandler.Instance.currentState.name.ToString(); // RegionManager.instance.a_regionNameText;
         }
-                  
+        Debug.LogWarning("attakicn state " + attackingStateText);       
         lastDefendingState = defendingState;
         lastAttackingState = attackingStateText;
         yield return null;

@@ -113,6 +113,7 @@ public class AllyState : MonoBehaviour, ISelectable
     {
         FinishAttack();
         RegionClickHandler.staticState = null;
+        RegionClickHandler.Instance.currentState = null;
         
     }
 

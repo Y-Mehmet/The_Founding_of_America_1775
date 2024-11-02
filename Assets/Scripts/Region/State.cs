@@ -7,6 +7,7 @@ using static GameManager;
 using static USCongress;
 using Random = UnityEngine.Random;
 using UnityEditor.Media;
+using UnityEngine.UI;
 
 
 [Serializable]
@@ -20,7 +21,7 @@ public class State : MonoBehaviour
     private Coroutine incrasePopulationCoroutine;
  
     public Action<float, State> OnMoreleChanged;
-
+   
     public int HierarchicalIndex;
     public string StateName = "";
     public float ArmySize ;
@@ -97,17 +98,19 @@ public class State : MonoBehaviour
         
 
     }
+
     public void ReduceEnemyMorale(int decraseValue)
     {
         
         Morele += decraseValue;
         if(Morele<=10)
         {
-            InvokeRepeating("DeclereWar", 0, gameDayTime * 30);
+            InvokeRepeating("DeclereWar", 0, gameDayTime * 10);
         }
     }
     void DeclereWar()
     {
+       
         if( MessageManager.messages.Count >= MessageManager.MaxMessageCount)
         {
             MessageManager.messages.RemoveAt(0);
@@ -118,9 +121,14 @@ public class State : MonoBehaviour
         if( Morele<=10)
         {
             int random= Random.Range(0, 10);
-            if(random==9)
+            if(random!=5)
             {
                 GameManager.Instance.ChangeIsAttackValueTrue();
+                RegionClickHandler.Instance.currentState = null;
+                RegionClickHandler.staticState = null;
+                UIManager.Instance.GetComponent<HideLastPanelButton>().DoHidePanel();
+
+                Attack.Instance.Attacking(gameObject.name);
 
             }
         }

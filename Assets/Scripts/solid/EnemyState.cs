@@ -69,5 +69,7 @@ public class EnemyState : MonoBehaviour, ISelectable
     public void CloseAll()
     {
         FinishAttack();
+        RegionClickHandler.staticState = null;
+        RegionClickHandler.Instance.currentState = null;
     }
 }
