@@ -6,6 +6,8 @@ using System.Linq;
 using DG.Tweening;
 using System.Net;
 using UnityEditor.Experimental.GraphView;
+using Unity.VisualScripting;
+using UnityEditor;
 public class Attack : MonoBehaviour
 {
     public static Attack Instance;
@@ -48,13 +50,14 @@ public class Attack : MonoBehaviour
 }
 public IEnumerator AttackingCoroutine(string defendingState)
     {
+      //  Debug.LogError("def state " + defendingState);
         if (RegionClickHandler.Instance.currentState == null  )
         {
             RegionClickHandler.staticState = GameManager.AllyStateList.OrderBy(state => state.GetTotalArmyPower()).FirstOrDefault();
             RegionClickHandler.Instance.currentState = RegionClickHandler.staticState.gameObject;
-            
-            attackingStateText =RegionClickHandler.staticState.name;
 
+            attackingStateText = RegionClickHandler.staticState.name;
+         //   Debug.LogError(" attacikn state " + attackingStateText);
             List<Node> path=  PathFindDeneme.PathInstance.GetPath(defendingState, attackingStateText);
             foreach (Node node in path)
             {
@@ -82,9 +85,20 @@ public IEnumerator AttackingCoroutine(string defendingState)
         }
         else
         {
+
             attackingStateText = RegionClickHandler.Instance.currentState.name.ToString(); // RegionManager.instance.a_regionNameText;
+                                                                                           // Check if the defending state is a neighbor
+            if (!Neighbor.Instance.AreNeighbors(attackingStateText, defendingState))
+            {
+                int loss = UnityEngine.Random.Range(5, 25);
+             //  Debug.Log("Kayýp miktarý  % " + loss + " kayýpdan önce total amry: " + RegionClickHandler.staticState.GetArmySize());
+                RegionClickHandler.staticState.GetComponent<State>().ReduceArmySize(loss);
+              //  Debug.Log("kayýptan sonra " + RegionClickHandler.staticState.GetArmySize());
+                MessageManager.AddMessage("Ambushed on enemy soil, we suffered a grievous blow and lost " + loss+"% of our men.");
+            }
         }
-        Debug.LogWarning("attakicn state " + attackingStateText);       
+
+        //   Debug.LogWarning("attakicn state " + attackingStateText);       
         lastDefendingState = defendingState;
         lastAttackingState = attackingStateText;
         yield return null;
@@ -104,9 +118,8 @@ public IEnumerator AttackingCoroutine(string defendingState)
 
         // Further checks and logic for attacking
 
-        // Check if the defending state is a neighbor
-        if (Neighbor.Instance.AreNeighbors(attackingState, defendingState))
-        {
+      
+        
             // No loss attack
            // Debug.Log("Kayýpsýz saldýrý gerçekleþti.");
             if (attackingStateGameObject != null && defendingStateGameObject != null)
@@ -120,26 +133,8 @@ public IEnumerator AttackingCoroutine(string defendingState)
                 Debug.LogError("eyaletler bulunamadý");
             }
             StartCoroutine(WarCalculator(defendingStateGameObject, attackingStateGameObject));
-        }
-        else
-        {
-            // Calculate random loss between 5% and 25%
-            float loss = UnityEngine.Random.Range(5f, 25f);
-            Debug.Log("Kayýp miktarý  % " + loss+ " kayýpdan önce total amry: "+ attackingStateGameObject.GetComponent<State>().GetArmySize());
-            attackingStateGameObject.GetComponent<State>().ReduceArmySize(loss);
-            Debug.Log("kayýptan sonra "+ attackingStateGameObject.GetComponent<State>().GetArmySize());
-            if (attackingStateGameObject != null && defendingStateGameObject != null)
-            {
-                attackingStateTotalArmyPower = attackingStateGameObject.GetComponent<State>().TotalArmyCalculator();
-                defendingStateTotalArmyPower = defendingStateGameObject.GetComponent<State>().TotalArmyCalculator();
-                diceCount = DiceCountCalcuation(attackingStateTotalArmyPower, defendingStateTotalArmyPower);
-            }
-            else
-            {
-                Debug.LogError("stateler bulunamadý");
-            }
-            StartCoroutine(WarCalculator(defendingStateGameObject, attackingStateGameObject));
-        }
+        
+        
     }
     IEnumerator WarCalculator( GameObject defendingStateGameObject,GameObject attackingStateGameObject )
     {
@@ -199,6 +194,8 @@ public IEnumerator AttackingCoroutine(string defendingState)
      //   Debug.Log($" player {numberOfDiceWonByThePlayer} drew {numberOfDrew} rival {numberOfDiceWonByTheRival}");
         defendingStateGameObject.GetComponent<State>().LostWar((float)((numberOfDiceWonByThePlayer + numberOfDrew) / DiceManager2.Instance.activeRivalDiceLists.Count));
         attackingStateGameObject.GetComponent<State>().LostWar((float)((numberOfDiceWonByTheRival + numberOfDrew) / DiceManager2.Instance.activePlayerDiceLists.Count));
+        StopCoroutine("WarCalculator");
+        StopCoroutine("AttackingCoroutine");
 
     }
     public void Attacking(string defendingState)
@@ -206,7 +203,7 @@ public IEnumerator AttackingCoroutine(string defendingState)
 
         GameManager.Instance.IsAttackFinish = false;
         Usa.Instance.FindStateByName(defendingState).ReduceEnemyMorale(-10);
-     //   Debug.LogWarning(defendingState);
+       // Debug.LogWarning(defendingState);
         StartCoroutine(AttackingCoroutine(defendingState));
     }
 

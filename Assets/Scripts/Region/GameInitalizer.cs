@@ -900,6 +900,7 @@ public class Pathfinding
             }
         }
 
+        Debug.LogError(" yol bulunamadı");
         return null; // Yol bulunamadı
     }
 

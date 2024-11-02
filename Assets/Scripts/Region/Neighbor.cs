@@ -81,9 +81,39 @@ class Neighbor
     }
     public static Node GetNodeByName(string name)
     {
-        FieldInfo field = typeof(Neighbor).GetField(name.ToLower(), BindingFlags.Static | BindingFlags.Public);
+        // Boþluklarý kaldýr ve ilk harfi küçük yaparak formatla (newHamspire gibi).
+        string formattedName = FormatToCamelCase(name);
+
+        FieldInfo field = typeof(Neighbor).GetField(formattedName, BindingFlags.Static | BindingFlags.Public);
         return field != null ? (Node)field.GetValue(null) : null;
     }
+
+    private static string FormatToCamelCase(string input)
+    {
+        // Boþluklarý kaldýrýp her kelimenin ilk harfini büyük yap
+        string[] words = input.Split(' ');
+        string result = "";
+
+        for (int i = 0; i < words.Length; i++)
+        {
+            if (words[i].Length > 0)
+            {
+                if (i == 0)
+                {
+                    // Ýlk kelimenin tamamýný küçük yap (örn: "new")
+                    result += words[i].ToLower();
+                }
+                else
+                {
+                    // Diðer kelimelerin ilk harfi büyük, geri kalaný küçük olsun (örn: "Hamspire")
+                    result += char.ToUpper(words[i][0]) + words[i].Substring(1).ToLower();
+                }
+            }
+        }
+
+        return result;
+    }
+
 
     // Adds a new city to the adjacency list
     public void AddCity(string city)

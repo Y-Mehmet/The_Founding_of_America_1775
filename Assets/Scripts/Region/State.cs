@@ -111,11 +111,8 @@ public class State : MonoBehaviour
     void DeclereWar()
     {
        
-        if( MessageManager.messages.Count >= MessageManager.MaxMessageCount)
-        {
-            MessageManager.messages.RemoveAt(0);
-        }
-        MessageManager.messages.Add("The "+ name +" State has raised arms against you! Prepare to defend your lands and honor.");
+        
+        MessageManager.AddMessage("The "+ name +" State has raised arms against you! Prepare to defend your lands and honor.");
         MessageManager.unreadMessageCount++;
         MessageManager.OnAddMessage?.Invoke(MessageManager.unreadMessageCount);
         if( Morele<=10)
@@ -445,7 +442,7 @@ public class State : MonoBehaviour
     private IEnumerator ChangeMorale()
     {
         float addedValue = 0;
-        while (!GameManager.Instance.İsGameOver && !GameManager.Instance.isGamePause && GameManager.Instance.IsAttackFinish)
+        while (!GameManager.Instance.İsGameOver && !GameManager.Instance.isGamePause && GameManager.Instance.IsAttackFinish && stateType== StateType.Ally)
         {
            addedValue= GetTaxSatisfactionRate()+GetResourceFactionRate()+ MoralAddedValue;
                         
@@ -664,6 +661,7 @@ public class State : MonoBehaviour
              //   Debug.LogWarning("ally state bulunamadı ");
                 gameObject.AddComponent<AllyState>();
             }
+            Morele = 50;
             SubsucribeAction();
         }
         else
