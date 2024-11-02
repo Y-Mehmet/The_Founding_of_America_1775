@@ -62,6 +62,9 @@ public class SaveGameData : MonoBehaviour
         gameData.generalIndexAndWarList= warListToSave;
         gameData.tradeHistoryList= TradeManager.instance.TradeHistoryQueue.ToList();
         gameData.tradeTransactionList = TradeManager.TradeTransactionQueue;
+        gameData.messages = MessageManager.messages;
+        gameData.unreadMessageCount = MessageManager.unreadMessageCount;
+       
 
         data.gameData = gameData;
         foreach (Transform item in Usa.Instance.transform)
@@ -153,7 +156,9 @@ public class SaveGameData : MonoBehaviour
             MoralAddedValue=data.gameData.MoralAddedValue         ;
             PopulationStabilityAct= data.gameData.PopulationStabilityAct;
             ConsumptionAddedValue = data.gameData.ConsumptionAddedValue;
-
+            MessageManager.messages = data.gameData.messages;
+            MessageManager.unreadMessageCount = data.gameData.unreadMessageCount;
+            MessageManager.OnAddMessage?.Invoke(data.gameData.unreadMessageCount);
             GeneralManager.stateGenerals = data.gameData.generalStatesList
           .Select((state, index) => new { state= Usa.Instance.FindStateByName(state), general = data.gameData.assignedGeneralList[index] })
           .ToDictionary(x => x.state, x => x.general);
@@ -171,6 +176,7 @@ public class SaveGameData : MonoBehaviour
             WarHistory.generalIndexAndWarList= new Stack<War>(data.gameData.generalIndexAndWarList);
             TradeManager.instance.TradeHistoryQueue = new Queue<TradeHistory>(data.gameData.tradeHistoryList);
             TradeManager.TradeTransactionQueue = data.gameData.tradeTransactionList;
+            
             if (Usa.Instance == null)
                 Debug.LogError(" usa instance is null");
             foreach (var stateData in data.stateData)
@@ -311,6 +317,9 @@ public class GameData
     public float UnitArmyPowerAddedValue;
     public int ProductionAddedValue;
     public float PopulationAddedValue;
+    public List<string> messages;
+   
+    public int unreadMessageCount;
     public GameData()
     {
         generalStatesList= new List<string> ();
@@ -319,8 +328,8 @@ public class GameData
         generalIndexAndWarList= new List<War>();
         tradeHistoryList= new List<TradeHistory>();
         tradeTransactionList= new List<TradeHistory> ();
+        messages = new List<string>();
 
-        
     }
  
 }

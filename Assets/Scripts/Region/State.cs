@@ -5,6 +5,8 @@ using UnityEngine;
 using static GeneralManager;
 using static GameManager;
 using static USCongress;
+using Random = UnityEngine.Random;
+using UnityEditor.Media;
 
 
 [Serializable]
@@ -31,7 +33,6 @@ public class State : MonoBehaviour
     public float TotalArmyPower;
     public StateType stateType;
     public float Morele ;
-  
     public Sprite StateIcon;// falg
     public int Population;
     public int populationAddedValue;
@@ -59,14 +60,16 @@ public class State : MonoBehaviour
         if(GameManager.Instance!= null)
         {
             GameManager.Instance.OnGameDataLoaded += GameDataLoaded;
+            if(stateType== StateType.Ally)
+            {
+                SubsucribeAction();
+            }
+            
         }
         else
         {
             Debug.LogError("gamanenager is null");
         }
-       
-        USCongress.OnRepealActChange += OnRepealChanged;
-        USCongress.OnEnactActChange += OnEnactChanged;
 
     }
     
@@ -94,6 +97,55 @@ public class State : MonoBehaviour
         
 
     }
+    public void ReduceEnemyMorale(int decraseValue)
+    {
+        
+        Morele += decraseValue;
+        if(Morele<=10)
+        {
+            InvokeRepeating("DeclereWar", 0, gameDayTime * 30);
+        }
+    }
+    void DeclereWar()
+    {
+        if( MessageManager.messages.Count >= MessageManager.MaxMessageCount)
+        {
+            MessageManager.messages.RemoveAt(0);
+        }
+        MessageManager.messages.Add("The "+ name +" State has raised arms against you! Prepare to defend your lands and honor.");
+        MessageManager.unreadMessageCount++;
+        MessageManager.OnAddMessage?.Invoke(MessageManager.unreadMessageCount);
+        if( Morele<=10)
+        {
+            int random= Random.Range(0, 10);
+            if(random==9)
+            {
+                GameManager.Instance.ChangeIsAttackValueTrue();
+
+            }
+        }
+        CancelInvoke("DeclereWar");
+    }
+    
+    public void SubsucribeAction()
+    {
+        USCongress.OnRepealActChange += OnRepealChanged;
+        USCongress.OnEnactActChange += OnEnactChanged;
+        USCongress.OnEnactActChange?.Invoke(currentAct);
+    }
+    public void DeSubcucribeAction()
+    {
+        USCongress.OnRepealActChange -= OnRepealChanged;
+        USCongress.OnEnactActChange -= OnEnactChanged;
+        currentAct = ActType.None;
+        PopulationStabilityAct = false;
+        MoralAddedValue = 0;
+        ConsumptionAddedValue = 100;
+        UnitArmyPowerAddedValue = 0;
+        ProductionAddedValue = 100;
+        PopulationAddedValue = 100;
+}
+
     public int GetMorale()
     {
         return (int)Morele;
@@ -369,8 +421,14 @@ public class State : MonoBehaviour
             resourceProductionCoroutine = StartCoroutine(ResourceProduction());
         if (moreleCoroutine == null)
             moreleCoroutine = StartCoroutine(ChangeMorale());
-        if (incrasePopulationCoroutine == null &&  !USCongress.PopulationStabilityAct)
+        if (incrasePopulationCoroutine == null )
         {
+            if(stateType== StateType.Ally)
+            {
+                if(!PopulationStabilityAct)
+                    incrasePopulationCoroutine = StartCoroutine(IncrasePopulationOverTime());
+
+            }else
             incrasePopulationCoroutine = StartCoroutine(IncrasePopulationOverTime());          
         }
        
@@ -598,16 +656,18 @@ public class State : MonoBehaviour
              //   Debug.LogWarning("ally state bulunamadý ");
                 gameObject.AddComponent<AllyState>();
             }
+            SubsucribeAction();
         }
         else
             Debug.LogWarning("elegeçirmeye çalýþtýðýn satte enmey deðil ");
         HandleAttackStopped();
+        
     }
     void LostState()
     {
         GeneralManager.Instance.RemoveGeneralFromState(this);
         AllyStateList.Remove(this);
-        GameManager.Instance.onAllyStateChanged?.Invoke(this);
+        GameManager.Instance.onAllyStateChanged?.Invoke(this, false);
         LandArmySize = firstArmySize;
         stateType = StateType.Enemy;
         ChangeCollor.Instance.ChangeGameobjectColor(gameObject, stateType);
@@ -619,6 +679,7 @@ public class State : MonoBehaviour
         {
             TotalPopulationManager(-1 * Population);
             enemyState.enabled = true;
+            DeSubcucribeAction();
         }
         else
         {

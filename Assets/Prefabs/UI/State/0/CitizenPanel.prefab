@@ -1677,6 +1677,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1541854322724224818, guid: 80e8c8d14dd22634bb5876a380124b0a,
         type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1541854322724224818, guid: 80e8c8d14dd22634bb5876a380124b0a,
+        type: 3}
       propertyPath: isFreeCard
       value: 1
       objectReference: {fileID: 0}

@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using System.Linq;
 using DG.Tweening;
 using System.Net;
 public class Attack : MonoBehaviour
@@ -46,10 +47,15 @@ public class Attack : MonoBehaviour
 }
 public IEnumerator AttackingCoroutine(string defendingState)
     {
-        if (RegionClickHandler.Instance.currentState != null)
-            attackingStateText = RegionClickHandler.Instance.currentState.name.ToString(); // RegionManager.instance.a_regionNameText;
+        if (RegionClickHandler.Instance.currentState == null)
+        {
+            attackingStateText = GameManager.AllyStateList.OrderBy(state => state.GetTotalArmyPower()).FirstOrDefault().name;
+        }
         else
-            Debug.LogError(" curernt state is null");
+        {
+            attackingStateText = RegionClickHandler.Instance.currentState.name.ToString(); // RegionManager.instance.a_regionNameText;
+        }
+                  
         lastDefendingState = defendingState;
         lastAttackingState = attackingStateText;
         yield return null;
@@ -168,7 +174,9 @@ public IEnumerator AttackingCoroutine(string defendingState)
     }
     public void Attacking(string defendingState)
     {
+
         GameManager.Instance.IsAttackFinish = false;
+        Usa.Instance.FindStateByName(defendingState).ReduceEnemyMorale(-10);
      //   Debug.LogWarning(defendingState);
         StartCoroutine(AttackingCoroutine(defendingState));
     }

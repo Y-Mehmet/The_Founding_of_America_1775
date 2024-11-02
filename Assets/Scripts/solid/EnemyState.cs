@@ -14,6 +14,7 @@ public class EnemyState : MonoBehaviour, ISelectable
        // Debug.Log("Savaþýlacak bölge seçildi: " + gameObject.name);
         Attack.Instance.Attacking(gameObject.name);
 
+
         // Eski rengi geri yükle
         FinishAttack();
     }

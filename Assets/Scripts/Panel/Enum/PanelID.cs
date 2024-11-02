@@ -38,6 +38,9 @@ public enum PanelID
     StatsPanel,
     GameOverPanel,
     USCongressPanel,
+    SendGiftPanel,
+    MessagePanel
+
     
 
 

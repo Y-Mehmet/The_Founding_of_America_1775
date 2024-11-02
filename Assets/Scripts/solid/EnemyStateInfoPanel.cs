@@ -100,7 +100,7 @@ public class EnemyStateInfoPanel : MonoBehaviour
     {
         
         
-            happinesText.text = "Happines: " + ((int)currnetState.Morele).ToString();
+            happinesText.text = "Relations: " + ((int)currnetState.Morele).ToString();
         totalArmyPowerText.text = "Army: " + FormatNumber(currnetState.GetTotalArmyPower());
         mainResTypeText.text = "Main Resoruce: " + ((MainResourceType)currnetState.Resources).ToString();
        
@@ -115,6 +115,7 @@ public class EnemyStateInfoPanel : MonoBehaviour
         happinesText.text = "Relations Declined";
         totalArmyPowerText.text = "Spy Attempt Failed";
         mainResTypeText.text = "Spy Attempt Failed";
+        RegionClickHandler.staticState.ReduceEnemyMorale(-50);
     }
    
 }

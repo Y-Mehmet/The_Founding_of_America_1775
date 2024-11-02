@@ -8,24 +8,26 @@ public class CitizenCard : MonoBehaviour
 {
     public Button select_btn;
     public TMP_Text moralAddedValueText, priceText;
-    public int price;
+    public int price=0;
     public int moralAddedValue;
     public bool isFreeCard= true; // reklamlý
     Color errorColor= Color.red,  originalColor= Color.white;
     private void OnEnable()
     {
         moralAddedValueText.text = "Morale: "+moralAddedValue;
-        if(!isFreeCard)
+        select_btn.onClick.AddListener(OnSelectButonClicked);
+        if (!isFreeCard)
         {
-            select_btn.onClick.AddListener(OnSelectButonClicked);
+          
             InvokeRepeating("ShowInfo", 0, GameManager.gameDayTime);
         }
     }
     private void OnDisable()
     {
+        select_btn.onClick.RemoveListener(OnSelectButonClicked);
         if (!isFreeCard)
         {
-            select_btn.onClick.RemoveListener(OnSelectButonClicked);
+           
             CancelInvoke("ShowInfo");
         }
            

@@ -346,7 +346,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   saveName: SaveRegionData_
-  saveDataIndex: 0
+  saveDataIndex: 1
 --- !u!1 &2058123527934435249
 GameObject:
   m_ObjectHideFlags: 0
@@ -597,6 +597,50 @@ MonoBehaviour:
   activePlayerDiceSortedLists: []
   activeRivalDiceValueSortedLists: 
   activePlayerDiceValueSortedLists: 
+--- !u!1 &4200300812436256629
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1878370785579597304}
+  - component: {fileID: 8063786032527402939}
+  m_Layer: 0
+  m_Name: ActManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1878370785579597304
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4200300812436256629}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 5687146723757708717}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &8063786032527402939
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4200300812436256629}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cd4e408b455015e42a8abc455cb9adc3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &6121978519305630598
 GameObject:
   m_ObjectHideFlags: 0
@@ -755,6 +799,7 @@ Transform:
   - {fileID: 7764609765622872444}
   - {fileID: 6824239492286435732}
   - {fileID: 1710235533476673688}
+  - {fileID: 1878370785579597304}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &6624118641007274749
@@ -1024,6 +1069,7 @@ MonoBehaviour:
   spyCostModPurchases: 10
   isGamePause: 0
   "\u0130sGameOver": 0
+  IsFirstSave: 1
   allStates:
   - {fileID: 0}
   - {fileID: 0}
