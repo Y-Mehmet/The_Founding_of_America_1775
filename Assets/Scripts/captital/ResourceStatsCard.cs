@@ -16,7 +16,7 @@ public class ResourceStatsCard : MonoBehaviour
        index= transform.GetSiblingIndex()+1;
         icon.sprite = ResSpriteSO.Instance.resIcon[index];
         nameText.text = ((ResourceType)index).ToString();
-        InvokeRepeating("UIUpdate", 0, GameManager.gameDayTime);
+        InvokeRepeating("UIUpdate", 0, 1);
         
 
     }

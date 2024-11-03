@@ -28,7 +28,7 @@ public class TestGem : MonoBehaviour
                 gameObject.GetComponent<TMP_Text>().text = FormatNumber(ResourceManager.Instance.GetResourceAmount(ResourceType.Diamond));
                 centralBankIcon.SetActive(true);
             }
-            yield return new WaitForSeconds(GameManager.gameDayTime);
+            yield return new WaitForSeconds(1);
 
         }
 

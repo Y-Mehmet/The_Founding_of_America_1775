@@ -34,7 +34,7 @@ public class CapitalStateInfoPanel : MonoBehaviour
     {
 
         currnetState = RegionClickHandler.Instance.currentState.GetComponent<State>();
-        repeatTime = GameManager.gameDayTime;
+        repeatTime = 1;
         stateNameText.text = currnetState.name;
         if (currnetState != null)
         {
@@ -47,7 +47,7 @@ public class CapitalStateInfoPanel : MonoBehaviour
             {
                 Debug.LogError("falg is null");
             }
-            InvokeRepeating("GetIntel", 0, repeatTime);
+            InvokeRepeating("GetIntel", 0, 1);
         }
 
         else

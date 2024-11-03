@@ -33,7 +33,7 @@ public class TestPopulation : MonoBehaviour
             {
                 gameObject.GetComponent<TMP_Text>().text = FormatNumber(tottalPopulation);
             }
-            yield return new WaitForSeconds(gameDayTime);
+            yield return new WaitForSeconds(1);
 
 
         }

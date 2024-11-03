@@ -138,9 +138,11 @@ public class WitchHunt : MonoBehaviour
         int newLoss =(int)(enemyArmySize / 100 * spread);
         newLoss= (int) (newLoss/200*belive);
         newLoss = newLoss > 5000 ? 5000 : newLoss;      
-        Debug.LogWarning($" {enemyState.name}'inde orduda baþlatýlan cadý avýnda  {newLoss} tane cadý elegeçirildi  avdan önceki asker sayýsý {enemyArmySize}");
+      
         enemyState.GetComponent<State>().ReduceArmySize(newLoss);
-        Debug.LogWarning($"avdan sonra asker sayýsý {enemyState.GetComponent<State>().GetArmySize()}");
+       
+        MessageManager.AddMessage($"A witch hunt in {enemyState.name}'s army resulted in {newLoss} suspected witches being neutralized. The army had {enemyArmySize} soldiers before the hunt and now has {enemyState.GetComponent<State>().GetArmySize()} soldiers remaining.");
+
     }
 
     void GemBtnClicked()

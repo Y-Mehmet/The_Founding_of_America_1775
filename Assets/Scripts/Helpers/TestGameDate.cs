@@ -17,7 +17,7 @@ public class TestGameDate : MonoBehaviour
         {
             
             gameObject.GetComponent<TMP_Text>().text = GameDateManager.currentDate.ToString("MM/dd/yyyy");
-            yield return new WaitForSeconds(GameManager.gameDayTime);
+            yield return new WaitForSeconds(1);
         }
     }
 }

@@ -184,7 +184,7 @@ public class MineUpgradePanel : MonoBehaviour
     }
     int GetMaxProductionMineCount()
     {
-        float maxProduction = float.MaxValue;  // Baþlangýçta maksimum üretimi sonsuz olarak ayarla.
+        float maxProduction = currentState.resourceData[currentResType].maxMineCount; // Baþlangýçta maksimum üretimi sonsuz olarak ayarla.
 
         for (int i = 0; i < RequiredResTypeValueList.Count; i++)
         {

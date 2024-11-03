@@ -17,5 +17,8 @@ public class MessageManager : MonoBehaviour
             messages.RemoveAt(0);
         }
         messages.Add(message);
+        MessageManager.unreadMessageCount++;
+        MessageManager.OnAddMessage?.Invoke(MessageManager.unreadMessageCount);
+
     }
 }

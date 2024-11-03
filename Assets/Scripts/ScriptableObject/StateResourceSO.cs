@@ -23,7 +23,7 @@ public class StateResourceSO : SingletonScriptableObject<StateResourceSO>
     public static float SaltConsumptionRate = 0.07f;
     public static float MeatConsumptionRate = 0.05f;
     public static float FruitConsumptionRate = 0.04f;
-    public static float VegetablesConsumptionRate =0.08f;
+    public static float VegetablesConsumptionRate =0.07f;
     public static float WheatConsumptionRate = 0.07f;
 
     // 1k için günlük doüum oraný 

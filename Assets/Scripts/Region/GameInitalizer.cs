@@ -207,16 +207,16 @@ public class GameInitalizer : MonoBehaviour
         // İthalat ve ihracat limitlerini 10 olarak ayarla
         statesImporTradeLimitList = new Dictionary<string, List<float>>
     {
-        { "smallStates",  new List<float> { 65000, 5400, 0, 0, 0, 0, 870, 7830, 780, 750 ,10} },
-        { "mediumStates", new List<float> { 100000, 8550, 5580, 4470, 340, 4530, 5430, 7300, 4057, 5240,20} },
-        { "largeStates", new List<float> { 150000, 43360, 7370, 7300, 9730, 3900, 3000, 0, 0, 0,0} },
+        { "smallStates",  new List<float> { 65000, 54000, 0, 0, 0, 0, 80070, 70830, 17800, 17050 ,100} },
+        { "mediumStates", new List<float> { 100000, 80550, 50580, 40470, 13040, 40530, 5430, 73000, 40057, 52400,200} },
+        { "largeStates", new List<float> { 150000, 403360, 70370, 70300, 90730, 30900, 30000, 0, 0, 0,0} },
     };
 
         statesExportTradLimitList = new Dictionary<string, List<float>>
     {
-        { "smallStates", new List<float> { 0, 0, 0, 2000, 2000, 2000, 0, 0, 0, 0 ,0} },
-        { "mediumStates", new List<float> { 15000, 2500, 2050, 2500, 2050, 5000, 1500, 3500, 10000, 4000 ,0} },
-        { "largeStates", new List<float>{ 0, 0, 0, 0, 0, 0, 0, 25000, 6500, 20000 ,10} },
+        { "smallStates", new List<float> { 0, 0, 0, 20000, 20000, 20000, 0, 0, 0, 0 ,0} },
+        { "mediumStates", new List<float> { 150000, 25000, 20500, 25000, 20500, 50000, 15000, 35000, 100000, 40000 ,0} },
+        { "largeStates", new List<float>{ 0, 0, 0, 0, 0, 0, 0, 250000, 65000, 200000 ,50} },
     };
     }
 
@@ -355,11 +355,11 @@ public class GameInitalizer : MonoBehaviour
                         {
                             { ResourceType.Gold, new ResourceData {resourceType=ResourceType.Gold, currentAmount = 15000, mineCount = 40, productionRate = goldRate }}, // Gold'a tüketim eklenmedi
                             { ResourceType.Water, new ResourceData {resourceType=ResourceType.Water, currentAmount = 40000, mineCount = 44, productionRate = waterRate, consumptionAmount = WaterConsumptionRate }},
-                            { ResourceType.Salt, new ResourceData {resourceType=ResourceType.Salt, currentAmount = 20000, mineCount = 60, productionRate = saltRate, consumptionAmount = SaltConsumptionRate }},
+                            { ResourceType.Salt, new ResourceData {resourceType=ResourceType.Salt, currentAmount = 20000, mineCount = 50, productionRate = saltRate, consumptionAmount = SaltConsumptionRate }},
                             { ResourceType.Meat, new ResourceData {resourceType=ResourceType.Meat, currentAmount = 30000, mineCount = 48, productionRate = meatRate, consumptionAmount = MeatConsumptionRate }},
                             { ResourceType.Fruits, new ResourceData {resourceType=ResourceType.Fruits, currentAmount = 25000, mineCount = 44, productionRate = fruitsRate, consumptionAmount = FruitConsumptionRate }},
                             { ResourceType.Vegetables, new ResourceData {resourceType=ResourceType.Vegetables, currentAmount = 24000, mineCount = 40, productionRate = vegetablesRate, consumptionAmount = VegetablesConsumptionRate }},
-                            { ResourceType.Wheat, new ResourceData {resourceType=ResourceType.Wheat, currentAmount = 25000, mineCount = 80, productionRate = wheatRate, consumptionAmount = WheatConsumptionRate }},
+                            { ResourceType.Wheat, new ResourceData {resourceType=ResourceType.Wheat, currentAmount = 25000, mineCount = 50, productionRate = wheatRate, consumptionAmount = WheatConsumptionRate }},
                             { ResourceType.Wood, new ResourceData {resourceType=ResourceType.Wood, currentAmount = 2600, mineCount = 44, productionRate = woodRate }}, // Wood'a tüketim eklenmedi
                             { ResourceType.Coal, new ResourceData {resourceType=ResourceType.Coal, currentAmount = 2800, mineCount = 40, productionRate = coalRate }}, // Coal'a tüketim eklenmedi
                             { ResourceType.Iron, new ResourceData {resourceType=ResourceType.Iron, currentAmount = 3000, mineCount = 40, productionRate = ironRate }}, // Iron'a tüketim eklenmedi
@@ -390,7 +390,7 @@ public class GameInitalizer : MonoBehaviour
                             currentRate = 0,
                             toleranceLimit = 0,
                             taxIncome = 0,
-                            unitTaxIncome = 5
+                            unitTaxIncome = 0.0005f
                         };
                         TaxData IncomeTax = new TaxData
                         {
@@ -471,7 +471,7 @@ public class GameInitalizer : MonoBehaviour
                             currentRate = 0,
                             toleranceLimit = 7,
                             taxIncome = 0,
-                            unitTaxIncome = 5
+                            unitTaxIncome = 0.0005f
                         };
                         TaxData IncomeTax = new TaxData
                         {
@@ -548,7 +548,7 @@ public class GameInitalizer : MonoBehaviour
                             currentRate = 0,
                             toleranceLimit = 3,
                             taxIncome = 0,
-                            unitTaxIncome = 5
+                            unitTaxIncome = 0.0005f
                         };
                         TaxData IncomeTax = new TaxData
                         {

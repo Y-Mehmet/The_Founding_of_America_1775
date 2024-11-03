@@ -177,4 +177,5 @@ public class ResourceData
     public float productionRate; // üretim hýzý
     public float consumptionAmount;// tüketim miktarý
     public float surplus=0;
+    public float maxMineCount = 56;
 }

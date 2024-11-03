@@ -24,7 +24,7 @@ public class StatsPanel : MonoBehaviour
         stateName.text = statsState.StateName;
         allyStataCount = GameManager.AllyStateList.Count;
         FlagActiveded();
-        InvokeRepeating("UIUpdate", 0, GameManager.gameDayTime);
+        InvokeRepeating("UIUpdate", 0, 1);
         RegionClickHandler.Instance.onStatsStateChanged += StatsStateChange;
 
        

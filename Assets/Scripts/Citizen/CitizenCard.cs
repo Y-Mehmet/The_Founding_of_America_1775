@@ -19,7 +19,7 @@ public class CitizenCard : MonoBehaviour
         if (!isFreeCard)
         {
           
-            InvokeRepeating("ShowInfo", 0, GameManager.gameDayTime);
+            InvokeRepeating("ShowInfo", 0, 1);
         }
     }
     private void OnDisable()

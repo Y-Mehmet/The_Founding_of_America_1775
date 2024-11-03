@@ -38,7 +38,7 @@ public class TroopyPanel : MonoBehaviour
             BarrackMacBtn.onClick.AddListener(OnBarrakMacClicked);
             LandMacBtn.onClick.AddListener(OnLandMacClicked);
             NavalMacBtn.onClick.AddListener(OnNavalMacClicked);
-            float repeatRate = GameManager.gameDayTime;
+            float repeatRate = 10;// GameManager.gameDayTime;
             BarrackColorManager();
             LandColorManager();
             NavalColorManager();

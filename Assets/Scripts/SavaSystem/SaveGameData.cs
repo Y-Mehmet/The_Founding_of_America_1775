@@ -4,6 +4,7 @@ using System.IO;
 using System.Linq;
 using System.Security.Cryptography.X509Certificates;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using static GeneralManager;
 using static USCongress;
 public class SaveGameData : MonoBehaviour
@@ -142,6 +143,7 @@ public class SaveGameData : MonoBehaviour
 
         if (!string.IsNullOrEmpty(dataToLoad))
         {
+          
             SaveData data = JsonUtility.FromJson<SaveData>(dataToLoad);
             GameDateManager.currentDate = GameDateManager.ConvertStringToDate(data.gameData.currentTime);
             GameManager.Instance.IsFirstSave = data.gameData.isFirstSave;
@@ -236,7 +238,10 @@ public class SaveGameData : MonoBehaviour
         }
         if (GameManager.Instance != null)
         {
+            GameManager.Instance.ÝsGameOver = false;
             GameManager.Instance.OnGameDataLoaded.Invoke();
+
+           
         }
     }
 

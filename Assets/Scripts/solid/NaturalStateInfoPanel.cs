@@ -44,7 +44,7 @@ public class NaturalStateInfoPanel : MonoBehaviour
             {
                 Debug.LogError("falg is null");
             }
-            InvokeRepeating("GetIntel", 0, repeatTime);
+            InvokeRepeating("GetIntel", 0, 1);
         }
           
         else

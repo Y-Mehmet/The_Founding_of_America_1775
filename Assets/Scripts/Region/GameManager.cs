@@ -19,7 +19,7 @@ public class GameManager : MonoBehaviour
     public float moveAmount = 0.33f;    // Y ekseninde hareket edilecek mesafe
     public float moveDuration = 0.5f; // Hareket süresi
 
-    public static float gameDayTime = 1.0f;
+    public static float gameDayTime = 6.0f;
     public static  float  neigbordTradeTime= 3 *gameDayTime;
     public static float  nonNeigbordTradeTime= 9 *gameDayTime;
     public static float ArrmyRatio = 0.1f; // nufusun yüzde kaçý asker olark baþlayacak 
@@ -32,6 +32,7 @@ public class GameManager : MonoBehaviour
     public bool isGamePause = false;
     public bool ÝsGameOver= false;
     public bool IsFirstSave = true;
+    public const int MAX_POPULATION = 20000;
 
    
 
@@ -74,14 +75,22 @@ public class GameManager : MonoBehaviour
         AllyStateList.Clear();
         AllyStateList = GetStatesByType(StateType.Ally);
     }
-    //void ChangeStateType(State state, bool beAlly)
-    //{
-    //    if(beAlly)
-    //    {
-    //        allStates.Add(state);
-         
-    //    }
-    //}
+ public  void ChangeCapitalCity()
+    {
+        if (AllyStateList.Count > 0)
+        {
+            AllyStateList[0].IsCapitalCity = true;
+
+        }
+        else
+        {
+            ÝsGameOver = true;
+            GameManager.Instance.GameOver();
+
+        }
+    }
+  
+
     public static void TotalPopulationManager( int addedValue)
     {
         tottalPopulation += addedValue;
@@ -154,6 +163,7 @@ public class GameManager : MonoBehaviour
         UIManager.Instance.GetComponent<ShowPanelButton>().DoShowPanelWhitId(PanelID.GameOverPanel);
         GameManager.Instance.IsRegionPanelOpen = true;
     }
+    //kullanýlmýyor
     IEnumerator OpenGameOverPanel()
     {
         yield return new WaitForSeconds(10);

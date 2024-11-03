@@ -78,6 +78,7 @@ public class EnemyStateInfoPanel : MonoBehaviour
                     happinesText.text = "Huh ! A close shave";
                     totalArmyPowerText.text = "Huh ! A close shave";
                     mainResTypeText.text = "Huh ! A close shave";
+                    MessageManager.AddMessage("Luckily, our casualties managed to escape at the last moment. Let’s be more cautious next time.");
                 }
 
             }
@@ -104,7 +105,7 @@ public class EnemyStateInfoPanel : MonoBehaviour
         totalArmyPowerText.text = "Army: " + FormatNumber(currnetState.GetTotalArmyPower());
         mainResTypeText.text = "Main Resoruce: " + ((MainResourceType)currnetState.Resources).ToString();
        
-
+     
     }
   
     public void FailedEspionage()
@@ -115,6 +116,7 @@ public class EnemyStateInfoPanel : MonoBehaviour
         happinesText.text = "Relations Declined";
         totalArmyPowerText.text = "Spy Attempt Failed";
         mainResTypeText.text = "Spy Attempt Failed";
+        MessageManager.AddMessage("Oh no, our spies have been caught! Relations between the two states ("+RegionClickHandler.Instance.currentState+") have deteriorated by 50 points");
         RegionClickHandler.staticState.ReduceEnemyMorale(-50);
     }
    

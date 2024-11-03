@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class GameOverPanel : MonoBehaviour
@@ -18,12 +19,11 @@ public class GameOverPanel : MonoBehaviour
     }
     void OnButtonCliced()
     {
-        Debug.LogWarning(" on button click çalýþtý");
+        //  Debug.LogWarning(" on button click çalýþtý");
         SaveGameData.Instance.LoadGame(true);
-       UIManager.Instance.GetComponent<HideAllPanelButton>().DoHidePanel();
+        UIManager.Instance.GetComponent<HideAllPanelButton>().DoHidePanel();
         GameManager.Instance.IsRegionPanelOpen = false;
-       
-        //GameManager.Instance.OnGameDataLoaded?.Invoke();
+       // SceneManager.LoadScene(SceneManager.GetActiveScene().name);
 
     }
 }

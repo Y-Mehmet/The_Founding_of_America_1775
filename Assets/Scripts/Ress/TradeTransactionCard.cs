@@ -19,7 +19,7 @@ public class TradeTransactionCard : MonoBehaviour
        
         EventManager.Instance.OnProductReceived += TradeTansactionCardUIUpdate;
          buyAgainButton = tradeTypeBtnText.transform.parent.GetComponent<Button>();
-        InvokeRepeating("ButtonTextCollorUpdate", 0, GameManager.gameDayTime);
+        InvokeRepeating("ButtonTextCollorUpdate", 0,1/* GameManager.gameDayTime*/);
         if (buyAgainButton != null)
         {
             buyAgainButton.onClick.AddListener(OnBuyAgainButtonListenner);

@@ -6,8 +6,7 @@ using static GeneralManager;
 using static GameManager;
 using static USCongress;
 using Random = UnityEngine.Random;
-using UnityEditor.Media;
-using UnityEngine.UI;
+
 
 
 [Serializable]
@@ -56,6 +55,8 @@ public class State : MonoBehaviour
   
     public float PopulationMultiplier = 0.001f; // Nüfusun asker artýþýna etkisi
     private float populationGrowthRateMultiplier=0.00001f; // population growth rate multiplier
+
+    private bool isWarDeclared = false;
     private void Start()
     {
         if(GameManager.Instance!= null)
@@ -94,32 +95,36 @@ public class State : MonoBehaviour
         }
         GameManager.Instance.OnAttackStarted += HandleAttackStarted;
         GameManager.Instance.OnAttackStopped += HandleAttackStopped;
+     
         HandleAttackStopped();
         
 
     }
 
+
     public void ReduceEnemyMorale(int decraseValue)
     {
-        
         Morele += decraseValue;
-        if(Morele<=10)
+        if (Morele <= 10 && !isWarDeclared)
         {
-            InvokeRepeating("DeclereWar", 0, gameDayTime * 10);
+            isWarDeclared = true;
+            StartCoroutine(DeclereWar());
         }
     }
-    void DeclereWar()
+
+    IEnumerator DeclereWar()
     {
-       
+        MessageManager.AddMessage("The " + name + " State has raised arms against you! Prepare to defend your lands and honor.");
         
-        MessageManager.AddMessage("The "+ name +" State has raised arms against you! Prepare to defend your lands and honor.");
-        MessageManager.unreadMessageCount++;
-        MessageManager.OnAddMessage?.Invoke(MessageManager.unreadMessageCount);
-        if( Morele<=10)
+
+        while (Morele <= 10)
         {
-            int random= Random.Range(0, 10);
-            if(random!=5)
+            int random = Random.Range(0, 10);
+            Debug.LogWarning("random sayý " + random);
+
+            if (random == 5)
             {
+                // Savaþý baþlat ve coroutine’i sonlandýr
                 GameManager.Instance.ChangeIsAttackValueTrue();
                 RegionClickHandler.Instance.currentState = null;
                 RegionClickHandler.staticState = null;
@@ -127,11 +132,18 @@ public class State : MonoBehaviour
 
                 Attack.Instance.Attacking(gameObject.name);
 
+                // Coroutine'den çýkmak için isWarDeclared'i false yapýyoruz
+                isWarDeclared = false;
+                yield break;
             }
+
+            yield return new WaitForSeconds(gameDayTime);
         }
-        CancelInvoke("DeclereWar");
+        // Eðer Morele 10'dan yukarý çýkarsa savaþ durumu resetlenir
+        isWarDeclared = false;
     }
-    
+
+
     public void SubsucribeAction()
     {
         USCongress.OnRepealActChange += OnRepealChanged;
@@ -419,11 +431,20 @@ public class State : MonoBehaviour
 
     private void HandleAttackStopped()
     {
+        HandleAttackStarted();
         if (increaseArmySizeCoroutine == null && stateType!=StateType.Ally)
             increaseArmySizeCoroutine = StartCoroutine(IncreaseArmySizeOverTime());
-        
+
         if (resourceProductionCoroutine == null)
+        {
             resourceProductionCoroutine = StartCoroutine(ResourceProduction());
+        }else
+        {
+             Debug.LogWarning(" resource null degil ");
+        }
+            
+       
+
         if (moreleCoroutine == null)
             moreleCoroutine = StartCoroutine(ChangeMorale());
         if (incrasePopulationCoroutine == null )
@@ -499,6 +520,12 @@ public class State : MonoBehaviour
              populationAddedValue= populationIncreasePerSecond-populationDecrasePerSecond;
 
             Population += populationAddedValue;
+            if (Population >= MAX_POPULATION)
+            {
+                Population = MAX_POPULATION; PopulationAddedValue = 0;
+            }
+               
+
             if(stateType==StateType.Ally)
             TotalPopulationManager(populationAddedValue);
             yield return new WaitForSeconds(GameManager.gameDayTime);
@@ -508,6 +535,7 @@ public class State : MonoBehaviour
 
     private IEnumerator ResourceProduction()
     {
+      //  Debug.Log("res proeodact çalýþtý");
        
         while (!GameManager.Instance.ÝsGameOver && !GameManager.Instance.isGamePause && GameManager.Instance.IsAttackFinish )
         {
@@ -516,7 +544,7 @@ public class State : MonoBehaviour
             {
                 float productionAmount = item.Value.mineCount * item.Value.productionRate/100*ProductionAddedValue;
                 float moraleEffect = (101 - Morele) / 100;
-                productionAmount *= (1 - moraleEffect * 0.3f);
+                productionAmount *= (1 - moraleEffect * 0.1f);
 
                 if (item.Key== ResourceType.Gold)
                 {
@@ -533,7 +561,7 @@ public class State : MonoBehaviour
                         }
                         else if(item1.taxType== TaxType.StampTax)
                         {
-                            float tax =  item1.taxIncome;
+                            float tax =  item1.currentRate*Population*item1.unitTaxIncome;
                             
                            ResourceManager.Instance.ChargeTax(ResourceType.Gold, tax);
                           
@@ -544,23 +572,53 @@ public class State : MonoBehaviour
                 }
                 //if(item.Key== ResourceType.Gold && IsCapitalCity)
                 // Debug.LogWarning($"{item.Key}  üretim  {productionAmount} rate {item.Value.productionRate } ");
-               
-                item.Value.surplus= productionAmount- (item.Value.consumptionAmount /100* ConsumptionAddedValue * Population);
+
+                float consumption = (item.Value.consumptionAmount / 100 * ConsumptionAddedValue * Population);
+                item.Value.surplus = productionAmount - consumption;
                
                 item.Value.currentAmount += productionAmount;
-                item.Value.currentAmount -= (item.Value.consumptionAmount / 100 * ConsumptionAddedValue * Population);
-                
-                if(item.Key!= ResourceType.Gold)
+              
+                item.Value.currentAmount -= consumption;
+
+                if(stateType== StateType.Ally)
                 {
-                    if(item.Value.currentAmount<0)
+                    if (item.Key != ResourceType.Gold)
                     {
-                        if ((int)item.Key > 0 && (int)item.Key < 7)
-                            resoruceAddedValue += (item.Value.surplus / item.Value.productionRate);
-                        int goldValue = Mathf.CeilToInt(GameEconomy.Instance.GetGoldValue(item.Value.resourceType, -1*item.Value.currentAmount))*2;
-                        GoldSpend(goldValue);
-                        item.Value.currentAmount = 0;
+                        if (item.Value.currentAmount < 0)
+                        {
+                            if ((int)item.Key > 0 && (int)item.Key < 7)
+                                resoruceAddedValue += (item.Value.surplus / item.Value.productionRate);
+                            int goldValue = ((int)(Mathf.CeilToInt(GameEconomy.Instance.GetGoldValue(item.Value.resourceType, -1 * item.Value.currentAmount)) * 1.1f));
+                            if (GetGoldResValue() >= goldValue)
+                            {
+                                GoldSpend(goldValue);
+                            }
+                            else if (ResourceManager.Instance.GetResourceAmount(ResourceType.Gold) > goldValue)
+                            {
+                                ResourceManager.Instance.ReduceResource(ResourceType.Gold, goldValue);
+                            }
+                            else
+                            {
+                                LostState();
+                                MessageManager.AddMessage("As famine strikes the land, citizens first trade their precious gold for food," +
+                                    " clinging to survival. When their gold reserves run dry, they turn to the state’s vaults in a final bid for sustenance. But as the last gold piece vanishes," +
+                                    " so does hope. With empty bellies and empty hands, the people rise in desperate revolt, forsaking their allegiance." + name +
+                                    ", weakened by hunger, is lost in the shadow of rebellion.");
+                            }
+
+
+                            item.Value.currentAmount = 0;
+                        }
                     }
                 }
+                else
+                {
+                    if (item.Value.currentAmount < 0)
+                    {
+                        item.Value.mineCount++;
+                    }
+                }
+                
 
             }
 
@@ -671,6 +729,7 @@ public class State : MonoBehaviour
     }
     void LostState()
     {
+     
         GeneralManager.Instance.RemoveGeneralFromState(this);
         AllyStateList.Remove(this);
         GameManager.Instance.onAllyStateChanged?.Invoke(this, false);
@@ -695,15 +754,7 @@ public class State : MonoBehaviour
         HandleAttackStopped();
         if( IsCapitalCity)
         {
-            if(AllyStateList.Count>0)
-            {
-                AllyStateList[0].IsCapitalCity = true;
-
-            }else
-            {
-                GameManager.Instance.ÝsGameOver=true;
-
-            }    
+            GameManager.Instance.ChangeCapitalCity();
         }
         
     }
