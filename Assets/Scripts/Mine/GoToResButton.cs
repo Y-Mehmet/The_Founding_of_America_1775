@@ -9,14 +9,16 @@ public class GoToResButton : MonoBehaviour
     public int index = 0;
     private void OnEnable()
     {
-     ResourceType   currentRes = MineManager.instance.curentResource;
+        ResourceType   currentRes = MineManager.instance.curentResource;
         resourceType= MineManager.instance.MineRequiredResList[currentRes].RequiredResTypeList[index];
         gameObject.GetComponent<Button>().onClick.AddListener(ButtonisClicked);
     }
     void ButtonisClicked()
     {
         MineManager.instance.SetCurrentResource(resourceType);
-        
+        ResourceType currentRes = MineManager.instance.curentResource;
+        resourceType = MineManager.instance.MineRequiredResList[currentRes].RequiredResTypeList[index];
+
     }
     private void OnDisable()
     {

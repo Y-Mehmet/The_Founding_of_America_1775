@@ -141,7 +141,8 @@ public class WitchHunt : MonoBehaviour
       
         enemyState.GetComponent<State>().ReduceArmySize(newLoss);
        
-        MessageManager.AddMessage($"A witch hunt in {enemyState.name}'s army resulted in {newLoss} suspected witches being neutralized. The army had {enemyArmySize} soldiers before the hunt and now has {enemyState.GetComponent<State>().GetArmySize()} soldiers remaining.");
+        
+        MessageManager.AddMessage($"A witch hunt in {enemyState.name}'s army led to {newLoss} suspected witches being neutralized, affecting the morale and readiness of the troops.");
 
     }
 

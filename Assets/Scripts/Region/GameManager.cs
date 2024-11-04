@@ -20,8 +20,8 @@ public class GameManager : MonoBehaviour
     public float moveDuration = 0.5f; // Hareket süresi
 
     public static float gameDayTime = 6.0f;
-    public static  float  neigbordTradeTime= 3 *gameDayTime;
-    public static float  nonNeigbordTradeTime= 9 *gameDayTime;
+    public static  float  neigbordTradeTime= 3 ;
+    public static float  nonNeigbordTradeTime= 9 ;
     public static float ArrmyRatio = 0.1f; // nufusun yüzde kaçý asker olark baþlayacak 
     public static float ArmyBarrackRatio = 0.2f; // kýþla oraný
 

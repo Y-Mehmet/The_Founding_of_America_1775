@@ -88,19 +88,22 @@ public class RegionClickHandler : MonoBehaviour
     }
     public void CloseBtn_CloseAll()
     {
-        ISelectable activeSelectable = currentState.GetComponents<MonoBehaviour>()
-                                           .OfType<ISelectable>()
-                                           .FirstOrDefault(selectable => ((MonoBehaviour)selectable).enabled);
+      if(currentState!= null)
+        {
+            ISelectable activeSelectable = currentState.GetComponents<MonoBehaviour>()
+                                         .OfType<ISelectable>()
+                                         .FirstOrDefault(selectable => ((MonoBehaviour)selectable).enabled);
 
-        if (activeSelectable != null)
-        {
-           
-            activeSelectable.CloseAll();
-          
-        }
-        else
-        {
-            Debug.LogWarning($"{currentState.name} içerisinde aktif bir ISelectable bulunamadý.");
+            if (activeSelectable != null)
+            {
+
+                activeSelectable.CloseAll();
+
+            }
+            else
+            {
+                Debug.LogWarning($"{currentState.name} içerisinde aktif bir ISelectable bulunamadý.");
+            }
         }
 
 

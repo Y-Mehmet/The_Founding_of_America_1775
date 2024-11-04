@@ -615,6 +615,7 @@ public class State : MonoBehaviour
                 {
                     if (item.Value.currentAmount < 0)
                     {
+                        Debug.Log($"state name {name} mine count bir arrtý {item.Value.mineCount + 1} res type {item.Key}");
                         item.Value.mineCount++;
                     }
                 }
@@ -733,7 +734,7 @@ public class State : MonoBehaviour
         GeneralManager.Instance.RemoveGeneralFromState(this);
         AllyStateList.Remove(this);
         GameManager.Instance.onAllyStateChanged?.Invoke(this, false);
-        LandArmySize = firstArmySize;
+        LandArmySize = Population/2;
         stateType = StateType.Enemy;
         ChangeCollor.Instance.ChangeGameobjectColor(gameObject, stateType);
 
@@ -918,9 +919,8 @@ public void GemSpend(int value)
        // Debug.LogWarning("buy " + gameObject.name);
         if (resourceData.ContainsKey(resType))
         {
-            tradeLists[0].limit[(int)resType - 1] -= quantity;
 
-                resourceData[ResourceType.Gold].currentAmount -= spending;
+            resourceData[ResourceType.Gold].currentAmount -= spending;
             resourceData[resType].currentAmount += quantity;
             EventManager.Instance.ProductReceived();
             //   Debug.Log($"Coroutine baþlatýlýyor: {resType}, Miktar: {quantity}, Teslimat Süresi: {deliveryTime}");
@@ -933,7 +933,7 @@ public void GemSpend(int value)
             Debug.LogWarning("Yeni bir kaynak türü denediniz.");
         }
     }
-
+    // oldddd
     IEnumerator BuyResource(ResourceType resType, float quantity, float deliveryTime = 0)
     {
         //Debug.Log($"Coroutine baþladý: {resType}, Teslimat Süresi: {deliveryTime}");

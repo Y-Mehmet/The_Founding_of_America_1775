@@ -25,33 +25,5 @@ public class UIManager : MonoBehaviour
     {
         GetComponent<HideAllPanelButton>().DoHidePanel();
     }
-    
-    //public void ShowPanel(State state)
-    //{
-    //   // StatePanel.SetActive(true);
-    //    switch (state.stateType)
-    //    {
-    //        case StateType.Ally:
-    //            allyPanel.SetActive(true);
-    //            enemyPanel.SetActive(false);
-    //            neutralPanel.SetActive(false);
-    //            break;
-    //        case StateType.Enemy:
-    //            allyPanel.SetActive(false);
-    //            enemyPanel.SetActive(true);
-    //            neutralPanel.SetActive(false);
-    //            break;
-    //        case StateType.Neutral:
-    //            allyPanel.SetActive(false);
-    //            enemyPanel.SetActive(false);
-    //            neutralPanel.SetActive(true);
-    //            break;
-    //    }
-    //}
-    //public void  ShowAttackCanvas()
-    //{
-    //    attackCanvas.SetActive(true);
-    //    AttackCanvas.Instance.ShowAttackCanvasInfo(  );
-        
-    //}
+
 }

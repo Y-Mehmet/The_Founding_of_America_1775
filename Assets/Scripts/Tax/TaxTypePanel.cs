@@ -31,11 +31,12 @@ public class TaxTypePanel : MonoBehaviour
                         slider.value = ((int)item.currentRate);
                         //Debug.LogWarning(item.currentRate);
                         slider.onValueChanged.AddListener(OnSliderValueChanged);
+                        OnSliderValueChanged(item.currentRate);
 
                         if (taxType == TaxType.StampTax)
                         {
                             item.taxIncome = slider.value * item.unitTaxIncome*RegionClickHandler.staticState.Population;
-                            Debug.Log($"slider {slider.value} unit {item.unitTaxIncome} population {RegionClickHandler.staticState.Population}");
+                          //  Debug.Log($"slider {slider.value} unit {item.unitTaxIncome} population {RegionClickHandler.staticState.Population}");
                         }
                         else
                         {
@@ -76,8 +77,12 @@ public class TaxTypePanel : MonoBehaviour
                         if (taxType == TaxType.StampTax)
                         {
                             item.taxIncome = slider.value * item.unitTaxIncome * RegionClickHandler.staticState.Population;
-                            Debug.Log($"slider {slider.value} unit {item.unitTaxIncome} population {RegionClickHandler.staticState.Population}");
+                           // Debug.Log($"slider {slider.value} unit {item.unitTaxIncome} population {RegionClickHandler.staticState.Population}");
+                        }else if(taxType == TaxType.IncomeTax)
+                        {
+                            item.taxIncome = slider.value * item.unitTaxIncome;
                         }
+
                        
                         HappinesPanel.GetComponent<HappinesPanel>().OnHappinessChanged?.Invoke(value, item.toleranceLimit);
                         taxCoinValueText.text = item.taxIncome.ToString("0");

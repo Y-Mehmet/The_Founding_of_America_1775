@@ -32,7 +32,12 @@ public class ButtonChat : MonoBehaviour
     }
     void OnClicked()
     {
+
+        RegionClickHandler.Instance.CloseBtn_CloseAll();
+        GameManager.Instance.ChanngeIsRegionPanelOpenValueFalse();
+        UIManager.Instance.HideAllPanel();
         GameManager.Instance.ChanngeIsRegionPanelOpenValueTrue();
+       
         UIManager.Instance.GetComponent<ShowPanelButton>().DoShowPanelWhitId(PanelID.MessagePanel);
         MessageManager.unreadMessageCount = 0;
         MessageManager.OnAddMessage?.Invoke(0);

@@ -297,6 +297,7 @@ public class BuyPanel : MonoBehaviour
                            // currentState.BuyyResource(type, quantity, spending, deliveryTime);
                             bool isAllyState = GameManager.AllyStateList.Contains(ResourceManager.Instance.CurrentTradeState);
                             tradeState.SellResource(type, quantity, spending, isAllyState);
+                            currentState.GoldSpend(((int)spending));
                             // DecraseTradeLimit((int)quantity);
 
                              State stateFlagIndex = currentState;
@@ -353,6 +354,7 @@ public class BuyPanel : MonoBehaviour
                         bool isAllyState = GameManager.AllyStateList.Contains(ResourceManager.Instance.CurrentTradeState);
                         currentState.InstantlyResource(type, quantity, spending);
                         ResourceManager.Instance.CurrentTradeState.SellResource(type, quantity, spending, isAllyState);
+                       
                         //DecraseTradeLimit((int)quantity);
                         DateTime deliverTime = GameDateManager.instance.GetCurrentDate();
                         bool payWhitGem = true;

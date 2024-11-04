@@ -56,7 +56,7 @@ public class TradeManager : MonoBehaviour
                 if (ConvertStringToDate(TradeTransactionQueue[0].deliveryTime )<= GameDateManager.instance.GetCurrentDate())
                 {
                     TradeHistory th= TradeTransactionQueue[0];
-                    TradeTransactionQueue[0].tradeState1.BuyyResource((ResourceType)th.productSpriteIndex, th.quantity, th.cost);
+                    TradeTransactionQueue[0].tradeState1.BuyyResource((ResourceType)th.productSpriteIndex, th.quantity, 0);
                     TradeTransactionQueue.Remove(th);
                 }
             }

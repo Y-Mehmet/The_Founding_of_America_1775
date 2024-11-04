@@ -31,7 +31,8 @@ public class HappinesPanel : MonoBehaviour
     {
             // Action'a mutluluk sprite'ını güncelleyen metodu bağla
             OnHappinessChanged += ChangeHappinesImage;
-     
+       
+
     }
 
     // Mutluluk yüzdesini güncelleyen metot
@@ -45,26 +46,45 @@ public class HappinesPanel : MonoBehaviour
     }
     void ChangeHappinesImage(float percentage, float limit)
     {
-     
+        CahangeHappinesPersengeText(percentage);
+
         float result = percentage - limit;
-       
-        int index=0;
-        if (result >= 0)
+
+        int index = 0;
+        float a;
+        int spriteIndex = 0; ;
+
+        //if (result >= limit)
+        //{
+        //    // Kızgın ifade göstermek için hesaplama
+        //    a = (50 - limit) / (spriteCount / 2);  // Üst limit 50 kabul edildi
+        //    index = (int)((result - limit) / a) + (spriteCount / 2);
+
+        //    // Eğer index sprite sınırını aşarsa, max kızgın ifade ile sınırlıyoruz.
+        //    if (index >= spriteCount)
+        //        index = spriteCount - 1;
+        //}
+        //else
+        //{
+        //    // Mutlu ifade göstermek için hesaplama
+        //    a = limit / (spriteCount / 2);
+        //    index = (int)(result / a);
+
+        //    // index eksiye düşerse, minimum mutlu ifade ile sınırlıyoruz.
+        //    if (index < 0)
+        //        index = 0;
+        //}
+        if(result>0)
         {
+            spriteIndex = ((int)((50 - limit)/3));
+            index = 3+((int)( result/ spriteIndex));
+            index= index>spriteCount-1?spriteCount-1:index;
             
-            float a = (50 - limit) / (spriteCount / 2);
-            index = (int)(result / a) + (spriteCount / 2) ; 
-            {
-                index = spriteCount - 1;
-            }
-        }
-        else
+        }else
         {
-          
-            float a = limit / (spriteCount / 2);  
-            index = (int)(percentage / a);
-            if (index < 0)
-                index = 0;
+            spriteIndex=(int)((limit)/3);
+            index = 2-((int)(-result / spriteIndex));
+            index = index < 0 ? 0 : index;
         }
 
 

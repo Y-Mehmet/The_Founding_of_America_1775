@@ -244,6 +244,7 @@ public class TradeTransactionCard : MonoBehaviour
                                 newTransaction = new TradeHistory(TradeType.Import, GameDateManager.instance.CalculateDeliveryDateTime(deliveryTime), (int)type, quantity, spending, stateFlagIndex, transaction.tradeState, tradeLimit);
                                 TradeManager.instance.AddTransaction(newTransaction);
                                 TradeManager.TradeTransactionQueue.Add(newTransaction);
+                                stateFlagIndex.GoldSpend(((int)spending));
                                 TradeManager.SortTradeTransactionsByDeliveryTime();
                             }else
                             {

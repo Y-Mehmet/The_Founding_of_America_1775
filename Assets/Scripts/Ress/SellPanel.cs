@@ -30,10 +30,13 @@ public class SellPanel : MonoBehaviour
     }
     private void OnEnable()
     {
+      
         currentState = RegionClickHandler.Instance.currentState.GetComponent<State>();
         ResourceManager.Instance.OnResourceChanged += OnResourceOrStateChanged;
         ResourceManager.Instance.OnStateToTradeChanged += OnStateChanged;             
         inputField.onValueChanged.AddListener(OnInputValueChanged);
+       
+
         macButton.onClick.AddListener(MacButtonClicked);
         sellButton.onClick.AddListener(SellButtonClicked);
         Restart();
@@ -48,6 +51,7 @@ public class SellPanel : MonoBehaviour
         ResourceManager.Instance.OnStateToTradeChanged -= OnStateChanged;
 
         inputField.onValueChanged.RemoveListener(OnInputValueChanged);
+        
         macButton.onClick.RemoveListener(MacButtonClicked);
         sellButton.onClick.RemoveListener(SellButtonClicked);
         StopAllCoroutines();
@@ -151,25 +155,26 @@ public class SellPanel : MonoBehaviour
         resLimit =(int)tradeState.tradeLists[0].limit[((int)curentResource) - 1];
         amountAvailable = (int)staticState.resourceData[curentResource].currentAmount;
         quantity = (resLimit > amountAvailable ? amountAvailable : resLimit);
-        float spendLimit = tradeState.GetGoldResValue() / tradeState.tradeLists[0].contractPrices[((int)curentResource)-1];
-        quantity= quantity>spendLimit? spendLimit : quantity;
-            inputField.text =quantity.ToString();    
-        
-            if(int.TryParse( amoutAvableValueText.text, out amountAvailable))
-            {
-            contrackPriceValueText.text = FormatNumber(quantity * contrackPrice);
-            }
-            else
-            {
-                Debug.LogWarning(" amaoutny avaible inte dönüþtüürlemedi");
-            }
+        float spendLimit = tradeState.GetGoldResValue() / tradeState.tradeLists[0].contractPrices[((int)curentResource) - 1];
+        quantity = quantity > spendLimit ? spendLimit : quantity;
+        inputField.text =((int)quantity).ToString();
+
+        //if(int.TryParse( amoutAvableValueText.text, out amountAvailable))
+        //{
+        //contrackPriceValueText.text = FormatNumber(quantity * contrackPrice);
+        //}
+        //else
+        //{
+        //    Debug.LogWarning(" amaoutny avaible inte dönüþtüürlemedi");
+        //}
+        contrackPriceValueText.text = FormatNumber(quantity * contrackPrice);
     }
     public void SellButtonClicked()
     {
         ResourceType type = curentResource;
         
         float earing;
-        if (float.TryParse(contrackPriceValueText.text, out earing))
+        if (float.TryParse(""+ParseFormattedNumber(contrackPriceValueText.text), out earing))
         {
             int limit =(int)ResourceManager.Instance.CurrentTradeState.tradeLists[0].limit[(int)type - 1];
             if (quantity>0)
@@ -197,8 +202,7 @@ public class SellPanel : MonoBehaviour
         else
             Debug.LogWarning("earing value can not parse float");
 
-        amoutAvableValueText.text = currentState.GetCurrentResValue(type).ToString("F2");
-       
+        amoutAvableValueText.text = FormatNumber(currentState.GetCurrentResValue(type));
 
     }   
     public void SetNewTradeState( )

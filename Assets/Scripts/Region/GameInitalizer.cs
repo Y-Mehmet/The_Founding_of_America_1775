@@ -387,15 +387,15 @@ public class GameInitalizer : MonoBehaviour
                         TaxData StampTax = new TaxData
                         {
                             taxType = TaxType.StampTax,
-                            currentRate = 0,
-                            toleranceLimit = 0,
+                            currentRate = 5,
+                            toleranceLimit = 5,
                             taxIncome = 0,
                             unitTaxIncome = 0.0005f
                         };
                         TaxData IncomeTax = new TaxData
                         {
                             taxType = TaxType.IncomeTax,
-                            currentRate = 0,
+                            currentRate = 10,
                             toleranceLimit = 10,
                             taxIncome = 0,
                             unitTaxIncome = 0
@@ -403,7 +403,7 @@ public class GameInitalizer : MonoBehaviour
                         TaxData DirectTax = new TaxData
                         {
                             taxType = TaxType.DirectTax,
-                            currentRate = 0,
+                            currentRate = 10,
                             toleranceLimit = 10,
                             taxIncome = 0,
                             unitTaxIncome = 20
@@ -411,7 +411,7 @@ public class GameInitalizer : MonoBehaviour
                         TaxData ValueAddedTax = new TaxData
                         {
                             taxType = TaxType.ValueAddedTax,
-                            currentRate = 0,
+                            currentRate = 7,
                             toleranceLimit = 7,
                             taxIncome = 0,
                             unitTaxIncome = 0
@@ -468,15 +468,15 @@ public class GameInitalizer : MonoBehaviour
                         TaxData StampTax = new TaxData
                         {
                             taxType = TaxType.StampTax,
-                            currentRate = 0,
-                            toleranceLimit = 7,
+                            currentRate = 10,
+                            toleranceLimit = 10,
                             taxIncome = 0,
                             unitTaxIncome = 0.0005f
                         };
                         TaxData IncomeTax = new TaxData
                         {
                             taxType = TaxType.IncomeTax,
-                            currentRate = 0,
+                            currentRate = 25,
                             toleranceLimit = 25,
                             taxIncome = 0,
                             unitTaxIncome = 0
@@ -484,7 +484,7 @@ public class GameInitalizer : MonoBehaviour
                         TaxData DirectTax = new TaxData
                         {
                             taxType = TaxType.DirectTax,
-                            currentRate = 0,
+                            currentRate = 30,
                             toleranceLimit = 30,
                             taxIncome = 0,
                             unitTaxIncome = 0
@@ -492,7 +492,7 @@ public class GameInitalizer : MonoBehaviour
                         TaxData ValueAddedTax = new TaxData
                         {
                             taxType = TaxType.ValueAddedTax,
-                            currentRate = 0,
+                            currentRate = 18,
                             toleranceLimit = 18,
                             taxIncome = 0,
                             unitTaxIncome = 0
@@ -545,15 +545,15 @@ public class GameInitalizer : MonoBehaviour
                         TaxData StampTax = new TaxData
                         {
                             taxType = TaxType.StampTax,
-                            currentRate = 0,
-                            toleranceLimit = 3,
+                            currentRate = 7,
+                            toleranceLimit = 7,
                             taxIncome = 0,
                             unitTaxIncome = 0.0005f
                         };
                         TaxData IncomeTax = new TaxData
                         {
                             taxType = TaxType.IncomeTax,
-                            currentRate = 0,
+                            currentRate = 12,
                             toleranceLimit = 12,
                             taxIncome = 0,
                             unitTaxIncome = 0
@@ -561,7 +561,7 @@ public class GameInitalizer : MonoBehaviour
                         TaxData DirectTax = new TaxData
                         {
                             taxType = TaxType.DirectTax,
-                            currentRate = 0,
+                            currentRate = 20,
                             toleranceLimit = 20,
                             taxIncome = 0,
                             unitTaxIncome = 0
@@ -569,7 +569,7 @@ public class GameInitalizer : MonoBehaviour
                         TaxData ValueAddedTax = new TaxData
                         {
                             taxType = TaxType.ValueAddedTax,
-                            currentRate = 0,
+                            currentRate = 18,
                             toleranceLimit = 18,
                             taxIncome = 0,
                             unitTaxIncome = 0

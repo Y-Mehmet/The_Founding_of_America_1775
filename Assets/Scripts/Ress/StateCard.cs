@@ -101,7 +101,7 @@ public class StateCard : MonoBehaviour
 
                 if (resType == curretResType)
                 {
-                    Debug.LogWarning($" curent res index {((int)resType - 1)}  ");
+                    //Debug.LogWarning($" curent res index {((int)resType - 1)}  ");
                     CoinValueText.text = FormatNumber((importTrade.contractPrices[(int)resType - 1] * thousand));
                     float limit = importTrade.limit[(int)resType - 1];
                     float spendLimit = ResourceManager.Instance.CurrentTradeState.GetGoldResValue() / importTrade.contractPrices[(int)resType - 1];
