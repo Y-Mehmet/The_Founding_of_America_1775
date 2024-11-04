@@ -105,6 +105,7 @@ public class State : MonoBehaviour
     public void ReduceEnemyMorale(int decraseValue)
     {
         Morele += decraseValue;
+        Morele = Morele < 0 ? 0 : Morele;
         if (Morele <= 10 && !isWarDeclared)
         {
             isWarDeclared = true;
@@ -120,7 +121,7 @@ public class State : MonoBehaviour
         while (Morele <= 10)
         {
             int random = Random.Range(0, 10);
-            Debug.LogWarning("random sayý " + random);
+           // Debug.LogWarning("random sayý " + random);
 
             if (random == 5)
             {
@@ -171,6 +172,7 @@ public class State : MonoBehaviour
     {
         Morele += morale;
         Morele = Morele > 100 ? 100 : Morele;
+        Morele = Morele < 0 ? 0 : Morele;
     }
     public int GetArmyBarrackSize()
     {

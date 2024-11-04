@@ -94,7 +94,7 @@ public class SendGift : MonoBehaviour
     {
         int spyCount = Mathf.FloorToInt(value); // Slider'dan tam sayý deðeri al
 
-        spyCost = (int)(spyCount *RegionClickHandler.staticState.resourceData[ResourceType.Gold].productionRate)*100* RegionClickHandler.staticState.resourceData[ResourceType.Gold].mineCount;
+        spyCost = (int)(spyCount *RegionClickHandler.staticState.resourceData[ResourceType.Gold].productionRate)*10* RegionClickHandler.staticState.resourceData[ResourceType.Gold].mineCount;
         ColorManager(spyCost);
 
 

@@ -21,6 +21,8 @@ public class PanelManager : Singleton<PanelManager>
     // Paneli gösterme fonksiyonu (enum kullanýmý ile güncellendi)
     public void ShowPanel(PanelID panelID, PanelShowBehavior behavior = PanelShowBehavior.SHOW_PREVISE)
     {
+        if(panelID!=PanelID.HelpPanel)
+        InfoManager.AddQueque( panelID);
         // Enum'dan string'e dönüþtürerek paneli al
         string panelIDString = panelID.ToString();
 
@@ -59,12 +61,14 @@ public class PanelManager : Singleton<PanelManager>
         if (AnyPanelIsShowing())
         {
             var lastPanel = GetLastPanel();
+          
             _listInstance.Remove(lastPanel);
             _objectPool.PoolObject(lastPanel.PanelInstance);
 
             if (GetAmountPanelInList() > 0)
             {
                 lastPanel = GetLastPanel();
+               
                 if (lastPanel != null && !lastPanel.PanelInstance.activeInHierarchy)
                 {
                     lastPanel.PanelInstance.SetActive(true);

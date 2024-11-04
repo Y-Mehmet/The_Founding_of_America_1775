@@ -6,6 +6,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using static Utility;
 using static ResourceManager;
+using System.Collections.Generic;
 public class BuyPanel : MonoBehaviour
 {
     public GameObject rightBox, emtyStateBox;
@@ -97,25 +98,38 @@ public class BuyPanel : MonoBehaviour
     }
     void SetSecondValueText()
     {
-        string currentStateName = RegionClickHandler.Instance.currentState.name;
+        string currentStateName = RegionClickHandler.staticState.name;
         string currentTradeStateName = ResourceManager.Instance.CurrentTradeState.name;
-        if (Neighbor.Instance != null)
+        //if (Neighbor.Instance != null)
+        //{
+        //    if (Neighbor.Instance.AreNeighbors(currentStateName, currentTradeStateName))
+        //    {
+        //        deliveryTime = GameManager.neigbordTradeTime;
+        //        secondValueText.text = FormatNumber(deliveryTime);
+        //    }
+        //    else
+        //    {
+        //        deliveryTime = GameManager.nonNeigbordTradeTime;
+        //        secondValueText.text = FormatNumber(deliveryTime);
+        //    }
+        //}
+        //else
+        //{
+        //    Debug.LogWarning("neignord is null");
+        //}
+        List<Node> path = PathFindDeneme.PathInstance.GetPath(currentTradeStateName, currentStateName);
+        if (path!= null && path.Count > 0)
         {
-            if (Neighbor.Instance.AreNeighbors(currentStateName, currentTradeStateName))
-            {
-                deliveryTime = GameManager.neigbordTradeTime;
-                secondValueText.text = FormatNumber(deliveryTime);
-            }
-            else
-            {
-                deliveryTime = GameManager.nonNeigbordTradeTime;
-                secondValueText.text = FormatNumber(deliveryTime);
-            }
+            Debug.Log("path count " + path.Count);
+            deliveryTime = path.Count;
         }
         else
         {
-            Debug.LogWarning("neignord is null");
+            Debug.Log("path is null");
+            deliveryTime = 11;
         }
+        secondValueText.text = FormatNumber(deliveryTime);
+
     }
 
     void ShowPanelInfo()

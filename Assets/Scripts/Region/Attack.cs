@@ -47,9 +47,9 @@ public class Attack : MonoBehaviour
      numberOfDrew = 0;
 
 }
-public IEnumerator AttackingCoroutine(string defendingState)
+public IEnumerator AttackingCoroutine(string defendingState, bool isFirst= false)
     {
-      //  Debug.LogError("def state " + defendingState);
+        attackingStateText = RegionClickHandler.staticState.name;
         if (RegionClickHandler.Instance.currentState == null  )
         {
             RegionClickHandler.staticState = GameManager.AllyStateList.OrderBy(state => state.GetTotalArmyPower()).FirstOrDefault();
@@ -81,21 +81,64 @@ public IEnumerator AttackingCoroutine(string defendingState)
                 Usa.Instance.FindStateByName(node.Name).transform.GetComponentInChildren<Flag>().flagList[2].SetActive(false);
 
             }
-        }
-        else
+        }else if( isFirst)
         {
+           
+           
 
-            attackingStateText = RegionClickHandler.Instance.currentState.name.ToString(); // RegionManager.instance.a_regionNameText;
-                                                                                           // Check if the defending state is a neighbor
-            if (!Neighbor.Instance.AreNeighbors(attackingStateText, defendingState))
+            attackingStateText = RegionClickHandler.staticState.name;
+            //   Debug.LogError(" attacikn state " + attackingStateText);
+            List<Node> path = PathFindDeneme.PathInstance.GetPath(attackingStateText, defendingState);
+          if(path!= null&&path.Count > 0)
             {
-                int loss = UnityEngine.Random.Range(5, 25);
-             //  Debug.Log("Kayýp miktarý  % " + loss + " kayýpdan önce total amry: " + RegionClickHandler.staticState.GetArmySize());
-                RegionClickHandler.staticState.GetComponent<State>().ReduceArmySize(loss);
-              //  Debug.Log("kayýptan sonra " + RegionClickHandler.staticState.GetArmySize());
-                MessageManager.AddMessage("Ambushed on enemy soil, we suffered a grievous blow and lost " + loss+"% of our men.");
+                if(path.Count>2)
+                {
+
+                    int loss = UnityEngine.Random.Range(5, 25);
+                    //  Debug.Log("Kayýp miktarý  % " + loss + " kayýpdan önce total amry: " + RegionClickHandler.staticState.GetArmySize());
+                    RegionClickHandler.staticState.GetComponent<State>().ReduceArmySize(loss);
+                    //  Debug.Log("kayýptan sonra " + RegionClickHandler.staticState.GetArmySize());
+                    MessageManager.AddMessage("Ambushed on enemy soil, we suffered a grievous blow and lost " + loss + "% of our men.");
+                }
+                foreach (Node node in path)
+                {
+
+                    Usa.Instance.FindStateByName(node.Name).transform.GetComponentInChildren<Flag>().flagList[0].SetActive(true);
+
+                }
+                Usa.Instance.FindStateByName(path[0].Name).transform.GetComponentInChildren<Flag>().flagList[1].SetActive(true);
+
+                for (int i = 1; i < path.Count; i++)
+                {
+                    yield return new WaitForSeconds(1.0f);
+                    Usa.Instance.FindStateByName(path[i - 1].Name).transform.GetComponentInChildren<Flag>().flagList[2].SetActive(true);
+                    Usa.Instance.FindStateByName(path[i].Name).transform.GetComponentInChildren<Flag>().flagList[1].SetActive(true);
+                }
+                yield return new WaitForSeconds(1.0f);
+                foreach (Node node in path)
+                {
+
+                    Usa.Instance.FindStateByName(node.Name).transform.GetComponentInChildren<Flag>().flagList[0].SetActive(false);
+                    Usa.Instance.FindStateByName(node.Name).transform.GetComponentInChildren<Flag>().flagList[1].SetActive(false);
+                    Usa.Instance.FindStateByName(node.Name).transform.GetComponentInChildren<Flag>().flagList[2].SetActive(false);
+
+                }
             }
         }
+        //else
+        //{
+
+        //    attackingStateText = RegionClickHandler.Instance.currentState.name.ToString(); // RegionManager.instance.a_regionNameText;
+        //                                                                                   // Check if the defending state is a neighbor
+        //    if (!Neighbor.Instance.AreNeighbors(attackingStateText, defendingState))
+        //    {
+        //        int loss = UnityEngine.Random.Range(5, 25);
+        //     //  Debug.Log("Kayýp miktarý  % " + loss + " kayýpdan önce total amry: " + RegionClickHandler.staticState.GetArmySize());
+        //        RegionClickHandler.staticState.GetComponent<State>().ReduceArmySize(loss);
+        //      //  Debug.Log("kayýptan sonra " + RegionClickHandler.staticState.GetArmySize());
+        //        MessageManager.AddMessage("Ambushed on enemy soil, we suffered a grievous blow and lost " + loss+"% of our men.");
+        //    }
+        //}
 
         //   Debug.LogWarning("attakicn state " + attackingStateText);       
         lastDefendingState = defendingState;
@@ -197,13 +240,14 @@ public IEnumerator AttackingCoroutine(string defendingState)
         StopCoroutine("AttackingCoroutine");
 
     }
-    public void Attacking(string defendingState)
+    public void Attacking(string defendingState, bool isFirst=false)
     {
 
         GameManager.Instance.IsAttackFinish = false;
-        Usa.Instance.FindStateByName(defendingState).ReduceEnemyMorale(-10);
+        Usa.Instance.FindStateByName(defendingState).ReduceEnemyMorale(-75);
+        MessageManager.AddMessage($"After the battle, your relations with {defendingState} have dropped .");
        // Debug.LogWarning(defendingState);
-        StartCoroutine(AttackingCoroutine(defendingState));
+        StartCoroutine(AttackingCoroutine(defendingState, isFirst));
     }
 
     public void AttackAgain()
