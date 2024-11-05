@@ -18,6 +18,8 @@ public class PlunderManager : MonoBehaviour
    public  void PlunderState(bool isAddTrue=false)
     {
         State defState = Attack.Instance.FindChildByName(Usa.Instance.transform, Attack.Instance.lastDefendingState).GetComponent<State>();
+        defState.LandArmySize = 100;
+        defState.NavalArmySize = 100;
         State attackState = Attack.Instance.FindChildByName(Usa.Instance.transform, Attack.Instance.lastAttackingState).GetComponent<State>();
         if (defState != null && attackState!= null)
         {

@@ -22,7 +22,7 @@ public class GameManager : MonoBehaviour
     public static float gameDayTime = 6.0f;
     public static  float  neigbordTradeTime= 3 ;
     public static float  nonNeigbordTradeTime= 9 ;
-    public static float ArrmyRatio = 0.1f; // nufusun yüzde kaçý asker olark baþlayacak 
+    public static float ArrmyRatio = 0.05f; // nufusun yüzde kaçý asker olark baþlayacak 
     public static float ArmyBarrackRatio = 0.2f; // kýþla oraný
 
     public int thresholdForSuccesfulEspionage = 3;
@@ -60,6 +60,7 @@ public class GameManager : MonoBehaviour
     private void Start()
     {
         OnGameDataLoaded += GameLoaded;
+       
         //onAllyStateChanged += ChangeStateType;
       
        
@@ -77,9 +78,11 @@ public class GameManager : MonoBehaviour
     }
  public  void ChangeCapitalCity()
     {
+        transform.GetComponentInChildren<Flag>().capitalFlag.SetActive(false);
         if (AllyStateList.Count > 0)
         {
             AllyStateList[0].IsCapitalCity = true;
+            transform.GetComponentInChildren<Flag>().capitalFlag.SetActive(true);
 
         }
         else

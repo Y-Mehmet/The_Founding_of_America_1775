@@ -10,7 +10,7 @@ using static Utility;
 public class GeneralInfoPanel : MonoBehaviour
 {
     public Image generalCharacterIcon,generalTypeIcon;
-    public TMP_Text generalNameText, generalTypeText, rankText, navalRateText, landRateText,
+    public TMP_Text generalNameText, generalTypeText,generalLevelText, rankText, navalRateText, landRateText,
         incramentalEffectText, totalBattelsText, victoriesText, defeatText, dutyStationText, sliderTextExp;
     public Slider generalExperiensSlider;
     private void OnEnable()
@@ -22,6 +22,7 @@ public class GeneralInfoPanel : MonoBehaviour
         generalTypeIcon.sprite = GameDataSo.Instance.GeneralTypeIconSprite[index];
         generalNameText.text= generalName;
         generalTypeText.text = GeneralManager.generals[index].Specialty.ToString();
+        generalLevelText.text= (((int)generals[index].Rank) + 1).ToString();
         string rank = AddSpaceBeforeUpperCase(GeneralManager.generals[index].Rank.ToString());
         rankText.text = rank  ;
         navalRateText.text="+ "+ GeneralManager.generals[index].NavalHelpRate.ToString() ;

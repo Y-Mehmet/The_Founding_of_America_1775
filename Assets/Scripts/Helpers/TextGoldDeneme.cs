@@ -10,9 +10,9 @@ public class TextGoldDeneme : MonoBehaviour
     private void Start()
     {
         
-        {
+        
             StartCoroutine(getText());
-        }
+        
     }
     IEnumerator getText()
     {

@@ -346,6 +346,7 @@ public class GameInitalizer : MonoBehaviour
                     s.Population = 15000;
                     s.LandArmySize = s.Population * GameManager.ArrmyRatio; // Nüfusun %25'i
                     s.NavalArmySize = s.Population * GameManager.ArrmyRatio; // Nüfusun %25'i
+                    s.ArmyBarrackSize= (int)(s.Population* GameManager.ArrmyRatio*2);
                     s.Morele = 100;
                     s.Resources = 11;
                   
@@ -430,6 +431,7 @@ public class GameInitalizer : MonoBehaviour
                     s.Population = 5000;
                     s.LandArmySize = s.Population * GameManager.ArrmyRatio; // Nüfusun %25'i
                     s.NavalArmySize = s.Population * GameManager.ArrmyRatio; // Nüfusun %25'i
+                    s.ArmyBarrackSize = (int)(s.Population * GameManager.ArrmyRatio * 2);
                     s.Morele = 90;
                     s.Resources = 10;
                     s.UnitLandArmyPower = (float)(0.35 + rand.NextDouble() * 0.05);
@@ -508,6 +510,7 @@ public class GameInitalizer : MonoBehaviour
                     s.Population = 10000;
                     s.LandArmySize = s.Population * GameManager.ArrmyRatio; // Nüfusun %25'i
                     s.NavalArmySize = s.Population * GameManager.ArrmyRatio; // Nüfusun %25'i
+                    s.ArmyBarrackSize = (int)(s.Population * GameManager.ArrmyRatio * 2);
                     s.Morele = 95;
                     s.Resources = 1;
                     s.UnitLandArmyPower = (float)(0.75 + rand.NextDouble() * 0.15);

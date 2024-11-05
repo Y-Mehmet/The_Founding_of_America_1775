@@ -116,7 +116,7 @@ public class EnemyStateInfoPanel : MonoBehaviour
         happinesText.text = "Relations Declined";
         totalArmyPowerText.text = "Spy Attempt Failed";
         mainResTypeText.text = "Spy Attempt Failed";
-        MessageManager.AddMessage("Oh no, our spies have been caught! Relations between the two states ("+RegionClickHandler.Instance.currentState+") have deteriorated by 50 points");
+        MessageManager.AddMessage("Oh no, our spies have been caught! Relations between the two states ("+RegionClickHandler.Instance.currentState.name+") have deteriorated by 50 points");
         RegionClickHandler.staticState.ReduceEnemyMorale(-50);
     }
    

@@ -31,7 +31,7 @@ public class TaxTypePanel : MonoBehaviour
                         slider.value = ((int)item.currentRate);
                         //Debug.LogWarning(item.currentRate);
                         slider.onValueChanged.AddListener(OnSliderValueChanged);
-                        OnSliderValueChanged(item.currentRate);
+                        
 
                         if (taxType == TaxType.StampTax)
                         {
@@ -46,6 +46,7 @@ public class TaxTypePanel : MonoBehaviour
                         HappinesPanel.GetComponent<HappinesPanel>().SetHappiness(slider.value, item.toleranceLimit);
                         taxCoinValueText.text = item.taxIncome.ToString("0");
                         item.currentRate = slider.value;
+                        OnSliderValueChanged(item.currentRate);
                     }
                 }
             }
@@ -80,7 +81,7 @@ public class TaxTypePanel : MonoBehaviour
                            // Debug.Log($"slider {slider.value} unit {item.unitTaxIncome} population {RegionClickHandler.staticState.Population}");
                         }else if(taxType == TaxType.IncomeTax)
                         {
-                            item.taxIncome = slider.value * item.unitTaxIncome;
+                            item.taxIncome = slider.value* (RegionClickHandler.staticState.resourceData[ResourceType.Gold].maxMineCount+RegionClickHandler.staticState.resourceData[ResourceType.Gold].productionRate)*USCongress.ProductionAddedValue/100/100;
                         }
 
                        

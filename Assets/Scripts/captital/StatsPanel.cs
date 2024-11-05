@@ -43,7 +43,7 @@ public class StatsPanel : MonoBehaviour
             {
                 child.gameObject.SetActive(true);
             }else
-            { break; }
+            { child.gameObject.SetActive(false); }
         }
     }
       void  StatsStateChange()

@@ -8,7 +8,7 @@ public class TroopyManager : MonoBehaviour
     public static State OriginState;
     public static State DestinationState;
     public static float supplyCost = 0.1f;
-    public static float nonNeigbordMultiplier = 2;
+   // public static float nonNeigbordMultiplier = 2;
     public static float TravelDuration = GameManager.gameDayTime;
     public static float UnitTropyDurationMultiplier = 0.001f;
     
@@ -21,25 +21,42 @@ public class TroopyManager : MonoBehaviour
     }
     public static int GetSupplyCost(int troopyCount)
     {
-         bool isNeigbor = Neighbor.Instance.AreNeighbors(OriginState.name, DestinationState.name);
-        float  cost = supplyCost; 
-        if(!isNeigbor)
+        
+        List<Node> path = PathFindDeneme.PathInstance.GetPath(OriginState.name, DestinationState.name);
+        int deliveryTime = 11; 
+        if (path != null && path.Count > 0)
         {
-            cost = cost* nonNeigbordMultiplier;
+            Debug.Log("path count " + path.Count);
+            deliveryTime = path.Count;
         }
-        cost= cost* troopyCount;
+        else
+        {
+            Debug.Log("path is null");
+            
+        }
+       
+
+        float cost   = supplyCost * troopyCount* deliveryTime;
         return (int)Mathf.Ceil(cost);
 
     }
     public static int GetSecondValue(int troopyCount)
     {
-        bool isNeigbor = Neighbor.Instance.AreNeighbors(OriginState.name, DestinationState.name);
-        float cost = TravelDuration;
-        if (!isNeigbor)
+        List<Node> path = PathFindDeneme.PathInstance.GetPath(OriginState.name, DestinationState.name);
+        int deliveryTime = 11;
+        if (path != null && path.Count > 0)
         {
-            cost = cost * nonNeigbordMultiplier;
+            Debug.Log("path count " + path.Count);
+            deliveryTime = path.Count;
         }
-        cost = cost * troopyCount* UnitTropyDurationMultiplier;
+        else
+        {
+            Debug.Log("path is null");
+
+        }
+    
+       
+       float cost = TravelDuration*deliveryTime * troopyCount* UnitTropyDurationMultiplier;
         return (int)Mathf.Ceil( cost);
 
     }

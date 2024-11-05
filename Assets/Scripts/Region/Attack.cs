@@ -236,8 +236,13 @@ public IEnumerator AttackingCoroutine(string defendingState, bool isFirst= false
     {
 
         GameManager.Instance.IsAttackFinish = false;
-        Usa.Instance.FindStateByName(defendingState).ReduceEnemyMorale(-75);
-        MessageManager.AddMessage($"After the battle, your relations with {defendingState} have dropped .");
+       
+        if(isFirst)
+        {
+            Usa.Instance.FindStateByName(defendingState).ReduceEnemyMorale(-75);
+            MessageManager.AddMessage($"After the battle, your relations with {defendingState} have dropped .");
+        }
+       
        // Debug.LogWarning(defendingState);
         StartCoroutine(AttackingCoroutine(defendingState, isFirst));
     }

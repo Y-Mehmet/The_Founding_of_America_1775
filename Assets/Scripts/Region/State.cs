@@ -66,7 +66,11 @@ public class State : MonoBehaviour
             {
                 SubsucribeAction();
             }
-            
+            if(IsCapitalCity)
+            {
+                
+                transform.GetComponentInChildren<Flag>().capitalFlag.SetActive(true);
+            }
         }
         else
         {
@@ -125,7 +129,7 @@ public class State : MonoBehaviour
 
             if (random == 5 && GameManager.Instance.IsAttackFinish)
             {
-                yield return new  WaitForSeconds(1);
+                //yield return new  WaitForSeconds(1);
                 // Savaþý baþlat ve coroutine’i sonlandýr
                 GameManager.Instance.ChangeIsAttackValueTrue();
                 RegionClickHandler.Instance.currentState = null;
@@ -247,6 +251,26 @@ public class State : MonoBehaviour
     public void ReinForceTroops(int land, int naval)
     {
         Debug.Log(" reinforce troop ");
+        int reinforceTroop = land + naval;
+        int loss = GetSoliderQuota() - reinforceTroop;
+        if (loss>0)
+        {
+            land = land / reinforceTroop * land;
+            naval = naval / reinforceTroop * naval;
+            MessageManager.AddMessage("Eager to bolster " + name +
+                ", reinforcements were dispatched from  origin state "+
+    " Yet, overcrowded barracks left no space for the incoming soldiers. With nowhere to go and patience wearing thin," +
+    " many of the stranded forces abandoned their posts, refusing to endure such mismanagement." +
+    " This failure has cost the state both manpower and morale, as disillusioned soldiers desert in frustration.");
+            SetMorale(-5);
+
+            // Türkçe karþýlýk:
+            // " " + destinationState + "'i güçlendirmek için " + originState + " 'den takviye birlikler gönderildi." +
+            // " Ancak kalabalýk kýþlalar, gelen askerler için yer býrakmadý." +
+            // " Gidecek bir yer bulamayan ve sabrý tükenen birçok asker bu beceriksizliðe daha fazla tahammül edemeyip firar etti." +
+            // " Bu baþarýsýzlýk, devleti hem insan gücü hem de moral açýsýndan aðýr bir zarara uðrattý."
+
+        }
         LandArmySize += land;
         NavalArmySize += naval;
 
@@ -261,17 +285,21 @@ public class State : MonoBehaviour
         float taxSatisfactionRate = 0;
         foreach (var tax in Taxes)
         {
-            float result = tax.currentRate - tax.toleranceLimit;
+            if(tax.taxType!= TaxType.DirectTax || tax.taxType != TaxType.ValueAddedTax)
+            {
+                float result = tax.currentRate - tax.toleranceLimit;
 
-            if (result > 0)
-            {
-                // Exponential etki: Farkýn karesi veya baþka bir üs
-           
-                taxSatisfactionRate -= Mathf.Pow(result, 1.15f); // Farkýn karesi (result^2)
-             
-            }else
-            {
-                taxSatisfactionRate += Mathf.Pow(-result, 0.5f); // 
+                if (result > 0)
+                {
+                    // Exponential etki: Farkýn karesi veya baþka bir üs
+
+                    taxSatisfactionRate -= Mathf.Pow(result, 1.15f); // Farkýn karesi (result^2)
+
+                }
+                else
+                {
+                    taxSatisfactionRate += Mathf.Pow(-result, 0.5f); // 
+                }
             }
         }
         return taxSatisfactionRate * 0.005f;
@@ -474,12 +502,23 @@ public class State : MonoBehaviour
                 Morele = Mathf.Clamp(Morele, 0, 100);
                 State state = gameObject.GetComponent<State>();
                 OnMoreleChanged?.Invoke(Morele, state);
-            if(Morele<=10 && !IsCapitalCity)
+            if(Morele<=10)
             {
                 int rand = UnityEngine.Random.Range(0, 10);
                 if(rand==9)
                 {
                     LostState();
+                    MessageManager.AddMessage("With dwindling resources and shattered morale, the spirit of the people fades." +
+    " Once-loyal citizens abandon their allegiance as despair takes root. Cries for change grow louder" +
+    " and discontent sweeps across " + name + " like a wildfire. In the final hour, the people seize their fate," +
+    " toppling the weakened state that failed them in their hour of need. Rebellion has consumed " + name + ".");
+
+                    // Türkçe karþýlýk:
+                    // "Kaynaklar tükendikçe ve moraller paramparça oldukça, halkýn ruhu zayýflýyor. Bir zamanlar sadýk olan vatandaþlar, umutsuzluk kök salarken baðlýlýklarýný terk eder." +
+                    // " Deðiþim talepleri giderek yükseliyor ve huzursuzluk " + name + " boyunca bir yangýn gibi yayýlýyor." +
+                    // " Son saatlerde halk, kendi kaderlerini ele geçirerek onlarý ihtiyaç anýnda yalnýz býrakan zayýf düþmüþ devleti devralýyor." +
+                    // " Ýsyan, " + name + "'i tüketti."
+
                 }
 
             }
@@ -549,7 +588,7 @@ public class State : MonoBehaviour
                 float moraleEffect = (101 - Morele) / 100;
                 productionAmount *= (1 - moraleEffect * 0.1f);
 
-                if (item.Key== ResourceType.Gold)
+                if (item.Key== ResourceType.Gold && stateType== StateType.Ally)
                 {
                     foreach (var item1 in Taxes)
                     {
@@ -576,7 +615,7 @@ public class State : MonoBehaviour
                 //if(item.Key== ResourceType.Gold && IsCapitalCity)
                 // Debug.LogWarning($"{item.Key}  üretim  {productionAmount} rate {item.Value.productionRate } ");
 
-                float consumption = (item.Value.consumptionAmount / 100 * ConsumptionAddedValue * Population);
+                float consumption = (item.Value.consumptionAmount / 100 * ConsumptionAddedValue *( Population+GetArmySize()));
                 item.Value.surplus = productionAmount - consumption;
                
                 item.Value.currentAmount += productionAmount;
@@ -592,6 +631,10 @@ public class State : MonoBehaviour
                             if ((int)item.Key > 0 && (int)item.Key < 7)
                                 resoruceAddedValue += (item.Value.surplus / item.Value.productionRate);
                             int goldValue = ((int)(Mathf.CeilToInt(GameEconomy.Instance.GetGoldValue(item.Value.resourceType, -1 * item.Value.currentAmount)) * 1.1f));
+                            if( goldValue<=0)
+                            {
+                                Debug.LogError(" gold valye " + goldValue);
+                            }
                             if (GetGoldResValue() >= goldValue)
                             {
                                 GoldSpend(goldValue);
@@ -696,7 +739,7 @@ public class State : MonoBehaviour
     public void LostWar(float lossRate)
     {
         loss = lossRate * GetArmySize();
-       // Debug.LogWarning($"loss: {loss} armysize {ArmySize}  name {gameObject.name} loss rate {lossRate}");
+        Debug.LogWarning($"loss: {loss} armysize {ArmySize}  name {gameObject.name} loss rate {lossRate}");
         ReduceArmySize(loss);
         
     }
@@ -707,6 +750,7 @@ public class State : MonoBehaviour
             
             //Debug.LogWarning("state iþgal edildi");
             LandArmySize = firstArmySize;
+            NavalArmySize = firstArmySize;
             stateType = StateType.Ally;
             ChangeCollor.Instance.ChangeGameobjectColor(gameObject, stateType);
             FindISelectibleComponentAndDisable();
@@ -737,7 +781,9 @@ public class State : MonoBehaviour
         GeneralManager.Instance.RemoveGeneralFromState(this);
         AllyStateList.Remove(this);
         GameManager.Instance.onAllyStateChanged?.Invoke(this, false);
-        LandArmySize = Population/2;
+
+        LandArmySize = Population/4;
+        NavalArmySize = Population / 4;
         stateType = StateType.Enemy;
         ChangeCollor.Instance.ChangeGameobjectColor(gameObject, stateType);
 
@@ -851,6 +897,14 @@ public void GemSpend(int value)
                         {
                             float tax = (resource.Value / 100) * item1.currentRate;
                             Debug.LogWarning("plunder tax: "+tax);
+                            int moraleAddedValue = ((int)( item1.toleranceLimit-item1.currentRate));
+                            if ( moraleAddedValue<0)
+                            {
+                                
+                                MessageManager.AddMessage($"Benedict Arnold, Our soldiers fought fiercely, risking life and limb, to seize that loot—and now you take a 5% tax from it?" +
+                                    $" This is a slap in the face to those who paid with blood for our victories. We deserve better! Morale has dropped by {moraleAddedValue} points.");
+                                SetMorale(-moraleAddedValue);
+                            }
                             item1.taxIncome = tax;
                             ResourceManager.Instance.ChargeTax(ResourceType.Gold, tax);
                             resourceData[ResourceType.Gold].currentAmount -= tax;
@@ -902,6 +956,14 @@ public void GemSpend(int value)
             {
                 if(item.taxType== TaxType.ValueAddedTax && !isAllyState)
                 {
+                    int moralAddedValue = ((int)(item.toleranceLimit - item.currentRate));
+                    if( moralAddedValue<0)
+                    {
+                        SetMorale(-moralAddedValue);
+                        MessageManager.AddMessage($"Samuel Cohen: We are the hardworking souls who toil from dawn until dusk, facing every risk just to make a living in this land. Yet," +
+                            $" we are being suffocated by these heavy taxes! The government takes a significant portion of our earnings; it is nothing but exploitation of our labor! We can no longer turn a profit; we have to work harder each day just to survive. " +
+                            $"This burden being placed upon us not only diminishes our morale but also insults the sacrifices we made for our independence. Our morale has dropped by {moralAddedValue} points because of this!");
+                    }
                     float tax = (earing / 100) * item.currentRate;
                     ResourceManager.Instance.ChargeTax(ResourceType.Gold, tax);
                     earing -= tax;

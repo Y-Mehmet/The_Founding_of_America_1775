@@ -557,6 +557,7 @@ MonoBehaviour:
   generalTypeIcon: {fileID: 791535715638315424}
   generalNameText: {fileID: 3102423141485889593}
   generalTypeText: {fileID: 9047616476681976004}
+  generalLevelText: {fileID: 6635034873119163590}
   rankText: {fileID: 6101665879379522621}
   navalRateText: {fileID: 6265215885610406338}
   landRateText: {fileID: 4445461268539548797}
@@ -4419,7 +4420,7 @@ GameObject:
   - component: {fileID: 2564194298144092347}
   - component: {fileID: 6635034873119163590}
   m_Layer: 5
-  m_Name: Text_Level
+  m_Name: GeneralLevel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -5303,7 +5304,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 739.55975, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 1479.1195, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &8002662118290314759
@@ -6338,7 +6339,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 739.55975, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 1479.1195, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &3230143537820188021
