@@ -6,9 +6,11 @@ using UnityEngine.UI;
 public class MessagePanel : MonoBehaviour
 {
     public Button CleanBtn;
+    
 
     private void OnEnable()
     {
+
         ShowMessage();
         CleanBtn.onClick.AddListener(OnCleanBtnClicked);
     }
@@ -26,6 +28,8 @@ public class MessagePanel : MonoBehaviour
                 child.gameObject.SetActive(false);
             }
         }
+        GetComponent<VerticalLayoutGroup>().enabled = false;
+        GetComponent<VerticalLayoutGroup>().enabled = true;
     }
     void OnCleanBtnClicked()
     {

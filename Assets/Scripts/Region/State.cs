@@ -79,7 +79,7 @@ public class State : MonoBehaviour
     private void GameDataLoaded()
     {
         TotalArmyPower = GetTotalArmyPower();
-        ArmyBarrackSize = (int)(Population * GameManager.ArmyBarrackRatio);
+       // ArmyBarrackSize = (int)(Population * GameManager.ArmyBarrackRatio);
         FindISelectibleComponentAndDisable();
         switch (stateType)
         {
@@ -123,8 +123,9 @@ public class State : MonoBehaviour
             int random = Random.Range(0, 10);
            // Debug.LogWarning("random sayý " + random);
 
-            if (random == 5)
+            if (random == 5 && GameManager.Instance.IsAttackFinish)
             {
+                yield return new  WaitForSeconds(1);
                 // Savaþý baþlat ve coroutine’i sonlandýr
                 GameManager.Instance.ChangeIsAttackValueTrue();
                 RegionClickHandler.Instance.currentState = null;
@@ -809,9 +810,9 @@ public class State : MonoBehaviour
 
         //Debug.LogWarning($"güncel altýn ilk  durmu plunderliste uzunluðu {plunderedResources.Count} {resourceData[ResourceType.Gold].currentAmount} " + name);
 
-        plunderedResources.Add(ResourceType.Gold, resourceData[ResourceType.Gold].currentAmount);
+        plunderedResources.Add(ResourceType.Gold, resourceData[ResourceType.Gold].currentAmount/2);
            
-            plunderedResources.Add(resourceType, resourceData[resourceType].currentAmount);
+            plunderedResources.Add(resourceType, resourceData[resourceType].currentAmount/2);
           
         //   Debug.LogWarning($"güncel altýn durmu {resourceData[ResourceType.Gold].currentAmount} "+ name);
        

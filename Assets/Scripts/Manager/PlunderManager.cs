@@ -21,7 +21,7 @@ public class PlunderManager : MonoBehaviour
         State attackState = Attack.Instance.FindChildByName(Usa.Instance.transform, Attack.Instance.lastAttackingState).GetComponent<State>();
         if (defState != null && attackState!= null)
         {
-            //  Debug.Log("yaðam gerçekleþti");
+
           
             Dictionary<ResourceType, float> res = defState.plunderedResources;
             
@@ -37,6 +37,7 @@ public class PlunderManager : MonoBehaviour
 
                 }
                 attackState.AddResource(res);
+                defState.RemoveResource(res);
                 defState.RemoveResource(res);
 
 
