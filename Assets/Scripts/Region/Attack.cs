@@ -144,7 +144,7 @@ public IEnumerator AttackingCoroutine(string defendingState, bool isFirst= false
 
         // Trim strings and convert to a common case (e.g., lower case) before comparison
          string attackingState = attackingStateText;
-        
+
 
         GameObject attackingStateGameObject = FindChildByName(USA_Transform, attackingState);
         GameObject defendingStateGameObject = FindChildByName(USA_Transform, defendingState);

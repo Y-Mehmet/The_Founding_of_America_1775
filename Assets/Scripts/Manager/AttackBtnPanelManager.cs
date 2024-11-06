@@ -97,7 +97,7 @@ public class AttackBtnPanelManager : MonoBehaviour
 
             enemyRegionNameText.text = defendingState.gameObject.name + "";
             enemyRegionDamageText.text = "(- " + (int)defendingState.loss + " )";
-            enemyTotalArmyPowerText.text = (int)defendingState.TotalArmyCalculator() + "";
+            enemyTotalArmyPowerText.text = (int)defendingState.GetArmySize() + "";
             if (defendingState.StateIcon != null)
             {
                 //   Debug.Log($"{defendingState.StateIcon.name}");
@@ -111,7 +111,7 @@ public class AttackBtnPanelManager : MonoBehaviour
 
             playerRegionNameText.text = attackingState.gameObject.name + "";
             playerRegionDamageText.text = "(- " + (int)attackingState.loss + " )";
-            playerTotalArmyPowerText.text = (int)attackingState.TotalArmyCalculator() + "";
+            playerTotalArmyPowerText.text = (int)attackingState.GetArmySize() + "";
             playerFlagSprite.sprite = attackingState.StateIcon;
 
             if (attackingState.attackCanvasButtonPanelIndex == 3)

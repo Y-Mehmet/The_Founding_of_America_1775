@@ -9,7 +9,7 @@ public class TroopyManager : MonoBehaviour
     public static State DestinationState;
     public static float supplyCost = 0.1f;
    // public static float nonNeigbordMultiplier = 2;
-    public static float TravelDuration = GameManager.gameDayTime;
+    public static float TravelDuration = 1;
     public static float UnitTropyDurationMultiplier = 0.001f;
     
     private void Awake()
@@ -76,7 +76,7 @@ public class TroopyManager : MonoBehaviour
     {
         Debug.Log("currotine basladi ");
         OriginState.DeployTroops(landForceCount, navalForceCount);
-    yield return new WaitForSeconds(travelDuration);
+    yield return new WaitForSeconds(travelDuration*GameManager.gameDayTime);
         DestinationState.ReinForceTroops(landForceCount, navalForceCount);
         Debug.Log("coorutune is finish ");
     }

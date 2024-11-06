@@ -78,11 +78,11 @@ public class GameManager : MonoBehaviour
     }
  public  void ChangeCapitalCity()
     {
-        transform.GetComponentInChildren<Flag>().capitalFlag.SetActive(false);
+        
         if (AllyStateList.Count > 0)
         {
             AllyStateList[0].IsCapitalCity = true;
-            transform.GetComponentInChildren<Flag>().capitalFlag.SetActive(true);
+            AllyStateList[0].transform.GetComponentInChildren<Flag>().capitalFlag.SetActive(true);
 
         }
         else

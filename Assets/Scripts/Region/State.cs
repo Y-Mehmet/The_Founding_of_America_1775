@@ -185,9 +185,11 @@ public class State : MonoBehaviour
     }
     public int GetSoliderQuota()
     {
-        return GetArmyBarrackSize() - GetArmySize();
+        int quota= GetArmyBarrackSize() - GetArmySize();
+        return quota > 0 ? quota : 0;
+
     }
-    
+
     public int GetNavalArmySize()
     {
         return (int)NavalArmySize;
@@ -253,10 +255,11 @@ public class State : MonoBehaviour
         Debug.Log(" reinforce troop ");
         int reinforceTroop = land + naval;
         int loss = GetSoliderQuota() - reinforceTroop;
-        if (loss>0)
+       
+        if (loss<0)
         {
-            land = land / reinforceTroop * land;
-            naval = naval / reinforceTroop * naval;
+            land += land / reinforceTroop * loss;
+            naval += naval / reinforceTroop * loss;
             MessageManager.AddMessage("Eager to bolster " + name +
                 ", reinforcements were dispatched from  origin state "+
     " Yet, overcrowded barracks left no space for the incoming soldiers. With nowhere to go and patience wearing thin," +
@@ -412,7 +415,7 @@ public class State : MonoBehaviour
                 ConsumptionAddedValue = 110;
                 break;
             case 2:
-                UnitArmyPowerAddedValue = 0.5f;
+                UnitArmyPowerAddedValue = 0.1f;
                 ProductionAddedValue = 90;
                 break;
             case 3:
@@ -804,6 +807,7 @@ public class State : MonoBehaviour
         HandleAttackStopped();
         if( IsCapitalCity)
         {
+            transform.GetComponentInChildren<Flag>().capitalFlag.SetActive(false);
             GameManager.Instance.ChangeCapitalCity();
         }
         

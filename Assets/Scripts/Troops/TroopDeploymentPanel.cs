@@ -150,7 +150,7 @@ public class TroopDeploymentPanel : MonoBehaviour
         totalCost = CalculateSupplyCostValue();
         totalSecond = CalculateSecondValue();
         totalGemCost = GetDimondValue(totalCost, totalSecond);
-        return totalGemCost;
+        return totalGemCost/10;
     }
 
     int CalculateSupplyCostValue()
