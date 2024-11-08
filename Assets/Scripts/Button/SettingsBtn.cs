@@ -15,8 +15,12 @@ public class SettingsBtn : MonoBehaviour
     }
     void OnClick()
     {
-        SoundManager.instance.Play("ButtonClick");
-        UIManager.Instance.GetComponent<ShowPanelButton>().DoShowPanelWhitId(PanelID.Settings);
-        GameManager.Instance.ChanngeIsRegionPanelOpenValueTrue();
+        if (GameManager.Instance.IsAttackFinish && !GameManager.Instance.ÝsAttack)
+        {
+            SoundManager.instance.Play("ButtonClick");
+            UIManager.Instance.GetComponent<ShowPanelButton>().DoShowPanelWhitId(PanelID.Settings);
+            GameManager.Instance.ChanngeIsRegionPanelOpenValueTrue();
+
+        }
     }
 }

@@ -77,17 +77,29 @@ public class Usa : MonoBehaviour
 
         }
     }
-    public State  FindStateByName(string gameObjectName)
+    public State FindStateByName(string gameObjectName)
     {
+        // Adý normalize ederek Ýngilizce karakterlere çevir
+        gameObjectName = NormalizeString(gameObjectName);
+
         foreach (Transform item in transform)
         {
-            if( item.name== gameObjectName)
+            string normalizedItemName = NormalizeString(item.name); // Türkçe karakterlerden arýndýr
+            if (normalizedItemName == gameObjectName)
             {
                 return item.GetComponent<State>();
             }
         }
-        Debug.LogWarning("yanlýþ state  adý girildi ");
+        Debug.LogWarning("Yanlýþ state adý girildi: " + gameObjectName);
         return null;
+    }
 
+    // Türkçe karakterleri Ýngilizce karþýlýklarýna çeviren fonksiyon
+    private string NormalizeString(string input)
+    {
+        return input
+
+            .Replace("Ý", "I");
+            
     }
 }

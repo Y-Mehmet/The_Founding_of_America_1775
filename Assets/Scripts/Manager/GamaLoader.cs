@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GamaLoader : MonoBehaviour
 {
@@ -30,6 +31,7 @@ public class GamaLoader : MonoBehaviour
 
     public void LoadGameData()
     {
+       
         SaveGameData.Instance.LoadGame();
        // GameManager.Instance.OnGameDataLoaded?.Invoke();
         string fullPath = Path.Combine(Application.persistentDataPath, "SaveData_" + 0);

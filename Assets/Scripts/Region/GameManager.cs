@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 [Serializable]
 public class GameManager : MonoBehaviour
 {
@@ -49,6 +50,7 @@ public class GameManager : MonoBehaviour
         if (Instance != null)
         {
             Destroy(gameObject);
+           
 
         }
         else
@@ -68,15 +70,31 @@ public class GameManager : MonoBehaviour
     private void OnDisable()
     {
         OnGameDataLoaded -= GameLoaded;
+       
         //onAllyStateChanged -= ChangeStateType;
 
     }
     void GameLoaded()
     {
+      
         AllyStateList.Clear();
         AllyStateList = GetStatesByType(StateType.Ally);
+        StartCoroutine(UnloadAdditiveScene("LoadScene"));
     }
- public  void ChangeCapitalCity()
+    public IEnumerator UnloadAdditiveScene(string sceneName)
+    {
+        yield return new WaitForSeconds(1);
+        // Sahnenin yüklü olup olmadýðýný kontrol et
+        if (SceneManager.GetSceneByName(sceneName).isLoaded)
+        {
+            SceneManager.UnloadSceneAsync(sceneName);
+        }
+        else
+        {
+            Debug.LogWarning("Scene to unload is not loaded: " + sceneName);
+        }
+    }
+    public  void ChangeCapitalCity()
     {
         
         if (AllyStateList.Count > 0)
@@ -88,7 +106,7 @@ public class GameManager : MonoBehaviour
         else
         {
             ÝsGameOver = true;
-            GameManager.Instance.GameOver();
+          
 
         }
     }
@@ -167,16 +185,16 @@ public class GameManager : MonoBehaviour
     }
     public void GameOver()
     {
-       
-        UIManager.Instance.GetComponent<ShowPanelButton>().DoShowPanelWhitId(PanelID.GameOverPanel);
-        GameManager.Instance.IsRegionPanelOpen = true;
+       StartCoroutine(OpenGameOverPanel()); 
+        
     }
     //kullanýlmýyor
     IEnumerator OpenGameOverPanel()
     {
-        yield return new WaitForSeconds(10);
+        yield return new WaitForSeconds(0.5f);
 
-       
+        UIManager.Instance.GetComponent<ShowPanelButton>().DoShowPanelWhitId(PanelID.GameOverPanel);
+        GameManager.Instance.IsRegionPanelOpen = true;
     }
 
 

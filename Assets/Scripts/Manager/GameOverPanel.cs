@@ -12,6 +12,7 @@ public class GameOverPanel : MonoBehaviour
     {
         restartBtn = GetComponent<Button>();
         restartBtn.onClick.AddListener(OnButtonCliced);
+        SaveGameData.Instance.LoadGame(true);
     }
     private void OnDisable()
     {
@@ -20,10 +21,11 @@ public class GameOverPanel : MonoBehaviour
     void OnButtonCliced()
     {
         SoundManager.instance.Play("ButtonClick");
+      //  SceneManager.LoadScene("LoadScene", LoadSceneMode.Additive);
         SaveGameData.Instance.LoadGame(true);
         UIManager.Instance.GetComponent<HideAllPanelButton>().DoHidePanel();
         GameManager.Instance.IsRegionPanelOpen = false;
-       // SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+      
 
     }
 }

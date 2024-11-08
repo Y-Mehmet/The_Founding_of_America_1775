@@ -120,7 +120,7 @@ public class BuyPanel : MonoBehaviour
         List<Node> path = PathFindDeneme.PathInstance.GetPath(currentTradeStateName, currentStateName);
         if (path!= null && path.Count > 0)
         {
-            Debug.Log("path count " + path.Count);
+          //  Debug.Log("path count " + path.Count);
             deliveryTime = path.Count;
         }
         else

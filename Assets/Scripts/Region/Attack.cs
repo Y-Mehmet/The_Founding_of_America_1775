@@ -10,7 +10,7 @@ public class Attack : MonoBehaviour
     Sprite StateIcon;
    
     public Transform USA_Transform;
-    float diceLowerLimit = 90.5f, diceMidLimit=0.75f, diceUpperLimit=1.0f;
+    float diceLowerLimit = 0.33f, diceMidLimit=0.66f, diceUpperLimit=1.0f;
     public  int diceCount;
 
     public float attackDuration = 2.0f;
@@ -130,8 +130,9 @@ public IEnumerator AttackingCoroutine(string defendingState, bool isFirst= false
 
                             travelState.GetComponentInChildren<Flag>().flagList[3].gameObject.SetActive(true);
                             SoundManager.instance.Stop("Walking");
+                            SoundManager.instance.Stop("Walking2");
                             SoundManager.instance.Play("Bomb");
-                            yield return new  WaitForSeconds(4);
+                            yield return new  WaitForSeconds(2);
                             SoundManager.instance.Stop("Bomb");
                             SoundManager.instance.Play("Walking2");
                             travelState.GetComponentInChildren<Flag>().flagList[3].gameObject.SetActive(false);
