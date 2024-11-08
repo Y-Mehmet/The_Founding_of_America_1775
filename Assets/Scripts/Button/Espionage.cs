@@ -124,12 +124,15 @@ public class Espionage : MonoBehaviour
         int gold = ResourceManager.Instance.GetResourceAmount(ResourceType.Gold);
         if (gold >= spyCost)
         {
+            if (spyCost > 0)
+                SoundManager.instance.Play("Coins");
+            else
+                Debug.Log("espinocge gönderilmedi cost 0");
             ResourceManager.Instance.ReduceResource(ResourceType.Gold, spyCost);
             EnemyStateInfoPanel.Instance.ShowInfo(esca, sucs);
             ClearSlider(); // Slider'ı temizle
             UIManager.Instance.HideLastPanel();
-            if(spyCost>0)
-            SoundManager.instance.Play("Coins");
+           
         }
         else
         {

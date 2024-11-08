@@ -46,8 +46,10 @@ public class CitizenCard : MonoBehaviour
     {
         if(RegionClickHandler.staticState.GetGoldResValue()> price)
         {
-            if(price>0)
-            SoundManager.instance.Play("Coins");
+            if (price > 0)
+                SoundManager.instance.Play("Coins");
+            else
+                SoundManager.instance.Play("ButtonClick");
             RegionClickHandler.staticState.GoldSpend(price);
             RegionClickHandler.staticState.SetMorale(moralAddedValue);
         }

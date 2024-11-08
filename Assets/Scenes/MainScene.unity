@@ -9087,7 +9087,7 @@ MonoBehaviour:
     pitch: 1
     isLoop: 1
     hasCooldown: 0
-    isMusic: 0
+    isMusic: 1
     source: {fileID: 0}
   - name: DiceRoll
     clip: {fileID: 8300000, guid: eee18fd79a1bc4349b02fd81a333682e, type: 3}
@@ -9103,7 +9103,7 @@ MonoBehaviour:
     pitch: 1
     isLoop: 0
     hasCooldown: 0
-    isMusic: 0
+    isMusic: 1
     source: {fileID: 0}
   - name: DiceFight
     clip: {fileID: 8300000, guid: 68d56474f229e3e4e88cdb8b36651d9f, type: 3}
@@ -9119,7 +9119,7 @@ MonoBehaviour:
     pitch: 1
     isLoop: 1
     hasCooldown: 0
-    isMusic: 0
+    isMusic: 1
     source: {fileID: 0}
   - name: Walking2
     clip: {fileID: 8300000, guid: 8e952be81db0988458540f8e5cd2f943, type: 3}
@@ -9127,7 +9127,7 @@ MonoBehaviour:
     pitch: 0.5
     isLoop: 1
     hasCooldown: 0
-    isMusic: 0
+    isMusic: 1
     source: {fileID: 0}
   - name: Lost
     clip: {fileID: 8300000, guid: 068c688885f06a140a4f560bb6fa27ea, type: 3}
@@ -9135,7 +9135,7 @@ MonoBehaviour:
     pitch: 1
     isLoop: 0
     hasCooldown: 0
-    isMusic: 0
+    isMusic: 1
     source: {fileID: 0}
   - name: Coins
     clip: {fileID: 8300000, guid: 7fa6b7ad79ad67b4aa54ea49883cc9e0, type: 3}
@@ -9167,7 +9167,7 @@ MonoBehaviour:
     pitch: 1
     isLoop: 1
     hasCooldown: 0
-    isMusic: 0
+    isMusic: 1
     source: {fileID: 0}
   - name: Bomb
     clip: {fileID: 8300000, guid: 657dd33551541b442846db0f789a120e, type: 3}
@@ -9191,7 +9191,7 @@ MonoBehaviour:
     pitch: 1
     isLoop: 0
     hasCooldown: 0
-    isMusic: 0
+    isMusic: 1
     source: {fileID: 0}
   - name: Draw
     clip: {fileID: 8300000, guid: 068c688885f06a140a4f560bb6fa27ea, type: 3}
@@ -9199,7 +9199,7 @@ MonoBehaviour:
     pitch: 1
     isLoop: 0
     hasCooldown: 0
-    isMusic: 0
+    isMusic: 1
     source: {fileID: 0}
   - name: Defeat
     clip: {fileID: 8300000, guid: 6f6cf88b72a96fe47a663967aa7b0dbc, type: 3}
@@ -9207,7 +9207,7 @@ MonoBehaviour:
     pitch: 1
     isLoop: 0
     hasCooldown: 0
-    isMusic: 0
+    isMusic: 1
     source: {fileID: 0}
   - name: Cash
     clip: {fileID: 8300000, guid: 34a1822bb890d6240bd13bd4c4b9f121, type: 3}

@@ -17,6 +17,8 @@ public class SettingsBtn : MonoBehaviour
     {
         if (GameManager.Instance.IsAttackFinish && !GameManager.Instance.ÝsAttack)
         {
+            UIManager.Instance.HideAllPanel();
+           
             SoundManager.instance.Play("ButtonClick");
             UIManager.Instance.GetComponent<ShowPanelButton>().DoShowPanelWhitId(PanelID.Settings);
             GameManager.Instance.ChanngeIsRegionPanelOpenValueTrue();

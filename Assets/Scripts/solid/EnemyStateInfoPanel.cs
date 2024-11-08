@@ -27,7 +27,7 @@ public class EnemyStateInfoPanel : MonoBehaviour
     }
     private void OnEnable()
     {
-        State currnetState = RegionClickHandler.Instance?.currentState?.GetComponent<State>();
+        State currnetState = RegionClickHandler.staticState;
 
         if (currnetState != null)
         {
@@ -58,8 +58,8 @@ public class EnemyStateInfoPanel : MonoBehaviour
 
     public void ShowInfo(float esca, float sucs)
     {
+        State currnetState = RegionClickHandler.staticState;
 
-        
         if (currnetState != null)
         {
             
@@ -102,11 +102,15 @@ public class EnemyStateInfoPanel : MonoBehaviour
     {
         
         
-            happinesText.text = "Relations: " + ((int)currnetState.Morele).ToString();
+           if(currnetState == null) {
+
+            currnetState = RegionClickHandler.staticState;
+        }
+        happinesText.text = "Relations: " + ((int)currnetState.Morele).ToString();
         totalArmyPowerText.text = "Army: " + FormatNumber(currnetState.GetTotalArmyPower());
         mainResTypeText.text = "Main Resoruce: " + ((MainResourceType)currnetState.Resources).ToString();
-       
-     
+
+
     }
   
     public void FailedEspionage()

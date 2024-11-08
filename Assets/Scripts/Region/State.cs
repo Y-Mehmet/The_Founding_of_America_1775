@@ -120,21 +120,25 @@ public class State : MonoBehaviour
     IEnumerator DeclereWar()
     {
         MessageManager.AddMessage("The " + name + " State has raised arms against you! Prepare to defend your lands and honor.");
-        
 
         while (Morele <= 10)
         {
             int random = Random.Range(0, 10);
-           // Debug.LogWarning("random sayý " + random);
 
             if (random == 5 && GameManager.Instance.IsAttackFinish)
             {
-                //yield return new  WaitForSeconds(1);
+                // isRegionPanel'in false olmasýný bekle
+                while (GameManager.Instance.IsRegionPanelOpen == true) // isRegionPanel true olduðu sürece bekle
+                {
+                    yield return null; // Her frame'de kontrolü tekrar yap
+                }
+
                 // Savaþý baþlat ve coroutine’i sonlandýr
                 GameManager.Instance.ChangeIsAttackValueTrue();
+                UIManager.Instance.GetComponent<HideAllPanelButton>().DoHidePanel();
                 RegionClickHandler.Instance.currentState = null;
                 RegionClickHandler.staticState = null;
-                UIManager.Instance.GetComponent<HideLastPanelButton>().DoHidePanel();
+                Debug.LogWarning("random sayý 5 savaþ ilaný " + random);
 
                 Attack.Instance.Attacking(gameObject.name);
 
@@ -148,6 +152,7 @@ public class State : MonoBehaviour
         // Eðer Morele 10'dan yukarý çýkarsa savaþ durumu resetlenir
         isWarDeclared = false;
     }
+
 
 
     public void SubsucribeAction()

@@ -37,6 +37,7 @@ public class SellAllPanel : MonoBehaviour
     }
     void OnSellAllBtnCliceked()
     {
+        SoundManager.instance.Play("Cash");
         int earing = 0;
         foreach (ResourceData resource in RegionClickHandler.staticState.resourceData.Values)
         {

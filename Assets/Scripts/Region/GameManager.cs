@@ -42,6 +42,7 @@ public class GameManager : MonoBehaviour
     public event Action OnAttackStarted;
     public event Action OnAttackStopped;
     public Action OnGameDataLoaded;
+    public Action OnCloseBtnClicked;
 
 
 
