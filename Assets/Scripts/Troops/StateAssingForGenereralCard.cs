@@ -30,6 +30,7 @@ public class StateAssingForGenereralCard : MonoBehaviour
     }
     void OnButtonClicked()
     {
+        SoundManager.instance.Play("ButtonClick");
         GeneralManager.AssignGeneralToState(GameManager.AllyStateList[index], GeneralManager.generals[GeneralManager.GeneralIndex]);
         UIManager.Instance.GetComponent<HideLastPanelButton>().DoHidePanel();
     }

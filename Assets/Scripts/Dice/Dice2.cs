@@ -80,7 +80,7 @@ public class Dice2 : MonoBehaviour
         {
             // Hedef objeyi çarpýþma yönünde hareket ettir
             targetDice.transform.DOMove(newTargetPosition, shakingDuration / 2);
-            transform.DOMove((targetPos ), shakingDuration / 4);
+            transform.DOMove((targetPos ), shakingDuration / 4).OnComplete(() => { SoundManager.instance.Play("DiceFight"); });
         });
     }
 
@@ -95,6 +95,7 @@ public class Dice2 : MonoBehaviour
         transform.DOMove(midPoint, shakingDuration / 2).SetEase(Ease.Linear);
         targetDice.transform.DOMove(midPoint, shakingDuration / 2).SetEase(Ease.Linear).OnComplete(() =>
         {
+          { SoundManager.instance.Play("DiceFight"); }
             // Çarpýþmadan sonra zýt yönlere savur
             Vector3 dir1 = (transform.position - targetDice.transform.position).normalized;
             Vector3 dir2 = (targetDice.transform.position - transform.position).normalized;

@@ -41,6 +41,7 @@ public enum PanelID
     SendGiftPanel,
     MessagePanel,
     HelpPanel,
+    Settings,
 
 
     

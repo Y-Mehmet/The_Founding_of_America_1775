@@ -1,5 +1,6 @@
 
 using System;
+using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -182,6 +183,7 @@ public class TradeTransactionCard : MonoBehaviour
                     State stateFlagIndex = currentState;
                         if (currentState.resourceData[ResourceType.Diamond].currentAmount >= spending)
                         {
+                        SoundManager.instance.Play("Gem");
                         float goldValue = Mathf.Ceil(GameEconomy.Instance.GetGoldValue(type, spending));
                         bool isAllyState = GameManager.AllyStateList.Contains(transaction.tradeState);
                         currentState.InstantlyResource(type, quantity, spending);
@@ -197,8 +199,8 @@ public class TradeTransactionCard : MonoBehaviour
                         }
                         else
                         {
-                        
-                            Debug.Log(" dimond dont eneaugh for buy resource");
+                        SoundManager.instance.Play("Error");
+                      //  Debug.Log(" dimond dont eneaugh for buy resource");
                         }
                     // Debug.LogWarning($"res satýn alýndý quantaty {quantity} harcanan altýn {spending}");
 
@@ -206,7 +208,11 @@ public class TradeTransactionCard : MonoBehaviour
 
                 }
                 else
+                {
+                    SoundManager.instance.Play("Error");
                     Debug.LogWarning(" spending or cuantity value 0");
+                }
+                   
             }
             else
             {
@@ -225,36 +231,52 @@ public class TradeTransactionCard : MonoBehaviour
                         if (currentState.resourceData[ResourceType.Gold].currentAmount >= spending)
                         {
                             float deliveryTime;
-                            if (/*Neighbor.Instance != null && currentState != null && currentState.name != null && */transaction.tradeState != null )
+                            if (/*Neighbor.Instance != null && currentState != null && currentState.name != null && */transaction.tradeState != null)
                             {
+                               
                                 if (Neighbor.Instance.AreNeighbors(currentState.name, transaction.tradeState.name))
                                 {
-                                    deliveryTime = GameManager.neigbordTradeTime;
+                                    deliveryTime = 2;
                                 }
                                 else
                                 {
-                                    deliveryTime = GameManager.nonNeigbordTradeTime;
-                                }
-                                   
 
-                               // currentState.BuyyResource(type, quantity, spending, deliveryTime);
+                                    List<Node> path = PathFindDeneme.PathInstance.GetPath(currentState.name, transaction.tradeState.name);
+                                    deliveryTime = 11;
+                                    if (path != null && path.Count > 0)
+                                    {
+                                        //   Debug.Log("path count " + path.Count);
+                                        deliveryTime = path.Count;
+                                    }
+                                    else
+                                    {
+                                        Debug.Log("path is null");
+
+                                    }
+                                }
+
+
+                                // currentState.BuyyResource(type, quantity, spending, deliveryTime);
                                 bool isAllyState = GameManager.AllyStateList.Contains(currentState);
                                 transaction.tradeState.SellResource(type, quantity, spending, isAllyState);
-                                int tradeLimit =(int) transaction.tradeState.tradeLists[0].limit[transaction.productSpriteIndex - 1];
+                                int tradeLimit = (int)transaction.tradeState.tradeLists[0].limit[transaction.productSpriteIndex - 1];
                                 newTransaction = new TradeHistory(TradeType.Import, GameDateManager.instance.CalculateDeliveryDateTime(deliveryTime), (int)type, quantity, spending, stateFlagIndex, transaction.tradeState, tradeLimit);
                                 TradeManager.instance.AddTransaction(newTransaction);
                                 TradeManager.TradeTransactionQueue.Add(newTransaction);
                                 stateFlagIndex.GoldSpend(((int)spending));
+                                SoundManager.instance.Play("Coins");
                                 TradeManager.SortTradeTransactionsByDeliveryTime();
-                            }else
+                            }
+                            else
                             {
                                 Debug.LogWarning("neigbýrd is null");
 
                             }
-                            
+
                         }
                         else
                         {
+                            SoundManager.instance.Play("Error");
                             Debug.Log(" gold dont eneaugh for buy resource");
                         }
                     }
@@ -262,17 +284,19 @@ public class TradeTransactionCard : MonoBehaviour
                     {
                         if (currentState.resourceData[type].currentAmount >= quantity)
                         {
+                            SoundManager.instance.Play("Cash");
                             bool isAllyState = GameManager.AllyStateList.Contains(transaction.tradeState);
                             currentState.SellResource(type, quantity, spending, isAllyState);
                             transaction.tradeState.BuyyResource(type, quantity, spending);
 
                             int tradeLimit = (int)transaction.tradeState.tradeLists[1].limit[transaction.productSpriteIndex - 1];
-                            newTransaction = new TradeHistory(TradeType.Export, GameDateManager.instance.GetCurrentDate(), (int)type, quantity, spending, stateFlagIndex, transaction.tradeState,tradeLimit);
+                            newTransaction = new TradeHistory(TradeType.Export, GameDateManager.instance.GetCurrentDate(), (int)type, quantity, spending, stateFlagIndex, transaction.tradeState, tradeLimit);
                             TradeManager.instance.AddTransaction(newTransaction);
                         }
                         else
                         {
-                            Debug.LogWarning("res not eneught for sell ");
+                            SoundManager.instance.Play("Error");
+                            //Debug.LogWarning("res not eneught for sell ");
                         }
 
 
@@ -287,7 +311,7 @@ public class TradeTransactionCard : MonoBehaviour
 
                 }
                 else
-                    Debug.LogWarning(" spending or cuantity value 0");
+                    SoundManager.instance.Play("Error");
             }
         }
         //else

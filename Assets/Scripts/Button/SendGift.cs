@@ -120,6 +120,7 @@ public class SendGift : MonoBehaviour
         int gold = ResourceManager.Instance.GetResourceAmount(ResourceType.Gold);
         if (gold >= spyCost)
         {
+            SoundManager.instance.Play("Coins");
             ResourceManager.Instance.ReduceResource(ResourceType.Gold, spyCost);
             RegionClickHandler.staticState.Morele += slider.value;
           
@@ -128,6 +129,7 @@ public class SendGift : MonoBehaviour
         }
         else
         {
+            SoundManager.instance.Play("Error");
             goldBtnText.color = Color.red;
             Debug.LogWarning(" altýn yetersiz");
         }
@@ -140,6 +142,7 @@ public class SendGift : MonoBehaviour
         int gemValue = (int)GameEconomy.Instance.GetGemValue(spyCost);
         if (gem >= gemValue)
         {
+            SoundManager.instance.Play("Gem");
             ResourceManager.Instance.ReduceResource(ResourceType.Diamond, gemValue);
             RegionClickHandler.staticState.Morele += slider.value;
             ClearSlider(); // Slider'ý temizle
@@ -147,6 +150,7 @@ public class SendGift : MonoBehaviour
         }
         else
         {
+            SoundManager.instance.Play("Error");
             gemBtnText.color = Color.red;
             //Debug.LogWarning($"Casus gönderilemiyor; gem yetersiz {gem} cost { gemValue}");
         }

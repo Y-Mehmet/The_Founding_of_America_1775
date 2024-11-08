@@ -24,6 +24,8 @@ public class UIManager : MonoBehaviour
     public void HideAllPanel()
     {
         GetComponent<HideAllPanelButton>().DoHidePanel();
+        RegionClickHandler.Instance.CloseBtn_CloseAll();
+        GameManager.Instance.ChanngeIsRegionPanelOpenValueFalse();
     }
 
 }

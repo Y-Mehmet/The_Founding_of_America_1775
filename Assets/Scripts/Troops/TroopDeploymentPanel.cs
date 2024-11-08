@@ -170,6 +170,7 @@ public class TroopDeploymentPanel : MonoBehaviour
         if (currnetState.GetGoldResValue() >= totalCost)
         {
             currnetState.GoldSpend(totalCost);
+            SoundManager.instance.Play("Coins");
             TroopyManager.Instance.SendTropy(totalSecond, navalCount, landCount);
             Debug.Log($"Asker gönderildi: Deniz {navalCount}, Kara {landCount}");
         }
@@ -185,6 +186,7 @@ public class TroopDeploymentPanel : MonoBehaviour
         if (currnetState.GetGemResValue() >= totalGemCost)
         {
             currnetState.GemSpend(totalGemCost);
+            SoundManager.instance.Play("Gem");
             TroopyManager.Instance.SendTropy(0, navalCount, landCount);
             Debug.Log($"Asker gönderildi: Deniz {navalCount}, Kara {landCount}");
         }

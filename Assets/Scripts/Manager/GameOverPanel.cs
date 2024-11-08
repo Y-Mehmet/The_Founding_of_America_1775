@@ -19,7 +19,7 @@ public class GameOverPanel : MonoBehaviour
     }
     void OnButtonCliced()
     {
-        //  Debug.LogWarning(" on button click çalýþtý");
+        SoundManager.instance.Play("ButtonClick");
         SaveGameData.Instance.LoadGame(true);
         UIManager.Instance.GetComponent<HideAllPanelButton>().DoHidePanel();
         GameManager.Instance.IsRegionPanelOpen = false;

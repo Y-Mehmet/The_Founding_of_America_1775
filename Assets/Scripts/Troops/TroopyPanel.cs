@@ -193,6 +193,7 @@ public class TroopyPanel : MonoBehaviour
     }
     void OnBarrakMacClicked()
     {
+        SoundManager.instance.Play("ButtonClick");
         int maxBarrack = 0;
         int currentGold= currentState.GetGoldResValue();
         int currentGem= currentState.GetGemResValue();
@@ -207,6 +208,7 @@ public class TroopyPanel : MonoBehaviour
     }
     void OnLandMacClicked()
     {
+        SoundManager.instance.Play("ButtonClick");
         int currentGold = currentState.GetGoldResValue();
         int currentGem = currentState.GetGemResValue();
         int soliderQuota = currentState.GetSoliderQuota() < 0 ? 0 : currentState.GetSoliderQuota();
@@ -221,6 +223,7 @@ public class TroopyPanel : MonoBehaviour
     }
     void OnNavalMacClicked()
     {
+        SoundManager.instance.Play("ButtonClick");
         int currentGold = currentState.GetGoldResValue();
         int currentGem = currentState.GetGemResValue();
         int quata = currentState.GetSoliderQuota()<0?0: currentState.GetSoliderQuota();
@@ -294,15 +297,23 @@ public class TroopyPanel : MonoBehaviour
             {
                 currentState.IncreaseArmyBarrackSize(value);
                 if (resType == ResourceType.Gold)
+                {
+                    if (cost > 0)
+                        SoundManager.instance.Play("Coins");
                     currentState.GoldSpend(cost);
+                }                    
                 else
+                {
                     currentState.GemSpend(cost);
+                    if (cost > 0)
+                        SoundManager.instance.Play("Gem");
+                }
 
                 BarrackInputField.text = "0";
             }
             else
             {
-               
+                SoundManager.instance.Play("Error");
             }
 
             UpdateUI(); // UI'yi güncelle
@@ -320,15 +331,23 @@ public class TroopyPanel : MonoBehaviour
             {
                 currentState.IncreaseNavalArmySize(value);
                 if (resType == ResourceType.Gold)
+                {
+                    if (cost > 0)
+                        SoundManager.instance.Play("Coins");
                     currentState.GoldSpend(cost);
+                }                   
                 else
+                {
+                    if (cost > 0)
+                        SoundManager.instance.Play("Gem");
                     currentState.GemSpend(cost);
+                }
 
                 NavalInputField.text = "0";
             }
             else
             {
-               
+                SoundManager.instance.Play("Error");
             }
 
             UpdateUI(); // UI'yi güncelle
@@ -346,15 +365,23 @@ public class TroopyPanel : MonoBehaviour
             {
                 currentState.IncreaseLandArmySize(value);
                 if (resType == ResourceType.Gold)
+                {
                     currentState.GoldSpend(cost);
+                    if (cost > 0)
+                        SoundManager.instance.Play("Coins");
+                }
                 else
+                {
                     currentState.GemSpend(cost);
+                    if(cost>0)
+                    SoundManager.instance.Play("Gem");
+                }
 
                 LandInputField.text = "0";
             }
             else
             {
-              
+                SoundManager.instance.Play("Error");
             }
 
             UpdateUI(); // UI'yi güncelle

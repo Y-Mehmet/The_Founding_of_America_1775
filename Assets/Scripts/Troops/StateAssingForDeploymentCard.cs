@@ -58,6 +58,7 @@ public class StateAssingForDeploymentCard : MonoBehaviour
         {
             DestinationState = AllyStateList[index];
         }
+        SoundManager.instance.Play("ButtonClick");
         UIManager.Instance.GetComponent<HideLastPanelButton>().DoHidePanel();
     }
 }

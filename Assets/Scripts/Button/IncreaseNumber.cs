@@ -26,9 +26,11 @@ public class IncreaseNumber : MonoBehaviour
 
             // Artýrýlmýþ deðeri tekrar Input Field'a yaz
             inputField.text = currentValue.ToString();
+            SoundManager.instance.Play("ButtonClick");
         }
         else
         {
+            SoundManager.instance.Play("Error");
             // Eðer sayý geçerli deðilse (örneðin, bir metin girilmiþse), hata mesajý gösterebilir veya input'u sýfýrlayabilirsin
             Debug.LogWarning("InputField'daki deðer geçerli bir sayý deðil.");
             inputField.text = "0"; // Alternatif olarak, baþlangýç deðeri olarak 0 ata
@@ -46,7 +48,7 @@ public class IncreaseNumber : MonoBehaviour
         int currentValue;
         if (int.TryParse(inputField.text, out currentValue))
         {
-            
+            SoundManager.instance.Play("ButtonClick");
             currentValue += value;
 
             // Artýrýlmýþ deðeri tekrar Input Field'a yaz
@@ -54,7 +56,7 @@ public class IncreaseNumber : MonoBehaviour
         }
         else
         {
-           
+            SoundManager.instance.Play("Error");
             Debug.LogWarning("InputField'daki deðer geçerli bir sayý deðil.");
             inputField.text = "0";
         }

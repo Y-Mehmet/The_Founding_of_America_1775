@@ -13,6 +13,7 @@ public class SellAllPanel : MonoBehaviour
     private void OnEnable()
     {
         sellAllButton.onClick.AddListener(OnSellAllBtnCliceked);
+        cancelButton.onClick.AddListener(CancelButtonClicked);
         InvokeRepeating("CalculateSellAllPrice", 0, GameManager.gameDayTime);
         
     }
@@ -20,6 +21,7 @@ public class SellAllPanel : MonoBehaviour
     {
         
        sellAllButton.onClick.RemoveListener(OnSellAllBtnCliceked);
+        cancelButton.onClick.RemoveListener(CancelButtonClicked);
         CancelInvoke("CalculateSellAllPrice");
     }
     int CalculateSellAllPrice()
@@ -50,6 +52,11 @@ public class SellAllPanel : MonoBehaviour
             " This thoughtless action not only devalues the labor of our citizens but also reveals a complete lack of respect for our efforts." +
             " As a result of your decisions, the morale of the people has dropped by 10 points! We expect our leaders to defend our rights, not to trample on them!");
         totalSellPrice = 0;
+        UIManager.Instance.HideLastPanel();
+    }
+    void CancelButtonClicked()
+    {
+        SoundManager.instance.Play("ButtonClick");
         UIManager.Instance.HideLastPanel();
     }
 

@@ -124,13 +124,16 @@ public class WitchHunt : MonoBehaviour
         int gold = ResourceManager.Instance.GetResourceAmount(ResourceType.Gold);
         if (gold >= witchCost)
         {
+
+            SoundManager.instance.Play("Coins");
             ResourceManager.Instance.ReduceResource(ResourceType.Gold, witchCost);
 
             SendWitch();
             ClearSlider();
             UIManager.Instance.HideLastPanel();
-        }
-       
+        }else
+            SoundManager.instance.Play("Error");
+
     }
     public void SendWitch()
     {
@@ -152,12 +155,15 @@ public class WitchHunt : MonoBehaviour
         int gemValue = (int)GameEconomy.Instance.GetGemValue(witchCost);
         if (gem >= gemValue)
         {
+            SoundManager.instance.Play("Gem");
             ResourceManager.Instance.ReduceResource(ResourceType.Diamond, gemValue);
             SendWitch();
             ClearSlider();
             UIManager.Instance.HideLastPanel();
-        }
-        
+
+        }else
+            SoundManager.instance.Play("Error");
+
     }
 
     void ChangeActiveStarGameObject(int index)

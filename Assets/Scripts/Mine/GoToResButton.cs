@@ -15,6 +15,7 @@ public class GoToResButton : MonoBehaviour
     }
     void ButtonisClicked()
     {
+        SoundManager.instance.Play("ButtonClick");
         MineManager.instance.SetCurrentResource(resourceType);
         ResourceType currentRes = MineManager.instance.curentResource;
         resourceType = MineManager.instance.MineRequiredResList[currentRes].RequiredResTypeList[index];

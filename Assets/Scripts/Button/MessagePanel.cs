@@ -34,6 +34,7 @@ public class MessagePanel : MonoBehaviour
     void OnCleanBtnClicked()
     {
         MessageManager.messages.Clear();
+        SoundManager.instance.Play("Clean");
         ShowMessage();
     }
 }

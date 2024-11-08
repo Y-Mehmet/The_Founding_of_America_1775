@@ -65,7 +65,8 @@ public class SaveGameData : MonoBehaviour
         gameData.tradeTransactionList = TradeManager.TradeTransactionQueue;
         gameData.messages = MessageManager.messages;
         gameData.unreadMessageCount = MessageManager.unreadMessageCount;
-       
+        gameData.musicVolume = SoundManager.instance.musicVolume;
+        gameData.soundVolume= SoundManager.instance.soundVolume;
 
         data.gameData = gameData;
         foreach (Transform item in Usa.Instance.transform)
@@ -161,8 +162,10 @@ public class SaveGameData : MonoBehaviour
             MessageManager.messages = data.gameData.messages;
             MessageManager.unreadMessageCount = data.gameData.unreadMessageCount;
             MessageManager.OnAddMessage?.Invoke(data.gameData.unreadMessageCount);
+            SoundManager.instance.musicVolume = data.gameData.musicVolume;
+            SoundManager.instance.soundVolume = data.gameData.soundVolume;
             GeneralManager.stateGenerals = data.gameData.generalStatesList
-          .Select((state, index) => new { state= Usa.Instance.FindStateByName(state), general = data.gameData.assignedGeneralList[index] })
+            .Select((state, index) => new { state= Usa.Instance.FindStateByName(state), general = data.gameData.assignedGeneralList[index] })
           .ToDictionary(x => x.state, x => x.general);
             foreach (General general in data.gameData.assignedGeneralList)
             {
@@ -322,6 +325,8 @@ public class GameData
     public float UnitArmyPowerAddedValue;
     public int ProductionAddedValue;
     public float PopulationAddedValue;
+    public float musicVolume; // Müzik ses seviyesi
+    public float soundVolume;
     public List<string> messages;
    
     public int unreadMessageCount;

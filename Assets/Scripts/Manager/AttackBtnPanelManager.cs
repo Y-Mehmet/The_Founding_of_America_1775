@@ -53,8 +53,9 @@ public class AttackBtnPanelManager : MonoBehaviour
             warDate = GameDateManager.instance.GetCurrentDataString();
             if( Attack.Instance.numberOfDiceWonByThePlayer>Attack.Instance.numberOfDiceWonByTheRival)
             {
+               
                 warResultType = WarResultType.Victory;
-                
+               
                 if (generalIndex != "-")
                 {
                     
@@ -91,6 +92,7 @@ public class AttackBtnPanelManager : MonoBehaviour
                 }
                
             }
+            SoundManager.instance.Play(warResultType.ToString());
             War war=new(generalIndex ,attackingState,defendingState,warResultType,warDate);
 
             WarHistory.generalIndexAndWarList.Push( war);
@@ -143,6 +145,7 @@ public class AttackBtnPanelManager : MonoBehaviour
         retreatBtn.SetActive(false);
         plunderBtn.SetActive(false);
         annexBtn.SetActive(false);
+        SoundManager.instance.Stop(warResultType.ToString());
     }
     void SetRandomQuotes(string resultType , bool isGeneralAssingned=false)
     {

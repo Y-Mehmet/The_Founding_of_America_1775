@@ -20,6 +20,7 @@ public class StatsFlagCard : MonoBehaviour
     }
     void OnButtonClicked()
     {
+        SoundManager.instance.Play("ButtonClick");
         RegionClickHandler.statsState= GameManager.AllyStateList[index];
         RegionClickHandler.Instance.onStatsStateChanged?.Invoke();
     }

@@ -17,7 +17,8 @@ public class Retreat : MonoBehaviour
             RegionClickHandler.staticState = null;
             UIManager.Instance.GetComponent<HideAllPanelButton>().DoHidePanel();
             GameManager.Instance.ChanngeIsRegionPanelOpenValueFalse();
-        if(GameManager.Instance.ÝsGameOver)
+        SoundManager.instance.Play("Theme");
+        if (GameManager.Instance.ÝsGameOver)
         {
             GameManager.Instance.GameOver();
             

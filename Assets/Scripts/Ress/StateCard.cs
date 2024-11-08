@@ -156,6 +156,7 @@ public class StateCard : MonoBehaviour
             }
             
         }
+        SoundManager.instance.Play("ButtonClick");
         UIManager.Instance.GetComponent<HideLastPanelButton>().DoHidePanel();
          
             

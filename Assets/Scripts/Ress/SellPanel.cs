@@ -152,6 +152,7 @@ public class SellPanel : MonoBehaviour
     }
     public void MacButtonClicked()
     {
+        SoundManager.instance.Play("ButtonClick");
         resLimit =(int)tradeState.tradeLists[0].limit[((int)curentResource) - 1];
         amountAvailable = (int)staticState.resourceData[curentResource].currentAmount;
         quantity = (resLimit > amountAvailable ? amountAvailable : resLimit);
@@ -172,7 +173,7 @@ public class SellPanel : MonoBehaviour
     public void SellButtonClicked()
     {
         ResourceType type = curentResource;
-        
+      
         float earing;
         if (float.TryParse(""+ParseFormattedNumber(contrackPriceValueText.text), out earing))
         {
@@ -182,6 +183,7 @@ public class SellPanel : MonoBehaviour
 
                 if (quantity<= currentState.resourceData[type].currentAmount)
                 {
+                    SoundManager.instance.Play("Cash");
                     bool isAllyState = GameManager.AllyStateList.Contains(ResourceManager.Instance.CurrentTradeState);
                     currentState.SellResource(type, quantity, earing,isAllyState);
                     ResourceManager.Instance.CurrentTradeState.BuyyResource(type, quantity, earing);

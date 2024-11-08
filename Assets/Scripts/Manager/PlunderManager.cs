@@ -32,9 +32,11 @@ public class PlunderManager : MonoBehaviour
                 //Debug.LogWarning($" ilk altýn deðreleri eklemmenden önce  ");
                 //Debug.LogWarning($" atafck state {attackState.name} gold value {attackState.resourceData[ResourceType.Gold].currentAmount} ");
                 //Debug.LogWarning($" def state {defState.name} gold value {defState.resourceData[ResourceType.Gold].currentAmount} ");
+
+                attackState.SetMorale(5);
                 if(isAddTrue)
                 {
-                   
+                    attackState.SetMorale(5);
                     attackState.AddResource(res);
 
                 }

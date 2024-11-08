@@ -74,7 +74,8 @@ public class RegionClickHandler : MonoBehaviour
                                            .FirstOrDefault(selectable => ((MonoBehaviour)selectable).enabled);
                         if (selectable != null)
                         {
-                          
+                            SoundManager.instance.Stop("War");
+                            SoundManager.instance.Play("Walking");
                             selectable.Attack2();
                         }
                         else

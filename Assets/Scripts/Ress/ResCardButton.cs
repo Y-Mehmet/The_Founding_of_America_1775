@@ -20,6 +20,7 @@ public class ResCardButton : MonoBehaviour
     }
     void SetCurentResource()
     {
+        SoundManager.instance.Play("ButtonClick");
         if (gameObject.transform.GetChild(1).TryGetComponent<TextMeshProUGUI>(out var resName))
         {
             string resourceString = resName.text.ToString();

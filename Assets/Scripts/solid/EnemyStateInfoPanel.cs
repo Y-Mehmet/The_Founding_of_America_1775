@@ -27,10 +27,11 @@ public class EnemyStateInfoPanel : MonoBehaviour
     }
     private void OnEnable()
     {
-        currnetState = RegionClickHandler.Instance.currentState.GetComponent<State>();
-        if(currnetState != null)
+        State currnetState = RegionClickHandler.Instance?.currentState?.GetComponent<State>();
+
+        if (currnetState != null)
         {
-            stateNameText.text= currnetState.name;
+            stateNameText.text = currnetState.name;
 
             Sprite flag = currnetState.StateIcon;
             if (flag != null)
@@ -39,14 +40,14 @@ public class EnemyStateInfoPanel : MonoBehaviour
             }
             else
             {
-                Debug.LogError("falg is null");
+                Debug.LogWarning("Flag is null, no icon to display.");
             }
-            
         }
         else
         {
-            Debug.LogError("curent state is null");
+            Debug.LogWarning("Current state is null, skipping icon and text updates.");
         }
+
     }
     private void OnDisable()
     {

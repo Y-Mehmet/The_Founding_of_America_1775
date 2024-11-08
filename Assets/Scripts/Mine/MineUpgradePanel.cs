@@ -167,6 +167,7 @@ public class MineUpgradePanel : MonoBehaviour
     }
     public void MacButtonClicked()
     {
+        SoundManager.instance.Play("ButtonClick");
        float maxProduction = GetMaxProductionMineCount();
 
         // maxProduction deðerini kullanarak gerekli iþlemleri yapabilirsiniz.
@@ -231,10 +232,14 @@ public class MineUpgradePanel : MonoBehaviour
                     }
                     spendRes.Add(ResourceType.Gold, -buyButtonCoinValue);
                     currentState.AddResource(spendRes);
+                    SoundManager.instance.Play("Upgrade");
                     
                     currentState.resourceData[currentResType].mineCount += quantity;
                     MineCountText.text = FormatNumber(currentState.resourceData[currentResType].mineCount);
                     inputField.text = "0";
+
+                }else
+                {
 
                 }
             }
@@ -251,6 +256,7 @@ public class MineUpgradePanel : MonoBehaviour
         {
             if (int.TryParse(inputField.text, out quantity))
             {
+                SoundManager.instance.Play("Upgrade");
                 Dictionary<ResourceType, float> spendRes = new Dictionary<ResourceType, float>();
                 spendRes.Add(ResourceType.Diamond, -instatnlyButtonGemValue);
                 currentState.AddResource(spendRes);

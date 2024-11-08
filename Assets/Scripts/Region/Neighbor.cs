@@ -23,7 +23,7 @@ class Neighbor
     public static Node wyoming = new Node("Wyoming");
     public static Node southDakota = new Node("South Dakota");
     public static Node iowa = new Node("Iowa");
-    public static Node illinois = new Node("Illinois");
+    public static Node illinois = new Node("Ýllinois");
     public static Node michigan = new Node("Michigan");
     public static Node massachusetts = new Node("Massachusetts");
     public static Node newJersey = new Node("New Jersey");
@@ -100,8 +100,8 @@ class Neighbor
             {
                 if (i == 0)
                 {
-                    // Ýlk kelimenin tamamýný küçük yap (örn: "new")
-                    result += words[i].ToLower();
+                    // Ýlk kelimenin tamamýný küçük yaparken Ýngilizce kurallara göre (örn: "new")
+                    result += words[i].ToLowerInvariant();
                 }
                 else
                 {
@@ -113,6 +113,7 @@ class Neighbor
 
         return result;
     }
+
 
 
     // Adds a new city to the adjacency list

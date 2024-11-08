@@ -28,6 +28,7 @@ public class PlusBtn : MonoBehaviour
 
     void OnButtonClicked()
     {
+        SoundManager.instance.Play("ButtonClick");
         // Mevcut deðeri al
         int currentValue;
         // InputField'daki mevcut deðeri tamsayýya çevir

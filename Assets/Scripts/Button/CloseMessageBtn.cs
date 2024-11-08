@@ -17,7 +17,7 @@ public class CloseMessageBtn : MonoBehaviour
     }
     void OnClicked()
     {
-      
+        SoundManager.instance.Play("ButtonClick");
         UIManager.Instance.HideLastPanel();
         GameManager.Instance.ChanngeIsRegionPanelOpenValueFalse();
     }

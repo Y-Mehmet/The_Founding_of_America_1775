@@ -18,6 +18,8 @@ public class AttackBtn : MonoBehaviour
     void OnClikedBtn()
     {
         GameManager.Instance.ChangeIsAttackValueTrue();
+        SoundManager.instance.Play("War");
+        SoundManager.instance.Stop("Theme");
 
     }
 }

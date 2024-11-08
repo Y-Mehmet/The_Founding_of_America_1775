@@ -15,6 +15,7 @@ public class InfoBtn : MonoBehaviour
     }
     void OnClicked()
     {
+        SoundManager.instance.Play("ButtonClick");
         UIManager.Instance.GetComponent<ShowPanelButton>().DoShowPanelWhitId(PanelID.HelpPanel);
     }
 }

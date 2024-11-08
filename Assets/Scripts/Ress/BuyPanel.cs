@@ -278,7 +278,7 @@ public class BuyPanel : MonoBehaviour
  
     public void MacButtonClicked()
     {
-
+        SoundManager.instance.Play("ButtonClick");
       
         int amountAvailable= (int) tradeState.resourceData[ResourceManager.curentResource].currentAmount;
         int limit =(int) tradeState.tradeLists[1].limit[(int)ResourceManager.curentResource - 1];
@@ -293,9 +293,10 @@ public class BuyPanel : MonoBehaviour
     }
     public void BuyButtonClicked()
     {
+
         ResourceType type = ResourceManager.curentResource;
         float spending;
-        if (true)
+      
         {
             spending = ParseFormattedNumber(contrackPriceValueText.text);
             int limit = (int)tradeState.tradeLists[1].limit[(int)ResourceManager.curentResource - 1];
@@ -312,6 +313,7 @@ public class BuyPanel : MonoBehaviour
                             bool isAllyState = GameManager.AllyStateList.Contains(ResourceManager.Instance.CurrentTradeState);
                             tradeState.SellResource(type, quantity, spending, isAllyState);
                             currentState.GoldSpend(((int)spending));
+                            SoundManager.instance.Play("Coins");
                             // DecraseTradeLimit((int)quantity);
 
                              State stateFlagIndex = currentState;
@@ -327,7 +329,9 @@ public class BuyPanel : MonoBehaviour
                             // Debug.LogWarning($"res satýn alýndý quantaty {quantity} harcanan altýn {spending}");
                         }
                         else
-                        { Debug.LogError("delivery time is null"); }
+                        { Debug.LogError("delivery time is null");
+                            SoundManager.instance.Play("Error");
+                        }
                    
                     }
                     
@@ -342,9 +346,7 @@ public class BuyPanel : MonoBehaviour
             else
                 Debug.LogWarning(" spending value 0");
         }
-        else
-            Debug.LogWarning("spending value can not parse float");
-
+       
 
     }
     public void InstantlyButtonClicked()

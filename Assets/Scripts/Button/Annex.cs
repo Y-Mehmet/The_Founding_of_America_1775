@@ -22,6 +22,7 @@ public class Annex : MonoBehaviour
             RegionClickHandler.staticState = null;
             UIManager.Instance.GetComponent<HideAllPanelButton>().DoHidePanel();
             GameManager.Instance.ChanngeIsRegionPanelOpenValueFalse();
+            SoundManager.instance.Play("Theme");
         }
         else
             Debug.LogWarning("def state is null");

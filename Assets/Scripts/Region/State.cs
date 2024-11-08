@@ -175,9 +175,20 @@ public class State : MonoBehaviour
     }
     public   void SetMorale(int morale)
     {
+        if (moreleCoroutine != null)
+        {
+            StopCoroutine(moreleCoroutine);
+            moreleCoroutine = null;
+        }
         Morele += morale;
         Morele = Morele > 100 ? 100 : Morele;
         Morele = Morele < 0 ? 0 : Morele;
+        if (moreleCoroutine == null)
+        {
+            moreleCoroutine = StartCoroutine(ChangeMorale());
+        }
+           
+
     }
     public int GetArmyBarrackSize()
     {
@@ -296,7 +307,7 @@ public class State : MonoBehaviour
                 {
                     // Exponential etki: Farkýn karesi veya baþka bir üs
 
-                    taxSatisfactionRate -= Mathf.Pow(result, 1.15f); // Farkýn karesi (result^2)
+                    taxSatisfactionRate -= Mathf.Pow(result, 1.25f); // Farkýn karesi (result^2)
 
                 }
                 else
@@ -508,13 +519,17 @@ public class State : MonoBehaviour
             if(Morele<=10)
             {
                 int rand = UnityEngine.Random.Range(0, 10);
-                if(rand==9)
+                if(rand==9 && GameManager.Instance.IsAttackFinish)
                 {
                     LostState();
+                    UIManager.Instance.HideAllPanel();
                     MessageManager.AddMessage("With dwindling resources and shattered morale, the spirit of the people fades." +
     " Once-loyal citizens abandon their allegiance as despair takes root. Cries for change grow louder" +
     " and discontent sweeps across " + name + " like a wildfire. In the final hour, the people seize their fate," +
     " toppling the weakened state that failed them in their hour of need. Rebellion has consumed " + name + ".");
+                    UIManager.Instance.GetComponent<ShowPanelButton>().DoShowPanelWhitId(PanelID.MessagePanel);
+                    MessageManager.unreadMessageCount = 0;
+                    MessageManager.OnAddMessage?.Invoke(0);
 
                     // Türkçe karþýlýk:
                     // "Kaynaklar tükendikçe ve moraller paramparça oldukça, halkýn ruhu zayýflýyor. Bir zamanlar sadýk olan vatandaþlar, umutsuzluk kök salarken baðlýlýklarýný terk eder." +
@@ -640,6 +655,7 @@ public class State : MonoBehaviour
                             }
                             if (GetGoldResValue() >= goldValue)
                             {
+                               
                                 GoldSpend(goldValue);
                             }
                             else if (ResourceManager.Instance.GetResourceAmount(ResourceType.Gold) > goldValue)
@@ -808,6 +824,7 @@ public class State : MonoBehaviour
         if( IsCapitalCity)
         {
             transform.GetComponentInChildren<Flag>().capitalFlag.SetActive(false);
+            IsCapitalCity = false;
             GameManager.Instance.ChangeCapitalCity();
         }
         
@@ -878,11 +895,13 @@ public class State : MonoBehaviour
 
 public void GoldSpend(int value)
     {
+       
         resourceData[ResourceType.Gold].currentAmount -= value;
 
     }
 public void GemSpend(int value)
     {
+        
         resourceData[ResourceType.Diamond].currentAmount -= value;
     }
     

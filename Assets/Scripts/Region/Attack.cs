@@ -1,12 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
-using TMPro;
 using UnityEngine;
 using System.Linq;
-using DG.Tweening;
-using System.Net;
 
-using UnityEditor;
 public class Attack : MonoBehaviour
 {
     public static Attack Instance;
@@ -14,7 +10,7 @@ public class Attack : MonoBehaviour
     Sprite StateIcon;
    
     public Transform USA_Transform;
-    float diceLowerLimit = 0.5f, diceMidLimit=0.75f, diceUpperLimit=1.0f;
+    float diceLowerLimit = 90.5f, diceMidLimit=0.75f, diceUpperLimit=1.0f;
     public  int diceCount;
 
     public float attackDuration = 2.0f;
@@ -58,10 +54,14 @@ public IEnumerator AttackingCoroutine(string defendingState, bool isFirst= false
             attackingStateText = RegionClickHandler.staticState.name;
             //   Debug.LogError(" attacikn state " + attackingStateText);
             List<Node> path = PathFindDeneme.PathInstance.GetPath(defendingState, attackingStateText);
+            State travelState;
             foreach (Node node in path)
             {
+                
+              travelState=  Usa.Instance.FindStateByName(node.Name);
+              travelState.transform.GetComponentInChildren<Flag>().flagList[0].SetActive(true);
+               
 
-                Usa.Instance.FindStateByName(node.Name).transform.GetComponentInChildren<Flag>().flagList[0].SetActive(true);
 
             }
             Usa.Instance.FindStateByName(path[0].Name).transform.GetComponentInChildren<Flag>().flagList[1].SetActive(true);
@@ -84,27 +84,36 @@ public IEnumerator AttackingCoroutine(string defendingState, bool isFirst= false
         }
         else if (isFirst)
         {
+            MessageManager.AddMessage("Our conflict with Maine has put neighboring states on edge, reducing our relations with them by 10 points.");
 
+            State neigbordState ;
+            foreach (string  state in Neighbor.Instance.GetNeighbors(defendingState))
+            {
+                neigbordState = Usa.Instance.FindStateByName(state);
+                if( neigbordState.stateType!= StateType.Ally)
+                {
+                    
+                    neigbordState.SetMorale(-10);
+                   
 
-
+                }
+            }
             attackingStateText = RegionClickHandler.staticState.name;
             //   Debug.LogError(" attacikn state " + attackingStateText);
             List<Node> path = PathFindDeneme.PathInstance.GetPath(attackingStateText, defendingState);
             if (path != null && path.Count > 0)
             {
-                if (path.Count > 2)
-                {
-
-                    int loss = UnityEngine.Random.Range(5, 25);
-                    //  Debug.Log("Kayýp miktarý  % " + loss + " kayýpdan önce total amry: " + RegionClickHandler.staticState.GetArmySize());
-                    RegionClickHandler.staticState.GetComponent<State>().ReduceArmySize(loss);
-                    //  Debug.Log("kayýptan sonra " + RegionClickHandler.staticState.GetArmySize());
-                    MessageManager.AddMessage("Ambushed on enemy soil, we suffered a grievous blow and lost " + loss + "% of our men.");
-                }
+               
+                State travelState;
                 foreach (Node node in path)
                 {
 
-                    Usa.Instance.FindStateByName(node.Name).transform.GetComponentInChildren<Flag>().flagList[0].SetActive(true);
+                    travelState = Usa.Instance.FindStateByName(node.Name);
+                    travelState.transform.GetComponentInChildren<Flag>().flagList[0].SetActive(true);
+                 
+               
+
+
 
                 }
                 Usa.Instance.FindStateByName(path[0].Name).transform.GetComponentInChildren<Flag>().flagList[1].SetActive(true);
@@ -112,6 +121,32 @@ public IEnumerator AttackingCoroutine(string defendingState, bool isFirst= false
                 for (int i = 1; i < path.Count; i++)
                 {
                     yield return new WaitForSeconds(1.0f);
+                    travelState = Usa.Instance.FindStateByName(path[i].Name);
+                    if (travelState.stateType != StateType.Ally)
+                    {
+                        int loss = UnityEngine.Random.Range(1, 25);
+                        if (loss > 20)
+                        {
+
+                            travelState.GetComponentInChildren<Flag>().flagList[3].gameObject.SetActive(true);
+                            SoundManager.instance.Stop("Walking");
+                            SoundManager.instance.Play("Bomb");
+                            yield return new  WaitForSeconds(4);
+                            SoundManager.instance.Stop("Bomb");
+                            SoundManager.instance.Play("Walking2");
+                            travelState.GetComponentInChildren<Flag>().flagList[3].gameObject.SetActive(false);
+
+
+                            //  Debug.Log("Kayýp miktarý  % " + loss + " kayýpdan önce total amry: " + RegionClickHandler.staticState.GetArmySize());
+                            RegionClickHandler.staticState.GetComponent<State>().ReduceArmySize(loss);
+                            //  Debug.Log("kayýptan sonra " + RegionClickHandler.staticState.GetArmySize());
+                            MessageManager.AddMessage($"We were caught trespassing into {travelState.name} state's territory, and in the war that broke out," +
+                                $" we suffered a loss of " + loss + "% of our army. Additionally, the relationship between the two states dropped by 20 points.");
+                            travelState.SetMorale(-20);
+                        }
+
+                    }
+
                     Usa.Instance.FindStateByName(path[i - 1].Name).transform.GetComponentInChildren<Flag>().flagList[2].SetActive(true);
                     Usa.Instance.FindStateByName(path[i].Name).transform.GetComponentInChildren<Flag>().flagList[1].SetActive(true);
                 }
@@ -139,11 +174,14 @@ public IEnumerator AttackingCoroutine(string defendingState, bool isFirst= false
         
 
         DiceManager2.Instance.StartDiceDisActivated(GameManager.Instance.attackFinishDurtion);
+        SoundManager.instance.Stop("Walking");
+        SoundManager.instance.Stop("Walking2");
+        SoundManager.instance.Play("DiceRoll");
         // Print attacking and defending state
-      //  Debug.Log("Saldýran: " + attackingStateText + " Savunan: " + defendingState);
+        //  Debug.Log("Saldýran: " + attackingStateText + " Savunan: " + defendingState);
 
         // Trim strings and convert to a common case (e.g., lower case) before comparison
-         string attackingState = attackingStateText;
+        string attackingState = attackingStateText;
 
 
         GameObject attackingStateGameObject = FindChildByName(USA_Transform, attackingState);

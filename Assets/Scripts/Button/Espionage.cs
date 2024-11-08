@@ -120,6 +120,7 @@ public class Espionage : MonoBehaviour
     }
     void GoldBtnClicked()
     {
+        
         int gold = ResourceManager.Instance.GetResourceAmount(ResourceType.Gold);
         if (gold >= spyCost)
         {
@@ -127,11 +128,14 @@ public class Espionage : MonoBehaviour
             EnemyStateInfoPanel.Instance.ShowInfo(esca, sucs);
             ClearSlider(); // Slider'ý temizle
             UIManager.Instance.HideLastPanel();
+            if(spyCost>0)
+            SoundManager.instance.Play("Coins");
         }
         else
         {
             goldBtnText.color = Color.red;
-            Debug.LogWarning("Casus gönderilemiyor; altýn yetersiz");
+            // Debug.LogWarning("Casus gönderilemiyor; altýn yetersiz");
+            SoundManager.instance.Play("Error");
         }
        
         
@@ -146,11 +150,14 @@ public class Espionage : MonoBehaviour
             EnemyStateInfoPanel.Instance.ShowInfo(esca,sucs);
             ClearSlider(); // Slider'ý temizle
             UIManager.Instance.HideLastPanel();
+            if(gemValue>0)
+            SoundManager.instance.Play("Gem");
         }
         else
         {
             gemBtnText.color = Color.red;
             //Debug.LogWarning($"Casus gönderilemiyor; gem yetersiz {gem} cost { gemValue}");
+            SoundManager.instance.Play("Error");
         }
     }
     void ChangeAciveStarGameObjcet(int index)

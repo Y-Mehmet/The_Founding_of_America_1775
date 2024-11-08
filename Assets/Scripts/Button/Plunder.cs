@@ -25,6 +25,8 @@ public class Plunder : MonoBehaviour
         GameManager.Instance.ChanngeIsRegionPanelOpenValueFalse();
         PlunderManager.Instance.PlunderState(isAddTrue);
         UIManager.Instance.GetComponent<HideAllPanelButton>().DoHidePanel();
+        if(!isAddTrue)
+        SoundManager.instance.Play("Theme");
     }
    
     public void ShowPlunderPanel()

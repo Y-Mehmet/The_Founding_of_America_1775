@@ -14,6 +14,7 @@ public class CloseBtn : MonoBehaviour
     }
     void OnButtonCliced()
     {
+        SoundManager.instance.Play("ButtonClick");
         UIManager.Instance.HideLastPanel();
     }
 }

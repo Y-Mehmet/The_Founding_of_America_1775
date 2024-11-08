@@ -25,6 +25,7 @@ public class TradeTabMenu : MonoBehaviour
 
     private void OnButtonClicked(PanelID panelID)
     {
+      //  SoundManager.instance.Play("ButtonClick");
         showPanelButton.DoShowPanelWhitId(panelID);
     }
     private void OnDisable()

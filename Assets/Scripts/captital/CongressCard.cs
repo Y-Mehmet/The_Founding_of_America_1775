@@ -40,6 +40,7 @@ public class CongressCard : MonoBehaviour
     }
     void OnButtonClicked()
     {
+        SoundManager.instance.Play("ButtonClick");
         if( USCongress.currentAct== ActType)
         {
             selectBtn.image.color = unselectedBtnColor;

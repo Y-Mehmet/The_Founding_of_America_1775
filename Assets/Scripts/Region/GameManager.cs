@@ -102,14 +102,17 @@ public class GameManager : MonoBehaviour
 
     public List<State> GetStatesByType(StateType stateType)
     {
+      
         List<State> states = new List<State>();
         foreach (State state in allStates)
         {
+         
             if (state.stateType == stateType)
             {
                 states.Add(state);
             }
         }
+      
         return states;
     }
     // kullanýlmýyor***********
@@ -138,6 +141,8 @@ public class GameManager : MonoBehaviour
         ÝsAttack = false;
         isGamePause = false;
         OnAttackStopped?.Invoke(); // Olayý tetikleyin
+      
+     
 
     }
     public void ChanngeIsRegionPanelOpenValueTrue()
