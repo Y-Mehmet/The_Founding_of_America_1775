@@ -35,8 +35,8 @@ public class ButtonChat : MonoBehaviour
 
         if(GameManager.Instance.IsAttackFinish && !GameManager.Instance.ÝsAttack)
         {
-         //   RegionClickHandler.Instance.CloseBtn_CloseAll();
-          //  GameManager.Instance.ChanngeIsRegionPanelOpenValueFalse();
+            //   RegionClickHandler.Instance.CloseBtn_CloseAll();
+            //  GameManager.Instance.ChanngeIsRegionPanelOpenValueFalse();
             UIManager.Instance.HideAllPanel();
             GameManager.Instance.ChanngeIsRegionPanelOpenValueTrue();
 

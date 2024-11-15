@@ -10,7 +10,7 @@ public class SoundManager : MonoBehaviour
     private static Dictionary<string, float> soundTimerDictionary;
     public static List<string> activeSoundList = new List<string>();
 
-    public float musicVolume = .1f; // Müzik ses seviyesi
+    public float musicVolume = .5f; // Müzik ses seviyesi
     public float soundVolume = .5f; // Efekt ses seviyesi
 
     public static SoundManager instance
@@ -61,8 +61,9 @@ public class SoundManager : MonoBehaviour
         Play("Theme");
     }
 
-    public void Play(string name)
+    public void Play(string name, float startTime = 0f)
     {
+        // Ses dosyasýný bul
         Sound sound = Array.Find(sounds, s => s.name == name);
 
         if (sound == null)
@@ -74,9 +75,24 @@ public class SoundManager : MonoBehaviour
         if (!CanPlaySound(sound)) return;
 
         // Ses seviyesini ayarla
-        sound.source.volume = sound.isMusic ? musicVolume : soundVolume;
+        sound.source.volume = sound.isMusic ? musicVolume/100 : soundVolume;
+
+        // Çalma noktasýný belirle
+        if (startTime > 0f)
+        {
+            if (startTime >= sound.source.clip.length)
+            {
+                Debug.LogError("Start time exceeds clip length for sound " + name);
+                return;
+            }
+
+            sound.source.time = startTime;
+        }
+
+        // Sesi oynat
         sound.source.Play();
     }
+
 
     public void Stop(string name)
     {
@@ -115,7 +131,7 @@ public class SoundManager : MonoBehaviour
         musicVolume = volume;
         foreach (Sound sound in sounds)
         {
-            if (sound.isMusic) sound.source.volume = musicVolume;
+            if (sound.isMusic) sound.source.volume = musicVolume / 100;
         }
     }
 

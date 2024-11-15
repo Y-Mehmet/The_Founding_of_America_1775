@@ -1,0 +1,50 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7b6420e4a2ede43419b23fd0680b3581, type: 3}
+  m_Name: Settings
+  m_EditorClassIdentifier: 
+  fileId: 
+  usingFacebook: 0
+  usingGameAnalytics: 0
+  usingAdjust: 0
+  adMediator: 
+  usingAdMobAndroid: 0
+  usingAdMobIOS: 0
+  usingAdMostAndroid: 0
+  usingAdMostIOS: 0
+  usingFirebase: 0
+  usingFirebaseAndroid: 0
+  usingFirebaseIOS: 0
+  FACEBOOK_AppID: 
+  FACEBOOK_ClientToken: 
+  FACEBOOK_AndroidKeystorePath: 
+  GAMEANALYTICS_GameKey: 
+  GAMEANALYTICS_SecretKey: 
+  ADJUST_AppToken: 
+  ADJUST_AppSecret: 
+  ADMOB_AndroidAppID: 
+  ADMOB_AndroidIntersititialID: 
+  ADMOB_AndroidRewardedID: 
+  ADMOB_AndroidBannerID: 
+  ADMOB_IOSAppID: 
+  ADMOB_IOSIntersititialID: 
+  ADMOB_IOSRewardedID: 
+  ADMOB_IOSBannerID: 
+  ADMOST_AndroidAppID: 
+  ADMOST_AndroidIntersititialID: 
+  ADMOST_AndroidRewardedID: 
+  ADMOST_AndroidBannerID: 
+  ADMOST_IOSAppID: 
+  ADMOST_IOSIntersititialID: 
+  ADMOST_IOSRewardedID: 
+  ADMOST_IOSBannerID: 
+  gameCircleIcon: {fileID: 0}

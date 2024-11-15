@@ -15,7 +15,11 @@ public class StateCloseBtn : MonoBehaviour
     }
     void OnButtonCliced()
     {
-        SoundManager.instance.Play("ButtonClick");
-        UIManager.Instance.HideAllPanel();
+        if(!SpinRoulette.isSpin)
+        {
+            SoundManager.instance.Play("ButtonClick");
+            UIManager.Instance.HideAllPanel();
+        }
+        
     }
 }

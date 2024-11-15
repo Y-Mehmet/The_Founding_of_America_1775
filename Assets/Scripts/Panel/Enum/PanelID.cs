@@ -42,7 +42,7 @@ public enum PanelID
     MessagePanel,
     HelpPanel,
     Settings,
-
+    Roulette,
 
     
 

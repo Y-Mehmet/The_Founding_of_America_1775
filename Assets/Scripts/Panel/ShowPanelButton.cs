@@ -22,5 +22,6 @@ public class ShowPanelButton : MonoBehaviour
     {
        // Debug.LogWarning(" panel açýldý " + panelID.ToString());
         _panelManager.ShowPanel(panelID, behavior);
+        GameManager.Instance.IsRegionPanelOpen = true;
     }
 }

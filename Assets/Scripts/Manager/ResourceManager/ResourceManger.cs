@@ -91,6 +91,20 @@ public class ResourceManager : MonoBehaviour
             Debug.LogWarning($"Resource {resourceType} not found.");
         }
     }
+    public void AddResource(ResourceType resourceType, float reduceAmount)
+    {
+        if (resources.ContainsKey(resourceType))
+        {
+            resources[resourceType] += reduceAmount;
+            // Kaynak miktarý 0'dan az olmamalýdýr
+            if (resources[resourceType] < 0)
+                resources[resourceType] = 0;
+        }
+        else
+        {
+            Debug.LogWarning($"Resource {resourceType} not found.");
+        }
+    }
     public void ChargeTax(ResourceType resourceType, float reduceAmount)
     {
        
