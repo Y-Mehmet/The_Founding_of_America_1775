@@ -122,6 +122,7 @@ public class SendGift : MonoBehaviour
         {
             SoundManager.instance.Play("Coins");
             ResourceManager.Instance.ReduceResource(ResourceType.Gold, spyCost);
+            MissionsManager.AddTotalGiftCost(spyCost);
             RegionClickHandler.staticState.Morele += slider.value;
           
             ClearSlider(); // Slider'ý temizle
@@ -144,6 +145,7 @@ public class SendGift : MonoBehaviour
         {
             SoundManager.instance.Play("Gem");
             ResourceManager.Instance.ReduceResource(ResourceType.Diamond, gemValue);
+            MissionsManager.AddTotalGiftCost(spyCost);
             RegionClickHandler.staticState.Morele += slider.value;
             ClearSlider(); // Slider'ý temizle
             UIManager.Instance.HideLastPanel();

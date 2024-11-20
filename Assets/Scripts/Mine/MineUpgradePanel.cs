@@ -231,9 +231,12 @@ public class MineUpgradePanel : MonoBehaviour
 
                     }
                     spendRes.Add(ResourceType.Gold, -buyButtonCoinValue);
+
                     currentState.AddResource(spendRes);
                     SoundManager.instance.Play("Upgrade");
-                    
+                    MissionsManager.AddTotalMineUpgrade(quantity);
+
+
                     currentState.resourceData[currentResType].mineCount += quantity;
                     MineCountText.text = FormatNumber(currentState.resourceData[currentResType].mineCount);
                     inputField.text = "0";
@@ -257,6 +260,7 @@ public class MineUpgradePanel : MonoBehaviour
             if (int.TryParse(inputField.text, out quantity))
             {
                 SoundManager.instance.Play("Upgrade");
+                MissionsManager.AddTotalMineUpgrade(quantity);
                 Dictionary<ResourceType, float> spendRes = new Dictionary<ResourceType, float>();
                 spendRes.Add(ResourceType.Diamond, -instatnlyButtonGemValue);
                 currentState.AddResource(spendRes);

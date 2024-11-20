@@ -171,6 +171,7 @@ public class GeneralManager:MonoBehaviour
                 float newAmount = (Experience + amount) - ExperienceLimit;
                 if(Rank!=GeneralRank.GeneralOfTheArmy)
                 {
+                    MissionsManager.AddTotalGeneralRank(1);
                     Rank = Rank + 1;
                     ExperienceLimit += ExperineceIncraseValue;
                     Experience = newAmount;

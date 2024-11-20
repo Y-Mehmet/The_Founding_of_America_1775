@@ -117,6 +117,11 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 5404957637940976660}
     m_Modifications:
+    - target: {fileID: 533874860697623834, guid: cf0bbabb7a4ee4b4cb788fa2228e09a8,
+        type: 3}
+      propertyPath: m_SortingLayer
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 606779856656146506, guid: cf0bbabb7a4ee4b4cb788fa2228e09a8,
         type: 3}
       propertyPath: m_AnchorMax.y
@@ -195,6 +200,11 @@ PrefabInstance:
     - target: {fileID: 1600611206913880640, guid: cf0bbabb7a4ee4b4cb788fa2228e09a8,
         type: 3}
       propertyPath: m_AnchoredPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2707333804974103876, guid: cf0bbabb7a4ee4b4cb788fa2228e09a8,
+        type: 3}
+      propertyPath: m_SortingLayer
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2955026434594383941, guid: cf0bbabb7a4ee4b4cb788fa2228e09a8,
@@ -427,6 +437,16 @@ PrefabInstance:
       propertyPath: m_text
       value: <size=50><color=#0EEEF1>Plunder Tax</color></size>
       objectReference: {fileID: 0}
+    - target: {fileID: 5293219242608784861, guid: cf0bbabb7a4ee4b4cb788fa2228e09a8,
+        type: 3}
+      propertyPath: m_SortingLayer
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5293219243453615726, guid: cf0bbabb7a4ee4b4cb788fa2228e09a8,
+        type: 3}
+      propertyPath: m_SortingLayer
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5497826380325940708, guid: cf0bbabb7a4ee4b4cb788fa2228e09a8,
         type: 3}
       propertyPath: m_AnchorMax.y
@@ -445,6 +465,11 @@ PrefabInstance:
     - target: {fileID: 5497826380325940708, guid: cf0bbabb7a4ee4b4cb788fa2228e09a8,
         type: 3}
       propertyPath: m_AnchoredPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6870869451628786418, guid: cf0bbabb7a4ee4b4cb788fa2228e09a8,
+        type: 3}
+      propertyPath: m_SortingLayer
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7115946238593299660, guid: cf0bbabb7a4ee4b4cb788fa2228e09a8,
@@ -505,6 +530,11 @@ PrefabInstance:
     - target: {fileID: 7688938038191530649, guid: cf0bbabb7a4ee4b4cb788fa2228e09a8,
         type: 3}
       propertyPath: m_AnchoredPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7691853311540928696, guid: cf0bbabb7a4ee4b4cb788fa2228e09a8,
+        type: 3}
+      propertyPath: m_SortingLayer
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7972310069087482591, guid: cf0bbabb7a4ee4b4cb788fa2228e09a8,

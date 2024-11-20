@@ -111,6 +111,7 @@ public class ResourceManager : MonoBehaviour
         if (resources.ContainsKey(resourceType))
         {
             resources[resourceType] +=  reduceAmount;
+            MissionsManager.AddTotalTaxGold(-((int)reduceAmount));
             // Kaynak miktarý 0'dan az olmamalýdýr
             if (resources[resourceType] < 0)
                 resources[resourceType] = 0;

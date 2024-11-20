@@ -55,6 +55,7 @@ public class AttackBtnPanelManager : MonoBehaviour
             {
                
                 warResultType = WarResultType.Victory;
+                MissionsManager.AddTotalWin();
                
                 if (generalIndex != "-")
                 {

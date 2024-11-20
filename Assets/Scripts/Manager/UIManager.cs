@@ -1,15 +1,12 @@
+using System;
 using UnityEngine;
 
 public class UIManager : MonoBehaviour
 {
     public static UIManager Instance { get; private set; }
 
-    //public GameObject StatePanel;
-    //public GameObject allyPanel;
-    //public GameObject enemyPanel;
-    //public GameObject neutralPanel;
-    //public GameObject attackCanvas;
-
+    public static Action HideAllPanelClicked;
+    public static Action ShowPanelClicked;
     private void Awake()
     {
         if(Instance == null)
@@ -23,6 +20,7 @@ public class UIManager : MonoBehaviour
     }
     public void HideAllPanel()
     {
+       // HideAllPanelClicked?.Invoke();
         GetComponent<HideAllPanelButton>().DoHidePanel();
         RegionClickHandler.Instance.CloseBtn_CloseAll();
         GameManager.Instance.ChanngeIsRegionPanelOpenValueFalse();

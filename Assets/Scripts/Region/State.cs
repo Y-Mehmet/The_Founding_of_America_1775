@@ -357,14 +357,17 @@ public class State : MonoBehaviour
     public void IncreaseArmyBarrackSize(int barrackValue)
     {
         ArmyBarrackSize += barrackValue;
+     
     }
     public void IncreaseNavalArmySize( int navalArmyValue)
     {
         NavalArmySize+= navalArmyValue;
+        MissionsManager.AddTotalSolider(navalArmyValue);
     }
     public void IncreaseLandArmySize(int landArmyValue)
     {
         LandArmySize += landArmyValue;
+        MissionsManager.AddTotalSolider(landArmyValue);
     }
 
     private void HandleAttackStarted()
@@ -793,6 +796,7 @@ public class State : MonoBehaviour
             }
             Morele = 50;
             SubsucribeAction();
+            MissionsManager.AddTotalAnnex();
         }
         else
             Debug.LogWarning("elegeçirmeye çalýþtýðýn satte enmey deðil ");

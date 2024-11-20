@@ -167,10 +167,12 @@ public class GameManager : MonoBehaviour
     public void ChanngeIsRegionPanelOpenValueTrue()
     {
         IsRegionPanelOpen = true;
+        UIManager.ShowPanelClicked?.Invoke();
     }
     public void ChanngeIsRegionPanelOpenValueFalse()
     {
         IsRegionPanelOpen = false;
+        UIManager.HideAllPanelClicked?.Invoke();
     }
     public void ChangeIsSpyValueTrue()
     {

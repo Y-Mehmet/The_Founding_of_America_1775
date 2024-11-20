@@ -21,6 +21,7 @@ public class PanelManager : Singleton<PanelManager>
     // Paneli gösterme fonksiyonu (enum kullanýmý ile güncellendi)
     public void ShowPanel(PanelID panelID, PanelShowBehavior behavior = PanelShowBehavior.SHOW_PREVISE)
     {
+      //  UIManager.ShowPanelClicked?.Invoke();
         SoundManager.instance.Play("ButtonClick");
         if (panelID!=PanelID.HelpPanel)
         InfoManager.AddQueque( panelID);

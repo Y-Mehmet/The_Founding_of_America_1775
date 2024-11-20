@@ -100,9 +100,10 @@ public class EnemyStateInfoPanel : MonoBehaviour
     }
     public void SuccessfulEspionage()
     {
-        
-        
-           if(currnetState == null) {
+        MissionsManager.AddTotalSucsessIntel(1);
+
+
+           if (currnetState == null) {
 
             currnetState = RegionClickHandler.staticState;
         }

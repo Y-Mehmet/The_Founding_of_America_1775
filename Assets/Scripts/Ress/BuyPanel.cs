@@ -313,6 +313,7 @@ public class BuyPanel : MonoBehaviour
                             bool isAllyState = GameManager.AllyStateList.Contains(ResourceManager.Instance.CurrentTradeState);
                             tradeState.SellResource(type, quantity, spending, isAllyState);
                             currentState.GoldSpend(((int)spending));
+                           MissionsManager.AddTotalImportGold(((int)spending));
                             SoundManager.instance.Play("Coins");
                             // DecraseTradeLimit((int)quantity);
 

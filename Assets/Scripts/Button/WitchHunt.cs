@@ -6,6 +6,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 using static Utility;
+using Random = UnityEngine.Random;
 
 public class WitchHunt : MonoBehaviour
 {
@@ -145,8 +146,10 @@ public class WitchHunt : MonoBehaviour
         float enemyArmySize = enemyState.GetComponent<State>().GetArmySize();
         int newLoss =(int)(enemyArmySize / 100 * spread);
         newLoss= (int) (newLoss/200*belive);
-        newLoss = newLoss > 5000 ? 5000 : newLoss;      
-      
+        newLoss = (newLoss > 750 ? 750 : newLoss)+ Random.Range(-30,0);
+        newLoss = newLoss < 0 ? 0 : newLoss;
+
+        MissionsManager.AddTotalWichtSolider(newLoss);
         enemyState.GetComponent<State>().ReduceArmySize(newLoss);
        
         

@@ -32,6 +32,7 @@ public class TestPopulation : MonoBehaviour
             else
             {
                 gameObject.GetComponent<TMP_Text>().text = FormatNumber(tottalPopulation);
+                MissionsManager.AddTotalPopulation(tottalPopulation);
             }
             yield return new WaitForSeconds(1);
 

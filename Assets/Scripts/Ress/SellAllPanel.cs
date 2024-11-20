@@ -45,6 +45,7 @@ public class SellAllPanel : MonoBehaviour
             {
                 earing = ((int)GameEconomy.Instance.GetGoldValue(resource.resourceType, resource.currentAmount)) /4;
                 RegionClickHandler.staticState.SellResource(resource.resourceType, resource.currentAmount, earing);
+                MissionsManager.AddTotalExportGold(((int)earing));
             }
                
         }

@@ -186,6 +186,7 @@ public class SellPanel : MonoBehaviour
                     SoundManager.instance.Play("Cash");
                     bool isAllyState = GameManager.AllyStateList.Contains(ResourceManager.Instance.CurrentTradeState);
                     currentState.SellResource(type, quantity, earing,isAllyState);
+                    MissionsManager.AddTotalExportGold(((int)earing));
                     ResourceManager.Instance.CurrentTradeState.BuyyResource(type, quantity, earing);
                     
                     amoutAvableValueText.text = FormatNumber(currentState.GetCurrentResValue(type)  );

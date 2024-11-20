@@ -264,6 +264,7 @@ public class TradeTransactionCard : MonoBehaviour
                                 TradeManager.instance.AddTransaction(newTransaction);
                                 TradeManager.TradeTransactionQueue.Add(newTransaction);
                                 stateFlagIndex.GoldSpend(((int)spending));
+                                MissionsManager.AddTotalImportGold(((int)spending));
                                 SoundManager.instance.Play("Coins");
                                 TradeManager.SortTradeTransactionsByDeliveryTime();
                             }
@@ -287,6 +288,7 @@ public class TradeTransactionCard : MonoBehaviour
                             SoundManager.instance.Play("Cash");
                             bool isAllyState = GameManager.AllyStateList.Contains(transaction.tradeState);
                             currentState.SellResource(type, quantity, spending, isAllyState);
+                            MissionsManager.AddTotalExportGold(((int)spending));
                             transaction.tradeState.BuyyResource(type, quantity, spending);
 
                             int tradeLimit = (int)transaction.tradeState.tradeLists[1].limit[transaction.productSpriteIndex - 1];

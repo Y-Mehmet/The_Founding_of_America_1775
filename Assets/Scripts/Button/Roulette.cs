@@ -15,8 +15,12 @@ public class Roulette : MonoBehaviour
     }
     void OnClicked()
     {
-        UIManager.Instance.HideAllPanel();
-        GameManager.Instance.ChanngeIsRegionPanelOpenValueTrue();
-        UIManager.Instance.GetComponent<ShowPanelButton>().DoShowPanelWhitId(PanelID.Roulette);
+        if (GameManager.Instance.IsAttackFinish && !GameManager.Instance.ÝsAttack)
+        {
+            UIManager.Instance.HideAllPanel();
+            GameManager.Instance.ChanngeIsRegionPanelOpenValueTrue();
+            UIManager.Instance.GetComponent<ShowPanelButton>().DoShowPanelWhitId(PanelID.Roulette);
+        }
+
     }
 }

@@ -31,7 +31,7 @@ public class SpinRoulette : MonoBehaviour
         
         if (!isSpin)
         {
-           
+            MissionsManager.AddTotalSpin(1);
             isSpin = true;
             // Rastgele bir z ekseni açýsý belirle
             float randomAngle = Random.Range(0, 8);
