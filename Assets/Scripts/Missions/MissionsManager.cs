@@ -7,9 +7,9 @@ public class MissionsManager : MonoBehaviour
 {
     public static MissionsManager instance { get; private set; }
 
-    public static  List<Mission> TroppyMissions { get; private set; } = new List<Mission>();
-    public static List<Mission> EconomyMissions { get; private set; } = new List<Mission>();
-    public static List<Mission> MiscellaneousMissions { get; private set; } = new List<Mission>();
+    public static  List<Mission> TroppyMissions { get;  set; } = new List<Mission>();
+    public static List<Mission> EconomyMissions { get;  set; } = new List<Mission>();
+    public static List<Mission> MiscellaneousMissions { get;  set; } = new List<Mission>();
 
     public static int TroppyMissonsIndex = 0, EconomyMissionsIndex=0, MiscellaneousMissionsIndex=0, CompletedMissionCount=0, ClaimedMissionCount=0;
     public static Action OnComplate, OnClaim;
@@ -25,6 +25,7 @@ public class MissionsManager : MonoBehaviour
         {
             Destroy(instance);
         }
+       
         TroppyMissions.Add(new Mission("Warrior", // Görev Adý
          "Win  battle to prove your strength.", // Görev Açýklamasý
          rewardGold: new List<int> { 100, 1000, 2000, 5000 }, // Ödül olarak verilen altýn
@@ -124,14 +125,15 @@ public class MissionsManager : MonoBehaviour
 ));
     }
 
-    private void ApplyRewards(Mission mission)
+    private void OnEnable()
     {
-        // Görevin ödüllerini oyuncuya uygula
-        Debug.Log($"Görev tamamlandý: {mission.MissionName}");
-        Debug.Log($"Altýn kazandýnýz: {mission.RewardGold}");
-        
+        OnClaim += CheckAllMission;
     }
-   //  troopy 
+    private void OnDisable()
+    {
+        OnClaim -= CheckAllMission;
+    }
+    //  troopy 
     public static void AddTotalWin()
     {
         CheckTroppyMission(0, 1);
@@ -198,6 +200,13 @@ public class MissionsManager : MonoBehaviour
     {
 
         CheckMiscellaneousMission(4, count);
+    }
+    public static void CheckAllMission()
+    {
+        CheckMiscellaneousMission(MiscellaneousMissionsIndex, 0);
+        CheckEconomyMission(EconomyMissionsIndex, 0);
+        CheckTroppyMission(TroppyMissonsIndex, 0);
+
     }
     // Yeni metod: Diðer kategoriler için de kullanýlabilir.
     static void CheckMiscellaneousMission(  int index, int count = 1)

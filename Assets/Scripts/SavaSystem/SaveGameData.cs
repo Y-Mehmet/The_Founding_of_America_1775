@@ -7,6 +7,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using static GeneralManager;
 using static USCongress;
+using static MissionsManager;
 public class SaveGameData : MonoBehaviour
 {
     public static SaveGameData Instance { get;private set; }
@@ -64,6 +65,13 @@ public class SaveGameData : MonoBehaviour
         gameData.tradeHistoryList= TradeManager.instance.TradeHistoryQueue.ToList();
         gameData.tradeTransactionList = TradeManager.TradeTransactionQueue;
         gameData.messages = MessageManager.messages;
+        gameData.TroppyMissions = TroppyMissions;
+        gameData.EconomyMissions = EconomyMissions;
+        gameData.MiscellaneousMissions = MiscellaneousMissions;
+        gameData.TroppyMissonsIndex = TroppyMissonsIndex;
+        gameData.EconomyMissionsIndex = EconomyMissionsIndex;
+        gameData.MiscellaneousMissionsIndex= MiscellaneousMissionsIndex;
+        gameData.CompletedMissionCount= CompletedMissionCount;
         gameData.unreadMessageCount = MessageManager.unreadMessageCount;
         gameData.musicVolume = SoundManager.instance.musicVolume;
         gameData.soundVolume= SoundManager.instance.soundVolume;
@@ -162,6 +170,13 @@ public class SaveGameData : MonoBehaviour
             MessageManager.messages = data.gameData.messages;
             MessageManager.unreadMessageCount = data.gameData.unreadMessageCount;
             MessageManager.OnAddMessage?.Invoke(data.gameData.unreadMessageCount);
+            TroppyMissions = data.gameData.TroppyMissions;
+            EconomyMissions = data.gameData.EconomyMissions;
+            MiscellaneousMissions = data.gameData.MiscellaneousMissions;
+            TroppyMissonsIndex = data.gameData.TroppyMissonsIndex;
+            EconomyMissionsIndex = data.gameData.EconomyMissionsIndex;
+            MiscellaneousMissionsIndex = data.gameData.MiscellaneousMissionsIndex;
+            CompletedMissionCount = data.gameData.CompletedMissionCount;
             SoundManager.instance.musicVolume = data.gameData.musicVolume;
             SoundManager.instance.soundVolume = data.gameData.soundVolume;
             GeneralManager.stateGenerals = data.gameData.generalStatesList
@@ -328,7 +343,11 @@ public class GameData
     public float musicVolume; // Müzik ses seviyesi
     public float soundVolume;
     public List<string> messages;
-   
+    public List<Mission> TroppyMissions;
+    public List<Mission> EconomyMissions ;
+    public List<Mission> MiscellaneousMissions ;
+    public int TroppyMissonsIndex , EconomyMissionsIndex , MiscellaneousMissionsIndex , CompletedMissionCount , ClaimedMissionCount ;
+
     public int unreadMessageCount;
     public GameData()
     {
@@ -339,6 +358,9 @@ public class GameData
         tradeHistoryList= new List<TradeHistory>();
         tradeTransactionList= new List<TradeHistory> ();
         messages = new List<string>();
+        TroppyMissions= new List<Mission>();
+        EconomyMissions= new List<Mission>();
+        MiscellaneousMissions= new List<Mission>();
 
     }
  
