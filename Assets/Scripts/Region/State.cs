@@ -56,7 +56,7 @@ public class State : MonoBehaviour
     public float PopulationMultiplier = 0.001f; // Nüfusun asker artýþýna etkisi
     private float populationGrowthRateMultiplier=0.00001f; // population growth rate multiplier
 
-    private bool isWarDeclared = false;
+   
     private void Start()
     {
         if(GameManager.Instance!= null)
@@ -143,6 +143,8 @@ public class State : MonoBehaviour
                     Debug.LogWarning("random sayý 5 savaþ ilaný " + random);
 
                     Attack.Instance.Attacking(gameObject.name);
+                    SoundManager.instance.Play("ChurchBell");
+                    SoundManager.instance.Stop("Theme");
                 }
 
                 // Coroutine'den çýkmak için isWarDeclared'i false yapýyoruz

@@ -179,6 +179,7 @@ public IEnumerator AttackingCoroutine(string defendingState, bool isFirst= false
         SoundManager.instance.Stop("Walking");
         SoundManager.instance.Stop("Walking2");
         SoundManager.instance.Play("DiceRoll");
+        SoundManager.instance.Stop("ChurchBell");
         // Print attacking and defending state
         //  Debug.Log("Saldýran: " + attackingStateText + " Savunan: " + defendingState);
 

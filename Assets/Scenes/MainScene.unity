@@ -619,6 +619,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: PlayerSolider
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: b519df8e17cb82d49ad39a0feeabe91a,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1955366786224153591, guid: b519df8e17cb82d49ad39a0feeabe91a,
         type: 3}
       propertyPath: m_Enabled
@@ -5890,19 +5895,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 935224867}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 60, y: 35, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
+  m_LocalRotation: {x: -0.000017374752, y: 0.009062379, z: 0.0020855365, w: -0.99995685}
+  m_LocalPosition: {x: 1.7976522, y: 100.33239, z: -22.207443}
+  m_LocalScale: {x: 25, y: 25, z: 25}
+  m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 1922369654}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!4 &1006311373 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: -6024149945523619558, guid: b519df8e17cb82d49ad39a0feeabe91a,
-    type: 3}
-  m_PrefabInstance: {fileID: 172946303}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1011898598
 GameObject:
   m_ObjectHideFlags: 0
@@ -6064,10 +6063,10 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1020176821}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -140, y: 35, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
+  m_LocalRotation: {x: -0.00000013240438, y: -0.00005379535, z: -0.0010665972, w: 0.99999946}
+  m_LocalPosition: {x: -91.79765, y: 39.66761, z: -22.207443}
+  m_LocalScale: {x: 25, y: 25, z: 25}
+  m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 1922369654}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -8221,6 +8220,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Ch49_nonPBR (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: b519df8e17cb82d49ad39a0feeabe91a,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1955366786224153591, guid: b519df8e17cb82d49ad39a0feeabe91a,
         type: 3}
@@ -10607,12 +10611,6 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 4167034493249401507, guid: 9bb0e8efd63f3dd4486281c10f7409f0,
     type: 3}
   m_PrefabInstance: {fileID: 6405955830279890758}
-  m_PrefabAsset: {fileID: 0}
---- !u!4 &1933739120 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: -6024149945523619558, guid: b519df8e17cb82d49ad39a0feeabe91a,
-    type: 3}
-  m_PrefabInstance: {fileID: 1530345792}
   m_PrefabAsset: {fileID: 0}
 --- !u!1 &1949595923
 GameObject:
@@ -16136,16 +16134,26 @@ PrefabInstance:
       propertyPath: infoPanel
       value: 
       objectReference: {fileID: 1587067920}
+    - target: {fileID: 6760592414271293534, guid: ef1f142448157684286af1776069a9a7,
+        type: 3}
+      propertyPath: sounds.Array.data[4].clip
+      value: 
+      objectReference: {fileID: 8300000, guid: 88a1b13066f395f4799a5295bb64248f, type: 3}
+    - target: {fileID: 6760592414271293534, guid: ef1f142448157684286af1776069a9a7,
+        type: 3}
+      propertyPath: sounds.Array.data[4].pitch
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 7489524956827002978, guid: ef1f142448157684286af1776069a9a7,
         type: 3}
       propertyPath: rivalDicePoint
       value: 
-      objectReference: {fileID: 1933739120}
+      objectReference: {fileID: 935224868}
     - target: {fileID: 7489524956827002978, guid: ef1f142448157684286af1776069a9a7,
         type: 3}
       propertyPath: playerDicePoint
       value: 
-      objectReference: {fileID: 1006311373}
+      objectReference: {fileID: 1020176822}
     - target: {fileID: 7489524956827002978, guid: ef1f142448157684286af1776069a9a7,
         type: 3}
       propertyPath: rivalDiceTarget

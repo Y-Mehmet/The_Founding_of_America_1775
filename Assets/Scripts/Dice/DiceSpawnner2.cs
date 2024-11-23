@@ -23,6 +23,8 @@ public class DiceSpawnner2 : MonoBehaviour
         else
             Destroy(gameObject);
 
+
+
     }
     private void Start()
     {

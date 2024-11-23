@@ -14,6 +14,7 @@ public class GameManager : MonoBehaviour
     public bool IsRegionPanelOpen = false;
     public bool IsAttackFinish  = true;
     public bool IsSpy= false;
+    public static bool isWarDeclared = false;
 
     public float attackFinishDurtion = 7.0f;
     //animasyon için 
