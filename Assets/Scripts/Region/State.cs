@@ -134,13 +134,16 @@ public class State : MonoBehaviour
                 }
 
                 // Savaþý baþlat ve coroutine’i sonlandýr
-                GameManager.Instance.ChangeIsAttackValueTrue();
-                UIManager.Instance.GetComponent<HideAllPanelButton>().DoHidePanel();
-                RegionClickHandler.Instance.currentState = null;
-                RegionClickHandler.staticState = null;
-                Debug.LogWarning("random sayý 5 savaþ ilaný " + random);
+               if( !AllyStateList.Contains(this))
+                {
+                    GameManager.Instance.ChangeIsAttackValueTrue();
+                    UIManager.Instance.GetComponent<HideAllPanelButton>().DoHidePanel();
+                    RegionClickHandler.Instance.currentState = null;
+                    RegionClickHandler.staticState = null;
+                    Debug.LogWarning("random sayý 5 savaþ ilaný " + random);
 
-                Attack.Instance.Attacking(gameObject.name);
+                    Attack.Instance.Attacking(gameObject.name);
+                }
 
                 // Coroutine'den çýkmak için isWarDeclared'i false yapýyoruz
                 isWarDeclared = false;

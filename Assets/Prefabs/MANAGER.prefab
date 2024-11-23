@@ -44,6 +44,281 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: defe2af201ba2404689bddc6fe71d152, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1 &132981395898419773
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2512309906645141378}
+  - component: {fileID: 6760592414271293534}
+  m_Layer: 0
+  m_Name: SoundManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2512309906645141378
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 132981395898419773}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 5687146723757708717}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &6760592414271293534
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 132981395898419773}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a42d9d24e0f01ab4fb655b004d19d163, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sounds:
+  - name: Theme
+    clip: {fileID: 8300000, guid: 5675d5be8898cc342847b6b6dda13dce, type: 3}
+    volume: 0.001
+    pitch: 1
+    isLoop: 1
+    hasCooldown: 0
+    isMusic: 1
+    source: {fileID: 0}
+  - name: ButtonClick
+    clip: {fileID: 8300000, guid: e12dabba2af07d943a3cff90e132b157, type: 3}
+    volume: 0.5
+    pitch: 1
+    isLoop: 0
+    hasCooldown: 0
+    isMusic: 0
+    source: {fileID: 0}
+  - name: March
+    clip: {fileID: 8300000, guid: 96e1f1549d85b07419b2a7fda455b684, type: 3}
+    volume: 0.1
+    pitch: 1
+    isLoop: 1
+    hasCooldown: 0
+    isMusic: 1
+    source: {fileID: 0}
+  - name: DiceRoll
+    clip: {fileID: 8300000, guid: eee18fd79a1bc4349b02fd81a333682e, type: 3}
+    volume: 1
+    pitch: 1
+    isLoop: 0
+    hasCooldown: 0
+    isMusic: 0
+    source: {fileID: 0}
+  - name: ChurchBell
+    clip: {fileID: 8300000, guid: 44f11f56ad9a60e43bcead9379bdd53f, type: 3}
+    volume: 1
+    pitch: 1
+    isLoop: 0
+    hasCooldown: 0
+    isMusic: 1
+    source: {fileID: 0}
+  - name: DiceFight
+    clip: {fileID: 8300000, guid: 68d56474f229e3e4e88cdb8b36651d9f, type: 3}
+    volume: 1
+    pitch: 1
+    isLoop: 0
+    hasCooldown: 0
+    isMusic: 0
+    source: {fileID: 0}
+  - name: Walking
+    clip: {fileID: 8300000, guid: 96e1f1549d85b07419b2a7fda455b684, type: 3}
+    volume: 0.1
+    pitch: 1
+    isLoop: 1
+    hasCooldown: 0
+    isMusic: 1
+    source: {fileID: 0}
+  - name: Walking2
+    clip: {fileID: 8300000, guid: 8e952be81db0988458540f8e5cd2f943, type: 3}
+    volume: 0.05
+    pitch: 0.5
+    isLoop: 1
+    hasCooldown: 0
+    isMusic: 1
+    source: {fileID: 0}
+  - name: Lost
+    clip: {fileID: 8300000, guid: 068c688885f06a140a4f560bb6fa27ea, type: 3}
+    volume: 1
+    pitch: 1
+    isLoop: 0
+    hasCooldown: 0
+    isMusic: 1
+    source: {fileID: 0}
+  - name: Coins
+    clip: {fileID: 8300000, guid: 7fa6b7ad79ad67b4aa54ea49883cc9e0, type: 3}
+    volume: 1
+    pitch: 1
+    isLoop: 0
+    hasCooldown: 0
+    isMusic: 0
+    source: {fileID: 0}
+  - name: Gem
+    clip: {fileID: 8300000, guid: 2c78f7892c69f4e449b082e898cb2f72, type: 3}
+    volume: 1
+    pitch: 1
+    isLoop: 0
+    hasCooldown: 0
+    isMusic: 0
+    source: {fileID: 0}
+  - name: Error
+    clip: {fileID: 8300000, guid: 51e56452e20a1274582f2648767ff7ff, type: 3}
+    volume: 1
+    pitch: 1
+    isLoop: 0
+    hasCooldown: 0
+    isMusic: 0
+    source: {fileID: 0}
+  - name: War
+    clip: {fileID: 8300000, guid: e4c47ff3c9527594faae2fea714f6491, type: 3}
+    volume: 0.1
+    pitch: 1
+    isLoop: 1
+    hasCooldown: 0
+    isMusic: 1
+    source: {fileID: 0}
+  - name: Bomb
+    clip: {fileID: 8300000, guid: 657dd33551541b442846db0f789a120e, type: 3}
+    volume: 1
+    pitch: 1
+    isLoop: 0
+    hasCooldown: 0
+    isMusic: 0
+    source: {fileID: 0}
+  - name: Clean
+    clip: {fileID: 8300000, guid: 2ab1aff0c7486a84e82c37f716ce283d, type: 3}
+    volume: 3
+    pitch: 1
+    isLoop: 0
+    hasCooldown: 0
+    isMusic: 0
+    source: {fileID: 0}
+  - name: Victory
+    clip: {fileID: 8300000, guid: 5650a118203b6344aa8e548eb41f4853, type: 3}
+    volume: 0.1
+    pitch: 1
+    isLoop: 0
+    hasCooldown: 0
+    isMusic: 1
+    source: {fileID: 0}
+  - name: Draw
+    clip: {fileID: 8300000, guid: 068c688885f06a140a4f560bb6fa27ea, type: 3}
+    volume: 0.1
+    pitch: 1
+    isLoop: 0
+    hasCooldown: 0
+    isMusic: 1
+    source: {fileID: 0}
+  - name: Defeat
+    clip: {fileID: 8300000, guid: 6f6cf88b72a96fe47a663967aa7b0dbc, type: 3}
+    volume: 0.1
+    pitch: 1
+    isLoop: 0
+    hasCooldown: 0
+    isMusic: 1
+    source: {fileID: 0}
+  - name: Cash
+    clip: {fileID: 8300000, guid: a8c125c47f3afac48aecfe7d39977167, type: 3}
+    volume: 0.1
+    pitch: 1
+    isLoop: 0
+    hasCooldown: 0
+    isMusic: 0
+    source: {fileID: 0}
+  - name: Upgrade
+    clip: {fileID: 8300000, guid: da1a30748dff856429023a74fc00c694, type: 3}
+    volume: 0.1
+    pitch: 1
+    isLoop: 0
+    hasCooldown: 0
+    isMusic: 0
+    source: {fileID: 0}
+  - name: wheelspin
+    clip: {fileID: 8300000, guid: 25b7a7d5a9fbdaa4b99c7c708973d1e8, type: 3}
+    volume: 0.2
+    pitch: 1
+    isLoop: 0
+    hasCooldown: 0
+    isMusic: 0
+    source: {fileID: 0}
+  - name: GemCash
+    clip: {fileID: 8300000, guid: 07eaf78d454fc214da943aea09124c4d, type: 3}
+    volume: 0.2
+    pitch: 1
+    isLoop: 0
+    hasCooldown: 0
+    isMusic: 0
+    source: {fileID: 0}
+  - name: WheelNull
+    clip: {fileID: 8300000, guid: cc84c7683534d06448303366b2c53f6b, type: 3}
+    volume: 0.2
+    pitch: 1
+    isLoop: 0
+    hasCooldown: 0
+    isMusic: 0
+    source: {fileID: 0}
+  musicVolume: 0.1
+  soundVolume: 0.5
+--- !u!1 &152711502725983638
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 3427292650948858054}
+  - component: {fileID: 2280971277451806901}
+  m_Layer: 0
+  m_Name: InfoManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &3427292650948858054
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 152711502725983638}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 5687146723757708717}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2280971277451806901
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 152711502725983638}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 220e20b14d5559c48983873df63f98d4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &293023359309847435
 GameObject:
   m_ObjectHideFlags: 0
@@ -91,6 +366,50 @@ MonoBehaviour:
   mainCamera: {fileID: 0}
   neighborStates: []
   currentState: {fileID: 0}
+--- !u!1 &423439847001055269
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 7977435641528040259}
+  - component: {fileID: 1753174354070921902}
+  m_Layer: 0
+  m_Name: MissionManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &7977435641528040259
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 423439847001055269}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 5687146723757708717}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1753174354070921902
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 423439847001055269}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 64baaa9a3131a234f9ccb461b3334a7d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1064789098393445404
 GameObject:
   m_ObjectHideFlags: 0
@@ -696,6 +1015,7 @@ GameObject:
   - component: {fileID: 7147871574192014235}
   - component: {fileID: 249639971533306311}
   - component: {fileID: 1739217352671779369}
+  - component: {fileID: 6264513649415403227}
   m_Layer: 0
   m_Name: AttackManager
   m_TagString: Untagged
@@ -751,6 +1071,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a0f0f3b2c4ce3c249a56710ea8b34460, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &6264513649415403227
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6161275094372325651}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 32aa5f86a4cf0ae4e9b13ab208b8485f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &6196677600776659294
 GameObject:
   m_ObjectHideFlags: 0
@@ -800,6 +1132,9 @@ Transform:
   - {fileID: 6824239492286435732}
   - {fileID: 1710235533476673688}
   - {fileID: 1878370785579597304}
+  - {fileID: 3427292650948858054}
+  - {fileID: 2512309906645141378}
+  - {fileID: 7977435641528040259}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &6624118641007274749

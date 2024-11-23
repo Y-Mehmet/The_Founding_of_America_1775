@@ -117,7 +117,7 @@ public IEnumerator AttackingCoroutine(string defendingState, bool isFirst= false
 
                 }
                 Usa.Instance.FindStateByName(path[0].Name).transform.GetComponentInChildren<Flag>().flagList[1].SetActive(true);
-
+                bool isPassFirstEnemyState = false;
                 for (int i = 1; i < path.Count; i++)
                 {
                     yield return new WaitForSeconds(1.0f);
@@ -125,7 +125,7 @@ public IEnumerator AttackingCoroutine(string defendingState, bool isFirst= false
                     if (travelState.stateType != StateType.Ally)
                     {
                         int loss = UnityEngine.Random.Range(1, 25);
-                        if (loss > 20)
+                        if (loss > 20 && isPassFirstEnemyState)
                         {
 
                             travelState.GetComponentInChildren<Flag>().flagList[3].gameObject.SetActive(true);
@@ -145,6 +145,7 @@ public IEnumerator AttackingCoroutine(string defendingState, bool isFirst= false
                                 $" we suffered a loss of " + loss + "% of our army. Additionally, the relationship between the two states dropped by 20 points.");
                             travelState.SetMorale(-20);
                         }
+                        isPassFirstEnemyState = true;
 
                     }
 
@@ -274,7 +275,7 @@ public IEnumerator AttackingCoroutine(string defendingState, bool isFirst= false
     public void Attacking(string defendingState, bool isFirst=false)
     {
 
-        GameManager.Instance.IsAttackFinish = false;
+        GameManager.Instance.ChangeAttackFinisValueFalse();
        
         if(isFirst)
         {
@@ -284,12 +285,13 @@ public IEnumerator AttackingCoroutine(string defendingState, bool isFirst= false
        
        // Debug.LogWarning(defendingState);
         StartCoroutine(AttackingCoroutine(defendingState, isFirst));
+        
     }
 
     public void AttackAgain()
     {
-        GameManager.Instance.IsAttackFinish = false;
-        
+        GameManager.Instance.ChangeAttackFinisValueFalse();
+
         GameManager.Instance.ChangeIsAttackValueFalse();
         //GameManager.Instance.ChanngeIsRegionPanelOpenValueFalse();
         Attacking(lastDefendingState);

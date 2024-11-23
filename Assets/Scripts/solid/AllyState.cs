@@ -24,7 +24,7 @@ public class AllyState : MonoBehaviour, ISelectable
         
 
         // Komþu bölgeleri bul ve iþle
-        foreach (string neighborState in Neighbor.Instance.GetNeighbors(gameObject.name))
+        foreach (string neighborState in Neighbor.Instance.GetEnemyNeighbors(gameObject.name))
         {
             GameObject neighborStateGameobject = GameObject.Find(neighborState);
             if (neighborStateGameobject != null)
@@ -48,9 +48,15 @@ public class AllyState : MonoBehaviour, ISelectable
                     }
 
                     // Hareket ve renk deðiþimi
-                    Tween moveTween = neighborStateGameobject.transform.DOMoveY(neighborStateGameobject.transform.position.y + GameManager.Instance.moveAmount, GameManager.Instance.moveDuration)
-                        .SetLoops(-1, LoopType.Yoyo)  // Sonsuz döngü (Yoyo hareketi)
-                        .SetEase(Ease.InOutQuad);     // Ease türü (Kolaylaþtýrma)
+                    float startY = neighborStateGameobject.transform.position.y;
+                    float targetY = startY + GameManager.Instance.moveAmount;
+
+                    Tween moveTween = neighborStateGameobject.transform.DOMoveY(targetY, GameManager.Instance.moveDuration)
+                        .SetLoops(-1, LoopType.Yoyo)
+                        .SetEase(Ease.InOutQuad);
+
+                    // Pozisyon deðerlerini kontrol etmek için log ekleyin
+                    Debug.Log($"Start Y: {startY}, Target Y: {targetY}");
 
                     // Tween nesnesini saklayýn
                     RegionClickHandler.Instance.moveTweens[neighborStateGameobject] = moveTween;
@@ -99,7 +105,11 @@ public class AllyState : MonoBehaviour, ISelectable
     {
         foreach (var kvp in RegionClickHandler.Instance.originalColors)
         {
+            kvp.Key.transform.position = new Vector3(kvp.Key.transform.position.x, 33.35355f, kvp.Key.transform.position.z);
             kvp.Key.GetComponent<Renderer>().material.color = kvp.Value;
+           
+           
+
         }
         RegionClickHandler.Instance.originalColors.Clear(); // Tüm renkleri geri yükledikten sonra dictionary'i temizle
     }

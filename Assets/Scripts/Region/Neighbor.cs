@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Reflection;
 using Unity.VisualScripting;
 using UnityEngine; // Use Unity's logging system
@@ -169,6 +170,66 @@ class Neighbor
         }
         return neighborLists;
     }
+    public List<string> GetEnemyNeighbors(string city)
+    {
+        // Þehrin adjacencyList'te olup olmadýðýný kontrol et
+        if (!adjacencyList.ContainsKey(city))
+        {
+            Debug.LogWarning($"The given key '{city}' was not present in the dictionary.");
+            return new List<string>();
+        }
+
+        // Ýþlemdeki düþmanlarý ve ziyaret edilen þehirleri tutmak için HashSet
+        HashSet<string> enemyNeighbors = new HashSet<string>();
+        HashSet<string> visitedCities = new HashSet<string>();
+
+        // Baþlangýç noktasý için bir kuyruk
+        Queue<string> citiesToVisit = new Queue<string>();
+        citiesToVisit.Enqueue(city);
+
+        while (citiesToVisit.Count > 0)
+        {
+            // Kuyruktan bir þehir al
+            string currentCity = citiesToVisit.Dequeue();
+
+            // Eðer þehir daha önce ziyaret edildiyse, atla
+            if (visitedCities.Contains(currentCity))
+                continue;
+
+            // Þehri ziyaret edildi olarak iþaretle
+            visitedCities.Add(currentCity);
+
+            // Mevcut þehrin komþularýný gez
+            foreach (var neighbor in adjacencyList[currentCity])
+            {
+                var neighborState = Usa.Instance.FindStateByName(neighbor);
+
+                if (neighborState.stateType == StateType.Enemy)
+                {
+                    // Düþmanlarý listeye ekle
+                    if (!enemyNeighbors.Contains(neighbor))
+                    {
+                        Debug.Log($"Enemy found: {neighbor}");
+                        enemyNeighbors.Add(neighbor);
+                    }
+                }
+                else if (neighborState.stateType == StateType.Ally)
+                {
+                    // Eðer müttefikse, müttefikin komþularýný gezmek için sýraya ekle
+                    if (!visitedCities.Contains(neighbor))
+                    {
+                        Debug.Log($"Exploring ally's neighbors: {neighbor}");
+                        citiesToVisit.Enqueue(neighbor);
+                    }
+                }
+            }
+        }
+
+        // Sonuçlarý listeye çevirip döndür
+        return enemyNeighbors.ToList();
+    }
+
+
     private void InitializeNeighbors2()
     {
         // Komþuluk iliþkilerini ekle

@@ -57,16 +57,17 @@ public class EnemyState : MonoBehaviour, ISelectable
         foreach (var kvp in RegionClickHandler.Instance.originalColors)
         {
             kvp.Key.GetComponent<Renderer>().material.color = kvp.Value;
+            kvp.Key.transform.position = new Vector3(kvp.Key.transform.position.x, 33.35355f, kvp.Key.transform.position.z);
         }
         RegionClickHandler.Instance.originalColors.Clear(); // Tüm renkleri geri yükledikten sonra dictionary'i temizle
     }
 
+     
 
 
 
 
-
-    public void CloseAll()
+public void CloseAll()
     {
         FinishAttack();
         RegionClickHandler.staticState = null;

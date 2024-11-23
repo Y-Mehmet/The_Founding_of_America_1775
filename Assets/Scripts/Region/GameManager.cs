@@ -17,8 +17,8 @@ public class GameManager : MonoBehaviour
 
     public float attackFinishDurtion = 7.0f;
     //animasyon için 
-    public float moveAmount = 0.33f;    // Y ekseninde hareket edilecek mesafe
-    public float moveDuration = 0.5f; // Hareket süresi
+    public float moveAmount = 135.33f;    // Y ekseninde hareket edilecek mesafe
+    public float moveDuration = 1.5f; // Hareket süresi
 
     public static float gameDayTime = 6.0f;
     public static  float  neigbordTradeTime= 3 ;
@@ -43,7 +43,7 @@ public class GameManager : MonoBehaviour
     public event Action OnAttackStopped;
     public Action OnGameDataLoaded;
     public Action OnCloseBtnClicked;
-
+    public static State capitalState;
 
 
     private void Awake()
@@ -102,6 +102,7 @@ public class GameManager : MonoBehaviour
         {
             AllyStateList[0].IsCapitalCity = true;
             AllyStateList[0].transform.GetComponentInChildren<Flag>().capitalFlag.SetActive(true);
+            capitalState = AllyStateList[0];
 
         }
         else
@@ -160,8 +161,9 @@ public class GameManager : MonoBehaviour
         ÝsAttack = false;
         isGamePause = false;
         OnAttackStopped?.Invoke(); // Olayý tetikleyin
-      
-     
+        capitalState.transform.GetComponentInChildren<Flag>().capitalFlag.SetActive(true);
+
+
 
     }
     public void ChanngeIsRegionPanelOpenValueTrue()
