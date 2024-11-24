@@ -25,7 +25,7 @@ public class StatsPanel : MonoBehaviour
         allyStataCount = GameManager.AllyStateList.Count;
         FlagActiveded();
         InvokeRepeating("UIUpdate", 0, 1);
-        RegionClickHandler.Instance.onStatsStateChanged += StatsStateChange;
+        Instance.onStatsStateChanged += StatsStateChange;
 
        
 
@@ -52,28 +52,33 @@ public class StatsPanel : MonoBehaviour
         stateName.text = statsState.StateName;
         happinesRate.text = ((int)statsState.Morele).ToString() + "%";
         slider.value = ((int)statsState.Morele);
+        CalculateTax();
+    }
+
+    void CalculateTax()
+    {
         totalTaxIncome = 0;
         foreach (var item in statsState.Taxes)
         {
-            totalTaxIncome += item.taxIncome;
-         //   Debug.Log($"tax name {item.taxType} " + totalTaxIncome);
+            if (item.taxType == TaxType.StampTax)
+            {
+                totalTaxIncome += item.currentRate * item.unitTaxIncome * statsState.Population;
+                //  Debug.Log($"slider {slider.value} unit {item.unitTaxIncome} population {RegionClickHandler.staticState.Population}");
+            }
+            else if (item.taxType == TaxType.IncomeTax)
+            {
+                totalTaxIncome += item.currentRate * (statsState.resourceData[ResourceType.Gold].mineCount * statsState.resourceData[ResourceType.Gold].productionRate) * USCongress.ProductionAddedValue / 100 / 100;
+            }
+
+            //   Debug.Log($"tax name {item.taxType} " + totalTaxIncome);
 
         }
         taxValue.text = FormatNumber(totalTaxIncome);
     }
-
-
     void UIUpdate()
     {
         happinesRate.text = ((int)statsState.Morele).ToString() + "%";
         slider.value = ((int)statsState.Morele);
-         totalTaxIncome = 0;
-        foreach (var item in statsState.Taxes)
-        {
-            totalTaxIncome += item.taxIncome;
-            //Debug.Log($"tax name {item.taxType} " + totalTaxIncome);
-
-        }
-        taxValue.text = FormatNumber(totalTaxIncome);
+        CalculateTax();
     }
 }

@@ -43,6 +43,8 @@ public class PlunderManager : MonoBehaviour
                 attackState.AddResource(res);
                 defState.RemoveResource(res);
                 defState.RemoveResource(res);
+                defState.RemoveResource(res);
+                defState.RemoveResource(res);
                 foreach (var item in res)
                 {
                     if (item.Key== ResourceType.Gold)

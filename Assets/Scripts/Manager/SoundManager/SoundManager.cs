@@ -131,7 +131,7 @@ public class SoundManager : MonoBehaviour
         musicVolume = volume;
         foreach (Sound sound in sounds)
         {
-            if (sound.isMusic) sound.source.volume = musicVolume / 100;
+            if (sound.isMusic) sound.source.volume = musicVolume / 10;
         }
     }
 

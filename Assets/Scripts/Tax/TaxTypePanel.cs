@@ -36,8 +36,9 @@ public class TaxTypePanel : MonoBehaviour
                         if (taxType == TaxType.StampTax)
                         {
                             item.taxIncome = slider.value * item.unitTaxIncome*RegionClickHandler.staticState.Population;
-                          //  Debug.Log($"slider {slider.value} unit {item.unitTaxIncome} population {RegionClickHandler.staticState.Population}");
-                        }
+                            //  Debug.Log($"slider {slider.value} unit {item.unitTaxIncome} population {RegionClickHandler.staticState.Population}");
+                        }else if( taxType== TaxType.IncomeTax)
+                        item.taxIncome = slider.value * (RegionClickHandler.staticState.resourceData[ResourceType.Gold].mineCount * RegionClickHandler.staticState.resourceData[ResourceType.Gold].productionRate) * USCongress.ProductionAddedValue / 100 / 100;
                         else
                         {
                             item.taxIncome = 0;
@@ -81,7 +82,7 @@ public class TaxTypePanel : MonoBehaviour
                            // Debug.Log($"slider {slider.value} unit {item.unitTaxIncome} population {RegionClickHandler.staticState.Population}");
                         }else if(taxType == TaxType.IncomeTax)
                         {
-                            item.taxIncome = slider.value* (RegionClickHandler.staticState.resourceData[ResourceType.Gold].maxMineCount+RegionClickHandler.staticState.resourceData[ResourceType.Gold].productionRate)*USCongress.ProductionAddedValue/100/100;
+                            item.taxIncome = slider.value* (RegionClickHandler.staticState.resourceData[ResourceType.Gold].mineCount*RegionClickHandler.staticState.resourceData[ResourceType.Gold].productionRate)*USCongress.ProductionAddedValue/100/100;
                         }
 
                        

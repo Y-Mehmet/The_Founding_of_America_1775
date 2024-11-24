@@ -54,7 +54,7 @@ public class State : MonoBehaviour
     public float MoraleMultiplier = 0.01f; // Moralin asker artýþýna etkisi
   
     public float PopulationMultiplier = 0.001f; // Nüfusun asker artýþýna etkisi
-    private float populationGrowthRateMultiplier=0.00001f; // population growth rate multiplier
+    private float populationGrowthRateMultiplier=0.00002f; // population growth rate multiplier
 
    
     private void Start()
@@ -615,7 +615,7 @@ public class State : MonoBehaviour
             resoruceAddedValue = 0;
             foreach (var item in resourceData)
             {
-                float productionAmount = item.Value.mineCount * item.Value.productionRate/100*ProductionAddedValue;
+                float productionAmount = item.Value.mineCount * item.Value.productionRate;
                 float moraleEffect = (101 - Morele) / 100;
                 productionAmount *= (1 - moraleEffect * 0.1f);
 
@@ -625,8 +625,8 @@ public class State : MonoBehaviour
                     {
                         if(item1.taxType==TaxType.IncomeTax)
                         {
-                            float tax = (productionAmount / 100)* item1.currentRate;
-                           // Debug.LogWarning(tax);
+                            float tax = (productionAmount / 100)* item1.currentRate*ProductionAddedValue/100;
+                          
                             item1.taxIncome= tax;
                             ResourceManager.Instance.ChargeTax(ResourceType.Gold, tax);
                             productionAmount -= tax;
@@ -891,9 +891,9 @@ public class State : MonoBehaviour
 
         //Debug.LogWarning($"güncel altýn ilk  durmu plunderliste uzunluðu {plunderedResources.Count} {resourceData[ResourceType.Gold].currentAmount} " + name);
 
-        plunderedResources.Add(ResourceType.Gold, resourceData[ResourceType.Gold].currentAmount/2);
+        plunderedResources.Add(ResourceType.Gold, resourceData[ResourceType.Gold].currentAmount/4);
            
-            plunderedResources.Add(resourceType, resourceData[resourceType].currentAmount/2);
+            plunderedResources.Add(resourceType, resourceData[resourceType].currentAmount/4);
           
         //   Debug.LogWarning($"güncel altýn durmu {resourceData[ResourceType.Gold].currentAmount} "+ name);
        
