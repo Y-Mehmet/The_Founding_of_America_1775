@@ -693,7 +693,7 @@ public class State : MonoBehaviour
                 {
                     if (item.Value.currentAmount < 0)
                     {
-                        Debug.Log($"state name {name} mine count bir arrtý {item.Value.mineCount + 1} res type {item.Key}");
+                      //  Debug.Log($"state name {name} mine count bir arrtý {item.Value.mineCount + 1} res type {item.Key}");
                         item.Value.mineCount++;
                     }
                 }
@@ -938,8 +938,8 @@ public void GemSpend(int value)
                             int moraleAddedValue = ((int)( item1.toleranceLimit-item1.currentRate));
                             if ( moraleAddedValue<0)
                             {
-                                
-                                MessageManager.AddMessage($"Benedict Arnold, Our soldiers fought fiercely, risking life and limb, to seize that loot—and now you take a 5% tax from it?" +
+                                if (Random.Range(0, 6) > 4)
+                                    MessageManager.AddMessage($"Benedict Arnold, Our soldiers fought fiercely, risking life and limb, to seize that loot—and now you take a 5% tax from it?" +
                                     $" This is a slap in the face to those who paid with blood for our victories. We deserve better! Morale has dropped by {moraleAddedValue} points.");
                                 SetMorale(-moraleAddedValue);
                             }
@@ -970,7 +970,7 @@ public void GemSpend(int value)
             {
                
 
-                resourceData[resource.Key].currentAmount -= resource.Value;
+                resourceData[resource.Key].currentAmount = 0;
             }
             else
             {
@@ -998,7 +998,8 @@ public void GemSpend(int value)
                     if( moralAddedValue<0)
                     {
                         SetMorale(-moralAddedValue);
-                        MessageManager.AddMessage($"Samuel Cohen: We are the hardworking souls who toil from dawn until dusk, facing every risk just to make a living in this land. Yet," +
+                        if (Random.Range(0, 6) > 4)
+                            MessageManager.AddMessage($"Samuel Cohen: We are the hardworking souls who toil from dawn until dusk, facing every risk just to make a living in this land. Yet," +
                             $" we are being suffocated by these heavy taxes! The government takes a significant portion of our earnings; it is nothing but exploitation of our labor! We can no longer turn a profit; we have to work harder each day just to survive. " +
                             $"This burden being placed upon us not only diminishes our morale but also insults the sacrifices we made for our independence. Our morale has dropped by {moralAddedValue} points because of this!");
                     }

@@ -83,7 +83,7 @@ public IEnumerator AttackingCoroutine(string defendingState, bool isFirst= false
         }
         else if (isFirst)
         {
-            MessageManager.AddMessage("Our conflict with Maine has put neighboring states on edge, reducing our relations with them by 10 points.");
+          //  MessageManager.AddMessage($"Our conflict with {defendingState} has put neighboring states on edge, reducing our relations with them by 10 points.");
 
             State neigbordState ;
             foreach (string  state in Neighbor.Instance.GetNeighbors(defendingState))
@@ -281,7 +281,7 @@ public IEnumerator AttackingCoroutine(string defendingState, bool isFirst= false
         if(isFirst)
         {
             Usa.Instance.FindStateByName(defendingState).ReduceEnemyMorale(-75);
-            MessageManager.AddMessage($"After the battle, your relations with {defendingState} have dropped .");
+           // MessageManager.AddMessage($"After the battle, your relations with {defendingState} have dropped .");
         }
        
        // Debug.LogWarning(defendingState);

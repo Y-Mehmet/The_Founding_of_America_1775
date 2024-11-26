@@ -50,9 +50,9 @@ public class SellAllPanel : MonoBehaviour
                
         }
         RegionClickHandler.staticState.SetMorale(-10);
-        MessageManager.AddMessage("Patrick Henry: It is utterly disgraceful that you would choose to dispose of our precious resources for mere pennies through the 'Sell All' option." +
-            " This thoughtless action not only devalues the labor of our citizens but also reveals a complete lack of respect for our efforts." +
-            " As a result of your decisions, the morale of the people has dropped by 10 points! We expect our leaders to defend our rights, not to trample on them!");
+       // MessageManager.AddMessage("Patrick Henry: It is utterly disgraceful that you would choose to dispose of our precious resources for mere pennies through the 'Sell All' option." +
+        //    " This thoughtless action not only devalues the labor of our citizens but also reveals a complete lack of respect for our efforts." +
+        //    " As a result of your decisions, the morale of the people has dropped by 10 points! We expect our leaders to defend our rights, not to trample on them!");
         totalSellPrice = 0;
         UIManager.Instance.HideLastPanel();
     }

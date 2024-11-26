@@ -63,10 +63,10 @@ public class AttackBtnPanelManager : MonoBehaviour
                     generals[(int)stateAndGeneral.Value.Specialty].WinBattle((int)defendingState.loss);
                 }
                 SetRandomQuotes("victory",isGeneralAssing);
-                RegionClickHandler.staticState.SetMorale(5);
-                MessageManager.AddMessage("Samuel Thompson: We, the citizens of this state, thank our courageous leaders and brave soldiers for their unwavering commitment to our freedom." +
-                    " This victory shows our strength and unity. Your leadership has inspired us," +
-                    " and the sacrifices made by our forces ensure a brighter future. Together, we stand victorious! Our morale has increased by +5!");
+                RegionClickHandler.staticState.SetMorale(1);
+                //MessageManager.AddMessage("Samuel Thompson: We, the citizens of this state, thank our courageous leaders and brave soldiers for their unwavering commitment to our freedom." +
+                //    " This victory shows our strength and unity. Your leadership has inspired us," +
+                //    " and the sacrifices made by our forces ensure a brighter future. Together, we stand victorious! Our morale has increased by +1!");
 
             }
             else if (Attack.Instance.numberOfDiceWonByThePlayer < Attack.Instance.numberOfDiceWonByTheRival)
@@ -78,9 +78,13 @@ public class AttackBtnPanelManager : MonoBehaviour
                   
                     generals[(int)stateAndGeneral.Value.Specialty].LoseBattle((int)defendingState.loss);
                 }
-                RegionClickHandler.staticState.SetMorale(-5);
-                MessageManager.AddMessage("Reginald Bradford: As citizens of this state, we are disheartened by our recent defeat. This loss exposes the flaws in our leadership and the decisions made in the heat of battle." +
+               
+                if(Random.Range(0,6)>4)
+                {
+                    RegionClickHandler.staticState.SetMorale(-5);
+                    MessageManager.AddMessage("Reginald Bradford: As citizens of this state, we are disheartened by our recent defeat. This loss exposes the flaws in our leadership and the decisions made in the heat of battle." +
                     " We cannot continue to follow leaders who jeopardize our freedom and ignore the needs of the people. Our morale has dropped by -5, and we must demand better for the sake of our future!");
+                }
             }
             else
             {

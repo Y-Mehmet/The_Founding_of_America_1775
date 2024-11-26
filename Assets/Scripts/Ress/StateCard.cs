@@ -8,6 +8,7 @@ using UnityEngine.UI;
 using static TradeManager;
 using static ResourceManager;
 using static Utility;
+using Unity.VisualScripting;
 public class StateCard : MonoBehaviour
 {
     public TextMeshProUGUI StateNameText, CoinValueText, CurentLimitValueText;// tradelimit olmalý
@@ -22,6 +23,7 @@ public class StateCard : MonoBehaviour
         {
             if (transform.parent.GetComponent<StateProductPanelScript>().tradeType == TradeType.Import)
             {
+
                 ShowImportPanelInfo();
             }
             else if (transform.parent.GetComponent<StateProductPanelScript>().tradeType == TradeType.Export)
@@ -49,6 +51,11 @@ public class StateCard : MonoBehaviour
            
                 Trade exportTrade = exportTradeList.ElementAt(gameObjectindex).Value;
                 Transform tradeState = exportTradeList.ElementAt(gameObjectindex).Key;
+            if (tradeState.GetComponent<State>().resourceData[curentResource].currentAmount<1)
+            {
+                gameObject.SetActive(false);
+            }
+          
 
                 StateNameText.text = tradeState.name;
                 int stateIndex = tradeState.GetSiblingIndex();
@@ -80,7 +87,7 @@ public class StateCard : MonoBehaviour
         var importTradeList = stateTransformAndTradeList;
         int gameObjectindex = gameObject.transform.GetSiblingIndex() - 1;
        
-        if (gameObjectindex < importTradeList.Count)
+        if (gameObjectindex < importTradeList.Count )
         {
            
             ResourceType curretResType = ResourceManager.curentResource;
@@ -88,6 +95,10 @@ public class StateCard : MonoBehaviour
 
             Trade importTrade = importTradeList.ElementAt(gameObjectindex).Value;
             State tradeState = importTradeList.ElementAt(gameObjectindex).Key.GetComponent<State>();
+            if( tradeState.GetGoldResValue() < 100 ) {
+                gameObject.SetActive(false);
+               
+            }
 
             StateNameText.text = tradeState.name;
             int stateIndex = tradeState.transform.GetSiblingIndex();

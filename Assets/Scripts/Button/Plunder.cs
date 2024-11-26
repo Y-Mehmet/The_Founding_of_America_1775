@@ -43,7 +43,7 @@ public class Plunder : MonoBehaviour
             defState.PlunderResource();
             for (int i = 0; i < defState.GetPlundData().Count; i++)
             {
-                Debug.Log($" res type ýndex {defState.GetPlundData().ElementAt(i).Key} res value {defState.GetPlundData().ElementAt(i).Value} ");
+               // Debug.Log($" res type ýndex {defState.GetPlundData().ElementAt(i).Key} res value {defState.GetPlundData().ElementAt(i).Value} ");
                 resIconImages[i].gameObject.SetActive(true);
                 resIconImages[i].sprite = Resources.Load<Sprite>("ResourcesIcon/" + (int) defState.GetPlundData().ElementAt(i).Key);
                 resTexts[i].gameObject.SetActive(true);
