@@ -120,8 +120,8 @@ public class AttackBtnPanelManager : MonoBehaviour
             if (attackingState.attackCanvasButtonPanelIndex == 3)
             {
                 retreatBtn.SetActive(true);
+                playerTotalArmyPowerText.text = 0+"";
 
-                
             }
             else if (defendingState.attackCanvasButtonPanelIndex == 1)
             {

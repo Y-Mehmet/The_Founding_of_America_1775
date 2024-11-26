@@ -56,7 +56,7 @@ public class AllyState : MonoBehaviour, ISelectable
                         .SetEase(Ease.InOutQuad);
 
                     // Pozisyon deðerlerini kontrol etmek için log ekleyin
-                    Debug.Log($"Start Y: {startY}, Target Y: {targetY}");
+                  //  Debug.Log($"Start Y: {startY}, Target Y: {targetY}");
 
                     // Tween nesnesini saklayýn
                     RegionClickHandler.Instance.moveTweens[neighborStateGameobject] = moveTween;

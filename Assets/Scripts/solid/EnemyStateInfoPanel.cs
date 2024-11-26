@@ -108,8 +108,8 @@ public class EnemyStateInfoPanel : MonoBehaviour
             currnetState = RegionClickHandler.staticState;
         }
         happinesText.text = "Relations: " + ((int)currnetState.Morele).ToString();
-        totalArmyPowerText.text = "Army: " + FormatNumber(currnetState.GetTotalArmyPower());
-        mainResTypeText.text = "Main Resoruce: " + ((MainResourceType)currnetState.Resources).ToString();
+        totalArmyPowerText.text = "Army: " + FormatNumber(currnetState.GetArmySize());
+        mainResTypeText.text = "Main Res: " + ((MainResourceType)currnetState.Resources).ToString();
 
 
     }

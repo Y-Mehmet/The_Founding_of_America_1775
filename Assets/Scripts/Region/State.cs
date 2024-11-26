@@ -771,7 +771,7 @@ public class State : MonoBehaviour
     public void LostWar(float lossRate)
     {
         loss = lossRate * GetArmySize();
-        Debug.LogWarning($"loss: {loss} armysize {ArmySize}  name {gameObject.name} loss rate {lossRate}");
+     //   Debug.LogWarning($"loss: {loss} armysize {ArmySize}  name {gameObject.name} loss rate {lossRate}");
         ReduceArmySize(loss);
         
     }

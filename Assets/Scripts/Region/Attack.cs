@@ -10,7 +10,7 @@ public class Attack : MonoBehaviour
     Sprite StateIcon;
    
     public Transform USA_Transform;
-    float diceLowerLimit = 0.33f, diceMidLimit=0.66f, diceUpperLimit=1.0f;
+    float diceLowerLimit = 0.25f, diceMidLimit=0.50f, diceUpperLimit=1.0f;   
     public  int diceCount;
 
     public float attackDuration = 2.0f;
@@ -20,7 +20,6 @@ public class Attack : MonoBehaviour
     public float numberOfDiceWonByThePlayer;
     public float numberOfDiceWonByTheRival;
     public float numberOfDrew;
-
 
 
     private void Awake()
@@ -189,6 +188,7 @@ public IEnumerator AttackingCoroutine(string defendingState, bool isFirst= false
 
         GameObject attackingStateGameObject = FindChildByName(USA_Transform, attackingState);
         GameObject defendingStateGameObject = FindChildByName(USA_Transform, defendingState);
+     
         float attackingStateTotalArmyPower, defendingStateTotalArmyPower;
 
         // Further checks and logic for attacking
@@ -322,10 +322,10 @@ public IEnumerator AttackingCoroutine(string defendingState, bool isFirst= false
     }
     int  DiceCountCalcuation(float attackingStateTotalArmyPower,float defendingStateTotalArmyPower)
     {
-
+        //  Debug.LogWarning($" attack state army {attackingStateTotalArmyPower} def army {defendingStateTotalArmyPower}");
         if((attackingStateTotalArmyPower*diceLowerLimit)>defendingStateTotalArmyPower)
         {
-           // Debug.LogWarning($" attack state army {attackingStateTotalArmyPower} def army {defendingStateTotalArmyPower}");
+          
             return 1;
         }
         else if ((attackingStateTotalArmyPower * diceMidLimit) > defendingStateTotalArmyPower)

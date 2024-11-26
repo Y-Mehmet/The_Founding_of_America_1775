@@ -33,18 +33,16 @@ public class PlunderManager : MonoBehaviour
                 //Debug.LogWarning($" atafck state {attackState.name} gold value {attackState.resourceData[ResourceType.Gold].currentAmount} ");
                 //Debug.LogWarning($" def state {defState.name} gold value {defState.resourceData[ResourceType.Gold].currentAmount} ");
 
-                attackState.SetMorale(5);
+                attackState.SetMorale(1);
                 if(isAddTrue)
                 {
-                    attackState.SetMorale(5);
+                    attackState.SetMorale(1);
                     attackState.AddResource(res);
 
                 }
                 attackState.AddResource(res);
                 defState.RemoveResource(res);
-                defState.RemoveResource(res);
-                defState.RemoveResource(res);
-                defState.RemoveResource(res);
+                
                 foreach (var item in res)
                 {
                     if (item.Key== ResourceType.Gold)

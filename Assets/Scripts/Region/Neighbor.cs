@@ -209,7 +209,7 @@ class Neighbor
                     // Düþmanlarý listeye ekle
                     if (!enemyNeighbors.Contains(neighbor))
                     {
-                        Debug.Log($"Enemy found: {neighbor}");
+                       // Debug.Log($"Enemy found: {neighbor}");
                         enemyNeighbors.Add(neighbor);
                     }
                 }
@@ -218,7 +218,7 @@ class Neighbor
                     // Eðer müttefikse, müttefikin komþularýný gezmek için sýraya ekle
                     if (!visitedCities.Contains(neighbor))
                     {
-                        Debug.Log($"Exploring ally's neighbors: {neighbor}");
+                     //   Debug.Log($"Exploring ally's neighbors: {neighbor}");
                         citiesToVisit.Enqueue(neighbor);
                     }
                 }
