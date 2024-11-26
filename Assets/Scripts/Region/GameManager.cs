@@ -108,8 +108,11 @@ public class GameManager : MonoBehaviour
         }
         else
         {
+            
+            
+           
             ÝsGameOver = true;
-          
+
 
         }
     }

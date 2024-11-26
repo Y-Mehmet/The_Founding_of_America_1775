@@ -21,7 +21,10 @@ public class GameOverPanel : MonoBehaviour
     void OnButtonCliced()
     {
         SoundManager.instance.Play("ButtonClick");
-      //  SceneManager.LoadScene("LoadScene", LoadSceneMode.Additive);
+        foreach (Transform state in Usa.Instance.transform)
+        {
+            state.GetComponentInChildren<Flag>().capitalFlag.SetActive(false);
+        }
         SaveGameData.Instance.LoadGame(true);
         UIManager.Instance.GetComponent<HideAllPanelButton>().DoHidePanel();
         GameManager.Instance.IsRegionPanelOpen = false;

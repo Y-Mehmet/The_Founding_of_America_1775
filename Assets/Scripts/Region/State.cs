@@ -808,7 +808,8 @@ public class State : MonoBehaviour
         HandleAttackStopped();
         
     }
-    void LostState()
+  
+    public void LostState()
     {
      
         GeneralManager.Instance.RemoveGeneralFromState(this);
