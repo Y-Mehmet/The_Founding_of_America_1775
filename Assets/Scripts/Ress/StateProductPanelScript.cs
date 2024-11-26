@@ -48,38 +48,45 @@ public class StateProductPanelScript : MonoBehaviour
       //  Debug.LogWarning(" stateTransformAndTradeList export list count " + stateTransformAndTradeList.Count);
         return GetTradeList(1);
     }
-    
-    public Dictionary<Transform, Trade> GetTradeList(int  enumIndexNum /* trade type belirler */ )
-        {
-       // Debug.LogWarning(" get trade çalýþtý");
-        if(stateTransformAndTradeList!= null)
-        stateTransformAndTradeList.Clear();
+
+    public Dictionary<Transform, Trade> GetTradeList(int enumIndexNum /* trade type belirler */)
+    {
+        // Debug.LogWarning(" get trade çalýþtý");
+        if (stateTransformAndTradeList != null)
+            stateTransformAndTradeList.Clear();
 
         ResourceType curretResType = ResourceManager.curentResource;
-      //  Debug.LogWarning("curentr res type " + curretResType);
-        if( ResourceManager.curentResource != null )
+        // Debug.LogWarning("curentr res type " + curretResType);
+        if (curretResType != null)
         {
             foreach (Transform stateTransform in Usa.Instance.transform)
             {
                 Trade trade = stateTransform.GetComponent<State>().GetTrade(enumIndexNum, curretResType);
-                if (trade != null && stateTransform.name!= RegionClickHandler.staticState.name)
+                if (trade != null && stateTransform.name != RegionClickHandler.staticState.name)
                 {
-                  //  Debug.LogWarning("buraya export kaynaklarý eklendi");
+                    // Debug.LogWarning("buraya export kaynaklarý eklendi");
                     stateTransformAndTradeList.Add(stateTransform, trade);
                 }
-               
-
             }
-           // Debug.LogWarning(" trade count " + stateTransformAndTradeList.Count);
-            return stateTransformAndTradeList;
+
+            // Debug.LogWarning(" trade count " + stateTransformAndTradeList.Count);
+
+            // Sýralama iþlemi: `contractPrices` doðrulandýktan sonra sýralama yapýlýr
+            var sortedList = stateTransformAndTradeList
+                .Where(pair => pair.Value.contractPrices != null && pair.Value.contractPrices.Count > 0) // Geçerli `contractPrices` kontrolü
+                .OrderBy(pair => pair.Value.contractPrices.Min()) // En düþük kontrat fiyatýna göre sýralama
+                .ToList();
+
+            // Yeniden bir Dictionary oluþtur
+            Dictionary<Transform, Trade> sortedDictionary = sortedList.ToDictionary(pair => pair.Key, pair => pair.Value);
+
+            return sortedDictionary;
         }
         else
         {
-          //  Debug.LogWarning("current res is null");
+            // Debug.LogWarning("current res is null");
             return null;
         }
-       
-
     }
 
 }

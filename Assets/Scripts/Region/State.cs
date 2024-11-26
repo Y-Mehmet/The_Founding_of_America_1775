@@ -5,6 +5,7 @@ using UnityEngine;
 using static GeneralManager;
 using static GameManager;
 using static USCongress;
+using static StateResourceSO;
 using Random = UnityEngine.Random;
 
 
@@ -140,7 +141,7 @@ public class State : MonoBehaviour
                     UIManager.Instance.GetComponent<HideAllPanelButton>().DoHidePanel();
                     RegionClickHandler.Instance.currentState = null;
                     RegionClickHandler.staticState = null;
-                    Debug.LogWarning("random sayý 5 savaþ ilaný " + random);
+                  //  Debug.LogWarning("random sayý 5 savaþ ilaný " + random);
 
                     Attack.Instance.Attacking(gameObject.name);
                     SoundManager.instance.Play("ChurchBell");
@@ -768,6 +769,30 @@ public class State : MonoBehaviour
        
 
     }
+    void ChangeResourceAfterOccupy()
+    {
+        resourceData.Clear();
+        Population = 7500;
+
+        Population += Random.Range(-500, 1001);
+
+        // ResourceData sözlüðünü oluþtur ve mevcut mineCount deðerine rastgele ekle
+        resourceData = new Dictionary<ResourceType, ResourceData>
+        {
+            { ResourceType.Gold, new ResourceData {resourceType=ResourceType.Gold, currentAmount = 1500, mineCount = 10 + Random.Range(-1, 3), productionRate = GoldproductionRate }},
+            { ResourceType.Water, new ResourceData {resourceType=ResourceType.Water, currentAmount = 40000, mineCount = 11 + Random.Range(-1, 3), productionRate = WaterproductionRate, consumptionAmount = WaterConsumptionRate }},
+            { ResourceType.Salt, new ResourceData {resourceType=ResourceType.Salt, currentAmount = 2000, mineCount = 15 + Random.Range(-1, 3), productionRate = SaltproductionRate, consumptionAmount = SaltConsumptionRate }},
+            { ResourceType.Meat, new ResourceData {resourceType=ResourceType.Meat, currentAmount = 3000, mineCount = 12 + Random.Range(-1, 3), productionRate = MeatproductionRate, consumptionAmount = MeatConsumptionRate }},
+            { ResourceType.Fruits, new ResourceData {resourceType=ResourceType.Fruits, currentAmount = 2500, mineCount = 12 + Random.Range(-1, 3), productionRate = FruitsproductionRate, consumptionAmount = FruitConsumptionRate }},
+            { ResourceType.Vegetables, new ResourceData {resourceType=ResourceType.Vegetables, currentAmount = 2400, mineCount = 11 + Random.Range(-1, 3), productionRate = VegetablesproductionRate, consumptionAmount = VegetablesConsumptionRate }},
+            { ResourceType.Wheat, new ResourceData {resourceType=ResourceType.Wheat, currentAmount = 2500, mineCount = 21 + Random.Range(-1, 3), productionRate = WheatproductionRate, consumptionAmount = WheatConsumptionRate }},
+            { ResourceType.Wood, new ResourceData {resourceType=ResourceType.Wood, currentAmount = 2600, mineCount = 11 + Random.Range(-1, 3), productionRate = WoodproductionRate }},
+            { ResourceType.Coal, new ResourceData {resourceType=ResourceType.Coal, currentAmount = 2800, mineCount = 10 + Random.Range(-1, 3), productionRate = CoalproductionRate }},
+            { ResourceType.Iron, new ResourceData {resourceType=ResourceType.Iron, currentAmount = 3000, mineCount = 10 + Random.Range(-1, 3), productionRate = IronproductionRate }},
+            { ResourceType.Stone, new ResourceData {resourceType=ResourceType.Stone, currentAmount = 2500, mineCount = 10 + Random.Range(-1, 3), productionRate = StoneproductionRate }},
+            { ResourceType.Diamond, new ResourceData {resourceType=ResourceType.Diamond, currentAmount = 0, mineCount = 0 , productionRate = DimondproductionRate }}
+        };
+    }
     public void LostWar(float lossRate)
     {
         loss = lossRate * GetArmySize();
@@ -792,6 +817,7 @@ public class State : MonoBehaviour
             {
             //    Debug.LogWarning($"ally stete {allyState.name} bulundu ve eneblesi actif edildi");
                 allyState.enabled = true;
+                ChangeResourceAfterOccupy();
                 TotalPopulationManager(Population);
             }
             else
@@ -891,8 +917,9 @@ public class State : MonoBehaviour
         ResourceType resourceType = (ResourceType)Resources;
 
         //Debug.LogWarning($"güncel altýn ilk  durmu plunderliste uzunluðu {plunderedResources.Count} {resourceData[ResourceType.Gold].currentAmount} " + name);
-
-        plunderedResources.Add(ResourceType.Gold, resourceData[ResourceType.Gold].currentAmount/4);
+        float gold = GetGoldResValue();
+        gold = gold > 5000 ? 5000 : gold;
+        plunderedResources.Add(ResourceType.Gold, gold);
            
             plunderedResources.Add(resourceType, resourceData[resourceType].currentAmount/4);
           

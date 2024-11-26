@@ -329,6 +329,8 @@ public class GameInitalizer : MonoBehaviour
         SetTradeData();
         foreach (Transform state in Usa.Instance.transform)
         {
+            float randomPriceAdjustment = Random.Range(-0.01f, 0.01f); // -10 ile 10 arasında rastgele bir fiyat düzenlemesi
+            float randomLimitAdjustment = Random.Range(-5000, 5000);   // -5 ile 5 arasında rastgele bir limit düzenlemesi
             if (state.GetComponent<State>() != null)
             {
                     State s = state.GetComponent<State>();
@@ -373,20 +375,30 @@ public class GameInitalizer : MonoBehaviour
                          s.tradeLists.Insert(0,new Trade(
                          TradeType.Import,
                          new List<ResourceType>(statesImportTradeResTypeList["largeStates"]),
-                         new List<float>(statesImportTradeContratPriceList["largeStates"]),
-                         new List<float>(statesImporTradeLimitList["largeStates"])
+                         new List<float>(statesImportTradeContratPriceList["largeStates"].Select(price => (price + randomPriceAdjustment) > 0 ? (price + randomPriceAdjustment) : price).ToList()),
+                         new List<float>(statesImporTradeLimitList["largeStates"].Select(limit => (limit + randomLimitAdjustment) > 0 ? (limit + randomLimitAdjustment) : 0).ToList())
                         ));
 
 
-                    s.tradeLists.Insert(1,( new Trade(
-                            TradeType.Export,
-                              new List<ResourceType>(statesImportTradeResTypeList["largeStates"]),
-                            new List<float>(statesExportTradeContratPriceList["largeStates"]),
-                            new List<float>(statesExportTradLimitList["largeStates"])
-                        )));
+                    // Rastgele sayı aralıklarını belirleyin
+
+             
+                   // Debug.Log($" random price {randomPriceAdjustment}");
+                    // Trade nesnesini oluştur
+                    s.tradeLists.Insert(1, new Trade(
+                        TradeType.Export,
+                        new List<ResourceType>(statesImportTradeResTypeList["largeStates"]),
+
+                        // Fiyat listesine rastgele sayı ekleme
+                        new List<float>(statesExportTradeContratPriceList["largeStates"].Select(price => (price + randomPriceAdjustment)>0? (price + randomPriceAdjustment):price).ToList()),
+
+                        // Limit listesine rastgele sayı ekleme
+                        new List<float>(statesExportTradLimitList["largeStates"].Select(limit => (limit + randomLimitAdjustment)>0? (limit + randomLimitAdjustment):0).ToList())
+                    ));
 
 
-                        TaxData StampTax = new TaxData
+
+                    TaxData StampTax = new TaxData
                         {
                             taxType = TaxType.StampTax,
                             currentRate = 5,
@@ -456,16 +468,16 @@ public class GameInitalizer : MonoBehaviour
                     s.tradeLists.Insert(0,new Trade(
                             TradeType.Import,
                              new List<ResourceType>(statesImportTradeResTypeList["largeStates"]),
-                            new List<float>(statesImportTradeContratPriceList["smallStates"]),
-                            new List<float>(statesImporTradeLimitList["smallStates"])                   // İthalat limitleri
+                            new List<float>(statesImportTradeContratPriceList["smallStates"].Select(price => (price + randomPriceAdjustment) > 0 ? (price + randomPriceAdjustment) : price).ToList()),
+                            new List<float>(statesImporTradeLimitList["smallStates"].Select(price => (price + randomPriceAdjustment) > 0 ? (price + randomPriceAdjustment) : price).ToList())                   // İthalat limitleri
                         )) ;
 
 
                     s.tradeLists.Insert(1, new Trade(
                             TradeType.Export,
                               new List<ResourceType>(statesImportTradeResTypeList["largeStates"]),
-                            new List<float>(statesExportTradeContratPriceList["smallStates"]),
-                            new List<float>(statesExportTradLimitList["smallStates"])
+                            new List<float>(statesExportTradeContratPriceList["smallStates"].Select(price => (price + randomPriceAdjustment) > 0 ? (price + randomPriceAdjustment) : price).ToList()),
+                            new List<float>(statesExportTradLimitList["smallStates"].Select(limit => (limit + randomLimitAdjustment) > 0 ? (limit + randomLimitAdjustment) : 0).ToList())
                         // İhracat limitleri
                         )) ;
                         TaxData StampTax = new TaxData
@@ -535,16 +547,16 @@ public class GameInitalizer : MonoBehaviour
                     s.tradeLists.Insert(0, new Trade(
                             TradeType.Import,
                              new List<ResourceType>(statesImportTradeResTypeList["largeStates"]),
-                            new List<float>(statesImportTradeContratPriceList["mediumStates"]),
-                            new List<float>(statesImporTradeLimitList["mediumStates"])                 // İthalat limitleri
+                            new List<float>(statesImportTradeContratPriceList["mediumStates"].Select(price => (price + randomPriceAdjustment) > 0 ? (price + randomPriceAdjustment) : price).ToList()),
+                            new List<float>(statesImporTradeLimitList["mediumStates"].Select(limit => (limit + randomLimitAdjustment) > 0 ? (limit + randomLimitAdjustment) : 0).ToList())                 // İthalat limitleri
                         ));
 
                     // Export Trade - mediumStates için
                     s.tradeLists.Insert(1, new Trade(
                             TradeType.Export,
                              new List<ResourceType>(statesImportTradeResTypeList["largeStates"]),
-                            new List<float>(statesExportTradeContratPriceList["mediumStates"]),
-                            new List<float>(statesExportTradLimitList["mediumStates"])                 // İhracat limitleri
+                            new List<float>(statesExportTradeContratPriceList["mediumStates"].Select(price => (price + randomPriceAdjustment) > 0 ? (price + randomPriceAdjustment) : price).ToList()),
+                            new List<float>(statesExportTradLimitList["mediumStates"].Select(limit => (limit + randomLimitAdjustment) > 0 ? (limit + randomLimitAdjustment) : 0).ToList())                 // İhracat limitleri
                         ));
                         TaxData StampTax = new TaxData
                         {
