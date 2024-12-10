@@ -21,14 +21,16 @@ public class GameOverPanel : MonoBehaviour
     void OnButtonCliced()
     {
         SoundManager.instance.Play("ButtonClick");
-        foreach (Transform state in Usa.Instance.transform)
-        {
-            state.GetComponentInChildren<Flag>().capitalFlag.SetActive(false);
-        }
+        
         SaveGameData.Instance.LoadGame(true);
         UIManager.Instance.GetComponent<HideAllPanelButton>().DoHidePanel();
         GameManager.Instance.IsRegionPanelOpen = false;
-      
+        foreach (Transform state in Usa.Instance.transform)
+        {
+            state.GetComponentInChildren<Flag>().capitalFlag.SetActive(false);
+            if (state.name == "Massachusetts")
+                GameManager.capitalState = state.GetComponent<State>();
+        }
 
     }
 }

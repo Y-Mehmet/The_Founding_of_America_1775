@@ -93,32 +93,43 @@ public class MineUpgradePanel : MonoBehaviour
     {
        while(true)
         {
-           for (int i = 0; i < RequiredResTypeValueList.Count; i++)
+            UpdateUI();
+             yield return new WaitForSeconds(duration);
+        }
+    }
+    void UpdateUI()
+    {
+        for (int i = 0; i < RequiredResTypeValueList.Count; i++)
+        {
+            // curretn amount
+            ResourceType resType = RequiredResTypeValueList[i];
+            float resCurrentAmountValue = currentState.resourceData[resType].currentAmount;
+            reqResCurrentAmountValueTextList[i].text = FormatNumber(resCurrentAmountValue);
+            if (RequiredResValueList[i] > quantity * resCurrentAmountValue)
             {
-               // curretn amount
-                ResourceType resType = RequiredResTypeValueList[i];
-                float resCurrentAmountValue = currentState.resourceData[resType].currentAmount;
-                reqResCurrentAmountValueTextList[i].text = FormatNumber(resCurrentAmountValue);
-                if (RequiredResValueList[i]>quantity* resCurrentAmountValue)
-                {
-                    reqResCurrentAmountValueTextList[i].color = colorRed;
-                }else
-                {
-                    reqResCurrentAmountValueTextList[i].color = originalTextColor;
-                }
+                reqResCurrentAmountValueTextList[i].color = colorRed;
+            }
+            else
+            {
+                reqResCurrentAmountValueTextList[i].color = originalTextColor;
+            }
 
-            }
+        }
+        buyButtonText.color = originalTextColor;
+        buyButtonText.color = originalTextColor;
+        if (currentState.GetGoldResValue() < buyButtonCoinValue)
+        {
+            buyButtonText.color = colorRed;
+        }else
+        {
             buyButtonText.color = originalTextColor;
-            buyButtonText.color = originalTextColor;
-            if (currentState.GetGoldResValue()< buyButtonCoinValue)
-            {
-                buyButtonText.color = colorRed;
-            }
-           if(  currentState.GetGemResValue()< instatnlyButtonGemValue)
-            {
-                instantlyButtonText.color = colorRed;
-            }
-            yield return new WaitForSeconds(duration);
+        }
+        if (currentState.GetGemResValue() < instatnlyButtonGemValue)
+        {
+            instantlyButtonText.color = colorRed;
+        }else
+        {
+            instantlyButtonText.color = originalTextColor;
         }
     }
     void OnInputValueChanged(string input)
@@ -240,11 +251,10 @@ public class MineUpgradePanel : MonoBehaviour
                     currentState.resourceData[currentResType].mineCount += quantity;
                     MineCountText.text = FormatNumber(currentState.resourceData[currentResType].mineCount);
                     inputField.text = "0";
-
-                }else
-                {
+                    UpdateUI();
 
                 }
+               
             }
         }
             

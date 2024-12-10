@@ -71,7 +71,9 @@ public class State : MonoBehaviour
             {
                 
                 transform.GetComponentInChildren<Flag>().capitalFlag.SetActive(true);
+                Debug.LogError(" stttra catiptal satate flag is true " + this.name);
             }
+           
         }
         else
         {
@@ -90,6 +92,16 @@ public class State : MonoBehaviour
         {
             case (StateType.Ally):
                 gameObject.GetComponent<AllyState>().enabled= true;
+                if (IsCapitalCity)
+                {
+
+                    transform.GetComponentInChildren<Flag>().capitalFlag.SetActive(true);
+                    Debug.LogError(" gamedata loadeda catiptal satate flag is true " + this.name);
+                }
+                else
+                {
+                    transform.GetComponentInChildren<Flag>().capitalFlag.SetActive(false);
+                }
                 break;
             case (StateType.Enemy):
                 gameObject.GetComponent<EnemyState>().enabled = true;
@@ -102,7 +114,8 @@ public class State : MonoBehaviour
         GameManager.Instance.OnAttackStopped += HandleAttackStopped;
      
         HandleAttackStopped();
-        
+       
+
 
     }
 
@@ -808,6 +821,7 @@ public class State : MonoBehaviour
             //Debug.LogWarning("state iþgal edildi");
             LandArmySize = firstArmySize;
             NavalArmySize = firstArmySize;
+            ArmyBarrackSize= firstArmySize*2;
             stateType = StateType.Ally;
             ChangeCollor.Instance.ChangeGameobjectColor(gameObject, stateType);
             FindISelectibleComponentAndDisable();

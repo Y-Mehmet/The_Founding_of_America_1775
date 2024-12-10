@@ -152,7 +152,7 @@ public class SaveGameData : MonoBehaviour
 
         if (!string.IsNullOrEmpty(dataToLoad))
         {
-          
+            
             SaveData data = JsonUtility.FromJson<SaveData>(dataToLoad);
             GameDateManager.currentDate = GameDateManager.ConvertStringToDate(data.gameData.currentTime);
             GameManager.Instance.IsFirstSave = data.gameData.isFirstSave;
