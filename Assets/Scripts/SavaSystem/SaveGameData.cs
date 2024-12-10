@@ -72,6 +72,7 @@ public class SaveGameData : MonoBehaviour
         gameData.EconomyMissionsIndex = EconomyMissionsIndex;
         gameData.MiscellaneousMissionsIndex= MiscellaneousMissionsIndex;
         gameData.CompletedMissionCount= CompletedMissionCount;
+        gameData.ClaimedMissionCount= ClaimedMissionCount;
         gameData.unreadMessageCount = MessageManager.unreadMessageCount;
         gameData.musicVolume = SoundManager.instance.musicVolume;
         gameData.soundVolume= SoundManager.instance.soundVolume;
@@ -177,6 +178,7 @@ public class SaveGameData : MonoBehaviour
             EconomyMissionsIndex = data.gameData.EconomyMissionsIndex;
             MiscellaneousMissionsIndex = data.gameData.MiscellaneousMissionsIndex;
             CompletedMissionCount = data.gameData.CompletedMissionCount;
+            ClaimedMissionCount = data.gameData.ClaimedMissionCount;
             SoundManager.instance.musicVolume = data.gameData.musicVolume;
             SoundManager.instance.soundVolume = data.gameData.soundVolume;
             GeneralManager.stateGenerals = data.gameData.generalStatesList

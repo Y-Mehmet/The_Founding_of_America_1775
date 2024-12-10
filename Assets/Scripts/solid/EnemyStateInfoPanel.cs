@@ -2,6 +2,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 using static Utility;
+using static RegionClickHandler;
 public class EnemyStateInfoPanel : MonoBehaviour
 {
     public static EnemyStateInfoPanel Instance { get; private set; }
@@ -103,13 +104,10 @@ public class EnemyStateInfoPanel : MonoBehaviour
         MissionsManager.AddTotalSucsessIntel(1);
 
 
-           if (currnetState == null) {
-
-            currnetState = RegionClickHandler.staticState;
-        }
-        happinesText.text = "Relations: " + ((int)currnetState.Morele).ToString();
-        totalArmyPowerText.text = "Army: " + FormatNumber(currnetState.GetArmySize());
-        mainResTypeText.text = "Main Res: " + ((MainResourceType)currnetState.Resources).ToString();
+       
+        happinesText.text = "Relations: " + ((int)staticState.Morele).ToString();
+        totalArmyPowerText.text = "Army: " + FormatNumber(staticState.GetArmySize());
+        mainResTypeText.text = "Main Res: " + ((MainResourceType)staticState.Resources).ToString();
 
 
     }
@@ -123,7 +121,7 @@ public class EnemyStateInfoPanel : MonoBehaviour
         totalArmyPowerText.text = "Spy Attempt Failed";
         mainResTypeText.text = "Spy Attempt Failed";
         MessageManager.AddMessage("Oh no, our spies have been caught! Relations between the two states ("+RegionClickHandler.Instance.currentState.name+") have deteriorated by 50 points");
-        RegionClickHandler.staticState.ReduceEnemyMorale(-50);
+        staticState.ReduceEnemyMorale(-50);
     }
    
 }

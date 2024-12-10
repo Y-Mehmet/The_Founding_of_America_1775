@@ -242,7 +242,7 @@ public class GameInitalizer : MonoBehaviour
     {
         MineManager.instance.MineRequiredResList.Clear();
         MineManager.instance.MineRequiredResList.Add(ResourceType.Gold, new MineMatarials
-       (new List<ResourceType> { ResourceType.Coal, ResourceType.Iron, ResourceType.Stone },  new List<int>{22000,22000,11000}));
+       (new List<ResourceType> { ResourceType.Coal, ResourceType.Iron, ResourceType.Stone },  new List<int>{30000,30000,15000}));
 
         MineManager.instance.MineRequiredResList.Add(ResourceType.Water, new MineMatarials
        (new List<ResourceType> { ResourceType.Wood, ResourceType.Iron, ResourceType.Stone }, new List<int> { 17000, 17000, 8500 }));
@@ -275,7 +275,7 @@ public class GameInitalizer : MonoBehaviour
        (new List<ResourceType> { ResourceType.Coal, ResourceType.Iron, ResourceType.Wood }, new List<int> { 20000, 20000, 10000 }));
 
         MineManager.instance.MineRequiredResList.Add(ResourceType.Diamond, new MineMatarials
-     (new List<ResourceType> { ResourceType.Coal, ResourceType.Iron, ResourceType.Stone }, new List<int> { 48000, 48000, 24000 }));
+     (new List<ResourceType> { ResourceType.Coal, ResourceType.Iron, ResourceType.Stone }, new List<int> { 100000, 100000, 50000 }));
 
 
 

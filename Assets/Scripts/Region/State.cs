@@ -71,7 +71,7 @@ public class State : MonoBehaviour
             {
                 
                 transform.GetComponentInChildren<Flag>().capitalFlag.SetActive(true);
-                Debug.LogError(" stttra catiptal satate flag is true " + this.name);
+//Debug.LogError(" stttra catiptal satate flag is true " + this.name);
             }
            
         }
@@ -96,7 +96,7 @@ public class State : MonoBehaviour
                 {
 
                     transform.GetComponentInChildren<Flag>().capitalFlag.SetActive(true);
-                    Debug.LogError(" gamedata loadeda catiptal satate flag is true " + this.name);
+                   // Debug.LogError(" gamedata loadeda catiptal satate flag is true " + this.name);
                 }
                 else
                 {
@@ -345,7 +345,7 @@ public class State : MonoBehaviour
     private float GetResourceFactionRate()
     {
 
-        return resoruceAddedValue * 0.01f;
+        return resoruceAddedValue * 0.05f;
     }
   
     public int GetGoldResValue()

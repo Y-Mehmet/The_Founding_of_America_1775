@@ -103,7 +103,7 @@ public class GameManager : MonoBehaviour
         {
             AllyStateList[0].IsCapitalCity = true;
             AllyStateList[0].transform.GetComponentInChildren<Flag>().capitalFlag.SetActive(true);
-            Debug.LogError(" change capital da  catiptal satate flag is true " + AllyStateList[0].name);
+         //   Debug.LogError(" change capital da  catiptal satate flag is true " + AllyStateList[0].name);
             capitalState = AllyStateList[0];
 
         }
@@ -167,7 +167,7 @@ public class GameManager : MonoBehaviour
         isGamePause = false;
         OnAttackStopped?.Invoke(); // Olayý tetikleyin
         capitalState.transform.GetComponentInChildren<Flag>().capitalFlag.SetActive(true);
-        Debug.LogError("attaack fnish  capital state flag is true " + capitalState.name);
+      //  Debug.LogError("attaack fnish  capital state flag is true " + capitalState.name);
 
 
 
