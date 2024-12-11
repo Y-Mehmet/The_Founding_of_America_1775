@@ -25,13 +25,7 @@ public class GameInitalizer : MonoBehaviour
             Destroy(gameObject);
     }
 
-    private void Start()
-    {
-
-
-        InitGame();
-
-    }
+    
     public void InitGame()
     {
         // Initialize the Neighbor class with city data

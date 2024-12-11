@@ -67,12 +67,7 @@ public class State : MonoBehaviour
             {
                 SubsucribeAction();
             }
-            if(IsCapitalCity)
-            {
-                
-                transform.GetComponentInChildren<Flag>().capitalFlag.SetActive(true);
-//Debug.LogError(" stttra catiptal satate flag is true " + this.name);
-            }
+           
            
         }
         else
@@ -424,6 +419,7 @@ public class State : MonoBehaviour
             StopCoroutine(incrasePopulationCoroutine);
 
             incrasePopulationCoroutine = null;
+            populationAddedValue = 0;
 
         }
     }
@@ -446,10 +442,10 @@ public class State : MonoBehaviour
                 StopIncrasePopulation();
                 USCongress.PopulationStabilityAct = true;
                 populationAddedValue = 0;
-                MoralAddedValue = -1;
+                MoralAddedValue = -1f;
                 break;
             case 1:
-                MoralAddedValue = 1;
+                MoralAddedValue = .1f;
                 ConsumptionAddedValue = 110;
                 break;
             case 2:
@@ -457,7 +453,7 @@ public class State : MonoBehaviour
                 ProductionAddedValue = 90;
                 break;
             case 3:
-                MoralAddedValue = 1;
+                MoralAddedValue = .1f;
                 ProductionAddedValue = 90;
                 break;
                 case 4:

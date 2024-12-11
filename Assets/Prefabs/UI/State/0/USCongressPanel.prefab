@@ -1087,7 +1087,7 @@ PrefabInstance:
     - target: {fileID: 1069658172594604370, guid: 6fda2064d2617a941ac1f6bf19c7d457,
         type: 3}
       propertyPath: m_text
-      value: 'Moral Dailly impact: +1'
+      value: 'Moral Dailly impact: +0.1'
       objectReference: {fileID: 0}
     - target: {fileID: 2447903364928211877, guid: 6fda2064d2617a941ac1f6bf19c7d457,
         type: 3}
@@ -1231,7 +1231,7 @@ PrefabInstance:
     - target: {fileID: 1069658172594604370, guid: 6fda2064d2617a941ac1f6bf19c7d457,
         type: 3}
       propertyPath: m_text
-      value: 'Morale daily impact: +1'
+      value: 'Morale daily impact: +0.1'
       objectReference: {fileID: 0}
     - target: {fileID: 2447903364928211877, guid: 6fda2064d2617a941ac1f6bf19c7d457,
         type: 3}
@@ -1823,6 +1823,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: CongressCardPop
+      objectReference: {fileID: 0}
+    - target: {fileID: 4473186150500785993, guid: 6fda2064d2617a941ac1f6bf19c7d457,
+        type: 3}
+      propertyPath: m_text
+      value: 'Morale daily impact: -1'
       objectReference: {fileID: 0}
     - target: {fileID: 8192629033925049335, guid: 6fda2064d2617a941ac1f6bf19c7d457,
         type: 3}

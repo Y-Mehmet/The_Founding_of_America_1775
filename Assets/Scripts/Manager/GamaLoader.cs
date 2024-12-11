@@ -31,7 +31,7 @@ public class GamaLoader : MonoBehaviour
 
     public void LoadGameData()
     {
-       
+       if( GameManager.Instance.IsFirstSave) GameInitalizer.Instance.InitGame();
         SaveGameData.Instance.LoadGame();
        // GameManager.Instance.OnGameDataLoaded?.Invoke();
         string fullPath = Path.Combine(Application.persistentDataPath, "SaveData_" + 0);

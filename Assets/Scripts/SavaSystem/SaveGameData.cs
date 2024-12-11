@@ -52,6 +52,7 @@ public class SaveGameData : MonoBehaviour
         gameData.MoralAddedValue = MoralAddedValue;
         gameData.PopulationStabilityAct = PopulationStabilityAct;
         gameData.ConsumptionAddedValue= ConsumptionAddedValue;
+        gameData.CapitalState = GameManager.capitalState;
 
         foreach (var keyValuePair in GeneralManager.stateGenerals)
         {
@@ -144,6 +145,8 @@ public class SaveGameData : MonoBehaviour
         string dataToLoad = "";
        if ( loadFirstData)
         {
+            
+
             dataToLoad = SaveSystem.instance.LoadFirstData();
         }else
         {
@@ -198,6 +201,7 @@ public class SaveGameData : MonoBehaviour
             WarHistory.generalIndexAndWarList= new Stack<War>(data.gameData.generalIndexAndWarList);
             TradeManager.instance.TradeHistoryQueue = new Queue<TradeHistory>(data.gameData.tradeHistoryList);
             TradeManager.TradeTransactionQueue = data.gameData.tradeTransactionList;
+            GameManager.capitalState = data.gameData.CapitalState;
             
             if (Usa.Instance == null)
                 Debug.LogError(" usa instance is null");
@@ -349,7 +353,7 @@ public class GameData
     public List<Mission> EconomyMissions ;
     public List<Mission> MiscellaneousMissions ;
     public int TroppyMissonsIndex , EconomyMissionsIndex , MiscellaneousMissionsIndex , CompletedMissionCount , ClaimedMissionCount ;
-
+    public State CapitalState;
     public int unreadMessageCount;
     public GameData()
     {

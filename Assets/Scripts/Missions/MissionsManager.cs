@@ -27,6 +27,8 @@ public class MissionsManager : MonoBehaviour
         }
        
         TroppyMissions.Add(new Mission("Warrior", // Görev Adý
+
+
          "Win  battle to prove your strength.", // Görev Açýklamasý
          rewardGold: new List<int> { 100, 1000, 2000, 5000 }, // Ödül olarak verilen altýn
          missionCount: new List<int> { 1, 10, 50, 150 }

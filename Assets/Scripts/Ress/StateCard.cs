@@ -40,7 +40,7 @@ public class StateCard : MonoBehaviour
     }
     void ShowExportPanelInfo()
     {
-        var exportTradeList =stateTransformAndTradeList;
+        var exportTradeList = gameObject.transform.parent.GetComponent<StateProductPanelScript>().GetExportTradeList();
         int gameObjectindex = gameObject.transform.GetSiblingIndex()-1;
        
         if (gameObjectindex< exportTradeList.Count)
@@ -51,13 +51,13 @@ public class StateCard : MonoBehaviour
            
                 Trade exportTrade = exportTradeList.ElementAt(gameObjectindex).Value;
                 Transform tradeState = exportTradeList.ElementAt(gameObjectindex).Key;
-            if (tradeState.GetComponent<State>().resourceData[curentResource].currentAmount<1)
+            if (tradeState.GetComponent<State>().resourceData[curentResource].currentAmount < 1)
             {
                 gameObject.SetActive(false);
             }
-          
 
-                StateNameText.text = tradeState.name;
+
+            StateNameText.text = tradeState.name;
                 int stateIndex = tradeState.GetSiblingIndex();
                 stateFalgImage.sprite = StateFlagSpritesSO.Instance.flagSpriteLists[stateIndex];
 
@@ -84,7 +84,7 @@ public class StateCard : MonoBehaviour
     }
     void ShowImportPanelInfo()
     {
-        var importTradeList = stateTransformAndTradeList;
+        var importTradeList = gameObject.transform.parent.GetComponent<StateProductPanelScript>().GetImportTradeList(); ;
         int gameObjectindex = gameObject.transform.GetSiblingIndex() - 1;
        
         if (gameObjectindex < importTradeList.Count )
@@ -95,9 +95,10 @@ public class StateCard : MonoBehaviour
 
             Trade importTrade = importTradeList.ElementAt(gameObjectindex).Value;
             State tradeState = importTradeList.ElementAt(gameObjectindex).Key.GetComponent<State>();
-            if( tradeState.GetGoldResValue() < 100 ) {
+            if (tradeState.GetGoldResValue() < 100)
+            {
                 gameObject.SetActive(false);
-               
+
             }
 
             StateNameText.text = tradeState.name;
@@ -152,7 +153,7 @@ public class StateCard : MonoBehaviour
             if (parent.tradeType == TradeType.Export)
             {
 
-                var exportTradeList = stateTransformAndTradeList;
+                var exportTradeList = gameObject.transform.parent.GetComponent<StateProductPanelScript>().GetExportTradeList(); ;
                 Transform state = exportTradeList.ElementAt(gameObjectindex).Key;
                 ResourceManager.Instance.SetCurrentTradeState(state.name);
               //  Debug.LogWarning(" yeni sate seçildi  state card" + state.name);
@@ -163,7 +164,7 @@ public class StateCard : MonoBehaviour
                 var importTradeList = gameObject.transform.parent.GetComponent<StateProductPanelScript>().GetImportTradeList();
                 Transform state = importTradeList.ElementAt(gameObjectindex).Key;
                 ResourceManager.Instance.SetCurrentTradeState(state.name);
-              //  Debug.LogWarning(" yeni sate seçildi  state card" + state.name);
+              Debug.LogWarning(" yeni sate seçildi  state card" + state.name);
             }
             
         }
