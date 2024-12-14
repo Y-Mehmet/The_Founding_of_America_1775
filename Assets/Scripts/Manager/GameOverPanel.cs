@@ -20,6 +20,7 @@ public class GameOverPanel : MonoBehaviour
     }
     void OnButtonCliced()
     {
+        SoundManager.instance.Stop("ChurchBell");
         SoundManager.instance.Play("ButtonClick");
         
         SaveGameData.Instance.LoadGame(true);

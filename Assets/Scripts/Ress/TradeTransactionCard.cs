@@ -175,7 +175,7 @@ public class TradeTransactionCard : MonoBehaviour
 
                 float spending = transaction.cost;
                 float quantity = transaction.quantity;
-                if (spending > 0 && quantity > 0)
+                if (spending > 0 && quantity > 0 && transaction.tradeLimit> quantity)
                 {
                     ResourceType type = (ResourceType)transaction.productSpriteIndex;
                     State currentState = RegionClickHandler.Instance.currentState.GetComponent<State>();
@@ -191,7 +191,8 @@ public class TradeTransactionCard : MonoBehaviour
                         
                         DateTime currentDate = GameDateManager.instance.GetCurrentDate();
                         bool payWhitGem = true;
-                        int tradeLimit = (int)transaction.tradeState.tradeLists[0].limit[transaction.productSpriteIndex - 1];
+                        int tradeLimit = (int)(transaction.tradeState.tradeLists[0].limit[transaction.productSpriteIndex - 1]- quantity);
+                        
                         newTransaction = new TradeHistory(TradeType.Import, currentDate, (int)type, quantity, spending, stateFlagIndex, transaction.tradeState,tradeLimit, payWhitGem);
                             TradeManager.instance.AddTransaction(newTransaction);
 
@@ -219,7 +220,7 @@ public class TradeTransactionCard : MonoBehaviour
 
                 float spending = transaction.cost;
                 float quantity = transaction.quantity;
-                if (spending > 0 && quantity > 0)
+                if (spending > 0 && quantity > 0 && transaction.tradeLimit > quantity)
                 {
                     ResourceType type = (ResourceType)transaction.productSpriteIndex;
                     State currentState = RegionClickHandler.Instance.currentState.GetComponent<State>();
@@ -259,7 +260,7 @@ public class TradeTransactionCard : MonoBehaviour
                                 // currentState.BuyyResource(type, quantity, spending, deliveryTime);
                                 bool isAllyState = GameManager.AllyStateList.Contains(currentState);
                                 transaction.tradeState.SellResource(type, quantity, spending, isAllyState);
-                                int tradeLimit = (int)transaction.tradeState.tradeLists[0].limit[transaction.productSpriteIndex - 1];
+                                int tradeLimit = (int)transaction.tradeState.tradeLists[0].limit[transaction.productSpriteIndex - 1]- ((int)quantity);
                                 newTransaction = new TradeHistory(TradeType.Import, GameDateManager.instance.CalculateDeliveryDateTime(deliveryTime), (int)type, quantity, spending, stateFlagIndex, transaction.tradeState, tradeLimit);
                                 TradeManager.instance.AddTransaction(newTransaction);
                                 TradeManager.TradeTransactionQueue.Add(newTransaction);
@@ -283,7 +284,7 @@ public class TradeTransactionCard : MonoBehaviour
                     }
                     else
                     {
-                        if (currentState.resourceData[type].currentAmount >= quantity)
+                        if (currentState.resourceData[type].currentAmount >= quantity && transaction.tradeLimit> quantity)
                         {
                             SoundManager.instance.Play("Cash");
                             bool isAllyState = GameManager.AllyStateList.Contains(transaction.tradeState);
@@ -291,7 +292,7 @@ public class TradeTransactionCard : MonoBehaviour
                             MissionsManager.AddTotalExportGold(((int)spending));
                             transaction.tradeState.BuyyResource(type, quantity, spending);
 
-                            int tradeLimit = (int)transaction.tradeState.tradeLists[1].limit[transaction.productSpriteIndex - 1];
+                            int tradeLimit = (int)transaction.tradeState.tradeLists[1].limit[transaction.productSpriteIndex - 1]- ((int)quantity);
                             newTransaction = new TradeHistory(TradeType.Export, GameDateManager.instance.GetCurrentDate(), (int)type, quantity, spending, stateFlagIndex, transaction.tradeState, tradeLimit);
                             TradeManager.instance.AddTransaction(newTransaction);
                         }
