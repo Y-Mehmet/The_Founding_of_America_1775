@@ -53,6 +53,11 @@ public class SaveGameData : MonoBehaviour
         gameData.PopulationStabilityAct = PopulationStabilityAct;
         gameData.ConsumptionAddedValue= ConsumptionAddedValue;
         gameData.CapitalState = GameManager.capitalState;
+        if(String.IsNullOrEmpty(SpinRoulette.LastSpinDate))
+        {
+          SpinRoulette.LastSpinDate=  System.DateTime.UtcNow.AddHours(SpinRoulette.cooldownTime/3600).ToString(); // 1 saat önceye ayarla (spin kullanýlabilir)
+        }
+        gameData.LastSpinDate = SpinRoulette.LastSpinDate;
 
         foreach (var keyValuePair in GeneralManager.stateGenerals)
         {
@@ -184,6 +189,7 @@ public class SaveGameData : MonoBehaviour
             ClaimedMissionCount = data.gameData.ClaimedMissionCount;
             SoundManager.instance.musicVolume = data.gameData.musicVolume;
             SoundManager.instance.soundVolume = data.gameData.soundVolume;
+            SpinRoulette.LastSpinDate = data.gameData.LastSpinDate;
             GeneralManager.stateGenerals = data.gameData.generalStatesList
             .Select((state, index) => new { state= Usa.Instance.FindStateByName(state), general = data.gameData.assignedGeneralList[index] })
           .ToDictionary(x => x.state, x => x.general);
@@ -355,6 +361,7 @@ public class GameData
     public int TroppyMissonsIndex , EconomyMissionsIndex , MiscellaneousMissionsIndex , CompletedMissionCount , ClaimedMissionCount ;
     public State CapitalState;
     public int unreadMessageCount;
+    public string LastSpinDate;
     public GameData()
     {
         generalStatesList= new List<string> ();

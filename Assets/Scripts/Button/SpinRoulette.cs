@@ -12,8 +12,9 @@ public class SpinRoulette : MonoBehaviour
 
     public Button spinBtn;
     public TextMeshProUGUI spinBtnText; // Butonun altýnda kalan süreyi gösterecek TextMeshPro
-    int cooldownTime = 3600; // 1 saat = 3600 saniye
+   public static int cooldownTime = 360; // 1 saat = 3600 saniye
     private float remainingTime;
+    public static string LastSpinDate;
 
     private void Awake()
     {
@@ -47,13 +48,16 @@ public class SpinRoulette : MonoBehaviour
     {
         if (!isSpin && remainingTime <= 0)
         {
-            // Spin iþlemini gerçekleþtir
             MissionsManager.AddTotalSpin(1);
             isSpin = true;
 
             // Spin zamaný kaydet
-            PlayerPrefs.SetString("LastSpinTime", System.DateTime.UtcNow.ToString());
-            PlayerPrefs.Save();
+           
+            LastSpinDate = System.DateTime.UtcNow.ToString();
+            // Spin cooldown bittikten sonra bildirim planla
+            NotificationManager.Instance.ScheduleSpinNotification(cooldownTime);
+            // Spin zamaný kaydet
+        
 
             float randomAngle = Random.Range(0, 8);
             float targetAngle = 1440f + randomAngle * 45f;
@@ -105,15 +109,16 @@ public class SpinRoulette : MonoBehaviour
 
     void CheckSpinAvailability()
     {
-        string lastSpinTimeStr = PlayerPrefs.GetString("LastSpinTime", "");
-        if (!string.IsNullOrEmpty(lastSpinTimeStr))
+       
+        if (!string.IsNullOrEmpty(LastSpinDate))
         {
-            System.DateTime lastSpinTime = System.DateTime.Parse(lastSpinTimeStr);
+            System.DateTime lastSpinTime = System.DateTime.Parse(LastSpinDate);
             System.TimeSpan timeSinceLastSpin = System.DateTime.UtcNow - lastSpinTime;
             remainingTime = Mathf.Max(0, cooldownTime - (float)timeSinceLastSpin.TotalSeconds);
         }
         else
         {
+            LastSpinDate = System.DateTime.UtcNow.AddHours(-1).ToString(); // 1 saat önceye ayarla (spin kullanýlabilir)
             remainingTime = 0;
         }
 

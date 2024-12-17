@@ -9,13 +9,13 @@ public class Plunder : MonoBehaviour
 {
     public List<Image> resIconImages = new List<Image>();
     public List<TextMeshProUGUI> resTexts = new List<TextMeshProUGUI>();
-    public Button plunderBtn, addPlunderBtn;
+    public Button plunderBtn;
 
     private void OnEnable()
     {
         plunderBtn.onClick.AddListener(() => PlunderBtnCliecked());
 
-        addPlunderBtn.onClick.AddListener(() => PlunderBtnCliecked(true));
+       // addPlunderBtn.onClick.AddListener(() => PlunderBtnCliecked(true));
         ShowPlunderPanel();
     }
     void PlunderBtnCliecked(bool isAddTrue=false)
@@ -77,7 +77,7 @@ public class Plunder : MonoBehaviour
     private void OnDisable()
     {
         plunderBtn.onClick.RemoveAllListeners();
-        addPlunderBtn.onClick.RemoveAllListeners();
+       // addPlunderBtn.onClick.RemoveAllListeners();
         RegionClickHandler.staticState = null;
     }
 

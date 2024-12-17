@@ -1109,6 +1109,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Extrabtn
       objectReference: {fileID: 0}
+    - target: {fileID: 8930192901306817847, guid: e559ea910094fe14ba4fee4d57e53552,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 7485899172001464526, guid: e559ea910094fe14ba4fee4d57e53552, type: 3}
     m_RemovedGameObjects: []
