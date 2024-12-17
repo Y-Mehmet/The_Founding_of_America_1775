@@ -2,14 +2,19 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening;
-using UnityEngine.UI; // DoTween kütüphanesini kullanmak için gerekli
+using UnityEngine.UI;
+using TMPro; // TextMeshPro için gerekli
 
 public class SpinRoulette : MonoBehaviour
 {
-    public static SpinRoulette Instance {  get; private set; }
-    public static bool  isSpin= false;
-   
+    public static SpinRoulette Instance { get; private set; }
+    public static bool isSpin = false;
+
     public Button spinBtn;
+    public TextMeshProUGUI spinBtnText; // Butonun altýnda kalan süreyi gösterecek TextMeshPro
+    int cooldownTime = 3600; // 1 saat = 3600 saniye
+    private float remainingTime;
+
     private void Awake()
     {
         if (Instance == null)
@@ -17,10 +22,22 @@ public class SpinRoulette : MonoBehaviour
         else
             Destroy(Instance);
     }
+
+    private void Start()
+    {
+        CheckSpinAvailability();
+    }
+
+    private void Update()
+    {
+        UpdateSpinCooldown();
+    }
+
     private void OnEnable()
     {
         spinBtn.onClick.AddListener(SpinWheel);
     }
+
     private void OnDisable()
     {
         spinBtn.onClick.RemoveListener(SpinWheel);
@@ -28,26 +45,26 @@ public class SpinRoulette : MonoBehaviour
 
     void SpinWheel()
     {
-        
-        if (!isSpin)
+        if (!isSpin && remainingTime <= 0)
         {
+            // Spin iþlemini gerçekleþtir
             MissionsManager.AddTotalSpin(1);
             isSpin = true;
-            // Rastgele bir z ekseni açýsý belirle
-            float randomAngle = Random.Range(0, 8);
 
-            // Toplam dönüþ açýsý (720 derece + rastgele açý)
+            // Spin zamaný kaydet
+            PlayerPrefs.SetString("LastSpinTime", System.DateTime.UtcNow.ToString());
+            PlayerPrefs.Save();
+
+            float randomAngle = Random.Range(0, 8);
             float targetAngle = 1440f + randomAngle * 45f;
 
             SoundManager.instance.Play("wheelspin", 3.5f);
-            // Döndürme iþlemini baþlat
             transform.DORotate(new Vector3(0, 0, targetAngle), 6f, RotateMode.FastBeyond360)
                      .SetEase(Ease.OutQuad).OnComplete(() =>
                      {
                          Debug.Log("random sayý " + randomAngle);
                          switch (randomAngle)
                          {
-
                              case 0:
                                  SoundManager.instance.Play("Cash");
                                  ResourceManager.Instance.AddResource(ResourceType.Gold, 1000);
@@ -60,19 +77,69 @@ public class SpinRoulette : MonoBehaviour
                                  SoundManager.instance.Play("Cash");
                                  ResourceManager.Instance.AddResource(ResourceType.Gold, 5500);
                                  break;
-
-                             case 4: SoundManager.instance.Play("Cash"); ResourceManager.Instance.AddResource(ResourceType.Gold, 7000); break;
-                             case 5: SoundManager.instance.Play("GemCash"); ResourceManager.Instance.AddResource(ResourceType.Diamond, 100); break;
-                             case 6: SoundManager.instance.Play("Cash"); ResourceManager.Instance.AddResource(ResourceType.Gold, 2500); break;
-
-                             default: SoundManager.instance.Play("WheelNull"); break;
-
+                             case 4:
+                                 SoundManager.instance.Play("Cash");
+                                 ResourceManager.Instance.AddResource(ResourceType.Gold, 7000);
+                                 break;
+                             case 5:
+                                 SoundManager.instance.Play("GemCash");
+                                 ResourceManager.Instance.AddResource(ResourceType.Diamond, 100);
+                                 break;
+                             case 6:
+                                 SoundManager.instance.Play("Cash");
+                                 ResourceManager.Instance.AddResource(ResourceType.Gold, 2500);
+                                 break;
+                             default:
+                                 SoundManager.instance.Play("WheelNull");
+                                 break;
                          }
                          isSpin = false;
-                     }); // Hýzlý baþlayýp yavaþlayan easing
-         
+                         CheckSpinAvailability();
+                     });
         }
         else
-            Debug.Log("is spin true");
+        {
+            Debug.Log("Spin cooldown devam ediyor!");
+        }
+    }
+
+    void CheckSpinAvailability()
+    {
+        string lastSpinTimeStr = PlayerPrefs.GetString("LastSpinTime", "");
+        if (!string.IsNullOrEmpty(lastSpinTimeStr))
+        {
+            System.DateTime lastSpinTime = System.DateTime.Parse(lastSpinTimeStr);
+            System.TimeSpan timeSinceLastSpin = System.DateTime.UtcNow - lastSpinTime;
+            remainingTime = Mathf.Max(0, cooldownTime - (float)timeSinceLastSpin.TotalSeconds);
+        }
+        else
+        {
+            remainingTime = 0;
+        }
+
+        UpdateSpinButtonState();
+    }
+
+    void UpdateSpinCooldown()
+    {
+        if (remainingTime > 0)
+        {
+            remainingTime -= Time.deltaTime;
+            int minutes = Mathf.FloorToInt(remainingTime / 60);
+            int seconds = Mathf.FloorToInt(remainingTime % 60);
+            spinBtnText.text = $"{minutes:D2}:{seconds:D2}"; // Kalan süreyi MM:SS formatýnda göster
+        }
+        else
+        {
+            spinBtnText.text = "Spin!";
+            remainingTime = 0;
+        }
+
+        UpdateSpinButtonState();
+    }
+
+    void UpdateSpinButtonState()
+    {
+        spinBtn.interactable = remainingTime <= 0;
     }
 }

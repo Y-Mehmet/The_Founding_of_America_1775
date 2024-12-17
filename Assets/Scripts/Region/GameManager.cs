@@ -167,7 +167,7 @@ public class GameManager : MonoBehaviour
         isGamePause = false;
         OnAttackStopped?.Invoke(); // Olayý tetikleyin
         capitalState.transform.GetComponentInChildren<Flag>().capitalFlag.SetActive(true);
-        Debug.LogError("attaack fnish  capital state flag is true " + capitalState.name);
+       // Debug.LogError("attaack fnish  capital state flag is true " + capitalState.name);
 
 
 
