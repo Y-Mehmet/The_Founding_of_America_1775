@@ -12,7 +12,7 @@ public class SpinRoulette : MonoBehaviour
 
     public Button spinBtn;
     public TextMeshProUGUI spinBtnText; // Butonun altýnda kalan süreyi gösterecek TextMeshPro
-   public static int cooldownTime = 360; // 1 saat = 3600 saniye
+   public static int cooldownTime = 3600; // 1 saat = 3600 saniye
     private float remainingTime;
     public static string LastSpinDate;
 
@@ -24,11 +24,7 @@ public class SpinRoulette : MonoBehaviour
             Destroy(Instance);
     }
 
-    private void Start()
-    {
-        CheckSpinAvailability();
-    }
-
+ 
     private void Update()
     {
         UpdateSpinCooldown();
@@ -36,6 +32,7 @@ public class SpinRoulette : MonoBehaviour
 
     private void OnEnable()
     {
+        CheckSpinAvailability();
         spinBtn.onClick.AddListener(SpinWheel);
     }
 
@@ -109,21 +106,22 @@ public class SpinRoulette : MonoBehaviour
 
     void CheckSpinAvailability()
     {
-       
         if (!string.IsNullOrEmpty(LastSpinDate))
         {
+            Debug.LogError("last spind isnt null");
             System.DateTime lastSpinTime = System.DateTime.Parse(LastSpinDate);
             System.TimeSpan timeSinceLastSpin = System.DateTime.UtcNow - lastSpinTime;
             remainingTime = Mathf.Max(0, cooldownTime - (float)timeSinceLastSpin.TotalSeconds);
         }
         else
         {
-            LastSpinDate = System.DateTime.UtcNow.AddHours(-1).ToString(); // 1 saat önceye ayarla (spin kullanýlabilir)
-            remainingTime = 0;
+            Debug.LogError("last spind is null  ");
+            remainingTime = cooldownTime;
         }
 
         UpdateSpinButtonState();
     }
+
 
     void UpdateSpinCooldown()
     {

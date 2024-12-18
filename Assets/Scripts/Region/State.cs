@@ -544,8 +544,9 @@ public class State : MonoBehaviour
                 int rand = UnityEngine.Random.Range(0, 10);
                 if(rand==9 && GameManager.Instance.IsAttackFinish)
                 {
-                    LostState();
+                   
                     UIManager.Instance.HideAllPanel();
+                    LostState();
                     MessageManager.AddMessage("With dwindling resources and shattered morale, the spirit of the people fades." +
     " Once-loyal citizens abandon their allegiance as despair takes root. Cries for change grow louder" +
     " and discontent sweeps across " + name + " like a wildfire. In the final hour, the people seize their fate," +

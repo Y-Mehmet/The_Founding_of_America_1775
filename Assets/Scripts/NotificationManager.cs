@@ -45,8 +45,8 @@ public class NotificationManager : MonoBehaviour
 #if UNITY_ANDROID
         var notification = new AndroidNotification
         {
-            Title = "Commander, Your Free Spin Awaits!",
-            Text = "The wheel is ready for you—claim your rewards now!",
+            Title = "Commander, Your National Lottery Revenue Awaits!",
+            Text = "The treasury is full! Claim your share of the lottery income now!",
             SmallIcon = "default",
             LargeIcon = "default",
             FireTime = System.DateTime.Now.AddSeconds(cooldownTime), // Cooldown süresine göre ayarla
