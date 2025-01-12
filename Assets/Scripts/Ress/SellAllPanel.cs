@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
-
+using static MY.NumberUtilitys.Utility;
 
 public class SellAllPanel : MonoBehaviour
 {
@@ -32,7 +32,7 @@ public class SellAllPanel : MonoBehaviour
             if (resource.resourceType != ResourceType.Gold && resource.currentAmount>0)
                 totalSellPrice += GameEconomy.Instance.GetGoldValue(resource.resourceType, resource.currentAmount)/4;
         }
-        sellAllPriceText.text=Utility.FormatNumber(totalSellPrice);
+        sellAllPriceText.text= MY.NumberUtilitys.Utility.FormatNumber(totalSellPrice);
         return ((int)totalSellPrice);
     }
     void OnSellAllBtnCliceked()

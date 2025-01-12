@@ -6,7 +6,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using static TroopyManager;
 using static GameManager;
-using static Utility;
+using static MY.NumberUtilitys.Utility;
 using static ResourceManager;
 public class TroopDeploymentPanel : MonoBehaviour
 {

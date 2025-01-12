@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
-using static Utility;
+using static MY.NumberUtilitys.Utility;
 public class TextGoldDeneme : MonoBehaviour
 {
     public GameObject centralBankIcon;

@@ -4,7 +4,7 @@ using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
-using static Utility;
+using static MY.NumberUtilitys.Utility;
 public class MineButton : MonoBehaviour
 {
     public TMP_Text mineCountText, resValueText;

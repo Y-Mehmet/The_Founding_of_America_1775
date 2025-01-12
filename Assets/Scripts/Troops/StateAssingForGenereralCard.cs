@@ -5,7 +5,7 @@ using System.Linq;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
-using static Utility;
+using static MY.NumberUtilitys.Utility;
 public class StateAssingForGenereralCard : MonoBehaviour
 {
     public Image stateFlagIcon;

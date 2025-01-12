@@ -5,7 +5,7 @@ using System.Security.Cryptography.X509Certificates;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
-using static Utility;
+using static MY.NumberUtilitys.Utility;
 using Random = UnityEngine.Random;
 
 public class WitchHunt : MonoBehaviour

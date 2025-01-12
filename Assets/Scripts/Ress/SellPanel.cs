@@ -5,7 +5,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using static ResourceManager;
 using static RegionClickHandler;
-using static Utility;
+using static MY.NumberUtilitys.Utility;
 public class SellPanel : MonoBehaviour
 {
     public GameObject rightBox, emtyStateBox;

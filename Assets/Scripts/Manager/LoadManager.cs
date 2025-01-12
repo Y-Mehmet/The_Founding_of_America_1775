@@ -1,3 +1,5 @@
+using Facebook.Unity;
+using GameAnalyticsSDK;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -11,7 +13,10 @@ public class LoadManager : MonoBehaviour
 
     void Start()
     {
+        FB.Init();
+        GameAnalytics.Initialize();
         StartCoroutine(LoadGameData());
+
     }
 
     private IEnumerator LoadGameData()

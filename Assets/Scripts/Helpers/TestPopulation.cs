@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
-using static Utility;
+using static MY.NumberUtilitys.Utility;
 using static GameManager;
 using static RegionClickHandler;
 public class TestPopulation : MonoBehaviour

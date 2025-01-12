@@ -5,7 +5,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using static GameManager;
 using static TroopyManager;
-using static Utility;
+using static MY.NumberUtilitys.Utility;
 public class StateAssingForDeploymentCard : MonoBehaviour
 {
     public Image stateFlagIcon;

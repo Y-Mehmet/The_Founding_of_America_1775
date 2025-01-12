@@ -7,7 +7,7 @@ using UnityEngine.Rendering;
 using UnityEngine.UI;
 using static TradeManager;
 using static ResourceManager;
-using static Utility;
+using static MY.NumberUtilitys.Utility;
 using Unity.VisualScripting;
 public class StateCard : MonoBehaviour
 {

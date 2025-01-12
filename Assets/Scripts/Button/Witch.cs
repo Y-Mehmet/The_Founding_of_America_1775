@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEditor.Rendering;
 using UnityEngine;
-using static Utility;
+using static MY.NumberUtilitys.Utility;
 public class Witch : MonoBehaviour
 {
     

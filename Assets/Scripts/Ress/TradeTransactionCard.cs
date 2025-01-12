@@ -151,8 +151,8 @@ public class TradeTransactionCard : MonoBehaviour
                 }
               
                 dateText.text = GameDateManager.instance.ConvertDateToString(deliveryDate);
-                quantityText.text = Utility.FormatNumber(transaction.quantity);
-                costText.text = Utility.FormatNumber(Mathf.CeilToInt(transaction.cost));
+                quantityText.text =  MY.NumberUtilitys.Utility.FormatNumber(transaction.quantity);
+                costText.text = MY.NumberUtilitys.Utility.FormatNumber(Mathf.CeilToInt(transaction.cost));
                 resIcon.sprite = ResSpriteSO.Instance.resIcon[(int)transaction.productSpriteIndex];
                 stateFlagIcon.sprite = transaction.tradeState.StateIcon; //StateFlagSpritesSO.Instance.flagSpriteLists[transaction.tradeStateFlagIndex];
 

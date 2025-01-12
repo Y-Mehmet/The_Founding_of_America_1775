@@ -26,7 +26,7 @@ public class GameDateManager : MonoBehaviour
     }
     void Start()
     {
-        currentDate = new DateTime(1775, 4, 19);
+        currentDate = new DateTime(1775,4, 19); //1775 4 19
 
        
         if (GameManager.Instance != null)

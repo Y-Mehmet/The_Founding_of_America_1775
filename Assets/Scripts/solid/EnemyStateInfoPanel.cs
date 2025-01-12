@@ -1,7 +1,7 @@
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
-using static Utility;
+using static MY.NumberUtilitys.Utility;
 using static RegionClickHandler;
 public class EnemyStateInfoPanel : MonoBehaviour
 {

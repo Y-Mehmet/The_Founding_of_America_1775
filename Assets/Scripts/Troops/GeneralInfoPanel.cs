@@ -5,8 +5,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 using static GeneralManager;
-using static Utility;
-
+using static MY.NumberUtilitys.Utility;
 public class GeneralInfoPanel : MonoBehaviour
 {
     public Image generalCharacterIcon,generalTypeIcon;

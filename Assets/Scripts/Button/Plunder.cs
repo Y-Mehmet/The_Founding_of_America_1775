@@ -4,7 +4,7 @@ using System.Linq;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
-using static Utility;
+using static MY.NumberUtilitys.Utility;
 public class Plunder : MonoBehaviour
 {
     public List<Image> resIconImages = new List<Image>();

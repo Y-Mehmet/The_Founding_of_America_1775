@@ -4,8 +4,7 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
-using static Utility;
-
+using static MY.NumberUtilitys.Utility;
 public class Espionage : MonoBehaviour
 {
 

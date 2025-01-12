@@ -4,7 +4,7 @@ using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
-using static Utility;
+using static MY.NumberUtilitys.Utility;
 using static ResourceManager;
 using System.Collections.Generic;
 public class BuyPanel : MonoBehaviour

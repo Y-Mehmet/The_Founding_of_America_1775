@@ -122,10 +122,10 @@ MonoBehaviour:
     isMusic: 0
     source: {fileID: 0}
   - name: ChurchBell
-    clip: {fileID: 8300000, guid: 44f11f56ad9a60e43bcead9379bdd53f, type: 3}
+    clip: {fileID: 8300000, guid: 88a1b13066f395f4799a5295bb64248f, type: 3}
     volume: 1
-    pitch: 1
-    isLoop: 0
+    pitch: 2
+    isLoop: 1
     hasCooldown: 0
     isMusic: 1
     source: {fileID: 0}
@@ -273,7 +273,7 @@ MonoBehaviour:
     hasCooldown: 0
     isMusic: 0
     source: {fileID: 0}
-  musicVolume: 0.1
+  musicVolume: 0.5
   soundVolume: 0.5
 --- !u!1 &152711502725983638
 GameObject:
@@ -1135,6 +1135,7 @@ Transform:
   - {fileID: 3427292650948858054}
   - {fileID: 2512309906645141378}
   - {fileID: 7977435641528040259}
+  - {fileID: 14556432807395157}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &6624118641007274749
@@ -1347,6 +1348,50 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   curentResource: 0
+--- !u!1 &7768840419346548240
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 14556432807395157}
+  - component: {fileID: 8516283105421134607}
+  m_Layer: 0
+  m_Name: NotificationManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &14556432807395157
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7768840419346548240}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 5687146723757708717}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &8516283105421134607
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7768840419346548240}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe03a53421532bf429896a8273b7e3ce, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &8211175344201325688
 GameObject:
   m_ObjectHideFlags: 0
@@ -1398,7 +1443,7 @@ MonoBehaviour:
   IsAttackFinish: 1
   IsSpy: 0
   attackFinishDurtion: 10
-  moveAmount: 0.33
+  moveAmount: 1.5
   moveDuration: 0.5
   thresholdForSuccesfulEspionage: 3
   spyCostModPurchases: 10

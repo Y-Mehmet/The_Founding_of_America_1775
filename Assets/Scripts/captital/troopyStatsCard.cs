@@ -5,7 +5,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 using static RegionClickHandler;
-using static Utility;
+using static MY.NumberUtilitys.Utility;
 public class troopyStatsCard : MonoBehaviour
 {
     

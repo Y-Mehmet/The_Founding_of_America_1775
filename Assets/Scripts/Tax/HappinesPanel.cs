@@ -2,8 +2,7 @@ using System;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
-using static Utility;
-
+using static MY.NumberUtilitys.Utility;
 
 public class HappinesPanel : MonoBehaviour
 {
